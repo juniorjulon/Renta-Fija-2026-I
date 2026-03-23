@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · Fundamentos de Valorización y Medidas de Rendimiento</title>
+
+<!-- MathJax for formulas -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--off);
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* ── PRINT ── */
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+/* ── TOP HEADER ── */
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--corp) 55%, var(--mid) 100%);
+  color: white;
+  padding: 36px 48px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.doc-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px
+  );
+}
+.doc-header::after {
+  content: '';
+  position: absolute;
+  width: 360px; height: 360px; border-radius: 50%;
+  background: rgba(255,255,255,.04);
+  top: -160px; right: -80px;
+}
+.header-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+.header-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,.5);
+  margin-bottom: 8px;
+}
+.header-title {
+  font-size: clamp(20px,2.5vw,32px); font-weight: 700;
+  line-height: 1.2; margin-bottom: 6px;
+}
+.header-sub { font-size: 13px; color: rgba(255,255,255,.65); margin-bottom: 20px; }
+.header-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.85); font-size: 11px; font-weight: 600;
+  padding: 4px 14px; border-radius: 20px; letter-spacing: .3px;
+}
+.pill.accent { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+
+/* ── CONTENT WRAPPER ── */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 0 32px 60px; }
+
+/* ── MODULE DIVIDER ── */
+.module-divider {
+  margin: 40px 0 0;
+  display: flex; align-items: center; gap: 14px;
+}
+.module-num {
+  flex-shrink: 0;
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--navy); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+}
+.module-title-block h2 {
+  font-size: 18px; font-weight: 700; color: var(--navy);
+  line-height: 1.2;
+}
+.module-title-block p {
+  font-size: 11.5px; color: var(--muted); margin-top: 1px;
+}
+.module-rule {
+  flex: 1; height: 2px;
+  background: linear-gradient(90deg, var(--corp), transparent);
+  border-radius: 2px;
+}
+
+/* ── SECTION BLOCK ── */
+.section-block {
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid rgba(206,213,221,.5);
+  margin-top: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px rgba(6,25,66,.06);
+}
+.section-header {
+  background: var(--pale);
+  border-bottom: 2px solid var(--corp);
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  color: var(--corp); letter-spacing: 1px;
+  background: white; border: 1.5px solid var(--corp);
+  padding: 2px 8px; border-radius: 4px;
+}
+.section-title {
+  font-size: 13px; font-weight: 700; color: var(--navy);
+}
+.section-body { padding: 18px 20px; }
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 900px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── CONCEPT CARD ── */
+.concept-card {
+  background: var(--off);
+  border-radius: 8px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--corp);
+}
+.concept-card.accent-gold { border-left-color: var(--accent); }
+.concept-card.accent-mid  { border-left-color: var(--mid); }
+.concept-card.accent-navy { border-left-color: var(--navy); }
+.cc-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--corp); margin-bottom: 6px;
+}
+.cc-label.gold { color: #B45309; }
+.cc-label.mid  { color: var(--mid); }
+.cc-def {
+  font-size: 12.5px; color: var(--text); line-height: 1.55;
+}
+.cc-def strong { color: var(--navy); font-weight: 600; }
+
+/* ── FORMULA BOX ── */
+.formula-box {
+  background: var(--navy);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.formula-box .f-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 2px; color: rgba(255,255,255,.45);
+  margin-bottom: 8px;
+}
+.formula-box .f-eq {
+  color: #93C5FD;
+  font-size: 14px;
+  overflow-x: auto;
+}
+.formula-box .f-vars {
+  margin-top: 8px;
+  font-size: 11px; color: rgba(255,255,255,.55);
+  line-height: 1.7;
+}
+.formula-box .f-vars span { color: rgba(255,255,255,.8); }
+
+/* ── INLINE FORMULA (light background) ── */
+.formula-inline {
+  background: var(--pale);
+  border: 1px solid var(--steel);
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin: 8px 0;
+  font-size: 13.5px;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* ── TABLE ── */
+.ref-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ref-table thead tr { background: var(--corp); color: white; }
+.ref-table thead th {
+  padding: 8px 12px; text-align: left; font-weight: 600;
+  font-size: 11px; letter-spacing: .5px;
+}
+.ref-table tbody tr:nth-child(even) { background: var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background: var(--white); }
+.ref-table td { padding: 7px 12px; vertical-align: top; }
+.ref-table td strong { color: var(--navy); }
+.ref-table .mono { font-family: var(--mono); font-size: 11px; color: var(--mid); }
+
+/* ── BADGES ── */
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.badge {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 20px; letter-spacing: .2px;
+}
+.badge-blue   { background: var(--corp); color: white; }
+.badge-outline { background: transparent; color: var(--corp); border: 1.5px solid var(--corp); }
+.badge-gray   { background: var(--steel); color: var(--text); }
+.badge-gold   { background: var(--accent); color: var(--navy); }
+.badge-pale   { background: var(--pale); color: var(--corp); border: 1px solid var(--steel); }
+
+/* ── RULE CALLOUT ── */
+.rule-callout {
+  background: linear-gradient(90deg, rgba(30,55,113,.07), rgba(30,55,113,.02));
+  border-left: 4px solid var(--corp);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 16px;
+  font-size: 12.5px;
+  color: var(--text);
+  margin: 10px 0;
+}
+.rule-callout strong { color: var(--navy); }
+.rule-callout.gold {
+  background: linear-gradient(90deg, rgba(228,160,32,.1), transparent);
+  border-left-color: var(--accent);
+}
+
+/* ── COMPARISON STRIP ── */
+.cmp-strip {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 0; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--steel);
+  margin: 10px 0;
+}
+.cmp-cell { padding: 12px 14px; border-right: 1px solid var(--steel); }
+.cmp-cell:last-child { border-right: none; }
+.cmp-cell.up   { background: #EFF6FF; }
+.cmp-cell.flat { background: #F0FDF4; }
+.cmp-cell.down { background: #FFF1F2; }
+.cmp-cell .cmp-head {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 6px;
+}
+.cmp-cell.up   .cmp-head { color: var(--mid); }
+.cmp-cell.flat .cmp-head { color: #15803D; }
+.cmp-cell.down .cmp-head { color: #BE123C; }
+.cmp-cell .cmp-rule {
+  font-size: 13px; font-weight: 700; margin-bottom: 4px;
+}
+.cmp-cell p { font-size: 11.5px; color: var(--muted); }
+
+/* ── STEP FLOW ── */
+.step-flow { display: flex; gap: 0; align-items: stretch; margin: 10px 0; }
+.step-item {
+  flex: 1; background: var(--pale); padding: 10px 12px;
+  border-right: 2px solid white; position: relative; font-size: 12px;
+}
+.step-item:last-child { border-right: none; }
+.step-item::after {
+  content: '▶'; position: absolute; right: -10px; top: 50%;
+  transform: translateY(-50%); color: var(--corp); font-size: 12px;
+  z-index: 1;
+}
+.step-item:last-child::after { display: none; }
+.step-n {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  color: var(--corp); letter-spacing: 1px; margin-bottom: 4px;
+}
+.step-txt { font-size: 11.5px; color: var(--text); }
+
+/* ── DIVIDER ── */
+.inner-divider { height: 1px; background: var(--off); margin: 14px 0; }
+
+/* ── FOOTNOTE ── */
+.footnote {
+  font-size: 11px; color: var(--muted);
+  padding: 8px 12px; background: var(--off);
+  border-radius: 0 0 8px 8px; border-top: 1px solid var(--steel);
+  margin-top: 4px;
+}
+
+/* ── PRINT BTN ── */
+.print-btn {
+  position: fixed; bottom: 28px; right: 28px;
+  background: var(--corp); color: white;
+  border: none; border-radius: 30px;
+  padding: 12px 22px; font-family: var(--sans);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(6,25,66,.25);
+  transition: all .2s; z-index: 99;
+}
+.print-btn:hover { background: var(--navy); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 2</div>
+    <h1 class="header-title">Fundamentos de Valorización y<br>Medidas de Rendimiento</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Valoración</span>
+      <span class="pill">02 Yields & Spreads</span>
+      <span class="pill">03 Tasa Flotante & Money Market</span>
+      <span class="pill">04 Curvas Spot · Par · Forward</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · VALORACIÓN DE BONOS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Valoración de Bonos: Precios y Rendimientos</h2>
+    <p>Fórmula fundamental · Full & Flat price · Accrued interest · Relaciones precio-características · Matrix pricing</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 PRECIO COMO VP DE FLUJOS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Precio como Valor Presente de Flujos · Full Price · Accrued Interest</span>
+  </div>
+  <div class="section-body">
+
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula fundamental de pricing</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{N}\frac{C}{(1+y)^{t}} + \frac{FV}{(1+y)^{N}}$$</div>
+          <div class="f-vars">
+            <span>P</span> = precio &nbsp;|&nbsp; <span>C</span> = cupón por período &nbsp;|&nbsp; <span>y</span> = YTM por período &nbsp;|&nbsp; <span>N</span> = número de períodos &nbsp;|&nbsp; <span>FV</span> = valor nominal
+          </div>
+        </div>
+
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Pricing semestral (periodicidad m = 2)</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{2N}\frac{C/2}{(1+y/2)^{t}} + \frac{FV}{(1+y/2)^{2N}}$$</div>
+          <div class="f-vars">YTM nominal anual = <span>y</span> &nbsp;→&nbsp; tasa periódica = <span>y/2</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Full Price (Dirty / Invoice Price)</div>
+          <div class="f-eq">$$P^{\text{full}} = PV_{\text{últ. cupón}} \times (1+y)^{\,t/T}$$</div>
+          <div class="f-vars">
+            <span>t</span> = días transcurridos desde último cupón &nbsp;|&nbsp; <span>T</span> = días en el período de cupón &nbsp;|&nbsp; <span>y</span> = YTM semestral
+          </div>
+        </div>
+
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Accrued Interest</div>
+          <div class="f-eq">$$AI = C \times \frac{t}{T}$$</div>
+          <div class="f-vars">
+            <span>30/360</span>: meses de 30 días, año de 360 → corporativos USA<br>
+            <span>Act/Act</span>: días reales → Treasuries USA
+          </div>
+        </div>
+
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Flat Price (Clean / Quoted)</div>
+          <div class="f-eq">$$P^{\text{flat}} = P^{\text{full}} - AI$$</div>
+          <div class="f-vars">El precio de mercado cotizado excluye el interés devengado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-callout gold" style="margin-top:12px">
+      <strong>Leyes del precio:</strong> &nbsp;Cupón = YTM → precio = par (100). &nbsp;Cupón &lt; YTM → descuento. &nbsp;Cupón &gt; YTM → prima. &nbsp;Al vencimiento el precio converge a 100 (<em>pull-to-par</em>).
+    </div>
+
+  </div>
+</div>
+
+<!-- 1.2 RELACIONES PRECIO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Relaciones Precio · Cupón · Plazo · Yield</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Relación inversa precio–yield</div>
+        <div class="cc-def">Cuando el YTM ↑, el precio ↓ (y viceversa). La relación es <strong>convexa</strong>: las ganancias por caída de yield superan las pérdidas por subida equivalente.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Efecto del cupón</div>
+        <div class="cc-def">A igual plazo y yield: <strong>menor cupón → mayor sensibilidad</strong> al cambio de yield (más peso en el principal lejano).</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Efecto del plazo</div>
+        <div class="cc-def">A igual cupón: <strong>mayor vencimiento → mayor sensibilidad</strong> al cambio de yield (flujos más lejanos en el tiempo).</div>
+      </div>
+    </div>
+
+    <table class="ref-table" style="margin-top:12px">
+      <thead>
+        <tr><th>Variable ↑</th><th>Efecto en sensibilidad del precio</th><th>Intuición</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cupón ↑</strong></td><td>Sensibilidad ↓</td><td>Más flujos anticipados → menor peso del principal lejano</td></tr>
+        <tr><td><strong>Plazo ↑</strong></td><td>Sensibilidad ↑</td><td>Flujos más lejanos → mayor exposición a tasa de descuento</td></tr>
+        <tr><td><strong>Yield ↑</strong></td><td>Sensibilidad ↓</td><td>Descuento mayor → flujos lejanos tienen menos peso relativo</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-callout" style="margin-top:10px">
+      <strong>Convexidad:</strong> Para un Δy simétrico, la <em>ganancia</em> cuando el yield cae es mayor que la <em>pérdida</em> cuando el yield sube. Siempre positiva para bonos plain-vanilla.
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 MATRIX PRICING -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Matrix Pricing · Interpolación Lineal</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">¿Para qué sirve?</div>
+          <div class="cc-def">Estima el YTM de bonos <strong>ilíquidos o nuevas emisiones</strong> usando bonos comparables con calificación y vencimiento similares.</div>
+        </div>
+
+        <div class="formula-box" style="margin-top:12px">
+          <div class="f-label">Interpolación lineal de YTM</div>
+          <div class="f-eq">$$YTM_{\text{obj}} = YTM_{\text{menor}} + (YTM_{\text{mayor}} - YTM_{\text{menor}}) \times \frac{T_{\text{obj}} - T_{\text{menor}}}{T_{\text{mayor}} - T_{\text{menor}}}$$</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="step-flow" style="flex-direction:column; gap:6px">
+          <div style="background:var(--pale);border-radius:6px;padding:9px 14px;font-size:12px;border-left:3px solid var(--corp)">
+            <strong style="color:var(--corp)">① Identificar</strong> bonos comparables (misma calidad, vencimiento cercano)
+          </div>
+          <div style="background:var(--pale);border-radius:6px;padding:9px 14px;font-size:12px;border-left:3px solid var(--corp)">
+            <strong style="color:var(--corp)">② Promediar</strong> YTMs si hay varios comparables al mismo plazo
+          </div>
+          <div style="background:var(--pale);border-radius:6px;padding:9px 14px;font-size:12px;border-left:3px solid var(--corp)">
+            <strong style="color:var(--corp)">③ Interpolar</strong> linealmente al vencimiento objetivo
+          </div>
+          <div style="background:var(--pale);border-radius:6px;padding:9px 14px;font-size:12px;border-left:3px solid var(--corp)">
+            <strong style="color:var(--corp)">④ Calcular precio</strong> con YTM estimado y flujos del bono
+          </div>
+        </div>
+        <div class="footnote" style="border-radius:6px;margin-top:8px">Para <strong>nuevas emisiones</strong>: calcular spread sobre el Treasury interpolado al mismo vencimiento → <em>YTM<sub>nueva</sub> = YTM<sub>Treasury</sub> + Spread<sub>promedio</sub></em></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · YIELDS & SPREADS TASA FIJA
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Rendimientos y Spreads en Bonos de Tasa Fija</h2>
+    <p>Periodicidad · EAY · Street/True yield · Current/Simple yield · YTC · YTW · OAS · G/I/Z-Spread</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 PERIODICIDAD -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Medidas de Rendimiento según Periodicidad</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Effective Annual Yield (EAY)</div>
+          <div class="f-eq">$$EAY = \left(1 + \frac{YTM_{\text{nom}}}{m}\right)^{m} - 1$$</div>
+          <div class="f-vars"><span>m</span> = periodicidad (1 anual, 2 semestral, 4 trimestral, 12 mensual)</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Convertir EAY a YTM nominal con periodicidad m</div>
+          <div class="f-eq">$$YTM_{\text{nom}} = m \times \left[(1+EAY)^{1/m} - 1\right]$$</div>
+        </div>
+      </div>
+
+      <div>
+        <table class="ref-table">
+          <thead><tr><th>Medida</th><th>Fórmula</th><th>Nota</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Current Yield</strong></td>
+              <td class="mono">Cupón anual / Precio</td>
+              <td>Ignora capital y reinversión</td>
+            </tr>
+            <tr>
+              <td><strong>Simple Yield</strong></td>
+              <td class="mono">(C ± Amort.) / P</td>
+              <td>Amort. = (100−P)/N</td>
+            </tr>
+            <tr>
+              <td><strong>Street Convention</strong></td>
+              <td>Fechas teóricas de pago</td>
+              <td>Cotización estándar</td>
+            </tr>
+            <tr>
+              <td><strong>True Yield</strong></td>
+              <td>Fechas reales (adj. feriados)</td>
+              <td>Ligeramente &lt; street conv.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="rule-callout" style="margin-top:10px">
+          Para igual EAY: mayor periodicidad → menor YTM nominal. Para igual YTM nominal: mayor periodicidad → mayor EAY.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 OPCIONES EMBEBIDAS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Rendimientos Ajustados por Opciones Embebidas</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Yield to Call (YTC)</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{n}\frac{C}{(1+YTC)^{t}} + \frac{CP}{(1+YTC)^{n}}$$</div>
+          <div class="f-vars"><span>CP</span> = call price &nbsp;|&nbsp; <span>n</span> = períodos hasta la call date</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="concept-card">
+          <div class="cc-label">Yield to Worst (YTW)</div>
+          <div class="cc-def">
+            $$YTW = \min(YTM,\; YTC_1,\; YTC_2,\;\ldots)$$
+            Representa el <strong>rendimiento mínimo garantizado</strong>. El emisor ejerce la call si es óptimo para él.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Option-Adjusted (OAP / OAY)</div>
+          <div class="cc-def">
+            Callable: \(\;P_{\text{straight}} = P_{\text{callable}} + V_{\text{call}}\)<br>
+            <br>\(OAY = \text{Yield callable} - \text{Costo opción}\)<br>
+            <br>El OAY es la medida <strong>pura de crédito</strong>, sin riesgo de opción.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 SPREADS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">Medidas de Spread</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">G-Spread (Government Spread)</div>
+          <div class="f-eq">$$G\text{-}Spread = Yield_{\text{bono}} - Yield_{\text{Treasury}}$$</div>
+          <div class="f-vars">Se interpola el Treasury al vencimiento exacto del bono. Base: curva soberana.</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">I-Spread (Interpolated Spread)</div>
+          <div class="f-eq">$$I\text{-}Spread = Yield_{\text{bono}} - Swap\,Rate_{\text{mismo plazo}}$$</div>
+          <div class="f-vars">Benchmark: curva swap (SOFR, €STR, SONIA…). Más representativo que G-spread en mercados europeos.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Z-Spread (Zero-Volatility Spread)</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{n}\frac{C_t}{(1 + S_t + Z)^{t}}$$</div>
+          <div class="f-vars"><span>S_t</span> = tasa spot para período t &nbsp;|&nbsp; <span>Z</span> = Z-spread constante. Calculado por iteración.</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">OAS (Option-Adjusted Spread)</div>
+          <div class="f-eq">$$OAS = Z\text{-}Spread - \text{Costo de la Opción}$$</div>
+          <div class="f-vars">
+            Bono straight: OAS = Z-Spread<br>
+            Bono callable: OAS &lt; Z-Spread<br>
+            Bono putable:  OAS &gt; Z-Spread
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ref-table" style="margin-top:12px">
+      <thead><tr><th>Spread</th><th>Benchmark</th><th>Ventaja</th><th>Limitación</th></tr></thead>
+      <tbody>
+        <tr><td><strong>G-Spread</strong></td><td>Curva soberana (un punto)</td><td>Simple, directo</td><td>Ignora forma de la curva</td></tr>
+        <tr><td><strong>I-Spread</strong></td><td>Tasa swap (un punto)</td><td>Disponible en más monedas</td><td>Ignora forma de la curva</td></tr>
+        <tr><td><strong>Z-Spread</strong></td><td>Curva spot completa</td><td>Usa toda la estructura temporal</td><td>Ignora opcionalidad</td></tr>
+        <tr><td><strong>OAS</strong></td><td>Curva spot + modelo</td><td>Elimina efecto de la opción</td><td>Sensible al modelo de tasas</td></tr>
+      </tbody>
+    </table>
+    <div class="rule-callout gold" style="margin-top:10px">
+      El spread compensa por: riesgo crediticio + riesgo de liquidez + riesgo de opción (si aplica) + diferencias fiscales.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · TASA FLOTANTE & MONEY MARKET
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Rendimientos en Instrumentos de Tasa Flotante y Mercado de Dinero</h2>
+    <p>FRN · Quoted Margin · Discount Margin · Discount Yield · Add-On · BEY · HPY · EAY</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 FRN -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Floating-Rate Notes (FRN) · Quoted Margin vs Discount Margin</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Cupón del FRN</div>
+          <div class="f-eq">$$C_t = (MRR_{t-1} + QM) \times FV$$</div>
+          <div class="f-vars"><span>MRR</span> = Market Reference Rate (SOFR, €STR…) &nbsp;|&nbsp; <span>QM</span> = Quoted Margin (fijo por contrato)</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Valoración del FRN con Discount Margin</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{n}\frac{(MRR + QM)\times FV}{(1+MRR+DM)^{t}} + \frac{FV}{(1+MRR+DM)^{n}}$$</div>
+          <div class="f-vars"><span>DM</span> = Discount Margin (margen de mercado requerido)</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cmp-strip">
+          <div class="cmp-cell up">
+            <div class="cmp-head">QM &gt; DM</div>
+            <div class="cmp-rule">Precio &gt; 100</div>
+            <p>Cupón pagado &gt; tasa de descuento del mercado</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">QM = DM</div>
+            <div class="cmp-rule">Precio = 100</div>
+            <p>Cupón = tasa descuento; no hay ganancia/pérdida de capital</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">QM &lt; DM</div>
+            <div class="cmp-rule">Precio &lt; 100</div>
+            <p>Cupón pagado &lt; lo que exige el mercado</p>
+          </div>
+        </div>
+
+        <table class="ref-table" style="margin-top:10px">
+          <thead><tr><th>Característica</th><th>QM</th><th>DM</th></tr></thead>
+          <tbody>
+            <tr><td>Definición</td><td>Margen contractual</td><td>Margen de mercado</td></tr>
+            <tr><td>Determina</td><td>Cupón pagado</td><td>Tasa de descuento</td></tr>
+            <tr><td>Variabilidad</td><td>Fijo (vida del bono)</td><td>Variable (condiciones)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 MONEY MARKET -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Rendimientos en el Mercado de Dinero</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Discount Yield (base 360 · sobre valor nominal)</div>
+          <div class="f-eq">$$DY = \frac{FV - P}{FV} \times \frac{360}{d}$$</div>
+          <div class="f-vars">
+            Precio desde DY: \(\;P = FV \times \left[1 - DY \times \dfrac{d}{360}\right]\)<br>
+            Instrumentos: T-Bills, Commercial Paper
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Add-On Yield (base 360 · sobre precio)</div>
+          <div class="f-eq">$$FV = P \times \left[1 + AOY \times \frac{d}{360}\right]$$</div>
+          <div class="f-vars">Instrumentos: CDs, Repos (algunos base 365)</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Holding Period Yield (HPY)</div>
+          <div class="f-eq">$$HPY = \frac{FV - P}{P}$$</div>
+          <div class="f-vars">Retorno total del período, sin anualizar.</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Bond Equivalent Yield (BEY) · base 365 · simple</div>
+          <div class="f-eq">$$BEY = HPY \times \frac{365}{d}$$</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Effective Annual Yield (EAY) · base 365 · compuesto</div>
+          <div class="f-eq">$$EAY = (1+HPY)^{365/d} - 1$$</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Conversión directa DY → BEY</div>
+          <div class="f-eq">$$BEY = \frac{365 \times DY}{360 - DY \times d}$$</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ref-table" style="margin-top:12px">
+      <thead><tr><th>Medida</th><th>Base</th><th>Denominador del interés</th><th>Instrumento típico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Discount Yield</strong></td><td>360</td><td>Valor nominal (FV)</td><td>T-Bills, Commercial Paper</td></tr>
+        <tr><td><strong>Add-On Yield</strong></td><td>360</td><td>Precio (P)</td><td>CDs, Repos</td></tr>
+        <tr><td><strong>HPY</strong></td><td>—</td><td>Precio (sin anualizar)</td><td>Cualquier instrumento</td></tr>
+        <tr><td><strong>BEY</strong></td><td>365</td><td>Precio (anualiz. simple)</td><td>Comparación con bonos</td></tr>
+        <tr><td><strong>EAY</strong></td><td>365</td><td>Precio (anualiz. compuesto)</td><td>Comparación precisa</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-callout gold" style="margin-top:10px">
+      <strong>Jerarquía para un mismo instrumento:</strong> &nbsp;Discount Yield &lt; HPY &lt; BEY &lt; EAY. Para comparaciones precisas entre instrumentos de distinta convención, convertir siempre a EAY.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · ESTRUCTURA TEMPORAL
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Estructura Temporal de Tasas: Curvas Spot, Par y Forward</h2>
+    <p>Spot rates · Bootstrapping · Par yields · Notación forward · Relaciones e implicaciones de inversión</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 SPOT -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Tasas Spot y Curva Spot · Bootstrapping · Valoración sin Arbitraje</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Precio del bono cupón cero (definición de tasa spot)</div>
+          <div class="f-eq">$$P_{\text{zero}} = \frac{FV}{(1 + S_n)^{n}}$$</div>
+          <div class="f-vars"><span>S_n</span> = tasa spot para el vencimiento n</div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Valoración de no-arbitraje con tasas spot</div>
+          <div class="f-eq">$$P = \sum_{t=1}^{n}\frac{C_t}{(1+S_t)^{t}} + \frac{FV}{(1+S_n)^{n}}$$</div>
+          <div class="f-vars">Cada flujo descontado a su propia tasa spot. Precio consistente con la curva.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Bootstrapping (extracción iterativa de spot rates)</div>
+          <div class="cc-def">
+            <strong>Paso 1:</strong> \(S_1 = YTM_{\text{bono 1 año}}\)<br><br>
+            <strong>Paso 2:</strong> Del bono de 2 años con cupón:<br>
+            \(\;P = \dfrac{C}{1+S_1} + \dfrac{C+FV}{(1+S_2)^2}\) → despejar \(S_2\)<br><br>
+            <strong>Paso n:</strong> Usar \(S_1, \ldots, S_{n-1}\) para calcular \(S_n\) del bono de n años.
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>YTM vs. Tasas Spot:</strong> El YTM es una tasa única promedio (depende del cupón). Las tasas spot son independientes del cupón y permiten valoración sin arbitraje para cualquier bono.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 PAR Y FORWARD -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Par Yields · Tasas Forward · Notación mTnY · Relaciones</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Par Yield a n años (cupón que da precio = 100)</div>
+          <div class="f-eq">$$PY_n = \frac{1 - (1+S_n)^{-n}}{\displaystyle\sum_{t=1}^{n}(1+S_t)^{-t}}$$</div>
+          <div class="f-vars">La par yield es un promedio ponderado de tasas spot. En curva ascendente: \(PY_n < S_n\)</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Tasa forward implícita: notación mTnY</div>
+          <div class="f-eq">$$(1 + f_{m,n})^{n} = \frac{(1+S_{m+n})^{m+n}}{(1+S_m)^{m}}$$</div>
+          <div class="f-vars">
+            Despejando: \(\;f_{m,n} = \left[\dfrac{(1+S_{m+n})^{m+n}}{(1+S_m)^m}\right]^{1/n} - 1\)<br><br>
+            <span>m</span> = inicio (años desde hoy) &nbsp;|&nbsp; <span>n</span> = duración del período forward
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-box" style="margin-top:12px">
+      <div class="f-label">Relación fundamental spot ↔ forward (producto de tasas forward)</div>
+      <div class="f-eq">$$(1+S_n)^n = (1+f_{0,1})(1+f_{1,1})(1+f_{2,1})\cdots(1+f_{n-1,1})$$</div>
+      <div class="f-vars">La tasa spot es la <strong>media geométrica</strong> de las tasas forward consecutivas de 1 período.</div>
+    </div>
+
+    <div class="formula-box" style="margin-top:10px">
+      <div class="f-label">Valoración equivalente con tasas forward</div>
+      <div class="f-eq">$$P = \frac{C_1}{1+f_1} + \frac{C_2}{(1+f_1)(1+f_2)} + \cdots + \frac{C_n+FV}{(1+f_1)(1+f_2)\cdots(1+f_n)}$$</div>
+      <div class="f-vars">Donde \(f_1 = S_1\), \(f_2 = 1y1y\), \(f_3 = 2y1y\), etc. → <strong>el precio obtenido es idéntico al método spot.</strong></div>
+    </div>
+
+    <div class="grid-4" style="margin-top:14px">
+      <div class="concept-card">
+        <div class="cc-label">0y1y</div>
+        <div class="cc-def">= \(S_1\). Tasa spot de 1 año. Es la primera forward.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">1y1y</div>
+        <div class="cc-def">Forward de 1 año comenzando en 1 año.<br>\((1+S_2)^2=(1+S_1)(1+1y1y)\)</div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">2y1y</div>
+        <div class="cc-def">Forward de 1 año comenzando en 2 años.<br>\((1+S_3)^3=(1+S_2)^2(1+2y1y)\)</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">2y2y</div>
+        <div class="cc-def">Forward de 2 años comenzando en 2 años.<br>\((1+2y2y)^2=\dfrac{(1+S_4)^4}{(1+S_2)^2}\)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 COMPARACIÓN DE CURVAS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.3</span>
+    <span class="section-title">Comparación de las Tres Curvas · Implicaciones de Inversión</span>
+  </div>
+  <div class="section-body">
+
+    <div class="cmp-strip">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Curva Normal (Ascendente)</div>
+        <div class="cmp-rule">Forward &gt; Spot &gt; Par</div>
+        <p>Expectativa de tasas crecientes. Prima de liquidez positiva.</p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Curva Plana</div>
+        <div class="cmp-rule">Forward = Spot = Par</div>
+        <p>Incertidumbre o cambio de ciclo. Las tres curvas coinciden.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Curva Invertida</div>
+        <div class="cmp-rule">Forward &lt; Spot &lt; Par</div>
+        <p>Expectativa de recesión. Indicador histórico de desaceleración.</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:14px">
+      <div class="concept-card">
+        <div class="cc-label">Curva Spot</div>
+        <div class="cc-def">Tasas \(S_1, S_2,\ldots, S_n\) para bonos cupón cero. <strong>Base para valoración sin arbitraje</strong>. Construida por bootstrapping.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Curva Par</div>
+        <div class="cc-def">Cupones que hacen precio = 100. Base para swaps y nuevas emisiones. <strong>Derivada desde la curva spot.</strong></div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Curva Forward</div>
+        <div class="cc-def">Tasas forward implícitas para períodos futuros. <strong>Refleja expectativas</strong> del mercado (+ prima de riesgo).</div>
+      </div>
+    </div>
+
+    <table class="ref-table" style="margin-top:12px">
+      <thead><tr><th>Señal</th><th>Interpretación</th><th>Estrategia</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Forward &gt; Spot</strong></td><td>Mercado espera tasas ↑</td><td>Corto plazo, rollover strategy</td></tr>
+        <tr><td><strong>Forward &lt; Spot</strong></td><td>Mercado espera tasas ↓</td><td>Largo plazo, lock-in rates</td></tr>
+        <tr><td><strong>Curva muy plana</strong></td><td>Incertidumbre / transición</td><td>Diversificación de plazos</td></tr>
+        <tr><td><strong>Curva invertida</strong></td><td>Posible recesión próxima</td><td>Calidad crediticia alta, duración corta</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-callout gold" style="margin-top:10px">
+      <strong>Riding the yield curve:</strong> en curva normal, comprar bonos con plazo &gt; horizonte de inversión y vender antes del vencimiento captura el <em>roll-down</em> (caída del yield por envejecimiento del bono a lo largo de la curva).
+    </div>
+    <div class="footnote" style="border-radius:6px; margin-top:8px">
+      Las tasas forward incluyen <strong>primas de riesgo</strong> además de las expectativas puras. Bajo la hipótesis de expectativas puras no hay prima → forward = predicción insesgada de spot futura. La teoría de preferencia de liquidez y preferred habitat añaden primas positivas para plazos largos.
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ RESUMEN FINAL ══ -->
+<div class="section-block" style="margin-top:28px">
+  <div class="section-header" style="background:var(--navy);border-bottom-color:var(--accent)">
+    <span class="section-num" style="background:var(--navy);color:var(--accent);border-color:var(--accent)">REF</span>
+    <span class="section-title" style="color:white">Índice rápido de fórmulas clave</span>
+  </div>
+  <div class="section-body" style="padding:14px 20px">
+    <div class="grid-3">
+      <div>
+        <div class="badge-row" style="flex-direction:column;gap:5px">
+          <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Módulo 01 · Pricing</div>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">P = Σ C/(1+y)ᵗ + FV/(1+y)ᴺ</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">AI = C × (t/T)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Full Price = PV × (1+y)^(t/T)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Flat = Full − AI</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">YTM_obj = interp. lineal</code>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Módulos 02–03 · Yields</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">EAY = (1+y/m)ᵐ − 1</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">YTW = min(YTM, YTC₁…)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">OAS = Z-Spread − V(opción)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">DY = [(FV−P)/FV]×(360/d)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">BEY = HPY×(365/d)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">EAY = (1+HPY)^(365/d) − 1</code>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Módulo 04 · Curvas</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">P(spot) = Σ Ct/(1+St)ᵗ + FV/(1+Sn)ⁿ</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">PYn = [1−(1+Sn)⁻ⁿ] / Σ(1+St)⁻ᵗ</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">f(m,n) = [(1+S_{m+n})^{m+n}/(1+Sm)^m]^{1/n}−1</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">(1+Sn)ⁿ = Π(1+f_i)</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Ascendente: Forward &gt; Spot &gt; Par</code>
+          <code style="font-size:11.5px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Invertida: Forward &lt; Spot &lt; Par</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

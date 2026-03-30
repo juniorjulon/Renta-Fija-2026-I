@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · Introducción a la Renta Fija</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+
+/* ── BACK BUTTON ── */
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;right:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+/* ── TOP HEADER ── */
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--corp) 55%, var(--mid) 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg,transparent,transparent 30px,rgba(255,255,255,.025) 30px,rgba(255,255,255,.025) 60px);
+}
+.doc-header::after { content:''; position:absolute; width:360px; height:360px; border-radius:50%; background:rgba(255,255,255,.04); top:-160px; right:-80px; }
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; text-decoration:none; cursor:pointer; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+/* ── CONTENT ── */
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg,var(--corp),transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; overflow:hidden; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+@media(max-width:900px){ .grid-3{grid-template-columns:1fr 1fr} .grid-2{grid-template-columns:1fr} }
+@media(max-width:600px){ .grid-3{grid-template-columns:1fr} }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid { border-left-color:var(--mid); }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold { color:#B45309; }
+.cc-label.mid { color:var(--mid); }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; font-size:12px; line-height:1.55; }
+.cmp-cell.up { background:#F0FDF4; border-left:3px solid #16A34A; }
+.cmp-cell.down { background:#FEF2F2; border-left:3px solid #DC2626; }
+.cmp-cell.flat { background:#EFF6FF; border-left:3px solid var(--mid); }
+.cmp-cell.neutral { background:var(--off); border-left:3px solid var(--steel); }
+.cmp-head { font-size:11px; font-weight:700; color:var(--navy); margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
+.cmp-rule { font-size:11px; font-weight:600; color:var(--mid); margin-bottom:4px; }
+
+.inner-divider { height:1px; background:linear-gradient(90deg,var(--steel),transparent); margin:20px 0; }
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; }
+.badge-blue { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray { background:var(--off); color:var(--muted); border:1px solid var(--steel); }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd) { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+
+/* ── SCROLL TO TOP ── */
+.scroll-top-btn { display:none;position:fixed;bottom:28px;right:28px; background:var(--corp);color:white;border:none;border-radius:50%; width:44px;height:44px;font-size:20px;cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25);transition:all .2s;z-index:99; align-items:center;justify-content:center; }
+.scroll-top-btn:hover{background:var(--navy);transform:translateY(-2px)}
+.scroll-top-btn.visible{display:flex}
+@media(max-width:600px){
+  .back-btn{right:16px!important;top:12px!important;font-size:9px!important;padding:5px 10px!important}
+  .scroll-top-btn{bottom:16px;right:16px;width:38px;height:38px;font-size:16px}
+}
+@media print { body{background:white;font-size:11px} .no-print{display:none} .section-block{break-inside:avoid} }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">COURSE MAP →</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 1</div>
+    <h1 class="header-title">Introducción a la Renta Fija</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <a href="#module-01" class="pill accent" style="text-decoration:none">01 Características de los Instrumentos</a>
+      <a href="#module-02" class="pill" style="text-decoration:none">02 Flujos de Efectivo y Tipos</a>
+      <a href="#module-03" class="pill" style="text-decoration:none">03 Emisión y Negociación</a>
+      <a href="#module-04" class="pill" style="text-decoration:none">04 Emisores Corporativos</a>
+      <a href="#module-05" class="pill" style="text-decoration:none">05 Emisores Gubernamentales</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · CARACTERÍSTICAS DE LOS INSTRUMENTOS
+══════════════════════════════════════════════ -->
+<div class="module-divider" id="module-01">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Características de los Instrumentos de Renta Fija</h2>
+    <p>Definición · Emisor · Maturity · Par Value · Coupon · Seniority · Embedded Options · Yield Curve</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Características fundamentales -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Características Fundamentales</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Definición</div>
+      <div class="cc-def"><strong>Instrumentos de renta fija</strong> incluyen <strong>préstamos</strong> (acuerdos privados no negociables) y <strong>bonos</strong> (valores estandarizados y negociables que representan una inversión en deuda). Los inversionistas prestan capital (<strong>principal / par / face value</strong>) al emisor, quien promete repagar el monto más intereses periódicos (<strong>cupones</strong>).</div>
+    </div>
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Emisor (Issuer)</div>
+        <div class="cc-def"><strong>Soberanos:</strong> respaldados por impuestos. <strong>Corporaciones:</strong> financiamiento de operaciones. <strong>Gobiernos locales:</strong> municipios. <strong>Supranacionales:</strong> IMF, Banco Mundial. <strong>SPEs:</strong> emiten ABS.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Plazo al Vencimiento</div>
+        <div class="cc-def"><strong>Money market:</strong> ≤ 1 año. <strong>Capital market:</strong> &gt; 1 año. <strong>Perpetual bonds:</strong> sin fecha de madurez. El <strong>tenor</strong> es el tiempo restante hasta la madurez.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Valor Par (Face Value)</div>
+        <div class="cc-def">Monto principal a repagar. Típicamente <strong>$1,000</strong> o <strong>$100</strong>. Algunos instrumentos repagan gradualmente durante la vida (ej. hipotecario).</div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div class="grid-2">
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Tasa Cupón y Frecuencia</div>
+        <div class="cc-def">Porcentaje anual del valor par pagado periódicamente (anual, semestral, trimestral). <strong>FRNs (Floating-Rate Notes):</strong> cupón = <strong>MRR + Margen Fijo</strong> (en basis points). El margen se fija al emitir; la MRR se resetea cada período.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Seniority y Provisiones de Contingencia</div>
+        <div class="cc-def"><strong>Senior debt:</strong> prioridad en bancarrota → menos riesgo. <strong>Subordinated:</strong> menor prioridad → mayor yield. <strong>Opciones embebidas:</strong> Call (emisor rescata), Put (tenedor vende), Conversión (deuda → equity).</div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div class="grid-2">
+      <div class="concept-card">
+        <div class="cc-label">Yield y Relación Inversa Precio/Yield</div>
+        <div class="cc-def">Dado el precio y flujos esperados, el <strong>yield</strong> es el retorno esperado. Relación inversa: precios ↓ → yield ↑ y viceversa. Esta relación es la base de toda la gestión de riesgo de tasa de interés.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Yield Curve y Spread</div>
+        <div class="cc-def">Gráfica de yields vs. madurez para un emisor dado. <strong>Normal:</strong> upward-sloping. <strong>Inverted:</strong> downward-sloping. Los bonos gubernamentales son el <strong>benchmark</strong>; el <strong>spread</strong> mide el retorno extra por riesgo adicional.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 El contrato del bono -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">El Contrato del Bono: Indenture y Covenants</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Bond Indenture (Trust Deed)</div>
+      <div class="cc-def">Contrato legal entre <strong>emisor</strong> (prestatario) y <strong>tenedores</strong> (prestamistas). Define obligaciones, restricciones, fuentes de repago, collateral, credit enhancements y covenants. El <strong>trustee</strong> es la entidad independiente que asegura cumplimiento.</div>
+    </div>
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Covenants Afirmativos</div>
+        <div class="cmp-rule">Obligaciones del emisor</div>
+        <p style="font-size:12px">Reportes financieros oportunos, especificar uso de fondos, derecho de redención en adquisición. <strong>Cross-default clause:</strong> default en otra deuda activa default en ésta. <strong>Pari passu:</strong> misma prioridad que otras emisiones senior.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Covenants Negativos</div>
+        <div class="cmp-rule">Restricciones al emisor</div>
+        <p style="font-size:12px">Prohibición de sale-leaseback, no pledgear mismos activos múltiples veces, <strong>negative pledge clause</strong> (no emitir deuda más senior), incurrence tests (ratios financieros como Deuda/EBITDA).</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:12px">
+      <div class="concept-card">
+        <div class="cc-label">Sovereign Bonds</div>
+        <div class="cc-def">Repago: impuestos + capacidad de crear moneda. Percibidos como <strong>menor riesgo crediticio</strong> en su región.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Corporate (Secured vs. Unsecured)</div>
+        <div class="cc-def"><strong>Secured:</strong> flujo de caja + lien sobre activos (collateral). <strong>Unsecured:</strong> solo flujo de caja operativo, sin claim sobre activos específicos.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Asset-Backed Securities</div>
+        <div class="cc-def">Repago: activos financieros del <strong>SPE</strong>. Los flujos del pool de activos proporcionan los pagos a inversionistas de ABS.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · FLUJOS DE EFECTIVO Y TIPOS
+══════════════════════════════════════════════ -->
+<div class="module-divider" id="module-02">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Flujos de Efectivo y Tipos de Renta Fija</h2>
+    <p>Bullet · Amortizing · Sinking Fund · FRN · Step-up · TIPS · PIK · Callable · Putable · Convertible · CoCo</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Estructuras de Amortización de Capital</span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Bullet</div>
+        <div class="cmp-rule">Principal al vencimiento</div>
+        <p style="font-size:12px">Cupones periódicos de interés puro. Todo el valor par se repaga al final. Riesgo de refinanciamiento concentrado.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Amortizing</div>
+        <div class="cmp-rule">Principal gradual</div>
+        <p style="font-size:12px"><strong>Fully:</strong> pagos iguales (interés + principal), saldo cero al final. <strong>Partially:</strong> balloon payment al vencimiento. Componente de interés ↓ y principal ↑ en el tiempo.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Sinking Fund</div>
+        <div class="cmp-rule">Redenciones periódicas</div>
+        <p style="font-size:12px">Repago obligatorio de principal a inversionistas seleccionados al azar. Reduce riesgo crediticio pero crea <strong>reinvestment risk</strong>.</p>
+      </div>
+    </div>
+    <div class="concept-card" style="margin-top:12px">
+      <div class="cc-label">Waterfall Structures (ABS/MBS)</div>
+      <div class="cc-def">Productos estructurados divididos en <strong>tranches</strong> de diferente seniority. Las tranches junior no reciben principal hasta que las senior están completamente pagadas. Pagos de interés se hacen a todas las tranches.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Estructuras de Cupón</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Tasa Fija / Zero-Coupon</div>
+        <div class="cc-def"><strong>Fixed-rate:</strong> cupón constante toda la vida. <strong>Zero-coupon:</strong> se vende a descuento, todo el interés al vencimiento. <strong>Deferred coupon:</strong> cupones comienzan después de un período especificado.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">FRN (Floating-Rate Note)</div>
+        <div class="cc-def">Cupón = <strong>MRR + Margen de Crédito</strong> (en bps). Se basan típicamente en tasa trimestral (90 días). El margen se fija al emitir; la MRR se resetea cada período de cupón.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Step-up Coupon</div>
+        <div class="cc-def">Tasa cupón aumenta según calendario predeterminado. Variantes: <strong>leveraged loans</strong> (cupón ↑ si calidad crediticia ↓), <strong>credit-linked notes</strong> (cupón ↑ si rating ↓).</div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:12px">
+      <div class="concept-card">
+        <div class="cc-label">Index-Linked / TIPS</div>
+        <div class="cc-def"><strong>Interest-indexed:</strong> tasa cupón ajustada por inflación. <strong>Capital-indexed (TIPS):</strong> valor principal ajustado por CPI. En deflación: se recibe el mayor entre principal ajustado o par original.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Payment-in-Kind (PIK)</div>
+        <div class="cc-def">Cupón pagado aumentando el principal pendiente (interés con más bonos). Típico de emisores con alto apalancamiento y flujo de caja insuficiente. Yields más altos.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Green Bonds</div>
+        <div class="cc-def">Fondos destinados exclusivamente a proyectos verdes. El cupón puede ajustarse al cumplimiento de metas ambientales (penalización por incumplimiento).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">Provisiones de Contingencia (Embedded Options)</span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell down">
+        <div class="cmp-head">Callable Bond</div>
+        <div class="cmp-rule">Beneficia al emisor</div>
+        <p style="font-size:12px">Derecho del emisor a rescatar antes del vencimiento a un <strong>call price</strong> predeterminado. <strong>Call protection:</strong> período inicial sin rescate. Crea <strong>call risk</strong> → inversionistas demandan mayor yield.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Putable Bond</div>
+        <div class="cmp-rule">Beneficia al inversionista</div>
+        <p style="font-size:12px">Derecho del tenedor a vender el bono de vuelta al emisor. Se ejerce cuando precio &lt; put price (tasas ↑ o calidad crediticia ↓). <strong>Precio Putable = Precio Straight + Valor Opción Put.</strong></p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Convertible Bond</div>
+        <div class="cmp-rule">Beneficia al inversionista</div>
+        <p style="font-size:12px">Opción de intercambiar bono por acciones. <strong>Conversion ratio</strong> = Par / Conversion price. <strong>Conversion value</strong> = Ratio × Precio acción. Permite emitir a yields más bajos.</p>
+      </div>
+    </div>
+    <div class="concept-card" style="margin-top:12px">
+      <div class="cc-label">Contingent Convertible Bonds (CoCos)</div>
+      <div class="cc-def">Convierten <strong>automáticamente</strong> de deuda a equity si ocurre un evento específico (ej. capital del banco cae debajo del nivel regulatorio). Herramienta de resolución bancaria: disminuye pasivos de deuda y aumenta capital de equity simultáneamente.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.4</span>
+    <span class="section-title">Marco Legal, Regulatorio y Tributario</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Domestic Bonds</div>
+        <div class="cc-def">Emisores domiciliados en el mismo país del mercado. Sujetos a regulaciones locales.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Foreign Bonds</div>
+        <div class="cc-def">Emisores extranjeros, denominados en moneda local del mercado donde se negocian ("Yankee bonds" en EEUU).</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Eurobonds</div>
+        <div class="cc-def">Emitidos fuera de jurisdicción de cualquier país, en cualquier moneda. Menos regulación. No confundir con bonos en euros.</div>
+      </div>
+    </div>
+    <div class="cmp-strip" style="margin-top:12px">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Ingreso por Intereses</div>
+        <p style="font-size:12px">Se grava como <strong>ingreso ordinario</strong> (misma tasa que salarios). Bonos municipales (EEUU): exentos de impuesto federal. <strong>OID bonds:</strong> generan obligación tributaria sin pago efectivo.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Ganancias de Capital</div>
+        <p style="font-size:12px">Venta antes del vencimiento: gravada como <strong>ganancia de capital</strong> (tasa más baja). Long-term capital gains: tasa aún más baja si se mantiene por período mínimo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · EMISIÓN Y NEGOCIACIÓN
+══════════════════════════════════════════════ -->
+<div class="module-divider" id="module-03">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Emisión y Negociación de Renta Fija</h2>
+    <p>Segmentos de mercado · Mercado primario · Mercado secundario · Índices</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Segmentos del Mercado y Mercado Primario</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div class="concept-card">
+        <div class="cc-label">Por Tipo de Emisor</div>
+        <div class="cc-def">Gobiernos (sovereign, non-sovereign), Corporaciones, SPEs (emitiendo ABS).</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Por Calidad Crediticia</div>
+        <div class="cc-def"><strong>Investment-grade:</strong> AAA a BBB− (S&P) / Aaa a Baa3 (Moody's). <strong>High-yield:</strong> BB+ o menor.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Por Madurez Original</div>
+        <div class="cc-def"><strong>Money market:</strong> ≤ 1 año. <strong>Intermediate:</strong> 1–10 años. <strong>Long-term:</strong> &gt; 10 años.</div>
+      </div>
+    </div>
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Public Offering / Underwritten</div>
+        <p style="font-size:12px">Registrado con reguladores. <strong>Underwritten:</strong> intermediario garantiza precio. <strong>Best-efforts:</strong> sin garantía, comisión por colocación. <strong>Shelf registration:</strong> registro una sola vez para múltiples emisiones.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Private Placement / Subastas</div>
+        <p style="font-size:12px"><strong>Private:</strong> solo inversionistas seleccionados, menos costoso pero menor liquidez. <strong>Subastas:</strong> bonos gubernamentales. <strong>Competitive bids</strong> (fijan precio) vs. <strong>noncompetitive bids</strong> (aceptan precio de mercado).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Mercado Secundario e Índices de Renta Fija</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="concept-card">
+        <div class="cc-label">Mercado Secundario OTC</div>
+        <div class="cc-def">Mayoría del trading en mercado de dealers (OTC). <strong>Spread</strong> = diferencia bid-ask. <strong>On-the-run:</strong> emisiones más recientes, más líquidas, yields usados como benchmark. <strong>Distressed debt:</strong> bonos de emisores en/cerca de bancarrota.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Diferencias vs. Equity</div>
+        <div class="cc-def"><strong>Más constituyentes:</strong> emisores con muchos bonos pendientes. <strong>Mayor turnover:</strong> bonos madurando/emitidos frecuentemente. <strong>Pesos por sector:</strong> gobiernos típicamente el emisor más grande.</div>
+      </div>
+    </div>
+    <div class="concept-card" style="margin-top:12px">
+      <div class="cc-label">Índices de Renta Fija</div>
+      <div class="cc-def"><strong>Aggregate indexes:</strong> selección amplia (ej. Bloomberg Barclays Aggregate). Clasificados por tipo (gobierno, corporate, high-yield), mercado (emergentes, total market) y geografía. Criterios de inclusión: tamaño mínimo, calidad crediticia, madurez, liquidez. <strong>El benchmark debe emparejar la exposición del fondo</strong> en sector, crédito y madurez. Índices ESG incorporan factores Environmental, Social y Governance.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · EMISORES CORPORATIVOS
+══════════════════════════════════════════════ -->
+<div class="module-divider" id="module-04">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Mercados de Renta Fija para Emisores Corporativos</h2>
+    <p>Líneas de crédito · Commercial Paper · Repos · Investment-Grade vs. High-Yield</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Financiamiento de Corto Plazo</span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip cmp-strip-3" style="margin-bottom:12px">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Uncommitted Line</div>
+        <p style="font-size:12px">Banco puede negarse a prestar. MRR + spread. Flexible, sin fees fijas. Menos confiable.</p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Committed Line</div>
+        <p style="font-size:12px">Banco se compromete por período específico. Fee de compromiso (~50 bps). Más confiable.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Revolving Line</div>
+        <p style="font-size:12px">Plazo más largo (años). Covenants restrictivos. La más confiable de las tres.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="concept-card">
+        <div class="cc-label">Commercial Paper (CP) y ABCP</div>
+        <div class="cc-def"><strong>CP:</strong> deuda de corto plazo no asegurada, madurez &lt; 3 meses, costo menor que préstamo bancario. <strong>Rollover risk:</strong> no poder re-emitir CP al vencimiento → backup lines of credit. <strong>ABCP:</strong> CP respaldado por activos en un SPE.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Secured Loans y Factoring</div>
+        <div class="cc-def"><strong>Secured loans:</strong> collateral = activos fijos, cuentas por cobrar, inventario. <strong>Factoring:</strong> transferencia de cuentas por cobrar a un factor a descuento. Descuento depende de creditworthiness de clientes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Repos e Instituciones Financieras</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card accent-gold" style="margin-bottom:12px">
+      <div class="cc-label gold">Repurchase Agreement (Repo)</div>
+      <div class="cc-def">Venta de un valor con compromiso de recompra a precio más alto. El precio original es un <strong>préstamo</strong> con el valor como <strong>collateral</strong>. La diferencia es el interés (<strong>repo rate</strong>). <strong>Initial margin:</strong> collateral extra. <strong>Haircut</strong> = 1 − (1/Initial Margin). <strong>Variation margin:</strong> ajuste si valor del collateral cae.</div>
+    </div>
+    <div class="formula-box">
+      <div class="f-label">Repurchase Price</div>
+      <div class="f-eq">$$\text{Repurchase Price} = \text{Purchase Price} \times \left[1 + \text{Repo Rate} \times \frac{\text{Días}}{360}\right]$$</div>
+    </div>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="concept-card">
+        <div class="cc-label">Instituciones Financieras</div>
+        <div class="cc-def"><strong>Depósitos:</strong> checking (demand), operational, savings. <strong>CDs:</strong> negotiable (vendibles en mercado abierto) vs. nonnegotiable (penalidad por retiro). <strong>Fondos interbancarios:</strong> MRR (ej. SOFR). <strong>Banco central:</strong> lender of last resort.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Factores del Repo Rate</div>
+        <div class="cc-def">Más alto cuando: tasas alternativas ↑, plazo más largo. Más bajo cuando: calidad del collateral ↑, collateral en alta demanda. Riesgos: default, collateral, margining, legal.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.3</span>
+    <span class="section-title">Financiamiento de Largo Plazo: Investment-Grade vs. High-Yield</span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Investment-Grade (Baa3/BBB− o mayor)</div>
+        <p style="font-size:12px"><strong>Covenants:</strong> pocos, limitando liens y sale-leaseback. <strong>Madurez:</strong> múltiples, reduciendo rollover risk. <strong>Spread:</strong> proporción menor del yield. <strong>Retornos:</strong> más estables, menos volátiles. Preocupación crediticia: posibilidad de <strong>downgrade</strong>.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">High-Yield (Ba1/BB+ o menor)</div>
+        <p style="font-size:12px"><strong>Covenants:</strong> mayor número (ratios deuda, distribuciones de capital). <strong>Madurez:</strong> típicamente ≤ 10 años. <strong>Spread:</strong> proporción mayor del yield. <strong>Retornos:</strong> más <strong>equity-like</strong>. <strong>PD y LGD:</strong> preocupaciones primarias. Opciones de prepago comunes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · EMISORES GUBERNAMENTALES
+══════════════════════════════════════════════ -->
+<div class="module-divider" id="module-05">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Mercados de Renta Fija para Emisores Gubernamentales</h2>
+    <p>Deuda soberana · Sub-nacional · Cuasi-gubernamental · Supranacional</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1</span>
+    <span class="section-title">Deuda Soberana</span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip cmp-strip-3" style="margin-bottom:12px">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">T-Bills</div>
+        <p style="font-size:12px">Madurez ≤ 1 año. Zero-coupon, descuento a la par.</p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Treasury Notes</div>
+        <p style="font-size:12px">Madurez 1–10 años. Cupones semestrales.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Treasury Bonds</div>
+        <p style="font-size:12px">Madurez &gt; 10 años. Cupones semestrales.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="concept-card">
+        <div class="cc-label">Desarrollados vs. Emergentes</div>
+        <div class="cc-def"><strong>Desarrollados:</strong> economías estables, política fiscal transparente, deuda en moneda de reserva (USD, EUR). <strong>Emergentes:</strong> crecimiento más rápido, menos estables, ingresos fiscales menos estables.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Deuda Doméstica vs. Externa</div>
+        <div class="cc-def"><strong>Doméstica:</strong> moneda local, base de inversionistas domésticos. <strong>Externa:</strong> a acreedores extranjeros, puede ser en moneda local o de reserva. Inversionistas extranjeros evitan riesgo de divisa directo cuando la deuda es en moneda de reserva.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.2</span>
+    <span class="section-title">Deuda No Soberana, Cuasi-Gubernamental y Comparación</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div class="concept-card">
+        <div class="cc-label">Gobiernos Sub-Nacionales</div>
+        <div class="cc-def"><strong>GO Bonds:</strong> gasto público general, respaldados por impuestos locales. <strong>Revenue Bonds:</strong> proyecto específico, repago con tarifas de uso (peajes, aeropuertos, agua).</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Agency / Quasi-Government</div>
+        <div class="cc-def">Creadas por gobiernos para propósitos específicos (ej. <strong>Ginnie Mae</strong> securitiza hipotecas). Repago: tarifas de garante + respaldo gubernamental.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Supranational Bonds</div>
+        <div class="cc-def">Emitidos por instituciones internacionales (Banco Mundial, FMI, BID). Respaldados por múltiples gobiernos soberanos. Alta calidad crediticia.</div>
+      </div>
+    </div>
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Emisión Gubernamental</div>
+        <p style="font-size:12px">Subastas públicas regulares, primary dealers, mayor transparencia, objetivos no económicos (política monetaria, reservas). <strong>On-the-run:</strong> yields benchmark.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Emisión Corporativa</div>
+        <p style="font-size:12px">Según necesidades de financiamiento, underwriting por bancos de inversión, mayor variabilidad en términos, objetivos puramente económicos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ QUICK REFERENCE ══════════════════ -->
+<div class="section-block" style="margin-top:32px;border:2px solid var(--corp)">
+  <div class="section-header" style="background:var(--navy)">
+    <span class="section-num" style="background:var(--mid);color:white;border-color:var(--mid)">REF</span>
+    <span class="section-title" style="color:white">Quick Reference — Taxonomía Completa</span>
+  </div>
+  <div class="section-body">
+    <table class="ref-table">
+      <thead><tr><th>Categoría</th><th>Tipos</th><th>Característica clave</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Por Emisor</strong></td><td>Sovereign · Corporate · Municipal · Supranational · SPE</td><td>Fuente de repago y riesgo crediticio varían</td></tr>
+        <tr><td><strong>Por Crédito</strong></td><td>Investment Grade (≥ BBB−) · High Yield (&lt; BBB−)</td><td>IG: menor spread, pocos covenants. HY: mayor spread, más covenants</td></tr>
+        <tr><td><strong>Por Cupón</strong></td><td>Fixed · Float (FRN) · Zero · Step-up · PIK · TIPS · Green</td><td>Riesgo de tasa de interés varía con estructura</td></tr>
+        <tr><td><strong>Por Amortización</strong></td><td>Bullet · Fully Amortizing · Partially · Sinking Fund</td><td>Distribución del repago de principal en el tiempo</td></tr>
+        <tr><td><strong>Por Opción</strong></td><td>Callable · Putable · Convertible · CoCo · Straight</td><td>Callable ↓ precio · Putable ↑ precio vs. straight</td></tr>
+        <tr><td><strong>Por Mercado</strong></td><td>Domestic · Foreign · Eurobond · Global · Sukuk</td><td>Regulación, jurisdicción y moneda de denominación</td></tr>
+        <tr><td><strong>Por Plazo</strong></td><td>Money Market (≤1y) · Intermediate (1–10y) · Long-term (&gt;10y)</td><td>Exposición a riesgo de tasa de interés</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="scroll-top-btn no-print" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver al inicio">↑</button>
+<script>
+window.addEventListener('scroll', function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(window.scrollY > 300) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+});
+document.querySelectorAll('.pill[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
+</body>
+</html>

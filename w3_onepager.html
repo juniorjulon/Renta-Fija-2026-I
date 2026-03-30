@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · Riesgo de Tasa de Interés I: Duración y Convexidad</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; overflow:hidden; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.kn-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:12px 0; }
+.kn-box { background:var(--pale); border-radius:8px; padding:14px 12px; text-align:center; border-top:3px solid var(--corp); }
+.kn-box.gold { border-top-color:var(--accent); }
+.kn-box.mid  { border-top-color:var(--mid); }
+.kn-box.green { border-top-color:#16A34A; }
+.kn-num  { font-size:22px; font-weight:700; color:var(--navy); line-height:1; }
+.kn-label { font-size:10px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.8px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.gap-badge { display:inline-block; font-size:11px; font-weight:700; padding:3px 12px; border-radius:20px; margin:2px; }
+.gap-pos  { background:#FEE2E2; color:#991B1B; }
+.gap-zero { background:#D1FAE5; color:#065F46; }
+.gap-neg  { background:#DBEAFE; color:#1E3A8A; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="#" onclick="history.back();return false;">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 3</div>
+    <h1 class="header-title">Riesgo de Tasa de Interés I:<br>Duración y Convexidad</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Riesgo de Tasa de Interés y Retorno</span>
+      <span class="pill">02 Medidas de Duración Basadas en Yield</span>
+      <span class="pill">03 Convexidad y Propiedades del Portafolio</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · RIESGO DE TASA DE INTERÉS Y RETORNO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Riesgo de Tasa de Interés y Retorno</h2>
+    <p>Fuentes de retorno · Horizonte de inversión (HPR) · Duración de Macaulay como horizonte de inmunización</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 FUENTES DE RETORNO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Fuentes de Retorno en una Inversión de Renta Fija</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3" style="margin-bottom:14px">
+      <div class="concept-card">
+        <div class="cc-label">① Pagos de Cupón y Principal</div>
+        <div class="cc-def">Flujos contractuales periódicos del cupón y reembolso del valor nominal al vencimiento. <strong>Flujos garantizados</strong> (sin riesgo de crédito).</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">② Intereses sobre Cupones Reinvertidos</div>
+        <div class="cc-def">Cupones recibidos se reinvierten generando intereses adicionales durante el período de tenencia. <strong>Depende de la tasa de reinversión.</strong></div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">③ Ganancia o Pérdida de Capital</div>
+        <div class="cc-def">Diferencia entre el precio de venta (o valor nominal) y el precio de compra del bono. <strong>Solo si se vende antes de vencimiento.</strong></div>
+      </div>
+    </div>
+
+    <div class="rule-callout gold">
+      <strong>Supuestos del análisis:</strong> (1) Sin riesgo de crédito — el bono realiza todos los pagos prometidos. (2) Tasa de reinversión igual al YTM — los cupones se reinvierten exactamente al YTM original.
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div class="grid-2">
+      <!-- Reinversión de Cupones -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ingresos por Cupón y Reinversión</div>
+        <div class="formula-box">
+          <div class="f-label">Cupón Periódico</div>
+          <div class="f-eq">$$\text{Cupón} = \frac{\text{Tasa Cupón} \times \text{VN}}{\text{Periodicidad}}$$</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Valor Futuro de Cupones Reinvertidos</div>
+          <div class="f-eq">$$FV = PMT \times \frac{(1+r)^n - 1}{r}$$</div>
+          <div class="f-vars"><span>r</span> = tasa de reinversión (YTM) &nbsp;|&nbsp; <span>n</span> = número total de períodos</div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono 6% anual, 3 años, YTM 7%, Precio 97.376</div>
+          <div class="ex-body">
+            Reinversión Cupón 1: 6 × (1.07)² = 6.869<br>
+            Reinversión Cupón 2: 6 × (1.07)¹ = 6.420<br>
+            Cupón 3 (sin reinvertir):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.000<br>
+            <strong>Total cupones + reinversión: $19.289</strong><br>
+            Interés sobre reinversión: $1.289
+          </div>
+        </div>
+      </div>
+      <!-- Ganancia / Pérdida Capital -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ganancia o Pérdida de Capital</div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Carrying Value (Valor en Libros)</div>
+          <div class="cc-def">Valor del bono calculado con el <strong>YTM original</strong> de compra. Converge al valor nominal al vencimiento. Diferente del market value si el YTM cambia.<br><br>
+            $$CV = \sum \frac{C_t}{(1+YTM)^t} + \frac{VN}{(1+YTM)^n}$$
+          </div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Capital Gain</div>
+            <div class="cmp-rule">Precio Venta &gt; Carrying Value</div>
+            <p>El bono se vendió a precio mayor que su trayectoria de yield constante.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Capital Loss</div>
+            <div class="cmp-rule">Precio Venta &lt; Carrying Value</div>
+            <p>El bono se vendió a precio menor que su valor en libros.</p>
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono 20 años, cupón 5% semestral, YTM 6%, vendido después de 5 años a 91.40</div>
+          <div class="ex-body">
+            N=30, I/Y=3, PMT=2.5, FV=100 → CV = <strong>90.20</strong><br>
+            Precio Venta: 91.40 &gt; CV: 90.20<br>
+          </div>
+          <div class="ex-result">Capital Gain = $1.20 por cada $100 VN ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Riesgo de Precio vs Reinversión -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">1.1.3 Riesgo de Precio vs. Riesgo de Reinversión — La Compensación Central</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Riesgo de Precio</div>
+        <div class="cmp-rule">Afecta: horizonte corto</div>
+        <p>↑ YTM → ↓ Precio (relación inversa). Mayor para bonos con mayor duration. El inversor pierde si vende antes del vencimiento con tasas altas.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">La Compensación</div>
+        <div class="cmp-rule">Los dos riesgos se oponen</div>
+        <p>↑ YTM: precio baja <em>pero</em> reinversión sube.<br>↓ YTM: precio sube <em>pero</em> reinversión baja.<br><strong>Se cancelan en un horizonte específico.</strong></p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Riesgo de Reinversión</div>
+        <div class="cmp-rule">Afecta: horizonte largo</div>
+        <p>↑ YTM → ↑ Ingresos (relación directa). Mayor para bonos con mayor tasa cupón. Los bonos cupón cero <strong>no tienen</strong> riesgo de reinversión.</p>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- 5 resultados clave -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Cinco Resultados Clave sobre Retorno de Bonos</div>
+    <table class="ref-table">
+      <thead><tr><th>#</th><th>Escenario</th><th>Resultado</th><th>Intuición</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>YTM constante, mantenido a vencimiento</td><td>Retorno = YTM original</td><td>Sin cambios en tasas, todo se desarrolla según lo planeado</td></tr>
+        <tr><td><strong>2</strong></td><td>YTM constante, vendido antes del vencimiento</td><td>Retorno = YTM original</td><td>El carrying value refleja la trayectoria de yield constante</td></tr>
+        <tr><td><strong>3</strong></td><td>YTM ↑, mantenido a vencimiento</td><td>Retorno &gt; YTM original</td><td>Mayor reinversión compensa. No hay price risk</td></tr>
+        <tr><td><strong>4</strong></td><td>YTM ↑, horizonte corto</td><td>Retorno &lt; YTM original</td><td>Price risk domina; el precio de venta es menor</td></tr>
+        <tr><td><strong>5</strong></td><td>YTM ↓, horizonte largo</td><td>Retorno &lt; YTM original</td><td>Reinvestment risk domina; menos intereses por reinversión</td></tr>
+      </tbody>
+    </table>
+    <div class="footnote">Observación: En todos los casos donde el YTM cambia, el retorno realizado está entre el YTM original y la nueva tasa de reinversión: min(YTM₀, YTM₁) &lt; Retorno &lt; max(YTM₀, YTM₁).</div>
+  </div>
+</div>
+
+<!-- 1.2 HORIZONTE DE INVERSIÓN Y HPR -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Horizonte de Inversión y Horizon Yield (HPR)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula del Horizon Yield (HPR)</div>
+          <div class="f-eq">$$HPR = \left(\frac{\text{Valor Final}}{\text{Precio Compra}}\right)^{1/n} - 1$$</div>
+          <div class="f-vars">
+            <span>n</span> = número de años del horizonte de inversión<br>
+            <span>Valor Final</span> = Cupones + Intereses Reinversión + Precio Venta/Principal
+          </div>
+        </div>
+        <div class="concept-card accent-navy" style="margin-top:10px">
+          <div class="cc-label">Interpretación</div>
+          <div class="cc-def">
+            <strong>Horizonte corto</strong> → Price Risk domina → si YTM ↑, precio venta cae → HPR &lt; YTM<br><br>
+            <strong>Horizonte largo</strong> → Reinvestment Risk domina → si YTM ↑, más reinversión → HPR &gt; YTM
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- Ejemplos numéricos con YTM cambiante -->
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplos: Bono 6% anual, 3 años, YTM₀=7%, Precio=97.376</div>
+        <table class="ref-table">
+          <thead><tr><th>Escenario</th><th>Tipo</th><th>HPR</th><th>vs YTM original</th></tr></thead>
+          <tbody>
+            <tr><td>YTM constante 7%</td><td>A vencimiento (3 años)</td><td class="mono"><strong>7.00%</strong></td><td>= YTM ✓</td></tr>
+            <tr><td>YTM constante 7%</td><td>Venta anticipada (2 años)</td><td class="mono"><strong>7.00%</strong></td><td>= YTM ✓</td></tr>
+            <tr><td>YTM sube a 8%</td><td>A vencimiento (3 años)</td><td class="mono"><strong>7.06%</strong></td><td>&gt; YTM ↑ reinversión</td></tr>
+            <tr><td>YTM baja a 6%</td><td>A vencimiento (3 años)</td><td class="mono"><strong>6.94%</strong></td><td>&lt; YTM ↓ reinversión</td></tr>
+            <tr><td>YTM sube a 8%</td><td>Venta anticipada (1 año)</td><td class="mono"><strong>5.19%</strong></td><td>&lt; YTM ↓ precio venta</td></tr>
+            <tr><td>YTM baja a 6%</td><td>Venta anticipada (1 año)</td><td class="mono"><strong>8.86%</strong></td><td>&gt; YTM ↑ precio venta</td></tr>
+          </tbody>
+        </table>
+        <div class="footnote">Venta anticipada a 1 año: se recibe solo el cupón 1, el HPR = (Cupón + Precio Venta) / Precio Compra − 1. No hay reinversión significativa: price risk domina.</div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">1.2.2 YTM como Estimador de Retorno: Supuestos y Limitaciones</div>
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Supuestos implícitos del YTM</div>
+        <div class="cc-def">① Todos los pagos se realizan puntualmente<br>② El bono se mantiene hasta el vencimiento<br>③ Todos los cupones se reinvierten exactamente al YTM</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Limitaciones prácticas</div>
+        <div class="cc-def">① Tasas de reinversión fluctúan en la práctica<br>② Muchos inversores venden antes del vencimiento<br>③ Riesgo de crédito: el emisor puede hacer default</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">¿Cuándo es buena aproximación?</div>
+        <div class="cc-def"><strong>Buena:</strong> bonos zero-coupon, horizonte = Macaulay duration, tasas estables.<br><strong>Mala:</strong> cambios grandes en tasas, bonos con alta tasa cupón, horizontes extremos.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 MACAULAY DURATION COMO HORIZONTE DE INMUNIZACIÓN -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Duración de Macaulay como Horizonte de Inmunización</span>
+  </div>
+  <div class="section-body">
+    <div class="rule-callout gold">
+      <strong>Pregunta clave:</strong> ¿Existe un horizonte de inversión donde el price risk y el reinvestment risk se compensan <em>exactamente</em>, de modo que el retorno realizado sea igual al YTM original sin importar cómo cambien las tasas? <strong>La respuesta es SÍ</strong>, y ese horizonte es la <strong>Macaulay Duration</strong>.
+    </div>
+
+    <div class="grid-2" style="margin-top:14px">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Definición y Cálculo — Macaulay Duration</div>
+          <div class="f-eq">$$MacDur = \sum_{t} t \times \frac{PV_t}{P}$$</div>
+          <div class="f-vars">
+            <span>t</span> = tiempo hasta el flujo (en años) &nbsp;|&nbsp; <span>PV_t</span> = VP del flujo en t &nbsp;|&nbsp; <span>P</span> = precio del bono<br>
+            donde: $PV_t = \dfrac{Flujo_t}{(1+YTM)^t}$ &nbsp;|&nbsp; Peso: $w_t = \dfrac{PV_t}{P}$
+          </div>
+        </div>
+        <div class="concept-card accent-navy" style="margin-top:10px">
+          <div class="cc-label">Interpretación</div>
+          <div class="cc-def">
+            • Tiempo promedio ponderado hasta el reembolso.<br>
+            • Los flujos más grandes tienen más peso.<br>
+            • <strong>Siempre menor que el plazo al vencimiento</strong>, excepto para bonos zero-coupon (donde son iguales).<br>
+            • Punto de equilibrio perfecto entre price risk y reinvestment risk.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplo — Bono 11% anual, 5 años, YTM 15%, Precio 86.59</div>
+        <table class="ref-table">
+          <thead><tr><th>Año (t)</th><th>Flujo</th><th>PV/(1.15)ᵗ</th><th>Peso (w)</th><th>t × w</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>$11.00</td><td>$9.565</td><td>0.1105</td><td>0.1105</td></tr>
+            <tr><td>2</td><td>$11.00</td><td>$8.318</td><td>0.0961</td><td>0.1922</td></tr>
+            <tr><td>3</td><td>$11.00</td><td>$7.233</td><td>0.0835</td><td>0.2505</td></tr>
+            <tr><td>4</td><td>$11.00</td><td>$6.290</td><td>0.0726</td><td>0.2904</td></tr>
+            <tr><td>5</td><td>$111.00</td><td>$55.184</td><td>0.6373</td><td>3.1865</td></tr>
+            <tr style="background:var(--pale)"><td colspan="4"><strong>MacDur = Σ(t × w)</strong></td><td><strong>4.03 años</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Verificación de Inmunización — Horizonte = 4 años</div>
+          <div class="ex-body">
+            Escenario a) YTM baja a 14%: Precio venta=97.368, FV cupones=54.133<br>
+            Valor Final = 151.501 → <strong>HPR = 15.00%</strong><br><br>
+            Escenario b) YTM sube a 16%: Precio venta=95.690, FV cupones=55.731<br>
+            Valor Final = 151.421 → <strong>HPR = 15.00%</strong>
+          </div>
+          <div class="ex-result">¡Inmunización exitosa! Retorno = YTM original (15%) en ambos escenarios ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Relación Horizonte-Duration -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">1.3.2 Relación entre Horizonte, Macaulay Duration y Retorno Realizado</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell down">
+        <div class="cmp-head">Horizonte &lt; Duration</div>
+        <div class="cmp-rule">Price Risk &gt; Reinvestment Risk</div>
+        <p>Si YTM ↑: Retorno &lt; YTM original<br>Si YTM ↓: Retorno &gt; YTM original</p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Horizonte = Duration</div>
+        <div class="cmp-rule">INMUNIZACIÓN ✓</div>
+        <p>Retorno = YTM original<br>independientemente del cambio en tasas.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Horizonte &gt; Duration</div>
+        <div class="cmp-rule">Reinvestment Risk &gt; Price Risk</div>
+        <p>Si YTM ↑: Retorno &gt; YTM original<br>Si YTM ↓: Retorno &lt; YTM original</p>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Duration Gap -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Duration Gap y su Interpretación</div>
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Duration Gap</div>
+          <div class="f-eq">$$\text{Duration Gap} = MacDur - \text{Investment Horizon}$$</div>
+          <div class="f-vars">
+            Gap &gt; 0: exposición al price risk si tasas suben.<br>
+            Gap = 0: inmunizado. Retorno = YTM original.<br>
+            Gap &lt; 0: exposición al reinvestment risk si tasas bajan.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card">
+          <div class="cc-label">Aplicación Práctica del Duration Gap</div>
+          <div class="cc-def">
+            <span class="gap-badge gap-pos">Gap &gt; 0 (Positivo)</span> Alcista: se beneficia si tasas bajan. Para inmunizar: alargar el horizonte o acortar la duration.<br><br>
+            <span class="gap-badge gap-zero">Gap = 0</span> Inmunizado: retorno garantizado = YTM inicial sin importar el movimiento de tasas.<br><br>
+            <span class="gap-badge gap-neg">Gap &lt; 0 (Negativo)</span> Bajista: se beneficia si tasas suben. Para inmunizar: acortar el horizonte o alargar la duration.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · MEDIDAS DE DURACIÓN BASADAS EN YIELD
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Medidas de Duración Basadas en Yield y sus Propiedades</h2>
+    <p>Modified Duration · Approximate Modified Duration · Money Duration (Dollar Duration) · PVBP · Factores determinantes</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 MODIFIED DURATION -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Duración Modificada (Modified Duration)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">De Macaulay a Modified Duration</div>
+          <div class="f-eq">$$ModDur = \frac{MacDur}{1 + YTM} \quad \text{(bonos anuales)}$$</div>
+          <div class="f-vars">
+            Para bonos semestrales:<br>
+            $ModDur_{Semi} = \dfrac{MacDur_{Semi}}{1 + YTM/2}$ &nbsp;&nbsp; $ModDur_{Anual} = \dfrac{ModDur_{Semi}}{2}$
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Estimación del Cambio Porcentual de Precio</div>
+          <div class="f-eq">$$\Delta\%\text{Precio} \approx -ModDur \times \Delta YTM$$</div>
+          <div class="f-vars">
+            <span>ΔYTM</span> en decimal (ej: 0.01 para 100 bps) &nbsp;|&nbsp; signo negativo = relación inversa precio-yield.<br>
+            Interpretación: ModDur = D significa que si YTM cambia 1%, el precio cambia ≈ D% en dirección opuesta.
+          </div>
+        </div>
+        <div class="rule-callout">
+          <strong>Limitación:</strong> es una aproximación lineal de una relación no lineal (convexa). Funciona bien para cambios pequeños (&lt;100 bps). Para cambios grandes, la convexidad mejora la precisión → ver Módulo 03.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — MacDur=4.03, YTM=15%, Precio=86.59</div>
+          <div class="ex-body">
+            ModDur = 4.03 / (1 + 0.15) = 4.03 / 1.15 = <strong>3.50</strong><br><br>
+            Escenario: YTM ↑ 0.5% (ΔYTM = +0.005)<br>
+            Δ%Precio ≈ −3.50 × 0.005 = <strong>−1.75%</strong><br>
+            Precio estimado: 86.59 × (1 − 0.0175) = <strong>85.075</strong><br>
+            Precio real (N=5, I/Y=15.5, PMT=11, FV=100): <strong>85.092</strong><br>
+          </div>
+          <div class="ex-result">Diferencia: 0.017 (0.02%) — La aproximación es excelente ✓</div>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px">2.1.2 Approximate Modified Duration — Diferencias Finitas</div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula</div>
+          <div class="f-eq">$$ApproxModDur = \frac{V_- - V_+}{2 \times V_0 \times \Delta YTM}$$</div>
+          <div class="f-vars">
+            <span>V₋</span> = precio si YTM − ΔYTM &nbsp;|&nbsp; <span>V₊</span> = precio si YTM + ΔYTM &nbsp;|&nbsp; <span>V₀</span> = precio actual
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo (mismo bono, ΔYTM = ±0.5%)</div>
+          <div class="ex-body">
+            V₊ (YTM=15.5%): 85.092 &nbsp;|&nbsp; V₋ (YTM=14.5%): 88.127<br>
+            ApproxModDur = (88.127 − 85.092) / (2 × 86.59 × 0.005) = 3.035 / 0.8659 = <strong>3.505</strong>
+          </div>
+          <div class="ex-result">vs. ModDur directo = 3.50 — diferencia de solo 0.14% ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Money Duration y PVBP -->
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">2.1.3 Money Duration (Dollar Duration)</div>
+        <div class="formula-box">
+          <div class="f-label">Definición</div>
+          <div class="f-eq">$$\text{Money Duration} = ModDur \times \text{Full Price de la Posición}$$</div>
+          <div class="f-vars">
+            Por cada $100 VN: Money Dur = ModDur × Full Price (per 100)<br>
+            <span>Cambio en Valor:</span> ΔValor = −MoneyDur × ΔYTM
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo — VN $2,000,000, ModDur 7.42, Full Price 101.32, ΔYTM +25 bps</div>
+          <div class="ex-body">
+            MD (total) = 7.42 × $2,000,000 × 1.0132 = <strong>$15,035,888</strong><br>
+            MD (per $100) = 7.42 × 101.32 = <strong>$751.79</strong><br>
+            Impacto +25 bps: −$15,035,888 × 0.0025 = <strong>−$37,590</strong>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">2.1.4 Price Value of a Basis Point (PVBP)</div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula</div>
+          <div class="f-eq">$$PVBP = \frac{V_- - V_+}{2} \quad \text{(por \$100 VN)}$$</div>
+          <div class="f-vars">
+            Relación: PVBP = Money Duration × 0.0001 &nbsp;|&nbsp; (0.0001 = 1 bp en decimal)
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo — Bono 20 años, 6% anual, Precio 101.39, VN $1,000,000</div>
+          <div class="ex-body">
+            YTM = 5.88% | V₊ (YTM+1bp=5.89%) = 101.273 | V₋ (YTM−1bp=5.87%) = 101.507<br>
+            PVBP per $100 = (101.507 − 101.273) / 2 = <strong>0.117</strong><br>
+            Para $1,000,000 VN: 0.117 × $1,000,000 × 0.01 = <strong>$1,170 por cada bp</strong>
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Relación de escala:</strong> Modified Duration (cambio % por 1% = 100 bps) → Money Duration (cambio $ por 100 bps) → PVBP (cambio $ por 1 bp). PVBP = Money Duration / 10,000.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 FACTORES DETERMINANTES DE LA DURATION -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Factores Determinantes de la Duration</span>
+  </div>
+  <div class="section-body">
+    <table class="ref-table" style="margin-bottom:14px">
+      <thead><tr><th>Factor</th><th>Cambio</th><th>Efecto en Duration</th><th>Intuición</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Plazo al vencimiento</strong></td><td>Aumenta</td><td>Aumenta (generalmente)</td><td>Flujos más lejanos → mayor sensibilidad</td></tr>
+        <tr><td><strong>Tasa cupón</strong></td><td>Aumenta</td><td>Disminuye</td><td>Más valor recibido antes → menor peso en flujos tardíos</td></tr>
+        <tr><td><strong>Nivel de yield (YTM)</strong></td><td>Aumenta</td><td>Disminuye</td><td>Flujos lejanos se descuentan más → menor peso relativo</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">2.2.1 Plazo al Vencimiento</div>
+        <div class="cc-def">
+          A mayor plazo, mayor duration (generalmente). Excepciones: bonos con descuento a largo plazo (duration puede disminuir). Convergencia: la duration converge a <strong>(1+YTM)/YTM</strong> para perpetuidades.<br><br>
+          <strong>Comportamiento entre cupones:</strong> la MacDur disminuye gradualmente entre cupones y da un pequeño salto hacia arriba en cada fecha de pago (el tiempo al próximo cupón se reinicia).
+        </div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">2.2.2 Tasa Cupón</div>
+        <div class="cc-def">
+          A mayor tasa cupón, menor duration. Intuición: más cupones = más flujos tempranos = mayor peso en períodos cortos.<br><br>
+          <strong>Zero-coupon bond:</strong> MacDur = Plazo al vencimiento (máxima posible para ese plazo).<br><br>
+          <strong>Floating Rate Notes (FRN):</strong> la MacDur ≈ tiempo hasta el próximo reset de cupón (ej: FRN semestral → duration ≈ 0.5 años).
+        </div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">2.2.3 Nivel de Yield</div>
+        <div class="cc-def">
+          A mayor yield, menor duration. A yields más altos, los flujos de efectivo lejanos tienen menos peso en el VP del bono.<br><br>
+          <strong>Implicación práctica:</strong><br>
+          Yield bajo → Duration alta → curva precio-yield con pendiente más empinada → mayor riesgo de precio.<br>
+          Yield alto → Duration baja → menor volatilidad de precios.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · CONVEXIDAD Y PROPIEDADES DEL PORTAFOLIO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Convexidad Basada en Yield y Propiedades del Portafolio</h2>
+    <p>Convexidad del bono · Estimación con duration + convexidad · Duration y convexidad de portafolio</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 CONVEXIDAD DEL BONO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Convexidad de un Bono</span>
+  </div>
+  <div class="section-body">
+    <div class="rule-callout">
+      La Modified Duration es una aproximación <strong>lineal</strong> de la relación precio-yield. La relación real es <strong>convexa (curva)</strong>. La convexidad mide esta curvatura y permite estimaciones más precisas. Duration sola: subestima el precio cuando yield ↓ y sobrestima la pérdida cuando yield ↑.
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">3.1.1 Convexidad por Flujo de Efectivo</div>
+          <div class="f-eq">$$Convexity(t) = \frac{t \times (t+1)}{(1+r)^2}$$</div>
+          <div class="f-vars">donde <span>r</span> = yield periódico (YTM/periodicidad)</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Convexidad del Bono</div>
+          <div class="f-eq">$$Convexity = \sum_t w_t \times Convexity(t)$$</div>
+          <div class="f-vars">donde <span>w_t</span> = PV del flujo t / Precio del bono</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Convexidad Aproximada (Diferencias Finitas)</div>
+          <div class="f-eq">$$ApproxConv = \frac{V_+ + V_- - 2V_0}{V_0 \times (\Delta YTM)^2}$$</div>
+          <div class="f-vars">
+            <span>V₊</span> = precio con YTM+ΔYTM &nbsp;|&nbsp; <span>V₋</span> = precio con YTM−ΔYTM &nbsp;|&nbsp; <span>V₀</span> = precio actual<br>
+            <strong>Anualización:</strong> Conv. Anual = Conv. Periódica / (periodicidad)² → Semestral: ÷4; Trimestral: ÷16
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplo — Bono 11% anual, 5 años, YTM 15%, Precio 86.59</div>
+        <table class="ref-table">
+          <thead><tr><th>Año (t)</th><th>PV</th><th>Peso (w)</th><th>t(t+1)/(1.15)²</th><th>w×Conv(t)</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>9.565</td><td>0.1105</td><td>1.512</td><td>0.167</td></tr>
+            <tr><td>2</td><td>8.318</td><td>0.0961</td><td>4.537</td><td>0.436</td></tr>
+            <tr><td>3</td><td>7.233</td><td>0.0835</td><td>9.074</td><td>0.758</td></tr>
+            <tr><td>4</td><td>6.290</td><td>0.0726</td><td>15.123</td><td>1.098</td></tr>
+            <tr><td>5</td><td>55.184</td><td>0.6373</td><td>22.684</td><td>14.456</td></tr>
+            <tr style="background:var(--pale)"><td colspan="4"><strong>Convexity = Σ(w × Conv)</strong></td><td><strong>16.915</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Verificación con Approx. Convexity (ΔYTM = ±0.5%)</div>
+          <div class="ex-body">
+            V₊ = 85.09217 &nbsp;|&nbsp; V₋ = 88.12721 &nbsp;|&nbsp; V₀ = 86.59138<br>
+            Numerador: 85.09217 + 88.12721 − 2(86.59138) = 0.03662<br>
+            Denominador: 86.59138 × (0.005)² = 0.002165<br>
+            ApproxConv = 0.03662 / 0.002165 = <strong>16.91</strong>
+          </div>
+          <div class="ex-result">vs. Convexity exacta = 16.915 — diferencia 0.03% ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Convexidad Positiva vs Negativa -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">3.1.2 Convexidad Positiva vs. Negativa</div>
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Convexidad Positiva — Bonos Straight (sin opciones)</div>
+        <div class="cmp-rule">Curva precio-yield convexa hacia arriba (∪)</div>
+        <p>• Ganancias de precio aceleradas cuando yields bajan<br>
+           • Pérdidas de precio desaceleradas cuando yields suben<br>
+           • El ajuste por convexidad es <strong>siempre positivo</strong> → beneficia al inversor en ambos escenarios.<br>
+           • Inversores pagan una prima (menor yield) por alta convexidad.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Convexidad Negativa — Callable Bonds, MBS</div>
+        <div class="cmp-rule">Curva precio-yield convexa hacia abajo (∩)</div>
+        <p>• Ganancias de precio limitadas cuando yields bajan (el emisor ejerce el call)<br>
+           • Pérdidas de precio aceleradas cuando yields suben<br>
+           • <strong>Causa:</strong> cuando tasas bajan, el emisor puede recomprar el bono (call)<br>
+           • Bonos con Conv. negativa ofrecen mayor yield para compensar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 ESTIMACIÓN DEL CAMBIO DE PRECIO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Estimación del Cambio de Precio con Duration y Convexidad</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">3.2.1 Fórmula Combinada — Duration + Convexidad</div>
+          <div class="f-eq">$$\Delta\%P \approx \underbrace{-ModDur \times \Delta YTM}_{\text{Término Duration}} + \underbrace{\tfrac{1}{2} \times Convexity \times (\Delta YTM)^2}_{\text{Término Convexidad}}$$</div>
+          <div class="f-vars">
+            Término Duration: efecto de primer orden, lineal, negativo para ↑ yield.<br>
+            Término Convexidad: efecto de segundo orden, cuadrático, <span>siempre positivo</span> (para convexidad positiva).<br>
+            → Cuando yield ↓: ambos términos son positivos (++) → precio sube más de lo que predice sola la duration.<br>
+            → Cuando yield ↑: término duration es negativo (−), término convexidad es positivo (+) → pérdida menor.
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Money Duration y Money Convexity</div>
+          <div class="f-eq">$$\Delta Valor \approx (-MoneyDur \times \Delta YTM) + (\tfrac{1}{2} \times MoneyConv \times \Delta YTM^2)$$</div>
+          <div class="f-vars">
+            <span>MoneyConv</span> = Annual Convexity × Full Price de la posición
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo % — ModDur=3.50, Convexity=16.9, ΔYTM=−0.5%, Precio=86.59138</div>
+          <div class="ex-body">
+            Efecto Duration: −3.50 × (−0.005) = <strong>+1.75%</strong><br>
+            Efecto Convexidad: ½ × 16.9 × (0.005)² = <strong>+0.0211%</strong><br>
+            Cambio Total: +1.75% + 0.0211% = <strong>+1.7711%</strong><br>
+            Precio estimado: 86.59138 × 1.017711 = <strong>88.125</strong><br>
+            Precio real (V₋ directo): <strong>88.127</strong>
+          </div>
+          <div class="ex-result">Diferencia mínima → Duration + Convexidad mejora significativamente la estimación ✓</div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo $ — VN $10,000,000, mismo bono, ΔYTM=−0.5%</div>
+          <div class="ex-body">
+            Valor Mercado = $10M × 0.8659138 = <strong>$8,659,138</strong><br>
+            MoneyDur = 3.50 × $8,659,138 = $30,306,983<br>
+            MoneyConv = 16.9 × $8,659,138 = $146,339,432<br>
+            Efecto Duration: −$30,306,983 × (−0.005) = <strong>+$151,534.92</strong><br>
+            Efecto Convexidad: ½ × $146,339,432 × 0.000025 = <strong>+$1,829.25</strong><br>
+            ΔValor total = <strong>+$153,364.17</strong>
+          </div>
+          <div class="ex-result">Nuevo Valor Estimado: $8,659,138 + $153,364 = $8,812,502 ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Precisión del modelo -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">3.2.2 Precisión del Modelo vs. Tamaño del Cambio en Yield</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Cambios Pequeños — &lt;50 bps</div>
+        <div class="cmp-rule">Duration sola es suficiente</div>
+        <p>El error de linealización es mínimo.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">Cambios Moderados — 50–100 bps</div>
+        <div class="cmp-rule">Duration + Convexidad recomendado</div>
+        <p>El término convexidad empieza a ser relevante.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Cambios Grandes — &gt;100 bps</div>
+        <div class="cmp-rule">Duration + Convexidad esencial</div>
+        <p>El error sin convexidad puede ser significativo.</p>
+      </div>
+    </div>
+    <div class="rule-callout" style="margin-top:10px">
+      <strong>Limitaciones del modelo:</strong> (1) Aproximación de segundo orden — para cambios muy grandes se necesitan términos de orden superior. (2) Asume cambios paralelos en la curva. (3) La convexidad cambia con el yield, pero el modelo la trata como constante. El modelo es más preciso para bonos straight con convexidad positiva.
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 DURATION Y CONVEXIDAD DE PORTAFOLIO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.3</span>
+    <span class="section-title">Duration y Convexidad de un Portafolio</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">3.3.1 Duration del Portafolio (Promedio Ponderado)</div>
+          <div class="f-eq">$$D_p = \sum_{i=1}^{n} w_i \times D_i$$</div>
+          <div class="f-vars">
+            <span>wᵢ</span> = Valor de mercado del bono i / Valor total del portafolio<br>
+            <span>Dᵢ</span> = Modified Duration del bono i &nbsp;|&nbsp; Uso: Δ%Portafolio ≈ −Dp × ΔYTM
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">3.3.2 Convexidad del Portafolio (Promedio Ponderado)</div>
+          <div class="f-eq">$$Cx_p = \sum_{i=1}^{n} w_i \times Cx_i$$</div>
+          <div class="f-vars">
+            <span>Cxᵢ</span> = Convexidad del bono i &nbsp;|&nbsp;
+            Uso: Δ% ≈ (−Dp × ΔYTM) + (½ × Cxp × ΔYTM²)
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Supuesto crítico (Parallel Shift):</strong> ambos enfoques asumen que el YTM de cada bono en el portafolio cambia por la <em>misma cantidad</em>. Solo bajo este supuesto de cambio paralelo en la curva, la duration y convexidad del portafolio producen el cambio porcentual correcto en el valor del portafolio.
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplo de Cálculo</div>
+        <table class="ref-table" style="margin-bottom:10px">
+          <thead><tr><th>Bono</th><th>Valor Mercado</th><th>Peso (w)</th><th>Duration</th><th>Contribución</th></tr></thead>
+          <tbody>
+            <tr><td>Bono A</td><td>$3,000,000</td><td>0.30</td><td>5.0</td><td>1.50</td></tr>
+            <tr><td>Bono B</td><td>$5,000,000</td><td>0.50</td><td>3.0</td><td>1.50</td></tr>
+            <tr><td>Bono C</td><td>$2,000,000</td><td>0.20</td><td>7.0</td><td>1.40</td></tr>
+            <tr style="background:var(--pale)"><td colspan="4"><strong>Portfolio Duration</strong></td><td><strong>4.40</strong></td></tr>
+          </tbody>
+        </table>
+        <table class="ref-table">
+          <thead><tr><th>Bono</th><th>Peso (w)</th><th>Convexidad</th><th>Contribución</th></tr></thead>
+          <tbody>
+            <tr><td>Bono A</td><td>0.30</td><td>25.0</td><td>7.50</td></tr>
+            <tr><td>Bono B</td><td>0.50</td><td>12.0</td><td>6.00</td></tr>
+            <tr><td>Bono C</td><td>0.20</td><td>40.0</td><td>8.00</td></tr>
+            <tr style="background:var(--pale)"><td colspan="3"><strong>Portfolio Convexity</strong></td><td><strong>21.50</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Aplicación: impacto si YTM ↑ 1%</div>
+          <div class="ex-body">
+            Δ% ≈ −4.40% + ½ × 21.50 × (0.01)² = −4.40% + 0.1075% = <strong>−4.29%</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <!-- Limitaciones -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">3.3.3 Limitaciones — Cambios No Paralelos en la Curva</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell down">
+        <div class="cmp-head">Steepening</div>
+        <div class="cmp-rule">Yields largo plazo ↑ más que corto plazo</div>
+        <p>Portafolios con sesgo a largo plazo sobreestiman sus pérdidas si se usa solo duration paralela.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Flattening</div>
+        <div class="cmp-rule">Yields largo plazo ↑ menos que corto plazo</div>
+        <p>La duration del portafolio no captura la redistribución de riesgo entre vencimientos.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Twist</div>
+        <div class="cmp-rule">Algunos vencimientos en dirección opuesta</div>
+        <p>La duration/convexidad promedio puede ocultar exposiciones opuestas dentro del portafolio.</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:12px">
+      <div class="concept-card accent-navy">
+        <div class="cc-label">Solución 1 — Key Rate Durations</div>
+        <div class="cc-def">Calcula la sensibilidad del portafolio a cambios en yields específicos a lo largo de la curva (ej: 2yr, 5yr, 10yr, 30yr). Captura exposición a cambios de forma.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Solución 2 — Análisis de Escenarios</div>
+        <div class="cc-def">Evalúa el impacto de diferentes escenarios de cambios en la curva: steepening, flattening, bull/bear, twist. Complementa las métricas de duration.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Solución 3 — Diversificación de Vencimientos</div>
+        <div class="cc-def">Construir portafolios con exposición a diferentes vencimientos (ladder, barbell) para reducir el riesgo de cambios de forma en la curva.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESUMEN FINAL DE FÓRMULAS ══ -->
+<div class="section-block" style="margin-top:28px">
+  <div class="section-header" style="background:var(--navy);border-bottom-color:var(--accent)">
+    <span class="section-num" style="background:var(--navy);color:var(--accent);border-color:var(--accent)">REF</span>
+    <span class="section-title" style="color:white">Índice Rápido de Fórmulas Clave · Semana 3</span>
+  </div>
+  <div class="section-body" style="padding:14px 20px">
+    <div class="grid-3">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Módulo 01 · Retorno y Macaulay</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">HPR = (Valor Final / P₀)^(1/n) − 1</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">FV cupones = PMT × [(1+r)ⁿ−1] / r</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">MacDur = Σ [t × PVt / P]</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Duration Gap = MacDur − Horizonte</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Perpetuidad: MacDur = (1+YTM)/YTM</code>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Módulo 02 · Modified Duration y PVBP</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">ModDur = MacDur / (1 + YTM)</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Δ%P ≈ −ModDur × ΔYTM</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">ApproxModDur = (V₋−V₊) / (2·V₀·ΔYTM)</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">MoneyDur = ModDur × Full Price posición</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">PVBP = (V₋−V₊)/2 | = MoneyDur×0.0001</code>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Módulo 03 · Convexidad y Portafolio</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">ApproxConv = (V₊+V₋−2V₀) / (V₀·ΔYTM²)</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Δ%P ≈ −ModDur·ΔYTM + ½·Conv·(ΔYTM)²</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">ConvAnual = ConvPeríodo / periodicidad²</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">Dp = Σ wᵢ · Dᵢ | Cxp = Σ wᵢ · Cxᵢ</code>
+          <code style="font-size:11px;color:var(--text);background:var(--off);padding:3px 8px;border-radius:4px">FRN: MacDur ≈ tiempo al próximo reset</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

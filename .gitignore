@@ -1,0 +1,7 @@
+# Carpetas
+backup/
+
+# Archivos
+#*.log
+#*.tmp
+#.DS_Store

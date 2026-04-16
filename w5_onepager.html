@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · ESTRUCTURA TEMPORAL DE TASAS DE INTERÉS</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; overflow:hidden; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.grid-5 { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4,.grid-5 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4,.grid-5 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-5 { grid-template-columns:repeat(5,1fr); }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.kn-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:12px 0; }
+.kn-box { background:var(--pale); border-radius:8px; padding:14px 12px; text-align:center; border-top:3px solid var(--corp); }
+.kn-box.gold { border-top-color:var(--accent); }
+.kn-box.mid  { border-top-color:var(--mid); }
+.kn-box.green { border-top-color:#16A34A; }
+.kn-box.red   { border-top-color:#DC2626; }
+.kn-num  { font-size:22px; font-weight:700; color:var(--navy); line-height:1; }
+.kn-label { font-size:10px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.8px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.chart-wrap { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px; margin:10px 0; }
+.chart-wrap .chart-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+
+.theory-card { background:var(--off); border-radius:8px; padding:14px 16px; border-top:3px solid var(--corp); }
+.theory-card.t-gold { border-top-color:var(--accent); }
+.theory-card.t-mid  { border-top-color:var(--mid); }
+.theory-card.t-green { border-top-color:#16A34A; }
+.theory-card.t-red   { border-top-color:#DC2626; }
+.theory-card.t-purple { border-top-color:#7C3AED; }
+.t-name { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+.t-premise { font-size:12px; font-weight:600; color:var(--navy); margin-bottom:5px; }
+.t-body { font-size:11.5px; color:var(--muted); line-height:1.5; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 5</div>
+    <h1 class="header-title">Estructura Temporal de Tasas de Interés</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Spot, Forward &amp; Bootstrapping</span>
+      <span class="pill">02 Estrategias Activas</span>
+      <span class="pill">03 Benchmarks &amp; Spreads</span>
+      <span class="pill">04 Teorías ETTI</span>
+      <span class="pill">05 Riesgos de Curva</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · TASAS SPOT, FORWARD Y BOOTSTRAPPING
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Tasas Spot, Tasas Forward y Bootstrapping</h2>
+    <p>Discount factors · Par curve · Forward pricing model · Forward rate model</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Tasas Spot y Discount Factor -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Tasas Spot (Zero-Coupon Rates) y Discount Factor</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Tasa Spot (Zero Rate)</div>
+          <div class="cc-def">Tasa de interés anualizada del mercado para un <strong>pago único</strong> que se recibirá en el futuro. Equivale al YTM de un <strong>bono cupón cero</strong>. La spot curve (gráfica S<sub>T</sub> vs T) puede ser ascendente, descendente, plana o en "joroba".</div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Relaciones Fundamentales</div>
+          <div class="f-eq">$$P_T = \frac{1}{(1+S_T)^T} \qquad S_T = \left(\frac{1}{P_T}\right)^{1/T} - 1$$</div>
+          <div class="f-vars">
+            <span>P_T</span> = discount factor (precio hoy de $1 a recibir en T) &nbsp;|&nbsp;
+            <span>S_T</span> = tasa spot para vencimiento T
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">YTM vs. Tasas Spot</div>
+        <div class="concept-card accent-gold" style="margin-bottom:10px">
+          <div class="cc-label gold">YTM como Promedio Ponderado</div>
+          <div class="cc-def">El YTM de un bono con cupón es un <strong>promedio ponderado</strong> de las tasas spot de sus flujos. Si la curva spot es <strong>plana</strong>: YTM = S<sub>T</sub>. Si es <strong>ascendente</strong>: S₁ &lt; YTM &lt; S<sub>T</sub>. El YTM está más cercano a S<sub>T</sub> porque el valor nominal domina.</div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejercicio — Bono 3Y, cupón 4%, S₁=5%, S₂=6%, S₃=7%</div>
+          <div class="ex-body">
+            P = 40/1.05 + 40/1.06² + 1040/1.07³ = 38.10 + 35.60 + 848.95 = <strong>$922.64</strong><br>
+            YTM: resolver 922.64 = 40/(1+y) + 40/(1+y)² + 1040/(1+y)³
+          </div>
+          <div class="ex-result">YTM = 6.94% &nbsp;→&nbsp; 5% (S₁) &lt; 6.94% (YTM) &lt; 7% (S₃) ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Condiciones para Expected Return = YTM</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Condición 1</div>
+        <div class="cmp-rule">Hold to Maturity</div>
+        <p>El bono se mantiene hasta vencimiento — no hay venta anticipada.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Condición 2</div>
+        <div class="cmp-rule">Sin Default</div>
+        <p>Todos los pagos de cupón y principal se realizan a tiempo y en su totalidad.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">Condición 3 (crítica)</div>
+        <div class="cmp-rule">Reinversión al YTM</div>
+        <p>Todos los cupones se reinvierten exactamente al YTM original — <strong>supuesto menos realista</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Tasas Forward -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Tasas Forward: Notación, Forward Pricing Model y Forward Rate Model</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Notación f(j,k)</div>
+          <div class="cc-def">
+            <strong>f(j,k)</strong> = tasa forward anualizada para un préstamo de <strong>k</strong> años que comienza dentro de <strong>j</strong> años.<br>
+            <strong>F(j,k)</strong> = precio a plazo de un ZCB de $1 que vence en j+k y se entrega en j.<br>
+            Ejemplos: f(1,1) = préstamo 1Y en 1Y · f(2,3) = préstamo 3Y en 2Y · f(0,T) = S<sub>T</sub>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Forward Pricing Model (libre de arbitraje)</div>
+          <div class="f-eq">$$P_{(j+k)} = P_j \times F(j,k) \quad\Rightarrow\quad F(j,k) = \frac{P_{j+k}}{P_j}$$</div>
+          <div class="f-vars">Dos estrategias que entregan $1 en j+k deben tener el mismo costo hoy.</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Forward Rate Model</div>
+          <div class="f-eq">$$[1+S_{j+k}]^{j+k} = [1+S_j]^j \cdot [1+f(j,k)]^k$$</div>
+          <div class="f-eq" style="margin-top:6px">$$f(j,k) = \left(\frac{(1+S_{j+k})^{j+k}}{(1+S_j)^j}\right)^{1/k} - 1$$</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Relación Geométrica Spot–Forward</div>
+        <div class="cmp-strip">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Curva Ascendente</div>
+            <div class="cmp-rule">Forward &gt; Spot</div>
+            <p>S<sub>j+k</sub> &gt; S<sub>j</sub> → f(j,k) &gt; S<sub>j+k</sub><br>La curva forward está <strong>por encima</strong> de la spot.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Curva Descendente</div>
+            <div class="cmp-rule">Forward &lt; Spot</div>
+            <p>S<sub>j+k</sub> &lt; S<sub>j</sub> → f(j,k) &lt; S<sub>j+k</sub><br>La curva forward está <strong>por debajo</strong> de la spot.</p>
+          </div>
+        </div>
+
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Ejercicio — Forward Pricing: S₂=4%, S₅=6%</div>
+          <div class="ex-body">
+            P₂ = 1/(1.04)² = 0.9246 &nbsp;|&nbsp; P₅ = 1/(1.06)⁵ = 0.7473<br>
+            F(2,3) = P₅/P₂ = 0.7473/0.9246 = <strong>$0.8082</strong>
+          </div>
+          <div class="ex-result">Precio acordado hoy para entregar en 2Y un ZCB que paga $1 en el año 5.</div>
+        </div>
+
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio — Forward Rate: S₂=4%, S₅=6% → f(2,3)</div>
+          <div class="ex-body">
+            f(2,3) = [(1.06)⁵/(1.04)²]^(1/3) − 1 = [1.3382/1.0816]^(1/3) − 1 = 1.2373^(1/3) − 1
+          </div>
+          <div class="ex-result">f(2,3) = 7.35% &gt; S₅=6% (curva ascendente → forward &gt; spot ✓)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Bootstrapping -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Par Curve y Bootstrapping de Tasas Spot</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Par Rate y Par Curve</div>
+          <div class="cc-def">La <strong>tasa par</strong> es el YTM de un bono que cotiza al par (precio = valor nominal). Por definición, la tasa par <strong>iguala al cupón</strong> del bono. Las tasas par para distintos vencimientos conforman la <strong>par curve</strong>.</div>
+        </div>
+        <div class="concept-card accent-mid">
+          <div class="cc-label mid">Bootstrapping</div>
+          <div class="cc-def">Proceso iterativo que <strong>deriva tasas spot</strong> a partir de la par curve. Usa el output de cada paso como input del siguiente:<br>
+            <strong>Paso 1:</strong> S₁ = par rate año 1<br>
+            <strong>Paso 2:</strong> despejar S₂ usando S₁<br>
+            <strong>Paso 3:</strong> despejar S₃ usando S₁ y S₂</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Fórmulas Bootstrapping (pagos anuales)</div>
+        <div class="formula-inline">
+          $$100 = \frac{C}{1+S_1} + \frac{100+C}{(1+S_2)^2}$$
+        </div>
+        <div class="formula-inline">
+          $$100 = \frac{C}{1+S_1} + \frac{C}{(1+S_2)^2} + \frac{100+C}{(1+S_3)^3}$$
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio — Par curve: año1=1%, año2=1.25%, año3=1.50%</div>
+          <div class="ex-body">
+            S₁ = 1.00% (directo) <br>
+            S₂: 100 = 1.25/1.01 + 101.25/(1+S₂)² → <strong>S₂ = 1.252%</strong><br>
+            S₃: 100 = 1.50/1.01 + 1.50/(1.01252)² + 101.50/(1+S₃)³ → <strong>S₃ = 1.505%</strong>
+          </div>
+          <div class="ex-result">Spot curve ligeramente por encima de la par curve (curva ascendente).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · ESTRATEGIAS ACTIVAS Y CURVA FORWARD
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Estrategias Activas y Curva Forward</h2>
+    <p>Evolución del precio forward · Rolling down the yield curve · Holding period returns</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Evolución del Precio Forward y Holding Period Returns</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="rule-callout gold">
+          <strong>Principio clave:</strong> Si las tasas spot futuras evolucionan <em>exactamente</em> como lo pronostica la curva forward actual, el precio forward permanecerá <strong>sin cambios</strong> y el HPR de cualquier bono igualará la <strong>tasa spot de 1 año</strong>.
+        </div>
+        <div class="cmp-strip" style="margin-top:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Tasas Spot &lt; Forward</div>
+            <div class="cmp-rule">Precio forward ↑</div>
+            <p>Bonos se valoran <em>más alto</em> de lo esperado. Trader compra el forward para beneficiarse.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Tasas Spot &gt; Forward</div>
+            <div class="cmp-rule">Precio forward ↓</div>
+            <p>Bonos se valoran <em>más bajo</em> de lo esperado. Trader vende el forward.</p>
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>Alpha:</strong> La gestión activa apuesta a que las tasas spot futuras <em>diferirán</em> de las predichas por la forward curve — generando retornos superiores (o inferiores) a la tasa libre de riesgo de 1 año.
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">HPR = S₁ = 3% cuando tasas spot = forward (Jane Dash)</div>
+        <table class="ref-table">
+          <thead><tr><th>Bono (ZCB)</th><th>Precio hoy</th><th>Precio en 1Y</th><th>HPR</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1 año</strong> (S₁=3%)</td><td>1/1.03 = 0.9709</td><td>Vence → $1.00</td><td><strong>3.00%</strong></td></tr>
+            <tr><td><strong>2 años</strong> (S₂=4%)</td><td>1/(1.04)² = 0.9246</td><td>1/1.0501 = 0.9523</td><td><strong>3.00%</strong></td></tr>
+            <tr><td><strong>3 años</strong> (S₃=5%)</td><td>1/(1.05)³ = 0.8638</td><td>1/(1.0601)² = 0.8898</td><td><strong>3.00%</strong></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;color:var(--muted);margin-top:6px">Los expected spot al año 1: f(1,1)=5.01% y f(1,2)=6.01% son exactamente las tasas forward implícitas en la curva actual.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Rolling Down the Yield Curve (Riding the Yield Curve)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-green" style="margin-bottom:10px">
+          <div class="cc-label green">Mecánica</div>
+          <div class="cc-def">Con curva <strong>ascendente estable</strong>, comprar bonos con <strong>vencimiento mayor</strong> al horizonte de inversión. A medida que el bono "rueda hacia abajo" la curva, se valora a yields <strong>sucesivamente menores</strong> → precios sucesivamente mayores → ganancia de capital adicional.</div>
+        </div>
+        <div class="formula-inline">
+          Retorno Total = Cupón + <strong>Ganancia de Capital por Rolling Down</strong>
+        </div>
+        <div class="rule-callout green" style="margin-top:8px">
+          <strong>Factores de mayor retorno:</strong> mayor diferencia entre tasa forward y spot, y mayor vencimiento del bono → mayor retorno adicional sobre el maturity matching.
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Condiciones Necesarias</div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">1. Curva ascendente</div>
+          <div class="cc-def">La curva spot debe tener pendiente positiva para asegurar yields sucesivamente menores al reducirse el vencimiento.</div>
+        </div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">2. Curva estable</div>
+          <div class="cc-def">La curva debe permanecer <strong>sin cambios</strong> durante el horizonte. Un alza en tasas elimina o revierte las ganancias de capital.</div>
+        </div>
+        <div class="concept-card accent-red">
+          <div class="cc-label red">Riesgo principal</div>
+          <div class="cc-def">Un <strong>aumento en las tasas spot</strong> destruye las ganancias de capital. Post-crisis 2007-08: muchos managers apalancados aprovecharon curvas steeply upward, pero asumieron este riesgo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div class="ex-box">
+      <div class="ex-title">Ejemplo conceptual — Bono cupón 3%, horizonte 5 años, curva ascendente estable</div>
+      <div class="ex-body">
+        <strong>Maturity Matching (5Y):</strong> Compra a $100 (par), redime a $100. Retorno Total = 3% (solo cupón).<br>
+        <strong>Rolling Down (30Y):</strong> Compra a $63.67 (yield 30Y) · Vende en 5Y a $71.81 (yield 25Y) · Gana 3% cupón + ganancia de capital.
+      </div>
+      <div class="ex-result">Ganancia de capital ≈ $8.14 (+12.8%) → Retorno Total &gt; 3% (rolling down supera al maturity matching).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · BENCHMARKS Y MEDIDAS DE SPREAD
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Benchmarks y Medidas de Spread</h2>
+    <p>Curva swap · Swap spread · I-spread · Z-spread · TED spread · MRR-OIS spread</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">La Curva Swap (Swap Rate Curve)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Swap Rate y Curva Swap</div>
+          <div class="cc-def">En un <strong>swap plain vanilla</strong>, una parte paga la <strong>swap rate fija</strong> (SFR) y la otra paga la tasa <strong>flotante MRR</strong> sobre un principal nocional. La curva swap es el gráfico de SFR vs. vencimiento.</div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Swap Fixed Rate (SFR)</div>
+          <div class="f-eq">$$SFR_T \cdot \sum_{t=1}^{T} P_t + P_T = 1 \quad\Rightarrow\quad SFR_T = \frac{1 - P_T}{\sum P_t}$$</div>
+          <div class="f-vars">El SFR es la tasa cupón de un bono de $1 de valor nominal dado la curva spot subyacente. <span>MRR</span> = Market Reference Rate (SOFR, SONIA, ESTR).</div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio — S₁=3%, S₂=4%, S₃=5%</div>
+          <div class="ex-body">SFR₁ = 3.00% · SFR₂ = 3.98% · SFR₃ = 4.93%</div>
+          <div class="ex-result">Curva swap por debajo de la spot (curva ascendente → SFR &lt; S_T).</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ventajas de la Curva Swap sobre Bonos Gubernamentales</div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">1. Riesgo de Crédito Relevante</div>
+          <div class="cc-def">Las swap rates reflejan riesgo de crédito de <strong>bancos comerciales (A1/A+)</strong> — más relevante para transacciones crediticias que el riesgo soberano.</div>
+        </div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">2. Comparabilidad Internacional</div>
+          <div class="cc-def">El mercado de swaps no está regulado por un gobierno; las swap rates en distintos países son <strong>más comparables</strong> entre sí que las curvas soberanas.</div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">3. Mayor Liquidez</div>
+          <div class="cc-def">La curva swap ofrece <strong>cotizaciones en muchos vencimientos</strong>; la curva Treasury solo en unos pocos vencimientos on-the-run. <em>Bancos wholesale → swap. Bancos retail → soberano.</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Medidas de Spread: Swap Spread, I-Spread, Z-Spread, TED y MRR-OIS</span>
+  </div>
+  <div class="section-body">
+    <table class="ref-table" style="margin-bottom:14px">
+      <thead>
+        <tr>
+          <th>Spread</th>
+          <th>Fórmula</th>
+          <th>Interpretación</th>
+          <th>Uso Principal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Swap Spread</strong></td>
+          <td class="mono">Swap Rate − T-Bond Yield</td>
+          <td>Prima de crédito bancario vs. soberano. <strong>Casi siempre positivo</strong>. Ej: 2.02%−1.61% = <strong>41 bps</strong>.</td>
+          <td>Benchmark de riesgo interbancario relativo a soberano</td>
+        </tr>
+        <tr>
+          <td><strong>I-Spread</strong></td>
+          <td class="mono">Yield bono − Swap Rate (mismo tenor)</td>
+          <td>Compensación por riesgo de <strong>crédito y liquidez</strong> del emisor. Si tenor no existe, <em>interpolar linealmente</em>.</td>
+          <td>Medir riesgo relativo de bonos corporativos vs. benchmark swap</td>
+        </tr>
+        <tr>
+          <td><strong>Z-Spread</strong></td>
+          <td class="mono">z: P = Σ CFₜ/(spot_t + z)^t</td>
+          <td>Spread <strong>constante sobre toda la curva spot</strong> que iguala VP de flujos al precio de mercado. No aplica a bonos con opciones (supuesto: volatilidad = 0).</td>
+          <td>Bonos corporativos sin opciones; más preciso que I-spread</td>
+        </tr>
+        <tr>
+          <td><strong>TED Spread</strong></td>
+          <td class="mono">MRR − T-bill rate (3M)</td>
+          <td>Indicador de <strong>riesgo sistémico bancario de corto plazo</strong>. TED creciente → bancos percibidos más riesgosos; T-bills más valiosos. Ej: 0.33%−0.03% = <strong>30 bps</strong>.</td>
+          <td>Barómetro de stress en el sistema bancario (corto plazo)</td>
+        </tr>
+        <tr>
+          <td><strong>MRR-OIS Spread</strong></td>
+          <td class="mono">MRR − OIS Rate</td>
+          <td>OIS refleja tasa overnight (≈ fed funds, riesgo mínimo). El spread captura <strong>riesgo de crédito interbancario</strong> a corto plazo. Antes: LIBOR-OIS.</td>
+          <td>Indicador de condiciones de liquidez y crédito interbancario</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ex-box">
+      <div class="ex-title">Ejercicio I-Spread — Bono Zinni Inc., cupón 6%, yield 2.35%, vencimiento 1.6 años</div>
+      <div class="ex-body">
+        Curva swap: 1Y=1.25%, 1.5Y=1.35%, 2Y=1.50%<br>
+        Interpolación: Swap<sub>1.6</sub> = 1.35 + 0.10×(1.50−1.35)/0.50 = <strong>1.38%</strong>
+      </div>
+      <div class="ex-result">I-Spread = 2.35% − 1.38% = <strong>97 bps</strong> (compensación por riesgo crédito + liquidez de Zinni).</div>
+    </div>
+
+    <div class="ex-box" style="margin-top:8px">
+      <div class="ex-title">Ejercicio Z-Spread — Bono ABC Inc. 3Y, cupón 5%, Z-spread=100bps; S₁=3%, f(1,1)=5.051%, f(2,1)=7.198%</div>
+      <div class="ex-body">
+        S₂ = [(1.03)(1.05051)]^(1/2) − 1 = 4.02% · S₃ = [(1.03)(1.05051)(1.07198)]^(1/3) − 1 = 5.07%<br>
+        P = 5/(1.03+0.01) + 5/(1.0402+0.01)² + 105/(1.0507+0.01)³
+      </div>
+      <div class="ex-result">Precio = $97.33</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · TEORÍAS DE LA ETTI
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Teorías de la Estructura Temporal de Tasas de Interés</h2>
+    <p>Expectativas · Liquidez · Mercados segmentados · Hábitat preferido</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Las Cinco Teorías: Comparativo</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3" style="margin-bottom:14px">
+      <div class="theory-card">
+        <div class="t-name" style="color:var(--corp)">Expectativas Puras (Unbiased)</div>
+        <div class="t-premise">Tasas forward = tasas spot futuras esperadas</div>
+        <div class="t-body">Los inversionistas son <strong>neutrales al riesgo</strong>. Todas las estrategias de vencimiento tienen el mismo retorno esperado. La forma de la curva refleja directamente las expectativas sobre tasas futuras. Las tasas largas = promedio de tasas cortas esperadas.</div>
+      </div>
+      <div class="theory-card t-mid">
+        <div class="t-name" style="color:var(--mid)">Expectativas Locales</div>
+        <div class="t-premise">Neutralidad al riesgo solo en el corto plazo</div>
+        <div class="t-body">Similar a Expectativas Puras, pero la neutralidad al riesgo aplica <strong>solo para períodos cortos</strong>. Sobre períodos largos, sí existen primas de riesgo. Todos los bonos deben ganar la tasa libre de riesgo en el corto plazo. <em>Evidencia empírica en contra.</em></div>
+      </div>
+      <div class="theory-card t-gold">
+        <div class="t-name" style="color:#B45309">Preferencia por Liquidez</div>
+        <div class="t-premise">Forward = E[spot futuro] + prima de liquidez</div>
+        <div class="t-body">Las tasas forward son <strong>estimaciones sesgadas</strong> (hacia arriba) de las tasas spot esperadas. La prima de liquidez es <strong>positiva y creciente con el vencimiento</strong>. Explica por qué la curva suele ser ascendente incluso con tasas esperadas constantes.</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="theory-card t-green">
+        <div class="t-name" style="color:#15803D">Mercados Segmentados</div>
+        <div class="t-premise">Cada vencimiento = mercado independiente</div>
+        <div class="t-body">Los yields en cada vencimiento son determinados por la <strong>oferta y demanda</strong> en ese segmento específico. Los participantes solo operan en su vencimiento preferido (impedimentos regulatorios/institucionales). <strong>Corto:</strong> bancos comerciales · <strong>Largo:</strong> pensiones y seguros. Los vencimientos son esencialmente no relacionados.</div>
+      </div>
+      <div class="theory-card t-purple">
+        <div class="t-name" style="color:#7C3AED">Hábitat Preferido</div>
+        <div class="t-premise">Prima según desbalance oferta-demanda por segmento</div>
+        <div class="t-body">Extensión de mercados segmentados. Las primas <strong>no están ordenadas por vencimiento</strong> — dependen de los desbalances específicos de cada segmento. Inversionistas pueden salir de su hábitat si la prima es suficiente. Puede explicar <strong>cualquier forma</strong> de curva. Es la teoría más flexible y completa.</div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Implicaciones según la Forma de la Curva</div>
+    <table class="ref-table">
+      <thead><tr><th>Forma de Curva</th><th>Exp. Puras</th><th>Pref. Liquidez</th><th>Hábitat Preferido</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ascendente</strong></td><td>Tasas cortas esperan subir (S₂&gt;S₁ → f(1,1)&gt;S₂)</td><td>Tasas pueden subir, estables, o incluso bajar ligeramente (la prima puede generar pendiente positiva)</td><td>Mayor demanda en largo plazo o menor prima en corto; cualquier escenario de tasas</td></tr>
+        <tr><td><strong>Descendente</strong></td><td>Tasas cortas esperan caer fuertemente</td><td>Caída esperada debe superar la prima de liquidez</td><td>Desbalance específico: exceso demanda largo / escasez oferta corto</td></tr>
+        <tr><td><strong>Plana</strong></td><td>Tasas esperan mantenerse constantes</td><td>Tasas esperan caer (la prima hace que parezca plana)</td><td>Desbalances se cancelan entre segmentos</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · RIESGOS DE LA CURVA Y FACTORES ECONÓMICOS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Riesgos de la Curva y Factores Económicos</h2>
+    <p>Effective Duration · Key Rate Duration · Modelo 3 Factores · Volatilidades · Macroeconomía</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1</span>
+    <span class="section-title">Medidas de Sensibilidad: Effective Duration, KRD y Modelo de 3 Factores</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Effective Duration (cambios paralelos)</div>
+          <div class="f-eq">$$D_{eff} = \frac{V_- - V_+}{2\,V_0\,\Delta y}$$</div>
+          <div class="f-vars">
+            <span>V₋</span> = precio si tasas bajan Δy · <span>V₊</span> = precio si tasas suben Δy · <span>V₀</span> = precio actual<br>
+            Limitación: no captura <strong>shaping risk</strong> (cambios no-paralelos).
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:8px">
+          <div class="f-label">Key Rate Duration (KRD_k)</div>
+          <div class="f-eq">$$KRD_k = \frac{V_-^{(k)} - V_+^{(k)}}{2\,V_0\,\Delta y_k} \qquad \sum_k KRD_k \approx D_{eff}$$</div>
+          <div class="f-vars">
+            Sensibilidad a cambios en <strong>un solo punto</strong> de la curva par (todos los demás constantes).<br>
+            <span>ΔP/P</span> ≈ −Σ KRDₖ · Δyₖ
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo de 3 Factores (nivel · pendiente · curvatura)</div>
+        <div class="formula-box">
+          <div class="f-label">Cambio de Precio — 3 Factores</div>
+          <div class="f-eq">$$\frac{\Delta P}{P} \approx -D_L\,\Delta x_L - D_S\,\Delta x_S - D_C\,\Delta x_C$$</div>
+          <div class="f-vars">
+            <span>D_L / Δx_L</span> = sensibilidad/cambio en <strong>nivel</strong> (desplazamiento paralelo)<br>
+            <span>D_S / Δx_S</span> = sensibilidad/cambio en <strong>pendiente</strong> (steepening/flattening)<br>
+            <span>D_C / Δx_C</span> = sensibilidad/cambio en <strong>curvatura</strong> (butterfly)
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio KRD — KRD₁=0.7, KRD₅=3.5, KRD₂₅=9.5; Δy₁=+50bp, Δy₅=−25bp, Δy₂₅=+10bp</div>
+          <div class="ex-body">
+            ΔP/P ≈ −(0.7)(0.005) − (3.5)(−0.0025) − (9.5)(0.001)<br>
+            = −0.0035 + 0.00875 − 0.0095
+          </div>
+          <div class="ex-result">ΔP/P ≈ −0.425% (D_eff total = 0.7+3.5+9.5 = 13.7)</div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio 3 Factores — D_L=4, D_S=5, D_C=3; Δx_L=−40bp, Δx_S=+10bp, Δx_C=+20bp</div>
+          <div class="ex-body">
+            ΔP/P ≈ −4(−0.004) − 5(0.001) − 3(0.002) = +1.6% − 0.5% − 0.6%
+          </div>
+          <div class="ex-result">Ganancia Neta = +0.5% (el nivel domina).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Tipos de Cambios en la Curva y Estrategias</div>
+    <table class="ref-table">
+      <thead><tr><th>Movimiento</th><th>Descripción</th><th>Estrategia Recomendada</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Parallel Shift (nivel)</strong></td><td>Toda la curva sube o baja igual</td><td>Reducir/aumentar duración total (EffDur)</td></tr>
+        <tr><td><strong>Bull Steepening</strong></td><td>Tasas cortas caen más que largas (recesión)</td><td>Largo en corto plazo · Corto en largo plazo</td></tr>
+        <tr><td><strong>Bear Flattening</strong></td><td>Tasas cortas suben más que largas (expansión)</td><td>Portafolio barbell sobre bullet (menos sensible al extremo corto)</td></tr>
+        <tr><td><strong>Bull Flattening</strong></td><td>Tasas largas caen más que cortas</td><td>Largo en largo plazo · Barbell sobre bullet</td></tr>
+        <tr><td><strong>Butterfly / Curvatura</strong></td><td>Tasas intermedias se mueven distinto a extremos</td><td>Long intermedios + Short extremos (o viceversa)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.2</span>
+    <span class="section-title">Estructura Temporal de Volatilidades y Factores Macroeconómicos</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Estructura Temporal de Volatilidades σ(t,T)</div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Corto Plazo (más volátil)</div>
+            <div class="cmp-rule">Política Monetaria</div>
+            <p>Las decisiones de bancos centrales dominan la volatilidad en el extremo corto de la curva.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">Largo Plazo (menos volátil)</div>
+            <div class="cmp-rule">Economía Real e Inflación</div>
+            <p>Crecimiento del PIB, empleo y expectativas de inflación a largo plazo determinan la volatilidad en plazos largos.</p>
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>Relevancia:</strong> La volatilidad de tasas de interés es crítica para valorar bonos con opciones embebidas. Un aumento en volatilidad aumenta el valor de las opciones, reduciendo el precio de callables y aumentando el de putables.
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Factores Macroeconómicos y Acciones del Inversor</div>
+        <table class="ref-table">
+          <thead><tr><th>Factor</th><th>Impacto en la Curva</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Expansión económica</strong></td><td>Banco central sube tasas cortas → <em>bearish flattening</em></td></tr>
+            <tr><td><strong>Recesión</strong></td><td>Banco central baja tasas cortas → <em>bullish steepening</em></td></tr>
+            <tr><td><strong>QE (compra de Treasuries/MBS)</strong></td><td>↑ demanda bonos largos → ↑ precio → ↓ yields largos</td></tr>
+            <tr><td><strong>Política fiscal expansiva</strong></td><td>↑ oferta de bonos → ↑ yields</td></tr>
+            <tr><td><strong>Flight to safety</strong></td><td>Demanda soberanos largos → ↓ yields largos → <em>bullish flattening</em></td></tr>
+          </tbody>
+        </table>
+        <div class="concept-card accent-gold" style="margin-top:10px">
+          <div class="cc-label gold">Bond Risk Premium (Term Premium)</div>
+          <div class="cc-def">Retorno esperado en exceso sobre la tasa libre de riesgo de 1Y por invertir en bonos gubernamentales de largo plazo. Ej: retorno esperado 5Y=4%, tasa 1Y=1% → <strong>Bond Risk Premium = 3%</strong>. También llamado <em>term premium</em> o <em>duration premium</em>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SÍNTESIS FINAL
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num" style="background:var(--accent)">✦</div>
+  <div class="module-title-block">
+    <h2 style="color:var(--navy)">Síntesis: Mapa Conceptual de la Semana 5</h2>
+    <p>Relaciones clave · Errores comunes · Lecturas recomendadas</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">R</span>
+    <span class="section-title">Cuadro Resumen y Errores Frecuentes</span>
+  </div>
+  <div class="section-body">
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Relaciones Fundamentales</div>
+    <div class="cmp-strip cmp-strip-3" style="margin-bottom:14px">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Spot ↔ Forward</div>
+        <div class="cmp-rule">Derivables entre sí</div>
+        <p>Forward rate model: [1+S_{j+k}]^{j+k} = [1+S_j]^j · [1+f(j,k)]^k. Si curva ↑: forward &gt; spot. Si ↓: forward &lt; spot.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Spot ↔ Par ↔ Forward</div>
+        <div class="cmp-rule">Bootstrapping</div>
+        <p>Par curve → Bootstrapping → Spot curve → Forward curve. La spot siempre estará entre la par y la forward cuando la curva es monótona.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">Forward como predictor</div>
+        <div class="cmp-rule">Sesgado vs. no sesgado</div>
+        <p>Exp. Puras: no sesgado. Pref. Liquidez: sesgado hacia arriba. Si spot futuro &lt; forward: ganancia de capital (alpha).</p>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">⚠ Errores Frecuentes en Examen</div>
+    <div class="grid-2">
+      <div class="rule-callout red">
+        <strong>Error 1:</strong> Confundir YTM con tasa spot. El YTM de un bono con cupón es un <em>promedio ponderado</em> de las tasas spot — no es igual a ninguna tasa spot individual (excepto en curva plana).
+      </div>
+      <div class="rule-callout red">
+        <strong>Error 2:</strong> Olvidar que el HPR = S₁ <em>solo si</em> las tasas evolucionan exactamente según la forward curve. Cualquier desviación genera retornos distintos por vencimiento.
+      </div>
+      <div class="rule-callout gold">
+        <strong>Error 3:</strong> Creer que la Teoría de Preferencia por Liquidez implica curva siempre ascendente. Una curva plana o descendente también es posible — solo requiere que la caída esperada en tasas supere la prima de liquidez.
+      </div>
+      <div class="rule-callout gold">
+        <strong>Error 4:</strong> Usar Z-spread para bonos con opciones. El Z-spread asume volatilidad cero (zero-volatility). Para bonos callable/putable usar OAS (Option-Adjusted Spread).
+      </div>
+      <div class="rule-callout">
+        <strong>Error 5:</strong> Pensar que igual EffDur = igual riesgo. Un barbell y un bullet con EffDur = 5 tienen <em>perfiles de KRD completamente distintos</em> — se comportan diferente ante cambios no-paralelos.
+      </div>
+      <div class="rule-callout">
+        <strong>Error 6:</strong> Confundir el rolling down con la teoría de hábitat preferido. Rolling down es una estrategia activa; el hábitat preferido explica la forma de la curva por desbalances de oferta-demanda.
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Lecturas Recomendadas por Tema</div>
+    <div class="badge-row">
+      <span class="badge badge-blue">Spot/Forward/Bootstrap: Schweser R.62 · Fabozzi FI Analysis Ch.3</span>
+      <span class="badge badge-outline">Swap Curve &amp; Spreads: Schweser R.62 · Fabozzi FI Markets Ch.6</span>
+      <span class="badge badge-pale">Teorías ETTI: Schweser R.62 · Veronesi Ch.3 · Tuckman Ch.15</span>
+      <span class="badge badge-gray">KRD / 3 Factores: Tuckman Ch.5 · Fabozzi Handbook Ch.5</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

@@ -31,7 +31,7 @@ window.MathJax = {
   --sans:   'IBM Plex Sans', sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
 
 @media print {
   body { background: white; font-size: 11px; }
@@ -80,8 +80,8 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 .module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
 .module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
 
-.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; overflow:hidden; box-shadow:0 1px 8px rgba(6,25,66,.06); }
-.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
 .section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
 .section-title { font-size:13px; font-weight:700; color:var(--navy); }
 .section-body { padding:18px 20px; }
@@ -192,6 +192,17 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 .tree-wrap { background:var(--navy); border-radius:8px; padding:16px; margin:10px 0; text-align:center; }
 .tree-wrap .t-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.4); margin-bottom:12px; }
 .tree-row { display:flex; align-items:center; justify-content:center; gap:8px; margin:4px 0; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
 </style>
 </head>
 <body>
@@ -720,7 +731,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 
     <!-- Tabla comparativa de métodos -->
     <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Aplicabilidad de los Métodos de Valoración</div>
-    <table class="ref-table">
+    <div class="table-scroll-wrap"><table class="ref-table">
       <thead>
         <tr>
           <th>Método</th>
@@ -760,7 +771,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
           <td class="val-green">✅ Sí</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 </div>
 
@@ -921,7 +932,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
     <span class="section-title">Comparación y Selección de Modelos</span>
   </div>
   <div class="section-body">
-    <table class="ref-table" style="margin-bottom:16px">
+    <div class="table-scroll-wrap"><table class="ref-table" style="margin-bottom:16px">
       <thead>
         <tr>
           <th>Característica</th>
@@ -990,7 +1001,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
           <td class="val-green">Sí</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
 
     <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Criterios de Selección según el Caso de Uso</div>
     <div class="grid-3">
@@ -1016,74 +1027,18 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 <div class="module-divider">
   <div class="module-num" style="background:var(--accent)">✦</div>
   <div class="module-title-block">
-    <h2 style="color:var(--navy)">Síntesis: LOS, Errores de Examen y Bibliografía</h2>
-    <p>LOS 24.a–24.i · Errores frecuentes · Lecturas recomendadas</p>
+    <h2 style="color:var(--navy)">Síntesis: Errores de Examen y Bibliografía</h2>
+    <p>Errores frecuentes en examen · Lecturas recomendadas</p>
   </div>
   <div class="module-rule"></div>
 </div>
 
 <div class="section-block">
   <div class="section-header">
-    <span class="section-num">R</span>
-    <span class="section-title">Learning Outcome Statements (LOS 24.a – 24.i) y Errores de Examen</span>
+    <span class="section-num">✦</span>
+    <span class="section-title">Errores Frecuentes en Examen y Bibliografía</span>
   </div>
   <div class="section-body">
-
-    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Resumen de LOS</div>
-    <table class="ref-table" style="margin-bottom:16px">
-      <thead>
-        <tr><th>LOS</th><th>Concepto</th><th>Idea Clave</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>24.a</strong></td>
-          <td>Valoración Libre de Arbitraje</td>
-          <td>Valor tal que ningún participante puede ganar arbitraje. Principio de valor aditivo + sin dominancia.</td>
-        </tr>
-        <tr>
-          <td><strong>24.b</strong></td>
-          <td>Bonos sin Opciones</td>
-          <td>Descontar cada flujo de caja a su <strong>tasa spot correspondiente</strong> — no una tasa única (YTM).</td>
-        </tr>
-        <tr>
-          <td><strong>24.c</strong></td>
-          <td>Árbol Binomial</td>
-          <td>Modelo <strong>lognormal</strong>: dos resultados igualmente probables (50%/50%). Volatilidad impulsa el spread entre nodos.</td>
-        </tr>
-        <tr>
-          <td><strong>24.d</strong></td>
-          <td>Calibración del Árbol</td>
-          <td>3 reglas: (1) valores = precios de mercado, (2) tasas adyacentes separadas 2σ, (3) tasa del medio ≈ tasa forward implícita.</td>
-        </tr>
-        <tr>
-          <td><strong>24.e</strong></td>
-          <td>Inducción Hacia Atrás</td>
-          <td>Trabajar desde el vencimiento hacia atrás. En cada nodo: promedio 50/50 de nodos siguientes + cupón, descontado a tasa forward del nodo.</td>
-        </tr>
-        <tr>
-          <td><strong>24.f</strong></td>
-          <td>Curva Spot vs Árbol Binomial</td>
-          <td>Curva spot: bonos sin opciones. Árbol binomial: bonos con opciones (flujos dependientes de tasas futuras).</td>
-        </tr>
-        <tr>
-          <td><strong>24.g</strong></td>
-          <td>Valoración por Caminos</td>
-          <td>Promedio de valores en cada camino. Para árbol de n períodos: <strong>2^(n-1) caminos</strong>. Matemáticamente ≡ backward induction.</td>
-        </tr>
-        <tr>
-          <td><strong>24.h</strong></td>
-          <td>Simulación Monte Carlo</td>
-          <td>MBS tienen flujos <strong>path-dependent</strong> (prepago depende del historial de tasas). Backward induction del árbol binomial es <strong>inapropiado</strong> para MBS.</td>
-        </tr>
-        <tr>
-          <td><strong>24.i</strong></td>
-          <td>Modelos de Estructura de Tasas</td>
-          <td>Equilibrio (CIR/Vasicek) vs Libre de arbitraje (Ho-Lee/KWF/Gauss+). Diferencias clave: calibración, distribución, tasas negativas.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="inner-divider"></div>
 
     <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">⚠ Errores Frecuentes en Examen</div>
     <div class="grid-2">

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bibliografía · Semana 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy:#061942; --corp:#1E3771; --mid:#0054B0;
+  --steel:#CED5DD; --off:#F2F2F2; --pale:#EBF0F8;
+  --white:#FFFFFF; --text:#0D1B2A; --muted:#4A5568;
+  --sch-bg:#E8F0FE; --sch-c:#1E3771; --sch-b:#1E3771;
+  --fab-bg:#FFF7ED; --fab-c:#92400E; --fab-b:#D97706;
+  --tuc-bg:#F0FDF4; --tuc-c:#14532D; --tuc-b:#16A34A;
+  --ver-bg:#F5F3FF; --ver-c:#4C1D95; --ver-b:#7C3AED;
+  --mar-bg:#FFF1F2; --mar-c:#881337; --mar-b:#E11D48;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body {
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(145deg,var(--navy) 0%,var(--corp) 100%);
+  color:var(--text);
+  min-height:100vh;
+  padding:36px 44px 60px;
+}
+
+/* ── Variant wrapper ── */
+.variant {
+  border-radius:14px;overflow:hidden;background:white;
+  box-shadow:0 8px 32px rgba(0,0,0,.18);
+}
+.variant-label {
+  background:var(--corp);color:white;
+  padding:10px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.vl-left{display:flex;align-items:center;gap:10px;}
+.vl-tag {
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;color:white;font-size:9px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;
+}
+.vl-name{font-size:12px;font-weight:700;color:white;}
+.vl-strategy{font-size:9.5px;color:rgba(255,255,255,.55);font-weight:500;text-align:right;line-height:1.4;max-width:280px;}
+.variant-body{padding:16px 18px;background:#FAFBFD;}
+
+/* ── Bib heading ── */
+.bib-heading {
+  font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  color:var(--mid);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.bib-heading::after{content:'';flex:1;height:1px;background:var(--steel);opacity:.5}
+
+/* ── Accordion ── */
+.accordion-wrap{display:flex;flex-direction:column;gap:0}
+.acc-item{border-bottom:1px solid #E8ECF2;overflow:visible;}
+.acc-item:first-child{border-top:1px solid #E8ECF2}
+
+.acc-trigger {
+  width:100%;display:flex;align-items:center;gap:9px;
+  padding:9px 12px;background:transparent;border:none;cursor:pointer;
+  font-family:'Montserrat',sans-serif;text-align:left;transition:background .15s;
+}
+.acc-trigger:hover{background:#F0F4FF}
+.acc-trigger.open{background:#EEF3FF}
+.acc-num {
+  flex-shrink:0;width:18px;height:18px;border-radius:5px;
+  background:var(--corp);color:white;font-size:9px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.acc-tema{flex:1;font-size:10.5px;font-weight:700;color:var(--navy);line-height:1.3;}
+.acc-pills-preview{display:flex;gap:3px;flex-wrap:nowrap;flex-shrink:0;align-items:center;}
+.acc-arrow{flex-shrink:0;color:var(--muted);font-size:9px;transition:transform .2s;margin-left:2px;}
+.acc-trigger.open .acc-arrow{transform:rotate(90deg)}
+
+.acc-body{max-height:0;overflow:hidden;transition:max-height .28s ease,overflow 0s .28s;background:#F8FAFF;}
+.acc-trigger.open + .acc-body{max-height:400px;overflow:visible;transition:max-height .28s ease;}
+
+/* ── Grid: align-items:start evita que tarjetas simples se estiren ── */
+.acc-inner{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  padding:10px 14px 12px;
+  align-items:start;
+}
+
+/* ── Source cards ── */
+.acc-source {
+  position:relative;
+  border-radius:7px;border:1.5px solid;padding:7px 10px;
+  display:flex;flex-direction:column;gap:2px;
+  cursor:default;
+}
+.acc-source.sch{background:var(--sch-bg);border-color:var(--sch-b);color:var(--sch-c)}
+.acc-source.fab{background:var(--fab-bg);border-color:var(--fab-b);color:var(--fab-c)}
+.acc-source.tuc{background:var(--tuc-bg);border-color:var(--tuc-b);color:var(--tuc-c)}
+.acc-source.ver{background:var(--ver-bg);border-color:var(--ver-b);color:var(--ver-c)}
+.acc-source.mar{background:var(--mar-bg);border-color:var(--mar-b);color:var(--mar-c)}
+.acc-source.sch2c{
+  background:linear-gradient(135deg, var(--sch-bg) 0%, #C5D5FC 100%);
+  border-color:var(--sch-b);color:var(--sch-c);
+}
+
+.acc-src-name{font-size:9.5px;font-weight:800;}
+.acc-src-book{font-size:8px;font-weight:700;opacity:.55;text-transform:uppercase;letter-spacing:.5px;font-family:'IBM Plex Mono',monospace;margin-bottom:1px;}
+.acc-src-ref{font-size:9px;font-weight:500;opacity:.8;line-height:1.4}
+
+/* Dual card sections */
+.dsec{display:flex;flex-direction:column;gap:1px;}
+.dsec+.dsec{border-top:1px solid rgba(0,0,0,.09);margin-top:5px;padding-top:5px;}
+.dual-sep{height:1px;background:currentColor;opacity:.12;margin:5px 0;}
+
+/* ── Source card tooltip (nombre completo del libro) ── */
+/* Positioned BELOW the card to avoid clipping by acc-body overflow:hidden */
+.acc-source .src-tooltip {
+  display:none;
+  position:absolute;
+  top:calc(100% + 7px);
+  left:50%;
+  transform:translateX(-50%);
+  z-index:600;
+  background:#0D1B2A;
+  color:rgba(255,255,255,.92);
+  font-size:9px;
+  font-weight:500;
+  white-space:nowrap;
+  padding:6px 11px;
+  border-radius:7px;
+  box-shadow:0 4px 16px rgba(0,0,0,.5);
+  pointer-events:none;
+  line-height:1.5;
+  font-family:'Montserrat',sans-serif;
+}
+.acc-source:hover .src-tooltip{display:block;}
+.acc-source:hover{z-index:100;}
+
+/* ── Pill C ── */
+.pill-c {
+  position:relative;display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;
+  cursor:default;letter-spacing:.3px;white-space:nowrap;
+  border:1.5px solid;transition:opacity .15s;
+  z-index:1;
+}
+.pill-c.sch{background:var(--sch-bg);color:var(--sch-c);border-color:var(--sch-b)}
+.pill-c.fab{background:var(--fab-bg);color:var(--fab-c);border-color:var(--fab-b)}
+.pill-c.tuc{background:var(--tuc-bg);color:var(--tuc-c);border-color:var(--tuc-b)}
+.pill-c.ver{background:var(--ver-bg);color:var(--ver-c);border-color:var(--ver-b)}
+.pill-c.mar{background:var(--mar-bg);color:var(--mar-c);border-color:var(--mar-b)}
+
+/* multi-book badge */
+.multi-badge {
+  font-size:7.5px;font-weight:900;
+  background:rgba(0,0,0,.14);border-radius:10px;
+  padding:0px 5px;letter-spacing:.2px;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* popover panel (×2 pills) */
+.pill-c .pop {
+  display:none;position:absolute;bottom:calc(100% + 9px);left:50%;
+  transform:translateX(-50%);z-index:400;
+  background:#0D1B2A;
+  border-radius:9px;padding:10px 12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.5);pointer-events:none;
+  min-width:240px;
+}
+.pill-c:hover{z-index:500;}
+.pill-c:hover .pop{display:block}
+.pop-title{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.35);margin-bottom:7px;}
+.pop-book{display:flex;gap:7px;align-items:flex-start;margin-bottom:6px;}
+.pop-book:last-child{margin-bottom:0}
+.pop-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.pop-book-info{font-size:9.5px;color:rgba(255,255,255,.88);line-height:1.45;font-weight:500;}
+.pop-book-name{font-size:8.5px;color:rgba(255,255,255,.45);font-weight:600;margin-top:1px;font-family:'IBM Plex Mono',monospace;}
+.pop-sep{height:1px;background:rgba(255,255,255,.08);margin:5px 0;}
+
+/* single-pill tooltip */
+.pill-c .tip-c {
+  display:none;position:absolute;bottom:calc(100% + 7px);left:50%;
+  transform:translateX(-50%);z-index:300;
+  background:#0D1B2A;color:rgba(255,255,255,.92);
+  font-size:9.5px;font-weight:500;white-space:nowrap;
+  padding:6px 12px;border-radius:7px;
+  box-shadow:0 4px 16px rgba(0,0,0,.45);pointer-events:none;line-height:1.5;
+}
+.pill-c.single:hover .tip-c{display:block}
+
+/* ── Refs strip ── */
+.refs-strip{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;padding-top:8px;border-top:1px dashed #DDE2EA;}
+.ref-chip{font-size:9px;color:var(--muted);background:var(--off);border-radius:5px;padding:3px 9px;border-left:2px solid var(--steel);line-height:1.4;}
+.ref-chip strong{color:var(--navy);font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="variant">
+  <div class="variant-label">
+    <div class="vl-left">
+      <span class="vl-tag">Variante C</span>
+      <span class="vl-name">Popover multibook — una pill, micro-panel al hover</span>
+    </div>
+    <span class="vl-strategy">Una sola pill muestra el autor + badge "×2".<br>Hover despliega un panel oscuro con ambos libros detallados.</span>
+  </div>
+  <div class="variant-body">
+
+    <div class="bib-heading">Bibliografía · Semana 3</div>
+    <div class="accordion-wrap" id="acc-c">
+
+      <!-- 1 · Riesgo de Tasa de Interés y Retorno -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="tog('acc-c',this)">
+          <span class="acc-num">1</span>
+          <span class="acc-tema">Riesgo de Tasa de Interés y Retorno</span>
+          <span class="acc-pills-preview">
+            <span class="pill-c sch single" style="pointer-events:none">SCH
+              <span class="tip-c">SchweserNotes L1 · Book 4 (2024)</span>
+            </span>
+            <span class="pill-c fab single" style="pointer-events:none">FAB
+              <span class="tip-c">Fabozzi · Bond Markets, 10ª ed. (2021)</span>
+            </span>
+            <span class="pill-c ver single" style="pointer-events:none">VER
+              <span class="tip-c">Veronesi · FI Sec.: Valuation &amp; Risk (2010)</span>
+            </span>
+          </span>
+          <span class="acc-arrow">▶</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="acc-source sch">
+              <span class="src-tooltip">SchweserNotes L1 · Book 4: Fixed Income and Derivatives (2024)</span>
+              <div class="acc-src-name">SchweserNotes L1</div>
+              <div class="acc-src-ref">Reading 58 – Interest Rate Risk and Return</div>
+            </div>
+            <div class="acc-source fab">
+              <span class="src-tooltip">Fabozzi · Bond Markets, Analysis and Strategies, 10ª ed. (2021)</span>
+              <div class="acc-src-name">Fabozzi</div>
+              <div class="acc-src-ref">Ch. 2 – Risks Associated with Investing in Fixed Income Securities</div>
+            </div>
+            <div class="acc-source ver">
+              <span class="src-tooltip">Veronesi · Fixed Income Securities: Valuation, Risk, and Risk Management (2010)</span>
+              <div class="acc-src-name">Veronesi</div>
+              <div class="acc-src-ref">Ch. 3 – Basics of Interest Rate Risk Management</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · Medidas de Duración Basadas en Yield -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="tog('acc-c',this)">
+          <span class="acc-num">2</span>
+          <span class="acc-tema">Medidas de Duración Basadas en Yield</span>
+          <span class="acc-pills-preview">
+            <span class="pill-c sch single" style="pointer-events:none">SCH</span>
+            <span class="pill-c fab single" style="pointer-events:none">FAB</span>
+            <span class="pill-c tuc single" style="pointer-events:none">TUC</span>
+            <span class="pill-c mar single" style="pointer-events:none">MAR</span>
+          </span>
+          <span class="acc-arrow">▶</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="acc-source sch">
+              <span class="src-tooltip">SchweserNotes L1 · Book 4: Fixed Income and Derivatives (2024)</span>
+              <div class="acc-src-name">SchweserNotes L1</div>
+              <div class="acc-src-ref">Reading 59 – Yield-Based Bond Duration Measures and Properties</div>
+            </div>
+            <div class="acc-source fab">
+              <span class="src-tooltip">Fabozzi · Bond Markets, Analysis and Strategies, 10ª ed. (2021)</span>
+              <div class="acc-src-name">Fabozzi</div>
+              <div class="acc-src-ref">Ch. 5 – Measuring Interest-Rate Risk</div>
+            </div>
+            <div class="acc-source tuc">
+              <span class="src-tooltip">Tuckman &amp; Serrat · Fixed Income Securities, 4ª ed. (2022)</span>
+              <div class="acc-src-name">Tuckman</div>
+              <div class="acc-src-ref">Ch. 4 – DV01, Duration, and Convexity</div>
+            </div>
+            <div class="acc-source mar">
+              <span class="src-tooltip">Martellini, Priaulet &amp; Priaulet · Fixed-Income Securities (2003)</span>
+              <div class="acc-src-name">Martellini</div>
+              <div class="acc-src-ref">Ch. 5 – Hedging Interest-Rate Risk with Duration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 · Convexidad de Bonos Basada en Yield -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="tog('acc-c',this)">
+          <span class="acc-num">3</span>
+          <span class="acc-tema">Convexidad de Bonos Basada en Yield</span>
+          <span class="acc-pills-preview">
+            <span class="pill-c sch single" style="pointer-events:none">SCH</span>
+            <span class="pill-c fab single" style="pointer-events:none">FAB</span>
+            <span class="pill-c tuc single" style="pointer-events:none">TUC</span>
+            <span class="pill-c mar single" style="pointer-events:none">MAR</span>
+          </span>
+          <span class="acc-arrow">▶</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <div class="acc-source sch">
+              <span class="src-tooltip">SchweserNotes L1 · Book 4: Fixed Income and Derivatives (2024)</span>
+              <div class="acc-src-name">SchweserNotes L1</div>
+              <div class="acc-src-ref">Reading 60 – Yield-Based Bond Convexity and Portfolio Properties</div>
+            </div>
+            <div class="acc-source fab">
+              <span class="src-tooltip">Fabozzi · Bond Markets, Analysis and Strategies, 10ª ed. (2021)</span>
+              <div class="acc-src-name">Fabozzi</div>
+              <div class="acc-src-ref">Ch. 5 – Measuring Interest-Rate Risk (incluye Convexity)</div>
+            </div>
+            <div class="acc-source tuc">
+              <span class="src-tooltip">Tuckman &amp; Serrat · Fixed Income Securities, 4ª ed. (2022)</span>
+              <div class="acc-src-name">Tuckman</div>
+              <div class="acc-src-ref">Ch. 4 – DV01, Duration, and Convexity</div>
+            </div>
+            <div class="acc-source mar">
+              <span class="src-tooltip">Martellini, Priaulet &amp; Priaulet · Fixed-Income Securities (2003)</span>
+              <div class="acc-src-name">Martellini</div>
+              <div class="acc-src-ref">Ch. 6 – Beyond Duration (incluye Convexity)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 · Estructura Temporal de Tasas (Dinámica) — SCH ×2 con popover -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="tog('acc-c',this)">
+          <span class="acc-num">4</span>
+          <span class="acc-tema">Estructura Temporal de Tasas (Dinámica)</span>
+          <span class="acc-pills-preview">
+            <span class="pill-c sch">
+              SCH <span class="multi-badge">×2</span>
+              <div class="pop">
+                <div class="pop-title">SchweserNotes — 2 libros</div>
+                <div class="pop-book">
+                  <div class="pop-dot" style="background:var(--sch-b)"></div>
+                  <div>
+                    <div class="pop-book-info">Reading 58–60 – Interest Rate Risk, Duration &amp; Convexity</div>
+                    <div class="pop-book-name">SchweserNotes L1 · Book 4 (2024)</div>
+                  </div>
+                </div>
+                <div class="pop-sep"></div>
+                <div class="pop-book">
+                  <div class="pop-dot" style="background:#4A6FCC"></div>
+                  <div>
+                    <div class="pop-book-info">Reading 23 – Term Structure and Interest Rate Dynamics</div>
+                    <div class="pop-book-name">SchweserNotes L2 · Avanzado (2024)</div>
+                  </div>
+                </div>
+              </div>
+            </span>
+            <span class="pill-c tuc single" style="pointer-events:none">TUC</span>
+            <span class="pill-c ver single" style="pointer-events:none">VER</span>
+          </span>
+          <span class="acc-arrow">▶</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <!-- Tarjeta dual SCH — alineada a start por el grid -->
+            <div class="acc-source sch2c">
+              <span class="src-tooltip">SchweserNotes L1 + L2 · Book 4 (2024) + Avanzado (2024)</span>
+              <div class="dsec">
+                <div class="acc-src-book">L1 — Book 4 (2024)</div>
+                <div class="acc-src-name">SchweserNotes L1</div>
+                <div class="acc-src-ref">Readings 58–60 – Interest Rate Risk, Duration &amp; Convexity</div>
+              </div>
+              <div class="dual-sep"></div>
+              <div class="dsec">
+                <div class="acc-src-book">L2 — Avanzado (2024)</div>
+                <div class="acc-src-name">SchweserNotes L2</div>
+                <div class="acc-src-ref">Reading 23 – The Term Structure and Interest Rate Dynamics</div>
+              </div>
+            </div>
+            <div class="acc-source tuc">
+              <span class="src-tooltip">Tuckman &amp; Serrat · Fixed Income Securities, 4ª ed. (2022)</span>
+              <div class="acc-src-name">Tuckman</div>
+              <div class="acc-src-ref">Ch. 8 – Expectations, Risk Premium, Convexity &amp; Shape of the Term Structure</div>
+            </div>
+            <div class="acc-source ver">
+              <span class="src-tooltip">Veronesi · Fixed Income Securities: Valuation, Risk, and Risk Management (2010)</span>
+              <div class="acc-src-name">Veronesi</div>
+              <div class="acc-src-ref">Ch. 9 – One Step Binomial Trees (modelado de estructura temporal)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion C -->
+
+    <div class="refs-strip">
+      <div class="ref-chip"><strong>SchweserNotes L1</strong> · Book 4: Fixed Income and Derivatives (2024)</div>
+      <div class="ref-chip"><strong>SchweserNotes L2</strong> · Avanzado: Term Structure Dynamics (2024)</div>
+      <div class="ref-chip"><strong>Fabozzi</strong> · Bond Markets, 10ª ed. (2021)</div>
+      <div class="ref-chip"><strong>Tuckman</strong> · Fixed Income Sec., 4ª ed. (2022)</div>
+      <div class="ref-chip"><strong>Veronesi</strong> · FI Sec.: Valuation &amp; Risk (2010)</div>
+      <div class="ref-chip"><strong>Martellini</strong> · Fixed-Income Sec. (2003)</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function tog(groupId, btn) {
+  const group = document.getElementById(groupId);
+  const wasOpen = btn.classList.contains('open');
+  group.querySelectorAll('.acc-trigger').forEach(b => b.classList.remove('open'));
+  if (!wasOpen) btn.classList.add('open');
+}
+</script>
+</body>
+</html>

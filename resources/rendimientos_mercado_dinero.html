@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2 · Rendimientos en el Mercado de Dinero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+  :root {
+    --navy: #0d1b2e;
+    --navy2: #132338;
+    --navy3: #1a2f47;
+    --card: #12243d;
+    --card2: #0f1e33;
+    --accent: #4a9eff;
+    --accent2: #7ec8e3;
+    --gold: #f0b429;
+    --green: #34d399;
+    --rose: #f87171;
+    --text: #e2eaf4;
+    --muted: #7a9bbf;
+    --border: rgba(74,158,255,0.18);
+    --glow: rgba(74,158,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* BG grid texture */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,158,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,158,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Header */
+  header { margin-bottom: 2.5rem; }
+  .session-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--card2); border: 1px solid var(--border);
+    color: var(--accent); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; padding: 0.3rem 0.8rem; border-radius: 4px;
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: #fff; font-weight: 400; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle { color: var(--muted); font-size: 0.88rem; font-weight: 400; }
+
+  /* Tab Nav */
+  .tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 0;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--muted);
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.6rem 1.2rem; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.2s; margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--accent2); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ────────────────────────────────
+     PANEL 1: INPUTS + CARDS
+  ──────────────────────────────── */
+  .input-bar {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.5rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem; margin-bottom: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+  .inp-group label {
+    display: block; color: var(--muted); font-size: 0.7rem;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .inp-group input {
+    width: 100%; background: var(--navy3); border: 1px solid var(--border);
+    color: var(--text); font-family: 'DM Mono', monospace; font-size: 1rem;
+    padding: 0.45rem 0.7rem; border-radius: 6px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .inp-group input:focus { border-color: var(--accent); }
+
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .ycard {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.4rem 1.6rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .ycard::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--stripe-color, var(--accent));
+    border-radius: 12px 12px 0 0;
+  }
+  .ycard:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+  .ycard .card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+  .ycard .card-title {
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .ycard .card-badge {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500;
+    background: rgba(74,158,255,0.1); color: var(--accent2);
+    padding: 0.15rem 0.5rem; border-radius: 4px; white-space: nowrap;
+  }
+  .ycard .formula-block {
+    background: var(--navy); border-radius: 8px; padding: 0.9rem 1rem;
+    margin-bottom: 0.9rem; text-align: center; min-height: 54px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ycard .result-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-top: 1px solid var(--border); padding-top: 0.7rem;
+  }
+  .ycard .result-label { font-size: 0.75rem; color: var(--muted); }
+  .ycard .result-val {
+    font-family: 'DM Mono', monospace; font-size: 1.5rem; font-weight: 500;
+    color: var(--stripe-color, var(--accent));
+    transition: all 0.3s;
+  }
+  .ycard .explainer {
+    font-size: 0.78rem; color: var(--muted); margin-top: 0.55rem; line-height: 1.5;
+  }
+  .ycard .chip {
+    display: inline-block; font-size: 0.65rem; font-weight: 600;
+    background: rgba(240,180,41,0.1); color: var(--gold);
+    border: 1px solid rgba(240,180,41,0.25);
+    padding: 0.12rem 0.5rem; border-radius: 4px; margin-top: 0.4rem;
+  }
+
+  /* Comparison bar */
+  .compare-bar {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.5rem; margin-top: 2rem;
+  }
+  .compare-bar h3 {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+  }
+  .bar-list { display: flex; flex-direction: column; gap: 0.65rem; }
+  .bar-item {
+    display: grid; grid-template-columns: 120px 1fr 80px;
+    align-items: center; gap: 0.8rem;
+  }
+  .bar-label { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+  .bar-track {
+    height: 8px; background: var(--navy3); border-radius: 99px; overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; border-radius: 99px; transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .bar-value {
+    font-family: 'DM Mono', monospace; font-size: 0.8rem; text-align: right;
+    color: var(--text); font-weight: 500;
+  }
+
+  /* ────────────────────────────────
+     PANEL 2: CONCEPTUAL DIFF
+  ──────────────────────────────── */
+  .diff-section h2 {
+    font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+    color: #fff; margin-bottom: 1.2rem; font-weight: 400;
+  }
+  .diff-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .diff-table th {
+    background: var(--card2); color: var(--muted); font-size: 0.68rem;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .diff-table td {
+    padding: 0.85rem 1rem; border-bottom: 1px solid rgba(74,158,255,0.07);
+    vertical-align: top;
+  }
+  .diff-table tr:hover td { background: var(--glow); }
+  .tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    padding: 0.1rem 0.45rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .tag-360 { background: rgba(248,113,113,0.12); color: var(--rose); border: 1px solid rgba(248,113,113,0.25); }
+  .tag-365 { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+  .tag-simp { background: rgba(74,158,255,0.1); color: var(--accent2); border: 1px solid rgba(74,158,255,0.2); }
+  .tag-comp { background: rgba(240,180,41,0.1); color: var(--gold); border: 1px solid rgba(240,180,41,0.25); }
+
+  /* ────────────────────────────────
+     PANEL 3: DERIVATION
+  ──────────────────────────────── */
+  .deriv-section { max-width: 780px; }
+  .deriv-section h2 {
+    font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+    color: #fff; margin-bottom: 0.4rem; font-weight: 400;
+  }
+  .deriv-section .lead {
+    color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem;
+  }
+  .step-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 1rem; overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-block:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.35); }
+  .step-header {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 1rem 1.3rem; cursor: pointer; user-select: none;
+    border-bottom: 1px solid transparent; transition: border-color 0.2s;
+  }
+  .step-block.open .step-header { border-bottom-color: var(--border); }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(74,158,255,0.12); border: 1px solid var(--accent);
+    color: var(--accent); font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-title { font-size: 0.88rem; font-weight: 600; color: var(--text); flex: 1; }
+  .step-toggle {
+    color: var(--muted); font-size: 1rem; transition: transform 0.25s;
+  }
+  .step-block.open .step-toggle { transform: rotate(180deg); }
+  .step-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  }
+  .step-block.open .step-body { max-height: 500px; }
+  .step-inner { padding: 1.1rem 1.3rem; }
+  .step-inner p { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.7; }
+  .step-inner .eq-box {
+    background: var(--navy); border-radius: 8px; padding: 0.8rem 1rem;
+    text-align: center; margin: 0.6rem 0; border: 1px solid var(--border);
+  }
+  .note-box {
+    background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 8px; padding: 0.8rem 1rem; margin-top: 1rem;
+    font-size: 0.8rem; color: #a7f3d0; line-height: 1.6;
+  }
+  .note-box strong { color: var(--green); }
+
+  .final-result {
+    background: linear-gradient(135deg, rgba(74,158,255,0.08) 0%, rgba(52,211,153,0.06) 100%);
+    border: 1px solid rgba(74,158,255,0.3); border-radius: 12px;
+    padding: 1.5rem 1.8rem; margin-top: 1.5rem; text-align: center;
+  }
+  .final-result .label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+  }
+  .final-result .big-eq { font-size: 1.1rem; }
+  .final-result .verify {
+    margin-top: 1rem; font-size: 0.78rem; color: var(--muted); line-height: 1.6;
+  }
+
+  /* Utilities */
+  .mono { font-family: 'DM Mono', monospace; }
+  .scroll-hint { color: var(--muted); font-size: 0.75rem; margin-top: 2.5rem; text-align: center; opacity: 0.5; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="session-tag">3.2 · Renta Fija 2026-I</div>
+    <h1>Rendimientos en el<br>Mercado de Dinero</h1>
+    <p class="subtitle">Calculadora interactiva · Comparativa conceptual · Derivación matemática</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="switchTab('calc',this)">📐 Calculadora</button>
+    <button class="tab-btn" onclick="switchTab('diff',this)">📊 Diferencias clave</button>
+    <button class="tab-btn" onclick="switchTab('deriv',this)">∑ Derivación DY→BEY</button>
+  </nav>
+
+  <!-- ════════════════════════════════
+       TAB 1 · CALCULADORA
+  ════════════════════════════════ -->
+  <div id="tab-calc" class="tab-panel active">
+
+    <div class="input-bar">
+      <div class="inp-group">
+        <label>Valor Nominal (FV)</label>
+        <input type="number" id="fv" value="1000" min="1" oninput="compute()">
+      </div>
+      <div class="inp-group">
+        <label>Precio de compra (P)</label>
+        <input type="number" id="p" value="975" min="1" oninput="compute()">
+      </div>
+      <div class="inp-group">
+        <label>Días hasta venc. (d)</label>
+        <input type="number" id="d" value="90" min="1" oninput="compute()">
+      </div>
+    </div>
+
+    <div class="cards-grid" id="cards-grid">
+
+      <!-- DY -->
+      <div class="ycard" style="--stripe-color:#f87171">
+        <div class="card-header">
+          <div class="card-title">Discount Yield (DY)</div>
+          <div class="card-badge">Base 360 · sobre FV</div>
+        </div>
+        <div class="formula-block">
+          \( DY = \dfrac{FV - P}{FV} \times \dfrac{360}{d} \)
+        </div>
+        <p class="explainer">El descuento se mide <strong>como % del valor nominal</strong>. Subestima el rendimiento real porque usa FV (mayor que P) como denominador.</p>
+        <div class="chip">T-Bills · Commercial Paper</div>
+        <div class="result-row">
+          <span class="result-label">Resultado</span>
+          <span class="result-val mono" id="res-dy">—</span>
+        </div>
+      </div>
+
+      <!-- AOY -->
+      <div class="ycard" style="--stripe-color:#fb923c">
+        <div class="card-header">
+          <div class="card-title">Add-on Yield (AOY)</div>
+          <div class="card-badge">Base 360 · sobre P</div>
+        </div>
+        <div class="formula-block">
+          \( FV = P \times \left[1 + AOY \times \dfrac{d}{360}\right] \)
+        </div>
+        <p class="explainer">El interés se agrega al precio pagado. Más cercano a la rentabilidad real porque usa <strong>P (monto invertido)</strong> como base.</p>
+        <div class="chip">CDs · Repos</div>
+        <div class="result-row">
+          <span class="result-label">Resultado</span>
+          <span class="result-val mono" id="res-aoy">—</span>
+        </div>
+      </div>
+
+      <!-- HPY -->
+      <div class="ycard" style="--stripe-color:#a78bfa">
+        <div class="card-header">
+          <div class="card-title">Holding Period Yield (HPY)</div>
+          <div class="card-badge">Sin anualizar</div>
+        </div>
+        <div class="formula-block">
+          \( HPY = \dfrac{FV - P}{P} \)
+        </div>
+        <p class="explainer">Retorno bruto del período, <strong>sin anualizar</strong>. Es el punto de partida para BEY y EAY. Usa P como denominador → más honesto que DY.</p>
+        <div class="result-row">
+          <span class="result-label">Resultado</span>
+          <span class="result-val mono" id="res-hpy">—</span>
+        </div>
+      </div>
+
+      <!-- BEY -->
+      <div class="ycard" style="--stripe-color:#4a9eff">
+        <div class="card-header">
+          <div class="card-title">Bond Equivalent Yield (BEY)</div>
+          <div class="card-badge">Base 365 · Simple</div>
+        </div>
+        <div class="formula-block">
+          \( BEY = HPY \times \dfrac{365}{d} \)
+        </div>
+        <p class="explainer">Anualiza el HPY de forma simple, en base 365. Permite <strong>comparar T-Bills con bonos</strong> (que pagan cupón semestral bajo base 365).</p>
+        <div class="result-row">
+          <span class="result-label">Resultado</span>
+          <span class="result-val mono" id="res-bey">—</span>
+        </div>
+      </div>
+
+      <!-- EAY -->
+      <div class="ycard" style="--stripe-color:#34d399">
+        <div class="card-header">
+          <div class="card-title">Effective Annual Yield (EAY)</div>
+          <div class="card-badge">Base 365 · Compuesto</div>
+        </div>
+        <div class="formula-block">
+          \( EAY = (1 + HPY)^{365/d} - 1 \)
+        </div>
+        <p class="explainer">Anualiza asumiendo <strong>reinversión compuesta</strong>. Siempre mayor que BEY (para inversiones < 1 año) porque captura el efecto del interés sobre interés.</p>
+        <div class="result-row">
+          <span class="result-label">Resultado</span>
+          <span class="result-val mono" id="res-eay">—</span>
+        </div>
+      </div>
+
+      <!-- DY→BEY -->
+      <div class="ycard" style="--stripe-color:#f0b429">
+        <div class="card-header">
+          <div class="card-title">Conversión Directa DY → BEY</div>
+          <div class="card-badge">Fórmula derivada</div>
+        </div>
+        <div class="formula-block">
+          \( BEY = \dfrac{365 \times DY}{360 - DY \times d} \)
+        </div>
+        <p class="explainer">Convierte DY directamente a BEY <strong>sin necesidad de calcular P</strong>. Útil cuando solo se conoce la tasa de descuento cotizada.</p>
+        <div class="result-row">
+          <span class="result-label">BEY (directo)</span>
+          <span class="result-val mono" id="res-bey2">—</span>
+        </div>
+      </div>
+
+    </div><!-- end cards-grid -->
+
+    <!-- Bar comparison -->
+    <div class="compare-bar" id="compare-bar">
+      <h3>Comparativa de tasas calculadas</h3>
+      <div class="bar-list" id="bar-list"></div>
+    </div>
+
+  </div><!-- end tab-calc -->
+
+  <!-- ════════════════════════════════
+       TAB 2 · DIFERENCIAS CLAVE
+  ════════════════════════════════ -->
+  <div id="tab-diff" class="tab-panel">
+    <div class="diff-section">
+      <h2>¿Qué diferencia a cada medida?</h2>
+      <table class="diff-table">
+        <thead>
+          <tr>
+            <th>Medida</th>
+            <th>Base del año</th>
+            <th>Denominador</th>
+            <th>Composición</th>
+            <th>Problema que resuelve</th>
+            <th>Instrumentos típicos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DY</strong></td>
+            <td><span class="tag tag-360">360</span></td>
+            <td>FV (nominal)</td>
+            <td><span class="tag tag-simp">Simple</span></td>
+            <td>Cotización de mercado para instrumentos de descuento</td>
+            <td>T-Bills, Commercial Paper</td>
+          </tr>
+          <tr>
+            <td><strong>AOY</strong></td>
+            <td><span class="tag tag-360">360</span></td>
+            <td>P (precio)</td>
+            <td><span class="tag tag-simp">Simple</span></td>
+            <td>Instrumentos que pagan interés adicional al precio</td>
+            <td>CDs, Repos</td>
+          </tr>
+          <tr>
+            <td><strong>HPY</strong></td>
+            <td>—</td>
+            <td>P (precio)</td>
+            <td><span class="tag tag-simp">Sin anualizar</span></td>
+            <td>Medir el retorno real del período sin distorsión de anualización</td>
+            <td>Cualquier instrumento</td>
+          </tr>
+          <tr>
+            <td><strong>BEY</strong></td>
+            <td><span class="tag tag-365">365</span></td>
+            <td>P (precio)</td>
+            <td><span class="tag tag-simp">Simple</span></td>
+            <td>Comparar T-Bills con bonos (base 365, cupón semestral)</td>
+            <td>T-Bills vs Bonos</td>
+          </tr>
+          <tr>
+            <td><strong>EAY</strong></td>
+            <td><span class="tag tag-365">365</span></td>
+            <td>P (precio)</td>
+            <td><span class="tag tag-comp">Compuesto</span></td>
+            <td>Comparar instrumentos con distintos plazos, con reinversión</td>
+            <td>Cualquier instrumento</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:2rem; display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));">
+
+        <div class="step-block open" style="margin:0">
+          <div class="step-header" onclick="toggleStep(this)">
+            <div class="step-num">!</div>
+            <div class="step-title">¿Por qué DY siempre &lt; AOY?</div>
+            <div class="step-toggle">▾</div>
+          </div>
+          <div class="step-body">
+            <div class="step-inner">
+              <p>Ambos miden el mismo instrumento, pero el denominador es diferente:</p>
+              <ul style="font-size:0.82rem;color:var(--muted);padding-left:1.2rem;line-height:1.9">
+                <li><strong>DY usa FV</strong> (ej. 1000) → denominador grande → tasa pequeña</li>
+                <li><strong>AOY usa P</strong> (ej. 975) → denominador pequeño → tasa mayor</li>
+              </ul>
+              <p>Misma ganancia (FV − P = 25), distinto divisor. Por eso <em>DY siempre subestima</em> el rendimiento real.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block open" style="margin:0">
+          <div class="step-header" onclick="toggleStep(this)">
+            <div class="step-num">!</div>
+            <div class="step-title">¿Por qué EAY &gt; BEY?</div>
+            <div class="step-toggle">▾</div>
+          </div>
+          <div class="step-body">
+            <div class="step-inner">
+              <p>BEY anualiza de forma <strong>simple</strong>: multiplica HPY por (365/d), como si el rendimiento se repitiera en partes iguales.</p>
+              <p>EAY anualiza de forma <strong>compuesta</strong>: asume que las ganancias se reinvierten y generan interés sobre interés. Para plazos cortos esto siempre produce un número mayor.</p>
+              <p><em>A mayor plazo (d → 365), la diferencia EAY − BEY se reduce.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block open" style="margin:0">
+          <div class="step-header" onclick="toggleStep(this)">
+            <div class="step-num">!</div>
+            <div class="step-title">¿Cuándo usar cada tasa?</div>
+            <div class="step-toggle">▾</div>
+          </div>
+          <div class="step-body">
+            <div class="step-inner">
+              <ul style="font-size:0.82rem;color:var(--muted);padding-left:1.2rem;line-height:1.9">
+                <li><strong>DY</strong>: cotización de subasta de T-Bills (convención de mercado)</li>
+                <li><strong>AOY</strong>: CDs y Repos (interés se agrega al principal)</li>
+                <li><strong>HPY</strong>: análisis de retorno puro de un período</li>
+                <li><strong>BEY</strong>: comparar T-Bills con bonos del Tesoro</li>
+                <li><strong>EAY</strong>: comparar instrumentos con distintos plazos y frecuencias</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TAB 3 · DERIVACIÓN DY→BEY
+  ════════════════════════════════ -->
+  <div id="tab-deriv" class="tab-panel">
+    <div class="deriv-section">
+      <h2>Derivación: ¿Cómo se obtiene la fórmula de conversión directa DY → BEY?</h2>
+      <p class="lead">Objetivo: expresar BEY únicamente en términos de DY, d — eliminando P y FV.</p>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">1</div>
+          <div class="step-title">Partimos de las definiciones base</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>Tenemos dos fórmulas conocidas:</p>
+          <div class="eq-box">\[ DY = \frac{FV - P}{FV} \times \frac{360}{d} \]</div>
+          <div class="eq-box">\[ BEY = \frac{FV - P}{P} \times \frac{365}{d} \]</div>
+          <p>Nótese que BEY usa <strong>P</strong> en el denominador (no FV como DY). Ese es el punto de partida de la derivación.</p>
+        </div></div>
+      </div>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">2</div>
+          <div class="step-title">Despejar (FV − P) desde la ecuación del DY</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>De la fórmula de DY, despejamos la ganancia nominal FV − P:</p>
+          <div class="eq-box">\[ FV - P = FV \times DY \times \frac{d}{360} \]</div>
+        </div></div>
+      </div>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">3</div>
+          <div class="step-title">Expresar P en términos de FV y DY</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>Dado que \(P = FV - (FV - P)\), sustituimos el resultado del paso 2:</p>
+          <div class="eq-box">\[ P = FV - FV \cdot DY \cdot \frac{d}{360} = FV \left(1 - DY \cdot \frac{d}{360}\right) \]</div>
+        </div></div>
+      </div>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">4</div>
+          <div class="step-title">Sustituir en la fórmula del BEY</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>Reemplazamos FV − P y P en la definición de BEY:</p>
+          <div class="eq-box">
+            \[ BEY = \frac{\overbrace{FV \cdot DY \cdot \frac{d}{360}}^{FV - P}}{\underbrace{FV \left(1 - DY \cdot \frac{d}{360}\right)}_{P}} \times \frac{365}{d} \]
+          </div>
+          <p>Los factores FV se cancelan:</p>
+          <div class="eq-box">
+            \[ BEY = \frac{DY \cdot \frac{d}{360}}{1 - DY \cdot \frac{d}{360}} \times \frac{365}{d} \]
+          </div>
+        </div></div>
+      </div>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">5</div>
+          <div class="step-title">Simplificar: cancelar d</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>En el numerador tenemos \(\frac{d}{360} \times \frac{365}{d}\). El <strong>d se cancela</strong>:</p>
+          <div class="eq-box">
+            \[ BEY = \frac{DY \cdot \frac{365}{360}}{1 - DY \cdot \frac{d}{360}} \]
+          </div>
+        </div></div>
+      </div>
+
+      <div class="step-block open">
+        <div class="step-header" onclick="toggleStep(this)">
+          <div class="step-num">6</div>
+          <div class="step-title">Multiplicar numerador y denominador × 360</div>
+          <div class="step-toggle">▾</div>
+        </div>
+        <div class="step-body"><div class="step-inner">
+          <p>Para eliminar las fracciones internas, multiplicamos arriba y abajo por 360:</p>
+          <div class="eq-box">
+            \[ BEY = \frac{365 \cdot DY}{360 - DY \cdot d} \]
+          </div>
+          <div class="note-box"><strong>✓ Resultado final.</strong> Esta es la fórmula de conversión directa que se ve en la pantalla. No requiere conocer P ni FV por separado — solo DY y el plazo d.</div>
+        </div></div>
+      </div>
+
+      <div class="final-result">
+        <div class="label">Fórmula derivada — Conversión DY → BEY</div>
+        <div class="big-eq">
+          \[ \boxed{BEY = \frac{365 \times DY}{360 - DY \times d}} \]
+        </div>
+        <div class="verify">
+          <strong>Intuición:</strong> el numerador escala DY de base 360 a base 365 (+1.39%). El denominador ajusta por el hecho de que DY usa FV mientras que BEY usa P — que es menor que FV. Esto hace que BEY siempre sea <em>mayor</em> que DY × (365/360).
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end tab-deriv -->
+
+  <p class="scroll-hint">Renta Fija 2026-I · Sesión 3.2</p>
+</div>
+
+<script>
+// ── Tabs ──────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Accordion steps ───────────────────────────────────
+function toggleStep(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// ── Computation ──────────────────────────────────────
+function fmt(v) { return (v * 100).toFixed(4) + '%'; }
+
+function compute() {
+  const FV = parseFloat(document.getElementById('fv').value) || 0;
+  const P  = parseFloat(document.getElementById('p').value)  || 0;
+  const d  = parseFloat(document.getElementById('d').value)  || 0;
+
+  if (FV <= 0 || P <= 0 || d <= 0 || P >= FV) {
+    ['dy','aoy','hpy','bey','bey2','eay'].forEach(id => {
+      const el = document.getElementById('res-' + id);
+      if (el) el.textContent = '—';
+    });
+    return;
+  }
+
+  const DY   = ((FV - P) / FV) * (360 / d);
+  const AOY  = ((FV - P) / P)  * (360 / d);
+  const HPY  = (FV - P) / P;
+  const BEY  = HPY * (365 / d);
+  const EAY  = Math.pow(1 + HPY, 365 / d) - 1;
+  const BEY2 = (365 * DY) / (360 - DY * d);
+
+  document.getElementById('res-dy').textContent   = fmt(DY);
+  document.getElementById('res-aoy').textContent  = fmt(AOY);
+  document.getElementById('res-hpy').textContent  = fmt(HPY);
+  document.getElementById('res-bey').textContent  = fmt(BEY);
+  document.getElementById('res-eay').textContent  = fmt(EAY);
+  document.getElementById('res-bey2').textContent = fmt(BEY2);
+
+  // Bar chart
+  const bars = [
+    { label: 'DY',  val: DY,  color: '#f87171' },
+    { label: 'AOY', val: AOY, color: '#fb923c' },
+    { label: 'HPY (período)', val: HPY, color: '#a78bfa' },
+    { label: 'BEY', val: BEY, color: '#4a9eff' },
+    { label: 'EAY', val: EAY, color: '#34d399' },
+  ];
+  const maxVal = Math.max(...bars.map(b => b.val));
+  const bl = document.getElementById('bar-list');
+  bl.innerHTML = bars.map(b => `
+    <div class="bar-item">
+      <div class="bar-label">${b.label}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(b.val/maxVal*100).toFixed(1)}%;background:${b.color}"></div>
+      </div>
+      <div class="bar-value">${fmt(b.val)}</div>
+    </div>
+  `).join('');
+}
+
+// Init
+compute();
+</script>
+</body>
+</html>

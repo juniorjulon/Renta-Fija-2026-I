@@ -1,0 +1,125 @@
+
+<div style="padding: 1.5rem 0 1rem;">
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.5rem;">
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem;">
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 4px;">Capital inicial</p>
+      <p style="font-size: 22px; font-weight: 500; margin: 0;" id="card-principal">$10,000</p>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem;">
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 4px;">Valor final</p>
+      <p style="font-size: 22px; font-weight: 500; margin: 0; color: #1D9E75;" id="card-final">$67,275</p>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem;">
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 4px;">Ganancia total</p>
+      <p style="font-size: 22px; font-weight: 500; margin: 0; color: #178BD4;" id="card-gain">+$57,275</p>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label style="font-size: 14px; color: var(--color-text-secondary); min-width: 120px;">Capital inicial</label>
+      <input type="range" min="1000" max="100000" step="1000" value="10000" id="sl-principal" style="flex: 1;" oninput="update()">
+      <span style="font-size: 14px; font-weight: 500; min-width: 70px; text-align: right;" id="lbl-principal">$10,000</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label style="font-size: 14px; color: var(--color-text-secondary); min-width: 120px;">Tasa anual</label>
+      <input type="range" min="1" max="20" step="1" value="10" id="sl-rate" style="flex: 1;" oninput="update()">
+      <span style="font-size: 14px; font-weight: 500; min-width: 70px; text-align: right;" id="lbl-rate">10%</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label style="font-size: 14px; color: var(--color-text-secondary); min-width: 120px;">Años</label>
+      <input type="range" min="1" max="40" step="1" value="20" id="sl-years" style="flex: 1;" oninput="update()">
+      <span style="font-size: 14px; font-weight: 500; min-width: 70px; text-align: right;" id="lbl-years">20 años</span>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; margin-bottom: 8px; font-size: 12px; color: var(--color-text-secondary);">
+    <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1D9E75;"></span>Interés compuesto</span>
+    <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #378ADD;"></span>Interés simple</span>
+    <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #D3D1C7;"></span>Capital inicial</span>
+  </div>
+
+  <div style="position: relative; width: 100%; height: 280px;">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div style="margin-top: 1.5rem; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 1rem; display: flex; gap: 12px; flex-wrap: wrap;">
+    <button onclick="sendPrompt('¿Cómo funciona la regla del 72 para el interés compuesto?')" style="font-size: 13px;">¿Qué es la regla del 72? ↗</button>
+    <button onclick="sendPrompt('¿Cada cuánto conviene que se capitalice el interés: mensual, trimestral o anual?')" style="font-size: 13px;">¿Capitalización mensual vs anual? ↗</button>
+    <button onclick="sendPrompt('Dame un ejemplo práctico de interés compuesto para inversión en fondos mutuos')" style="font-size: 13px;">Ejemplo con fondos mutuos ↗</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+let myChart;
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('es-PE');
+}
+
+function update() {
+  const P = parseInt(document.getElementById('sl-principal').value);
+  const r = parseInt(document.getElementById('sl-rate').value) / 100;
+  const Y = parseInt(document.getElementById('sl-years').value);
+
+  document.getElementById('lbl-principal').textContent = fmt(P);
+  document.getElementById('lbl-rate').textContent = Math.round(r * 100) + '%';
+  document.getElementById('lbl-years').textContent = Y + ' años';
+
+  const labels = [];
+  const compound = [];
+  const simple = [];
+  const principal = [];
+
+  for (let y = 0; y <= Y; y++) {
+    labels.push(y === 0 ? 'Hoy' : 'Año ' + y);
+    compound.push(Math.round(P * Math.pow(1 + r, y)));
+    simple.push(Math.round(P * (1 + r * y)));
+    principal.push(P);
+  }
+
+  const finalVal = compound[compound.length - 1];
+  const gain = finalVal - P;
+
+  document.getElementById('card-principal').textContent = fmt(P);
+  document.getElementById('card-final').textContent = fmt(finalVal);
+  document.getElementById('card-gain').textContent = '+' + fmt(gain);
+
+  if (myChart) {
+    myChart.data.labels = labels;
+    myChart.data.datasets[0].data = compound;
+    myChart.data.datasets[1].data = simple;
+    myChart.data.datasets[2].data = principal;
+    myChart.update();
+  } else {
+    myChart = new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Compuesto', data: compound, borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.08)', borderWidth: 2, pointRadius: 2, fill: true, tension: 0.3 },
+          { label: 'Simple', data: simple, borderColor: '#378ADD', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 2, borderDash: [5,4], tension: 0.1 },
+          { label: 'Capital', data: principal, borderColor: '#B4B2A9', backgroundColor: 'transparent', borderWidth: 1, pointRadius: 0, borderDash: [3,3] }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.parsed.y)
+          }
+        }},
+        scales: {
+          x: { ticks: { autoSkip: true, maxTicksLimit: 10, font: { size: 11 } }, grid: { display: false } },
+          y: { ticks: { font: { size: 11 }, callback: v => '$' + (v >= 1000 ? Math.round(v/1000) + 'k' : v) }, grid: { color: 'rgba(0,0,0,0.05)' } }
+        }
+      }
+    });
+  }
+}
+
+update();
+</script>

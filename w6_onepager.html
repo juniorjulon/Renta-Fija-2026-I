@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · MARCO DE VALORACIÓN LIBRE DE ARBITRAJE</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; overflow:hidden; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.tree-node { display:inline-flex; align-items:center; justify-content:center; background:var(--navy); color:#93C5FD; font-family:var(--mono); font-size:12px; font-weight:600; border-radius:6px; padding:5px 10px; margin:2px; }
+.tree-node.root { background:var(--accent); color:var(--navy); }
+.tree-node.up { background:#1E3A5F; }
+.tree-node.down { background:#1A2F4A; }
+.tree-wrap { background:var(--navy); border-radius:8px; padding:16px; margin:10px 0; text-align:center; }
+.tree-wrap .t-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.4); margin-bottom:12px; }
+.tree-row { display:flex; align-items:center; justify-content:center; gap:8px; margin:4px 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 6</div>
+    <h1 class="header-title">Marco de Valoración<br>Libre de Arbitraje</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Fundamentos de Valoración</span>
+      <span class="pill">02 Árboles Binomiales</span>
+      <span class="pill">03 Simulación Monte Carlo</span>
+      <span class="pill">04 Modelos de Estructura de Tasas</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · FUNDAMENTOS DE VALORACIÓN LIBRE DE ARBITRAJE
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Fundamentos de Valoración Libre de Arbitraje</h2>
+    <p>Ley del precio único · Oportunidades de arbitraje · Stripping y reconstitución · Valoración con tasas spot</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Ley del Precio Único y Oportunidades de Arbitraje -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Ley del Precio Único y Oportunidades de Arbitraje</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">Framework Libre de Arbitraje</div>
+        <div class="cc-def">
+          Los métodos de valoración libre de arbitraje valoran valores de tal manera que <strong>ningún participante del mercado pueda obtener una ganancia de arbitraje</strong> en una transacción que involucre ese valor. El principio fundamental es la <strong>ley del precio único</strong>.
+        </div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Tipo 1: Valor Aditivo</div>
+        <div class="cc-def">
+          Ocurre cuando <strong>el valor del todo difiere de la suma de los valores de las partes</strong>.<br><br>
+          <em>Ejemplo:</em> Si un bono del Tesoro al 5% vale menos que la suma de sus cupones y principal descontados individualmente (STRIPS).
+        </div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Tipo 2: Dominancia</div>
+        <div class="cc-def">
+          Ocurre cuando <strong>un activo cotiza a un precio menor que otro activo con características idénticas</strong>.<br><br>
+          <em>Ejemplo:</em> Bono A y Bono B son idénticos pero A cotiza a $98 y B a $100 → comprar A, vender B → ganancia de $2.
+        </div>
+      </div>
+    </div>
+    <div class="rule-callout" style="margin-top:14px">
+      <strong>Transacción de arbitraje:</strong> Implica (1) <strong>sin desembolso inicial de efectivo</strong> (no se requiere inversión neta) y (2) <strong>flujo de caja positivo sin riesgo</strong> en algún punto del futuro. En mercados eficientes, estas oportunidades son eliminadas rápidamente por los arbitrajistas.
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <!-- Ejercicio resuelto -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Ejercicio — Identificar y Explotar Oportunidades de Arbitraje</div>
+    <div class="grid-2">
+      <div class="ex-box">
+        <div class="ex-title">Arbitraje por Valor Aditivo — Valor A=$1,000 (bono) · Valor B=$950 (STRIPS)</div>
+        <div class="ex-body">
+          El bono intacto (A) vale <strong>más</strong> que la suma de sus partes (B).<br>
+          <strong>Estrategia:</strong><br>
+          Paso 1: Comprar el Valor B (STRIPS) por $950<br>
+          Paso 2: Recombinar los STRIPS → reconstitución del bono<br>
+          Paso 3: Vender el bono intacto (A) por $1,000
+        </div>
+        <div class="result-banner gain">Ganancia de arbitraje: $1,000 − $950 = $50 (sin inversión neta)</div>
+      </div>
+      <div class="ex-box">
+        <div class="ex-title">Arbitraje por Dominancia — Valor C=$980 · Valor D=$1,000 (idéntico a C)</div>
+        <div class="ex-body">
+          Dos valores idénticos cotizan a precios distintos.<br>
+          <strong>Estrategia:</strong><br>
+          Paso 1: Comprar el Valor C por $980<br>
+          Paso 2: Vender el Valor D (idéntico) por $1,000
+        </div>
+        <div class="result-banner gain">Ganancia de arbitraje: $1,000 − $980 = $20 (sin inversión neta)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Stripping y Reconstitución -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Aplicaciones Prácticas: Stripping y Reconstitución</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Stripping (Separación)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Bono → Componentes STRIPS</div>
+            <p>Comprar el bono y <strong>separarlo</strong> en cupones y principal para venderlos individualmente como STRIPS.</p>
+            <p style="margin-top:6px"><em>Cuándo:</em> Bono vale <strong>menos</strong> que sus partes → vender componentes a mayor precio total.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Reconstitución (Recombinación)</div>
+            <div class="cmp-rule" style="font-size:11.5px">STRIPS → Bono Intacto</div>
+            <p>Comprar los componentes STRIPS individuales y <strong>recombinarlos</strong> para formar el bono original.</p>
+            <p style="margin-top:6px"><em>Cuándo:</em> Portafolio de STRIPS cotiza <strong>por debajo</strong> del bono → reconstituir y vender.</p>
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:10px">
+          <strong>Principio económico:</strong> Estas operaciones aseguran que el principio de valor aditivo se cumpla en mercados eficientes, eliminando las discrepancias de precios entre el bono intacto y sus componentes STRIPS.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Bono del Tesoro 5 años · Cupón 5% · Análisis de Casos</div>
+          <div class="ex-body">
+            <strong>Caso A — Portafolio STRIPS &lt; Bono intacto:</strong><br>
+            Comprar STRIPS (barato) → Reconstitución → Vender bono (caro) → Ganancia<br><br>
+            <strong>Caso B — Bono intacto &lt; Portafolio STRIPS:</strong><br>
+            Comprar bono (barato) → Stripping → Vender componentes (caros) → Ganancia<br><br>
+            <strong>STRIPS</strong> = Separate Trading of Registered Interest and Principal of Securities
+          </div>
+          <div class="ex-result">En equilibrio: Precio bono = Suma de valores presentes de cupones y principal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Valoración con Tasas Spot -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Valoración de Bonos sin Opciones: Método de Tasas Spot</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Valor Libre de Arbitraje — Tasas Spot</div>
+          <div class="f-eq">$$V = \sum_{t=1}^{n} \frac{C}{(1+S_t)^t} + \frac{F}{(1+S_n)^n}$$</div>
+          <div class="f-vars">
+            <span>V</span> = Valor del bono &nbsp;|&nbsp;
+            <span>C</span> = Pago de cupón periódico &nbsp;|&nbsp;
+            <span>S_t</span> = Tasa spot para el período t &nbsp;|&nbsp;
+            <span>F</span> = Valor nominal (par) &nbsp;|&nbsp;
+            <span>n</span> = Períodos hasta el vencimiento
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>¿Por qué tasas spot y no YTM?</strong> Las tasas spot capturan la <strong>estructura temporal de tasas sin riesgo</strong> para cada vencimiento. A diferencia del YTM (promedio único), cada flujo se descuenta a su tasa spot específica, reflejando el valor del dinero en el tiempo para cada horizonte.
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px">Proceso de Valoración (4 Pasos)</div>
+        <div class="step-flow" style="flex-direction:column;gap:4px;">
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;border-radius:6px 6px 0 0;">
+            <div class="step-n">PASO 01</div><div class="step-txt">Identificar todos los flujos de caja futuros (cupones y principal).</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;">
+            <div class="step-n">PASO 02</div><div class="step-txt">Obtener la curva de tasas spot para los vencimientos correspondientes.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;">
+            <div class="step-n">PASO 03</div><div class="step-txt">Descontar cada flujo de caja <strong>a su tasa spot correspondiente</strong>.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-radius:0 0 6px 6px;">
+            <div class="step-n">PASO 04</div><div class="step-txt">Sumar todos los valores presentes → valor libre de arbitraje.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejercicio — Sam Givens · GBO Bank · Valoración con Tasas Spot</div>
+          <div class="ex-body">
+            <strong>Bono:</strong> Vencimiento 3 años · Cupón 3% anual · Valor nominal €100 · Pago anual<br>
+            <strong>Curva spot:</strong> S₁ = 2.5% · S₂ = 3.0% · S₃ = 3.5%<br><br>
+            <strong>Flujos de caja:</strong><br>
+            Año 1: €3.00 &nbsp;|&nbsp; Año 2: €3.00 &nbsp;|&nbsp; Año 3: €3.00 + €100 = €103.00<br><br>
+            <strong>Valores Presentes:</strong><br>
+            VP(Año 1) = €3.00 / (1.025)¹ = <strong>€2.9268</strong><br>
+            VP(Año 2) = €3.00 / (1.030)² = <strong>€2.8278</strong><br>
+            VP(Año 3) = €103.00 / (1.035)³ = <strong>€93.0679</strong>
+          </div>
+          <div class="result-banner neutral">V = €2.9268 + €2.8278 + €93.0679 = <strong>€98.82</strong></div>
+        </div>
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Limitación del método de tasas spot:</strong> Solo funciona para bonos <em>sin opciones</em> donde los flujos son conocidos y fijos. Para bonos con opciones integradas (callable, putable, convertibles), se necesita un modelo que permita que tanto las tasas como los flujos <strong>varíen</strong> — de ahí los árboles binomiales.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · ÁRBOLES BINOMIALES DE TASAS DE INTERÉS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Árboles Binomiales de Tasas de Interés</h2>
+    <p>Estructura y componentes · Modelo lognormal · Calibración · Inducción hacia atrás · Valoración por caminos</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Estructura y Propiedades -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Estructura, Componentes y Propiedades del Árbol Binomial</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="grid-3" style="margin-bottom:12px">
+          <div class="concept-card">
+            <div class="cc-label">Raíz (Root)</div>
+            <div class="cc-def">El punto de partida <strong>i₀</strong> es la tasa spot actual de 1 período.</div>
+          </div>
+          <div class="concept-card accent-mid">
+            <div class="cc-label mid">Nodos (Nodes)</div>
+            <div class="cc-def">Punto en el tiempo donde las tasas toman <strong>dos caminos posibles</strong>: Superior (U) o Inferior (L).</div>
+          </div>
+          <div class="concept-card accent-gold">
+            <div class="cc-label gold">Caminos (Paths)</div>
+            <div class="cc-def">Desde cada nodo, la tasa puede <strong>subir (U) o bajar (L)</strong> con probabilidad 50% cada uno.</div>
+          </div>
+        </div>
+
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Propiedad Lognormal</div>
+            <div class="cmp-rule" style="font-size:11.5px">Modelo de Camino Aleatorio</div>
+            <p>A <strong>tasas altas, mayor volatilidad</strong>. El modelo no permite tasas negativas — ventaja sobre modelos normales.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Propiedad de Encaje</div>
+            <div class="cmp-rule" style="font-size:11.5px">Recombinación del Árbol</div>
+            <p>Un movimiento U seguido de L = movimiento L seguido de U: <strong>i₂,LU = i₂,UL</strong>. Reduce el número de nodos.</p>
+          </div>
+        </div>
+
+        <div class="rule-callout">
+          <strong>Notación:</strong> La tasa i₂,LU es la tasa que ocurre si i₀ sigue el <strong>camino inferior</strong> (→ i₁,L) y luego el <strong>camino superior</strong> (→ i₂,LU). Las tasas en cada nodo son <strong>tasas forward de un período</strong> para ese período nodal.
+        </div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Relación entre Tasas Forward Adyacentes</div>
+          <div class="f-eq">$$i_{1,L} = i_{1,U} \times e^{-2\sigma} \qquad i_{2,LL} = i_{2,LU} \times e^{-2\sigma} \qquad i_{2,UU} = i_{2,LU} \times e^{+2\sigma}$$</div>
+          <div class="f-vars">
+            <span>σ</span> = volatilidad de las tasas de interés &nbsp;|&nbsp;
+            <span>e</span> = base del logaritmo natural ≈ 2.71828<br>
+            Tasas adyacentes en el mismo período están separadas por <span>dos desviaciones estándar</span>.
+          </div>
+        </div>
+
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo — Volatilidad σ = 20%: Relación entre Tasas Adyacentes</div>
+          <div class="ex-body">
+            Multiplicador: e^(−2×0.20) = e^(−0.40) ≈ <strong>0.6703</strong><br>
+            Por tanto: i₁,L = i₁,U × 0.6703<br><br>
+            Si i₁,U = 5.7883%:<br>
+            i₁,L = 0.057883 × 0.6703 = <strong>3.88%</strong><br><br>
+            Si i₂,LU = 5.503% (tasa del medio, Período 2):<br>
+            i₂,LL = 5.503% × 0.6703 = <strong>3.69%</strong><br>
+            i₂,UU = 5.503% × e^(+0.40) = 5.503% × 1.4918 = <strong>8.21%</strong>
+          </div>
+          <div class="ex-result">La tasa inferior es ≈67.03% de la tasa superior en cada período.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Calibración del Árbol -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Calibración del Árbol: Tres Reglas Fundamentales</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip cmp-strip-3">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Regla 1</div>
+            <div class="cmp-rule" style="font-size:11px">Valores Libres de Arbitraje</div>
+            <p>El árbol debe generar valores iguales a los <strong>precios de mercado</strong> del benchmark. Sin esta regla, no se puede valorar callables ni putables.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Regla 2</div>
+            <div class="cmp-rule" style="font-size:11px">2 Desv. Estándar</div>
+            <p>Tasas forward adyacentes separadas por <strong>e^(2σ)</strong>. Conocer una tasa en un período permite calcular todas las demás.</p>
+          </div>
+          <div class="cmp-cell gold-bg">
+            <div class="cmp-head">Regla 3</div>
+            <div class="cmp-rule" style="font-size:11px">Tasa del Medio</div>
+            <p>La tasa forward del medio en cada período ≈ <strong>tasa forward implícita de un período</strong> derivada de la curva spot.</p>
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:10px">
+          <strong>Propósito principal:</strong> La calibración asegura que el árbol pueda valorar adecuadamente instrumentos más complejos — bonos callable, putable y otros con opciones integradas — al ser consistente con los precios de mercado observados.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Construcción del Árbol — Xi Nguyen / Alok Nath · σ = 20%</div>
+          <div class="ex-body">
+            <strong>Datos:</strong> S₁=3.5% · S₂=4.0% · S₃=4.5% · σ=20%<br><br>
+            <strong>Período 0:</strong> i₀ = 3.5% (raíz = tasa spot 1 año)<br><br>
+            <strong>Período 1:</strong> i₁,U = 5.7883% (calibrada al benchmark)<br>
+            i₁,L = 5.7883% × e^(−0.40) = <strong>3.88%</strong><br><br>
+            <strong>Período 2 — Tasa del medio:</strong><br>
+            f(2,1): (1.045)³ = (1.040)² × (1+f) → f = <strong>5.503%</strong><br><br>
+            <strong>Tasas extremas Período 2:</strong><br>
+            i₂,LL = 5.503% × 0.6703 = <strong>3.69%</strong><br>
+            i₂,UU = 5.503% × 1.4918 = <strong>8.21%</strong>
+          </div>
+          <div class="ex-result">La tasa f(2,1) se obtiene de la curva spot del benchmark como mejor estimación de la tasa del medio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 Metodologías de Valoración -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">Metodologías de Valoración: Inducción Hacia Atrás y Valoración por Caminos</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Método 1 — Inducción Hacia Atrás (Backward Induction)</div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula de Inducción Hacia Atrás</div>
+          <div class="f-eq">$$V = \frac{0.5\times(V_U + C) + 0.5\times(V_L + C)}{1 + i}$$</div>
+          <div class="f-vars">
+            <span>V_U</span> = valor del bono en el nodo superior siguiente<br>
+            <span>V_L</span> = valor del bono en el nodo inferior siguiente<br>
+            <span>C</span> = cupón del período &nbsp;|&nbsp; <span>i</span> = tasa forward del nodo actual
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Intuición:</strong> Se comienza en el vencimiento (V = nominal + cupón) y se trabaja <em>hacia atrás</em> hasta el Nodo 0. En cada nodo el valor = promedio ponderado (50%/50%) de los dos nodos siguientes más el cupón, descontado a la tasa forward del nodo.
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio — Bono 7% · VN=$100 · Vencimiento 2 años · i₀=5.0% · i₁U=7.5% · i₁L=4.5%</div>
+          <div class="ex-body">
+            <strong>Año 2 (vencimiento):</strong> V = $100 + $7 = $107 (cualquier nodo)<br><br>
+            <strong>V₁,U:</strong> [0.5×(107+7) + 0.5×(107+7)] / 1.075 = 114 / 1.075 = <strong>$106.05</strong><br>
+            <strong>V₁,L:</strong> [0.5×(107+7) + 0.5×(107+7)] / 1.045 = 114 / 1.045 = <strong>$109.09</strong><br><br>
+            <strong>V₀:</strong> [0.5×(106.05+7) + 0.5×(109.09+7)] / 1.050 = 114.57 / 1.050
+          </div>
+          <div class="result-banner neutral">V₀ = <strong>$109.11</strong></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Método 2 — Valoración por Caminos (Pathwise Valuation)</div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Definición</div>
+          <div class="cc-def">Para un árbol binomial con <strong>n períodos</strong>, hay <strong>2^(n-1) caminos únicos</strong>. El valor del bono es el <em>promedio</em> de los valores calculados para cada camino individual, descontando flujos con las tasas forward específicas de ese camino.</div>
+        </div>
+
+        <div class="ex-box">
+          <div class="ex-title">Ejercicio — Samuel Favre · Bono 3% · 3 años · $100 par · 4 caminos</div>
+          <div class="ex-body">
+            <strong>Tasas del árbol:</strong> S=2.5% · Año1: U=4.5%, L=3.0% · Año2: UU=6.0%, UL/LU=4.0%, LL=2.5%<br><br>
+            Camino 1 SUU (2.5%→4.5%→6.0%): V₁ = 3/1.025 + 3/(1.025×1.045) + 103/(1.025×1.045×1.060) = <strong>$96.43</strong><br>
+            Camino 2 SUL (2.5%→4.5%→4.0%): V₂ = 3/1.025 + 3/(1.025×1.045) + 103/(1.025×1.045×1.040) = <strong>$98.26</strong><br>
+            Camino 3 SLU (2.5%→3.0%→4.0%): V₃ = 3/1.025 + 3/(1.025×1.030) + 103/(1.025×1.030×1.040) = <strong>$99.30</strong><br>
+            Camino 4 SLL (2.5%→3.0%→2.5%): V₄ = 3/1.025 + 3/(1.025×1.030) + 103/(1.025×1.030×1.025) = <strong>$100.97</strong>
+          </div>
+          <div class="result-banner neutral">V = (96.43 + 98.26 + 99.30 + 100.97) / 4 = <strong>$98.74 ≡ Inducción hacia atrás</strong></div>
+        </div>
+
+        <div class="rule-callout green" style="margin-top:8px">
+          <strong>Equivalencia matemática:</strong> Inducción hacia atrás = Valoración por caminos. Ambos producen valores libres de arbitraje consistentes con la curva spot. La diferencia es <em>computacional</em>, no conceptual.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · SIMULACIÓN MONTE CARLO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Simulación Monte Carlo</h2>
+    <p>Generación de caminos estocásticos · Ajuste por drift · Dependencia de caminos · MBS</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 Fundamentos y Calibración -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Generación de Caminos Estocásticos y Ajuste por Drift para Arbitraje-Libre</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Definición de Simulación Monte Carlo</div>
+          <div class="cc-def">
+            Genera aleatoriamente un <strong>gran número de caminos de tasas de interés</strong>, usando un modelo que incorpora una suposición de volatilidad y una distribución de probabilidad asumida. El valor del bono es el promedio de los valores en todos los caminos simulados.
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="f-label">Valor del Bono — Monte Carlo</div>
+          <div class="f-eq">$$V = \frac{1}{N}\sum_{i=1}^{N} V_i$$</div>
+          <div class="f-vars">
+            <span>N</span> = número de caminos simulados &nbsp;|&nbsp;
+            <span>V_i</span> = valor del bono en el camino i-ésimo<br>
+            Cada <span>V_i</span> se calcula descontando flujos con las tasas forward del camino i.
+          </div>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin:10px 0 8px">Ajuste por Drift (Calibración)</div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Valor Simulado &gt; Mercado</div>
+            <div class="cmp-rule" style="font-size:11px">Restar constante a tasas</div>
+            <p>Las tasas simuladas son demasiado bajas → subir tasas para alinear con mercado.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Valor Simulado &lt; Mercado</div>
+            <div class="cmp-rule" style="font-size:11px">Sumar constante a tasas</div>
+            <p>Las tasas simuladas son demasiado altas → bajar tasas para alinear con mercado.</p>
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Modelo ajustado por drift:</strong> Resultado de calibrar los caminos simulados para que los bonos benchmark se valoren a su precio de mercado. El proceso puede requerir múltiples iteraciones para converger.
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejercicio — Samuel Favre · Monte Carlo · Bono 3% · 3 años · $100 par</div>
+          <div class="ex-body">
+            <strong>Caminos simulados (ajustados por drift):</strong><br>
+            Camino 1 (2.5%→4.2%→5.8%): V₁ = 3/1.025 + 3/(1.025×1.042) + 103/(1.025×1.042×1.058) = <strong>$96.97</strong><br>
+            Camino 2 (2.5%→3.8%→4.5%): V₂ = 3/1.025 + 3/(1.025×1.038) + 103/(1.025×1.038×1.045) = <strong>$98.43</strong><br>
+            Camino 3 (2.5%→3.2%→3.8%): V₃ = 3/1.025 + 3/(1.025×1.032) + 103/(1.025×1.032×1.038) = <strong>$99.67</strong><br>
+            Camino 4 (2.5%→2.8%→3.2%): V₄ = 3/1.025 + 3/(1.025×1.028) + 103/(1.025×1.028×1.032) = <strong>$100.90</strong>
+          </div>
+          <div class="result-banner neutral">V = (96.97 + 98.43 + 99.67 + 100.90) / 4 = <strong>$98.99 ≈ resultado árbol binomial</strong></div>
+        </div>
+
+        <div class="concept-card accent-gold" style="margin-top:10px">
+          <div class="cc-label gold">Características Clave de Monte Carlo</div>
+          <div class="cc-def">
+            <strong>Generación aleatoria</strong> de caminos con números aleatorios.<br>
+            <strong>Gran número de caminos</strong> (miles/millones) para resultados estadísticamente significativos.<br>
+            <strong>Flujos path-dependent</strong> — los flujos de caja pueden depender de la trayectoria completa de las tasas.<br>
+            Puede imponer <strong>límites superior e inferior</strong> en tasas basados en reversión a la media.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Dependencia de Caminos y MBS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Dependencia de Caminos (Path Dependency) y Valores Respaldados por Hipotecas (MBS)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">Limitación del Árbol Binomial</div>
+          <div class="cc-def">
+            El árbol binomial asume que los flujos de caja en un nodo son <strong>independientes del camino</strong> que tomaron las tasas hasta ese punto. Para MBS, esta suposición falla: los flujos <strong>SÍ dependen del historial completo</strong> de tasas.
+          </div>
+        </div>
+
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">¿Qué es Path Dependency?</div>
+          <div class="cc-def">
+            Los prepagos en hipotecas dependen no solo del <strong>nivel actual de tasas</strong>, sino también del <strong>camino que tomaron las tasas</strong> para llegar allí. Esto es análogo al riesgo de call de un bono callable, pero más complejo.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo de Path Dependency en MBS — Pool formado con tasas al 6%</div>
+          <div class="ex-body">
+            <strong>Escenario 1 — Primera caída de tasas (6% → 4%):</strong><br>
+            Muchos propietarios refinancian → <strong>alto nivel de prepagos</strong><br><br>
+            <strong>Escenario 2 — Segunda caída (6% → 4% → 6% → 4%):</strong><br>
+            La mayoría que podía refinanciar ya lo hizo en la primera caída.<br>
+            <strong>Menor nivel de prepagos</strong> que en la primera ocurrencia de 4%.
+          </div>
+          <div class="ex-result">El mismo nivel de tasas (4%) genera flujos de caja distintos según el historial → <strong>burnout effect</strong></div>
+        </div>
+
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Conclusión:</strong> Monte Carlo es el método apropiado para valorar MBS porque puede simular múltiples trayectorias <em>completas</em> de tasas y calcular los flujos de caja considerando el historial completo de cada camino. El árbol binomial es inapropiado para estos instrumentos.
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <!-- Tabla comparativa de métodos -->
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Aplicabilidad de los Métodos de Valoración</div>
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>Método</th>
+          <th>Adecuado Para</th>
+          <th>Flujos Dependientes del Camino</th>
+          <th>Bonos con Opciones</th>
+          <th>MBS / Prepagables</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Curva Spot (Tasas Spot)</strong></td>
+          <td>Bonos sin opciones, flujos fijos</td>
+          <td class="val-red">❌ No</td>
+          <td class="val-red">❌ No</td>
+          <td class="val-red">❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>Árbol Binomial (Backward Induction)</strong></td>
+          <td>Bonos con opciones integradas</td>
+          <td class="val-red">❌ No</td>
+          <td class="val-green">✅ Sí</td>
+          <td class="val-red">❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>Árbol Binomial (Pathwise Valuation)</strong></td>
+          <td>Bonos con opciones (idéntico a backward)</td>
+          <td class="val-red">❌ No</td>
+          <td class="val-green">✅ Sí</td>
+          <td class="val-red">❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>Simulación Monte Carlo</strong></td>
+          <td>Instrumentos con flujos path-dependent</td>
+          <td class="val-green">✅ Sí</td>
+          <td class="val-green">✅ Sí</td>
+          <td class="val-green">✅ Sí</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · MODELOS DE ESTRUCTURA DE TASAS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Modelos de Estructura de Tasas</h2>
+    <p>Modelos de equilibrio (CIR, Vasicek) · Modelos libres de arbitraje (Ho-Lee, KWF, Gauss+) · Comparación y selección</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Modelos de Equilibrio -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Modelos de Equilibrio: Cox-Ingersoll-Ross (CIR) y Vasicek</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo Cox-Ingersoll-Ross (CIR)</div>
+        <div class="formula-box">
+          <div class="f-label">Ecuación CIR</div>
+          <div class="f-eq">$$dr = a(b - r)\,dt + \sigma\sqrt{r}\,dz$$</div>
+          <div class="f-vars">
+            <span>a</span> = velocidad de reversión a la media &nbsp;|&nbsp;
+            <span>b</span> = tasa de interés de largo plazo (long-run mean)<br>
+            <span>r</span> = tasa corta actual &nbsp;|&nbsp;
+            <span>σ</span> = volatilidad &nbsp;|&nbsp;
+            <span>dz</span> = proceso de Wiener
+          </div>
+        </div>
+        <div class="grid-2" style="gap:8px;margin-top:8px">
+          <div class="concept-card">
+            <div class="cc-label">Término de Drift: a(b-r)dt</div>
+            <div class="cc-def">Fuerza la tasa a <strong>revertir hacia b</strong>. Si r &gt; b → drift negativo (↓). Si r &lt; b → drift positivo (↑).</div>
+          </div>
+          <div class="concept-card accent-green">
+            <div class="cc-label green">Componente Aleatorio: σ√r dz</div>
+            <div class="cc-def">La <strong>volatilidad aumenta con la tasa</strong>. El término √r asegura que las tasas no sean negativas.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo Vasicek</div>
+        <div class="formula-box">
+          <div class="f-label">Ecuación Vasicek</div>
+          <div class="f-eq">$$dr = a(b - r)\,dt + \sigma\,dz$$</div>
+          <div class="f-vars">
+            Mismos parámetros que CIR, pero <span>sin el término √r</span> en el componente aleatorio.
+          </div>
+        </div>
+        <div class="cmp-strip" style="margin-top:8px">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">CIR vs Vasicek</div>
+            <div class="cmp-rule" style="font-size:11px">Diferencia Clave</div>
+            <p>CIR: volatilidad <strong>varía con √r</strong> → no permite tasas negativas.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Desventaja Vasicek</div>
+            <div class="cmp-rule" style="font-size:11px">Riesgo de Tasas −</div>
+            <p>Volatilidad constante → <strong>puede producir tasas negativas</strong>. Limitación en entornos de tasas bajas.</p>
+          </div>
+        </div>
+        <div class="rule-callout red" style="margin-top:8px">
+          <strong>Desventaja compartida (CIR y Vasicek):</strong> Son modelos de equilibrio — los precios generados <strong>generalmente no coinciden con los precios de mercado observados</strong>. No se calibran a la curva de rendimiento actual.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Modelos Libres de Arbitraje -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Modelos Libres de Arbitraje: Ho-Lee, KWF y Gauss+</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo Ho-Lee</div>
+        <div class="formula-box">
+          <div class="f-label">Ecuación Ho-Lee</div>
+          <div class="f-eq">$$dr = \theta_t\,dt + \sigma\,dz_t$$</div>
+          <div class="f-vars">
+            <span>θ_t</span> = término de drift dependiente del tiempo, calibrado a precios de mercado.
+          </div>
+        </div>
+        <div class="concept-card" style="margin-top:8px">
+          <div class="cc-label">Características</div>
+          <div class="cc-def">
+            Derivado del modelo Black-Scholes. Se <strong>calibra a precios de mercado</strong> (θ_t se ajusta en cada punto del tiempo). Volatilidad constante. Distribución <strong>normal</strong> → puede producir tasas negativas.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo KWF (Kalotay-Williams-Fabozzi)</div>
+        <div class="formula-box">
+          <div class="f-label">Ecuación KWF</div>
+          <div class="f-eq">$$d\ln(r_t) = \theta_t\,dt + \sigma\,dz_t$$</div>
+          <div class="f-vars">
+            Mismo lado derecho que Ho-Lee, pero la variable dependiente es <span>ln(r_t)</span>.
+          </div>
+        </div>
+        <div class="concept-card accent-green" style="margin-top:8px">
+          <div class="cc-label green">Ventaja sobre Ho-Lee</div>
+          <div class="cc-def">
+            Al modelar el logaritmo de la tasa, la distribución es <strong>lognormal</strong> → <strong>no produce tasas negativas</strong>. Sin reversión a la media, volatilidad constante. Calibra a precios de mercado.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modelo Gauss+</div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label" style="color:rgba(255,255,255,.7)">Modelo Multifactor (3 Factores)</div>
+          <div class="cc-def" style="color:rgba(255,255,255,.85)">Incorpora tasas de corto, mediano y largo plazo.</div>
+        </div>
+        <div class="grid-3" style="gap:6px">
+          <div class="concept-card">
+            <div class="cc-label" style="font-size:9px">Largo Plazo</div>
+            <div class="cc-def" style="font-size:11px">Reverting, depende de <strong>variables macro</strong>.</div>
+          </div>
+          <div class="concept-card accent-mid">
+            <div class="cc-label mid" style="font-size:9px">Mediano Plazo</div>
+            <div class="cc-def" style="font-size:11px">Revierte a la <strong>tasa de largo plazo</strong>.</div>
+          </div>
+          <div class="concept-card accent-gold">
+            <div class="cc-label gold" style="font-size:9px">Corto Plazo</div>
+            <div class="cc-def" style="font-size:11px">Sin componente aleatorio — <strong>banco central</strong> controla la tasa corta.</div>
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Curva de volatilidad hump-shaped:</strong> Volatilidad de mediano plazo &gt; corto plazo &gt; largo plazo.
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div class="rule-callout green">
+      <strong>Ventaja clave de los modelos libres de arbitraje:</strong> Se calibran para coincidir con los <strong>precios de mercado actuales</strong> — ventaja decisiva sobre los modelos de equilibrio. Toman la curva de rendimiento actual como dada y no intentan justificarla.
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 Comparación y Selección -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.3</span>
+    <span class="section-title">Comparación y Selección de Modelos</span>
+  </div>
+  <div class="section-body">
+    <table class="ref-table" style="margin-bottom:16px">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>CIR</th>
+          <th>Vasicek</th>
+          <th>Ho-Lee</th>
+          <th>KWF</th>
+          <th>Gauss+</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tipo</strong></td>
+          <td>Equilibrio</td>
+          <td>Equilibrio</td>
+          <td>Libre de arbitraje</td>
+          <td>Libre de arbitraje</td>
+          <td>Libre de arbitraje</td>
+        </tr>
+        <tr>
+          <td><strong>Factores</strong></td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td class="val-blue">3</td>
+        </tr>
+        <tr>
+          <td><strong>Reversión a la media</strong></td>
+          <td class="val-green">Sí</td>
+          <td class="val-green">Sí</td>
+          <td class="val-red">No</td>
+          <td class="val-red">No</td>
+          <td class="val-green">Sí (largo plazo)</td>
+        </tr>
+        <tr>
+          <td><strong>Volatilidad</strong></td>
+          <td>√r (variable)</td>
+          <td>Constante</td>
+          <td>Constante</td>
+          <td>Constante</td>
+          <td>Hump-shaped</td>
+        </tr>
+        <tr>
+          <td><strong>Tasas negativas</strong></td>
+          <td class="val-green">No permite</td>
+          <td class="val-red">Puede producir</td>
+          <td class="val-red">Puede producir</td>
+          <td class="val-green">No permite</td>
+          <td class="val-green">No permite</td>
+        </tr>
+        <tr>
+          <td><strong>Distribución</strong></td>
+          <td>Lognormal</td>
+          <td>Normal</td>
+          <td>Normal</td>
+          <td>Lognormal</td>
+          <td>Normal</td>
+        </tr>
+        <tr>
+          <td><strong>Calibra a mercado</strong></td>
+          <td class="val-red">No</td>
+          <td class="val-red">No</td>
+          <td class="val-green">Sí</td>
+          <td class="val-green">Sí</td>
+          <td class="val-green">Sí</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Criterios de Selección según el Caso de Uso</div>
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Valoración de Derivados</div>
+        <div class="cc-def">Modelos <strong>libres de arbitraje</strong> (Ho-Lee, KWF, Gauss+). La calibración al mercado es indispensable para valorar correctamente instrumentos derivados y bonos con opciones integradas.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Gestión de Riesgo</div>
+        <div class="cc-def">Modelos <strong>multifactor</strong> (Gauss+) para capturar mejor la estructura completa de tasas y el riesgo de cambios de forma en la curva (shaping risk).</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Forecasting de Tasas</div>
+        <div class="cc-def">Modelos de <strong>equilibrio</strong> (CIR, Vasicek) para entender las dinámicas económicas subyacentes de los movimientos de tasas de interés.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SÍNTESIS FINAL
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num" style="background:var(--accent)">✦</div>
+  <div class="module-title-block">
+    <h2 style="color:var(--navy)">Síntesis: LOS, Errores de Examen y Bibliografía</h2>
+    <p>LOS 24.a–24.i · Errores frecuentes · Lecturas recomendadas</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">R</span>
+    <span class="section-title">Learning Outcome Statements (LOS 24.a – 24.i) y Errores de Examen</span>
+  </div>
+  <div class="section-body">
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Resumen de LOS</div>
+    <table class="ref-table" style="margin-bottom:16px">
+      <thead>
+        <tr><th>LOS</th><th>Concepto</th><th>Idea Clave</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>24.a</strong></td>
+          <td>Valoración Libre de Arbitraje</td>
+          <td>Valor tal que ningún participante puede ganar arbitraje. Principio de valor aditivo + sin dominancia.</td>
+        </tr>
+        <tr>
+          <td><strong>24.b</strong></td>
+          <td>Bonos sin Opciones</td>
+          <td>Descontar cada flujo de caja a su <strong>tasa spot correspondiente</strong> — no una tasa única (YTM).</td>
+        </tr>
+        <tr>
+          <td><strong>24.c</strong></td>
+          <td>Árbol Binomial</td>
+          <td>Modelo <strong>lognormal</strong>: dos resultados igualmente probables (50%/50%). Volatilidad impulsa el spread entre nodos.</td>
+        </tr>
+        <tr>
+          <td><strong>24.d</strong></td>
+          <td>Calibración del Árbol</td>
+          <td>3 reglas: (1) valores = precios de mercado, (2) tasas adyacentes separadas 2σ, (3) tasa del medio ≈ tasa forward implícita.</td>
+        </tr>
+        <tr>
+          <td><strong>24.e</strong></td>
+          <td>Inducción Hacia Atrás</td>
+          <td>Trabajar desde el vencimiento hacia atrás. En cada nodo: promedio 50/50 de nodos siguientes + cupón, descontado a tasa forward del nodo.</td>
+        </tr>
+        <tr>
+          <td><strong>24.f</strong></td>
+          <td>Curva Spot vs Árbol Binomial</td>
+          <td>Curva spot: bonos sin opciones. Árbol binomial: bonos con opciones (flujos dependientes de tasas futuras).</td>
+        </tr>
+        <tr>
+          <td><strong>24.g</strong></td>
+          <td>Valoración por Caminos</td>
+          <td>Promedio de valores en cada camino. Para árbol de n períodos: <strong>2^(n-1) caminos</strong>. Matemáticamente ≡ backward induction.</td>
+        </tr>
+        <tr>
+          <td><strong>24.h</strong></td>
+          <td>Simulación Monte Carlo</td>
+          <td>MBS tienen flujos <strong>path-dependent</strong> (prepago depende del historial de tasas). Backward induction del árbol binomial es <strong>inapropiado</strong> para MBS.</td>
+        </tr>
+        <tr>
+          <td><strong>24.i</strong></td>
+          <td>Modelos de Estructura de Tasas</td>
+          <td>Equilibrio (CIR/Vasicek) vs Libre de arbitraje (Ho-Lee/KWF/Gauss+). Diferencias clave: calibración, distribución, tasas negativas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="inner-divider"></div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">⚠ Errores Frecuentes en Examen</div>
+    <div class="grid-2">
+      <div class="rule-callout red">
+        <strong>Error 1:</strong> Usar tasas spot para valorar bonos con opciones. Las tasas spot suponen flujos fijos. Un callable bond puede ser redimido anticipadamente si las tasas bajan — los flujos no son fijos. Se necesita árbol binomial.
+      </div>
+      <div class="rule-callout red">
+        <strong>Error 2:</strong> Confundir reconstitución con stripping. Reconstitución = STRIPS → bono (cuando STRIPS &lt; bono). Stripping = bono → STRIPS (cuando bono &lt; componentes). Siempre se compra lo barato y vende lo caro.
+      </div>
+      <div class="rule-callout gold">
+        <strong>Error 3:</strong> Asumir que backward induction y pathwise valuation son distintos. Son <strong>matemáticamente idénticos</strong> — producen el mismo resultado. La diferencia es solo computacional/algorítmica.
+      </div>
+      <div class="rule-callout gold">
+        <strong>Error 4:</strong> Usar árbol binomial para valorar MBS. El árbol asume que los flujos en un nodo son independientes del camino. Los prepagos de MBS dependen del historial de tasas → usar Monte Carlo.
+      </div>
+      <div class="rule-callout">
+        <strong>Error 5:</strong> Confundir modelos de equilibrio con libres de arbitraje. Los de equilibrio (CIR, Vasicek) generalmente <strong>no coinciden con precios de mercado</strong>. Los libres de arbitraje (Ho-Lee, KWF, Gauss+) se calibran a la curva actual y sí coinciden.
+      </div>
+      <div class="rule-callout">
+        <strong>Error 6:</strong> Asumir que el modelo Vasicek es superior al CIR por ser más simple. La ventaja de CIR es crítica: su término √r <strong>prohíbe tasas negativas</strong>. Vasicek puede producirlas — limitación importante en entornos de tasas bajas.
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Lecturas Recomendadas por Tema</div>
+    <div class="badge-row">
+      <span class="badge badge-blue">Fundamentos: Schweser R.62 · Fabozzi Fixed Income Mathematics Ch.5</span>
+      <span class="badge badge-outline">Árboles Binomiales: Tuckman Ch.7 · Fabozzi Handbook Ch.17</span>
+      <span class="badge badge-pale">Monte Carlo: Fabozzi Handbook Ch.18 · Veronesi Ch.18</span>
+      <span class="badge badge-gray">Modelos de Tasas: CIR (1985) · Vasicek (1977) · Ho-Lee (1986) · KWF (1993)</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

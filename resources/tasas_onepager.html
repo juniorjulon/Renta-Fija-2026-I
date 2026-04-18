@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasas de Interés — One-Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #e8c97a;
+    --accent2: #5bc8af;
+    --accent3: #e07060;
+    --accent4: #7b9cda;
+    --text: #d4d8e8;
+    --text-dim: #7a8099;
+    --text-bright: #f0f2fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.65;
+    padding: 40px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text-bright);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header-left h1 span { color: var(--accent); }
+  .header-left p {
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header-right {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .header-right .tag {
+    display: inline-block;
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    color: var(--accent);
+    border-color: var(--accent);
+    opacity: 0.7;
+  }
+
+  /* GRID LAYOUT */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-full { margin-bottom: 16px; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .card.accent-left-gold { border-left: 3px solid var(--accent); }
+  .card.accent-left-teal { border-left: 3px solid var(--accent2); }
+  .card.accent-left-red  { border-left: 3px solid var(--accent3); }
+  .card.accent-left-blue { border-left: 3px solid var(--accent4); }
+
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h2 .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .pill-gold  { background: rgba(232,201,122,0.12); color: var(--accent);  border: 1px solid rgba(232,201,122,0.3); }
+  .pill-teal  { background: rgba(91,200,175,0.12);  color: var(--accent2); border: 1px solid rgba(91,200,175,0.3); }
+  .pill-red   { background: rgba(224,112,96,0.12);  color: var(--accent3); border: 1px solid rgba(224,112,96,0.3); }
+  .pill-blue  { background: rgba(123,156,218,0.12); color: var(--accent4); border: 1px solid rgba(123,156,218,0.3); }
+
+  .card p { color: var(--text); font-size: 13px; margin-bottom: 8px; }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 9px 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--accent);
+    margin: 10px 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* MINI TABLE */
+  .mini-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+  .mini-table th {
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-weight: 500;
+    padding: 6px 8px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .mini-table th:first-child { text-align: left; }
+  .mini-table td {
+    padding: 6px 8px;
+    text-align: right;
+    border-bottom: 1px solid rgba(37,42,56,0.6);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+  .mini-table td:first-child { text-align: left; color: var(--text-dim); }
+  .mini-table tr:last-child td { border-bottom: none; font-weight: 600; }
+  .mini-table tr:last-child td:last-child { color: var(--accent2); }
+
+  /* HIGHLIGHT ROW */
+  .mini-table tr.hl td { color: var(--accent); }
+
+  /* COMPARISON BAR */
+  .compare-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    font-size: 12.5px;
+  }
+  .compare-label { width: 90px; color: var(--text-dim); font-size: 11px; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .compare-val { width: 70px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+  /* CALLOUT */
+  .callout {
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    font-size: 12.5px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 16px; line-height: 1; margin-top: 2px; flex-shrink: 0; }
+  .callout.warn { background: rgba(232,201,122,0.07); border-color: rgba(232,201,122,0.25); color: #d4bc6a; }
+  .callout.info { background: rgba(91,200,175,0.07); border-color: rgba(91,200,175,0.25); color: #4db09b; }
+  .callout.danger { background: rgba(224,112,96,0.07); border-color: rgba(224,112,96,0.25); color: #c8604e; }
+
+  /* SECTION DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 16px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  /* BOND FLOW */
+  .bond-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 14px 0;
+    overflow-x: auto;
+  }
+  .bond-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 64px;
+  }
+  .bond-node .amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .bond-node .amount.principal { color: var(--accent); }
+  .bond-node .circle {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+  .bond-node .t-label { font-size: 10px; color: var(--text-dim); margin-top: 4px; }
+  .bond-arrow {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    min-width: 18px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .bond-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -3px;
+    border-left: 6px solid var(--border);
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+  }
+
+  /* MATRIX TABLE */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .matrix th, .matrix td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .matrix th {
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .matrix td { color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+  .matrix td.highlight { color: var(--accent2); font-weight: 600; background: rgba(91,200,175,0.05); }
+  .matrix td.muted { color: var(--text-dim); font-style: italic; }
+
+  /* RATE USE TABLE */
+  .rate-use { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .rate-use td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .rate-use td:first-child { color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; width: 160px; }
+  .rate-use tr:last-child td { border-bottom: none; }
+
+  /* PV BOX */
+  .pv-result {
+    background: var(--surface2);
+    border-radius: 5px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border);
+  }
+  .pv-result .label { font-size: 11px; color: var(--text-dim); }
+  .pv-result .value { font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 600; color: var(--accent2); }
+
+  /* FOOTNOTE */
+  .footnote {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .step { font-size: 11px; color: var(--text-dim); margin: 4px 0 2px; }
+  .step span { color: var(--text); }
+
+  b { color: var(--text-bright); font-weight: 500; }
+  .gold { color: var(--accent); }
+  .teal { color: var(--accent2); }
+  .red  { color: var(--accent3); }
+  .blue { color: var(--accent4); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>Tasas de Interés &amp; <span>Valor Presente</span></h1>
+    <p>Simple · Compuesto · Nominal · Efectiva · Descuento de flujos · Bonos</p>
+  </div>
+  <div class="header-right">
+    <div class="tag">RENTA FIJA</div><br>
+    <span>Reference Sheet · 2026</span>
+  </div>
+</div>
+
+<!-- SECTION 1: LAS DOS DIMENSIONES -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">01 — Las dos dimensiones independientes</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="grid-2">
+  <!-- SIMPLE VS COMPUESTO -->
+  <div class="card accent-left-gold">
+    <h2>Simple vs. Compuesto <span class="pill pill-gold">¿cómo crece?</span></h2>
+    <p>La pregunta es: <b>¿los intereses generan más intereses?</b></p>
+
+    <div class="formula">Monto Simple = C × (1 + r × n)</div>
+    <div class="formula">Monto Compuesto = C × (1 + r)ⁿ</div>
+
+    <p style="margin-top:8px;">Ejemplo: S/ 1,000 al 10% anual, 3 años</p>
+    <table class="mini-table">
+      <thead><tr><th>Año</th><th>Base Simple</th><th>Interés</th><th>Base Compuesta</th><th>Interés</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>1,000</td><td>100</td><td>1,000.00</td><td>100.00</td></tr>
+        <tr><td>2</td><td>1,000</td><td>100</td><td>1,100.00</td><td>110.00</td></tr>
+        <tr><td>3</td><td>1,000</td><td>100</td><td>1,210.00</td><td>121.00</td></tr>
+        <tr class="hl"><td>Final</td><td colspan="2">= <b>S/ 1,300</b></td><td colspan="2">= <b>S/ 1,331</b></td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <div class="callout-icon">△</div>
+      <div>La diferencia de <b>S/ 31</b> es puro "interés sobre interés". A mayor plazo, mayor divergencia.</div>
+    </div>
+  </div>
+
+  <!-- NOMINAL VS EFECTIVA -->
+  <div class="card accent-left-teal">
+    <h2>Nominal vs. Efectiva <span class="pill pill-teal">¿cómo se expresa?</span></h2>
+    <p>La pregunta es: <b>¿la tasa ya incorpora la capitalización infraanual?</b></p>
+
+    <div class="formula">TEA = (1 + TNA / m)^m − 1</div>
+
+    <p style="margin-top:8px;">Ejemplo: TNA = 12% capitalizable mensualmente (m = 12)</p>
+    <div class="step">Paso 1 — tasa mensual: <span>12% / 12 = 1.00% mensual</span></div>
+    <div class="step">Paso 2 — TEA: <span>(1.01)¹² − 1 = <b class="teal">12.6825% anual</b></span></div>
+
+    <p style="margin-top:10px;">Más capitalización → mayor brecha TNA vs TEA:</p>
+
+    <div class="compare-row">
+      <div class="compare-label">Anual (m=1)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:70%; background:var(--accent2)"></div></div>
+      <div class="compare-val teal">12.000%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Mensual (m=12)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:74%; background:var(--accent2)"></div></div>
+      <div class="compare-val teal">12.683%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Diaria (m=365)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:76%; background:var(--accent)"></div></div>
+      <div class="compare-val gold">12.747%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Continua (∞)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:77%; background:var(--accent3)"></div></div>
+      <div class="compare-val red">12.750%</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: VALOR PRESENTE -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">02 — Traer flujos a Valor Presente</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="grid-3">
+  <!-- VP CON TASA SIMPLE -->
+  <div class="card accent-left-gold">
+    <h2>VP con Tasa Simple <span class="pill pill-gold">mercado de dinero</span></h2>
+    <p>Se usa en <b>instrumentos &lt; 1 año</b>: letras, pagarés, repos BCRP.</p>
+    <div class="formula">VP = VF / (1 + r × t)</div>
+    <p class="step" style="margin-top:8px;">Dato: <span>Letra con VN = S/ 10,000 | tasa = 8% anual | 180 días</span></p>
+    <div class="step">t = <span>180/360 = 0.5 años</span></div>
+    <div class="step">VP = <span>10,000 / (1 + 0.08 × 0.5)</span></div>
+    <div class="pv-result">
+      <div class="label">Precio de compra</div>
+      <div class="value">S/ 9,615.38</div>
+    </div>
+    <div class="callout warn" style="margin-top:10px;">
+      <div class="callout-icon">i</div>
+      <div>El retorno efectivo no es exactamente 8%. Si quieres compararlo con un bono, necesitas convertirlo a TEA.</div>
+    </div>
+  </div>
+
+  <!-- VP CON TASA NOMINAL -->
+  <div class="card accent-left-teal">
+    <h2>VP con Tasa Nominal <span class="pill pill-teal">compuesta infraanual</span></h2>
+    <p>Nominal anual con capitalización periódica. Cada cupón se descuenta con la tasa del sub-período.</p>
+    <div class="formula">VP = VF / (1 + TNA/m)^(m·t)</div>
+    <p class="step" style="margin-top:8px;">Dato: <span>S/ 10,000 a 2 años | TNA = 12% mensual (m=12)</span></p>
+    <div class="step">Tasa mensual = <span>12%/12 = 1% mensual</span></div>
+    <div class="step">n = <span>2 × 12 = 24 períodos</span></div>
+    <div class="step">VP = <span>10,000 / (1.01)²⁴</span></div>
+    <div class="pv-result">
+      <div class="label">Valor presente</div>
+      <div class="value">S/ 7,875.66</div>
+    </div>
+    <p class="step" style="margin-top:6px; font-size:11px; color:var(--text-dim);">Equivalente si usas TEA=12.6825%: VP = 10,000/(1.126825)² = <span>S/ 7,875.66</span> ✓</p>
+  </div>
+
+  <!-- VP CON TEA -->
+  <div class="card accent-left-blue">
+    <h2>VP con TEA <span class="pill pill-blue">estándar bonos</span></h2>
+    <p>Tasa efectiva anual. Cada flujo se descuenta directamente con potencia fraccionaria.</p>
+    <div class="formula">VP = VF / (1 + TEA)^t</div>
+    <p class="step" style="margin-top:8px;">Dato: <span>S/ 10,000 en 2.5 años | TEA = 8%</span></p>
+    <div class="step">VP = <span>10,000 / (1.08)^2.5</span></div>
+    <div class="step">(1.08)^2.5 = <span>1.2165</span></div>
+    <div class="pv-result">
+      <div class="label">Valor presente</div>
+      <div class="value">S/ 8,219.27</div>
+    </div>
+    <div class="callout info" style="margin-top:10px;">
+      <div class="callout-icon">✓</div>
+      <div>El exponente fraccionario maneja <b>cualquier plazo</b> limpiamente. Por eso es el estándar en bonos soberanos y corporativos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: VALORACIÓN DE BONOS -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">03 — Razonamiento: descuento de flujos de un bono</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="card grid-full accent-left-red" style="margin-bottom:16px;">
+  <h2>¿Por qué descontar los flujos de un bono? <span class="pill pill-red">lógica central</span></h2>
+
+  <p style="margin-bottom:12px;">Un bono es simplemente <b>una promesa de flujos futuros</b>. Como el dinero de mañana vale menos que el de hoy (por oportunidad, inflación y riesgo), hay que "traerlos" al presente con una tasa que refleje el costo de oportunidad del inversionista.</p>
+
+  <!-- BOND CASH FLOW DIAGRAM -->
+  <p style="font-size:11px; color:var(--text-dim); margin-bottom:6px;">Bono bullet: VN=1,000 | Cupón=5% anual | Madurez=3 años</p>
+  <div class="bond-flow">
+    <div class="bond-node"><div class="amount">?</div><div class="circle" style="border-color:var(--accent3); color:var(--accent3)">P₀</div><div class="t-label">Hoy</div></div>
+    <div class="bond-arrow"></div>
+    <div class="bond-node"><div class="amount">50</div><div class="circle">C₁</div><div class="t-label">t=1</div></div>
+    <div class="bond-arrow"></div>
+    <div class="bond-node"><div class="amount">50</div><div class="circle">C₂</div><div class="t-label">t=2</div></div>
+    <div class="bond-arrow"></div>
+    <div class="bond-node"><div class="amount principal">1,050</div><div class="circle" style="border-color:var(--accent)">C₃+VN</div><div class="t-label">t=3</div></div>
+  </div>
+
+  <div class="formula" style="margin-top:6px;">P₀ = C/(1+r)¹ + C/(1+r)² + (C+VN)/(1+r)³</div>
+
+  <p style="margin-top:10px; margin-bottom:8px;">Con r = TEA = 6% (tasa de descuento del mercado):</p>
+  <table class="mini-table">
+    <thead><tr><th>Flujo</th><th>t</th><th>Factor (1.06)^t</th><th>VP del flujo</th></tr></thead>
+    <tbody>
+      <tr><td>Cupón 1</td><td>1</td><td>1.0600</td><td>47.17</td></tr>
+      <tr><td>Cupón 2</td><td>2</td><td>1.1236</td><td>44.50</td></tr>
+      <tr><td>Cupón 3 + VN</td><td>3</td><td>1.1910</td><td>881.40</td></tr>
+      <tr class="hl"><td colspan="3">Precio del bono P₀</td><td>973.07</td></tr>
+    </tbody>
+  </table>
+  <div class="callout danger" style="margin-top:10px;">
+    <div class="callout-icon">!</div>
+    <div>El precio es <b>&lt; 1,000</b> porque el mercado exige 6% pero el bono paga solo 5%. Para compensar, el bono se vende con <b>descuento</b>. Si r &lt; cupón → precio &gt; par (prima). Si r = cupón → precio = par.</div>
+  </div>
+</div>
+
+<!-- SECTION 4: ¿QUÉ TASA USAR PARA DESCONTAR? -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">04 — ¿Qué tasa usar según el instrumento?</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="grid-2">
+  <div class="card accent-left-teal">
+    <h2>Mapa de tasas por instrumento</h2>
+    <table class="rate-use">
+      <tr>
+        <td>Bonos soberanos / corporativos</td>
+        <td><b class="teal">TEA o YTM</b> con capitalización anual. Flujos descontados con (1+r)^t fraccionario.</td>
+      </tr>
+      <tr>
+        <td>Bonos USA / estándar CFA</td>
+        <td><b class="blue">BEY</b> — tasa semianual × 2. Capitalización semestral. VP = Σ C/(1+r/2)^(2t)</td>
+      </tr>
+      <tr>
+        <td>Repos / CDRBCRPs / CDs &lt;1a</td>
+        <td><b class="gold">Tasa simple</b> — convención de mercado de dinero (360 días en Perú).</td>
+      </tr>
+      <tr>
+        <td>Derivados / swap curves</td>
+        <td><b class="red">Tasas spot</b> (cero cupón) derivadas de la curva. Cada flujo con su propia tasa.</td>
+      </tr>
+      <tr>
+        <td>Bonos hipotecarios / MBS</td>
+        <td><b class="teal">Tasa mensual</b> derivada de TNA/12. Amortización programada período a período.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card accent-left-blue">
+    <h2>La matriz Simple / Compuesto × Nominal / Efectiva</h2>
+    <table class="matrix">
+      <thead>
+        <tr><th></th><th>NOMINAL</th><th>EFECTIVA</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:left; color:var(--text-dim); font-family:'IBM Plex Mono',monospace; font-size:11px;">SIMPLE</td>
+          <td class="highlight">Mercado de dinero&lt;1a<br><span style="font-size:10px; color:var(--text-dim)">BCRP, Letras, Repos</span></td>
+          <td class="muted">Raro en práctica</td>
+        </tr>
+        <tr>
+          <td style="text-align:left; color:var(--text-dim); font-family:'IBM Plex Mono',monospace; font-size:11px;">COMPUESTO</td>
+          <td style="color:var(--accent); font-size:11px;">Créditos bancarios<br><span style="font-size:10px; color:var(--text-dim)">TNA cap. mensual → TEA</span></td>
+          <td class="highlight">Estándar bonos&gt;1a<br><span style="font-size:10px; color:var(--text-dim)">TEA, YTM, BEY</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout info" style="margin-top:12px;">
+      <div class="callout-icon">✓</div>
+      <div><b>Regla práctica:</b> para comparar cualquier instrumento, convierte todo a <b class="teal">TEA</b>. Es la única tasa directamente comparable entre sí, independientemente del plazo o frecuencia de pago.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <span>Renta Fija 2026-I · Reference Sheet · Tasas e Interés</span>
+  <span>Simple ≠ Nominal &nbsp;|&nbsp; Compuesto ≠ Efectiva &nbsp;|&nbsp; Son dos dimensiones independientes</span>
+</div>
+
+</body>
+</html>

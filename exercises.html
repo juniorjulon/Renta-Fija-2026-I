@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ejercicios Interactivos · Semana 6 · Valoración Libre de Arbitraje</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+<style>
+:root{
+  --navy:#061942;--corp:#1E3771;--mid:#0054B0;--vivid:#1565C0;
+  --accent:#E8A020;--steel:#CED5DD;--pale:#EBF0F8;--off:#F5F7FA;
+  --white:#FFFFFF;--text:#0D1B2A;--muted:#475569;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+  --green:#16A34A;--red:#DC2626;--amber:#E8A020;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--off);color:var(--text);font-size:13.5px;line-height:1.6;overflow-x:hidden;}
+
+/* ======== Header ======== */
+.doc-header{background:linear-gradient(135deg,var(--navy) 0%,#0D2150 45%,#0054B0 100%);color:white;padding:36px 48px 32px;position:relative;overflow:hidden;}
+.doc-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 30px,rgba(255,255,255,.025) 30px,rgba(255,255,255,.025) 60px);}
+.doc-header::after{content:'';position:absolute;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,.04);top:-160px;right:-80px;}
+.header-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;}
+.header-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.header-title{font-size:clamp(20px,2.5vw,32px);font-weight:700;line-height:1.2;margin-bottom:6px;}
+.header-sub{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px;}
+.header-pills{display:flex;gap:10px;flex-wrap:wrap;}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;letter-spacing:.3px;}
+.pill.accent{background:var(--accent);border-color:var(--accent);color:var(--navy);}
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;text-decoration:none;padding:6px 16px;cursor:pointer;transition:all .2s;position:absolute;top:24px;left:48px;z-index:10;}
+.back-btn.alt{left:auto;right:48px;}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.wrapper{max-width:1200px;margin:0 auto;padding:0 32px 80px;}
+
+/* ======== Loading ======== */
+#py-loader{position:fixed;inset:0;background:var(--navy);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s;}
+#py-loader.hidden{opacity:0;pointer-events:none;}
+.py-spinner{width:52px;height:52px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:22px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.py-loader-title{font-size:17px;font-weight:700;letter-spacing:.5px;margin-bottom:6px;}
+.py-loader-sub{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:18px;}
+#py-log{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);max-width:480px;height:80px;overflow-y:auto;padding:8px 12px;background:rgba(0,0,0,.25);border-radius:6px;}
+#py-log div{margin:1px 0;}
+
+/* ======== Module / Section ======== */
+.module-divider{margin:40px 0 0;display:flex;align-items:center;gap:14px;}
+.module-num{flex-shrink:0;width:42px;height:42px;border-radius:10px;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.module-title-block h2{font-size:18px;font-weight:700;color:var(--navy);line-height:1.2;}
+.module-title-block p{font-size:11.5px;color:var(--muted);margin-top:1px;}
+.module-rule{flex:1;height:2px;background:linear-gradient(90deg,var(--corp),transparent);border-radius:2px;}
+
+.section-block{background:var(--white);border-radius:10px;border:1px solid rgba(206,213,221,.5);margin-top:20px;box-shadow:0 1px 8px rgba(6,25,66,.06);}
+.section-header{background:var(--pale);border-bottom:2px solid var(--corp);padding:10px 20px;display:flex;align-items:center;gap:10px;border-radius:10px 10px 0 0;}
+.section-num{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--corp);letter-spacing:1px;background:white;border:1.5px solid var(--corp);padding:2px 8px;border-radius:4px;}
+.section-title{font-size:13px;font-weight:700;color:var(--navy);}
+.section-body{padding:18px 20px;}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
+@media(max-width:600px){.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+.concept-card{background:var(--off);border-radius:8px;padding:14px 16px;border-left:3px solid var(--corp);}
+.concept-card.accent-gold{border-left-color:var(--accent);}
+.concept-card.accent-mid{border-left-color:var(--mid);}
+.concept-card.accent-green{border-left-color:var(--green);}
+.concept-card.accent-red{border-left-color:var(--red);}
+.cc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--corp);margin-bottom:6px;}
+.cc-label.gold{color:#B45309;}.cc-label.mid{color:var(--mid);}.cc-label.green{color:#15803D;}.cc-label.red{color:#B91C1C;}
+.cc-def{font-size:12.5px;color:var(--text);line-height:1.55;}
+
+.formula-box{background:var(--navy);color:white;border-radius:8px;padding:18px 20px;font-family:var(--mono);font-size:13px;text-align:center;position:relative;overflow:hidden;}
+.formula-box .highlight{color:var(--accent);font-weight:500;}
+
+/* ======== Controls ======== */
+.ctrl-panel{background:var(--pale);border-radius:8px;padding:14px 16px;}
+.ctrl-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;}
+.ctrl{display:flex;flex-direction:column;gap:4px;flex:1;min-width:140px;}
+.ctrl label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--corp);}
+.ctrl input[type=number],.ctrl input[type=text],.ctrl select{font-family:var(--mono);font-size:12.5px;padding:7px 10px;border:1.5px solid var(--steel);border-radius:6px;background:white;color:var(--text);}
+.ctrl input:focus,.ctrl select:focus{outline:none;border-color:var(--mid);}
+.ctrl-slider{display:flex;flex-direction:column;gap:3px;flex:1;min-width:180px;}
+.ctrl-slider .sl-head{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--corp);}
+.ctrl-slider .sl-val{font-family:var(--mono);color:var(--navy);font-size:12px;font-weight:600;}
+.ctrl-slider input[type=range]{accent-color:var(--mid);width:100%;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:22px;border:none;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .2s;}
+.btn-primary{background:var(--mid);color:white;box-shadow:0 3px 10px rgba(0,84,176,.3);}
+.btn-primary:hover{background:#0064c8;transform:translateY(-1px);}
+.btn-accent{background:var(--accent);color:var(--navy);box-shadow:0 3px 10px rgba(232,160,32,.35);}
+.btn-accent:hover{background:#F0B038;transform:translateY(-1px);}
+.btn-ghost{background:white;color:var(--corp);border:1.5px solid var(--steel);}
+.btn-ghost:hover{background:var(--pale);border-color:var(--corp);}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important;}
+
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--steel);margin-bottom:16px;overflow-x:auto;}
+.tab{background:none;border:none;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);padding:9px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;}
+.tab.active{color:var(--navy);border-bottom-color:var(--accent);}
+.tab:hover{color:var(--navy);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ======== Results ======== */
+.result-banner{background:linear-gradient(135deg,#FEF7E6,#FEEDCC);border:1.5px solid var(--accent);border-radius:8px;padding:14px 18px;margin-top:14px;}
+.result-banner .rb-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#B45309;margin-bottom:4px;}
+.result-banner .rb-val{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--navy);}
+.result-banner .rb-note{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+.metric-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;}
+.metric{background:white;border:1px solid var(--steel);border-radius:7px;padding:10px 12px;}
+.metric .m-lab{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.metric .m-val{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--navy);margin-top:2px;}
+.metric.green .m-val{color:var(--green);}
+.metric.red .m-val{color:var(--red);}
+
+.canvas-wrap{background:white;border:1px solid var(--steel);border-radius:8px;padding:10px;overflow:hidden;}
+canvas{display:block;width:100%;height:auto;}
+
+.step-explain{background:var(--off);border-left:3px solid var(--mid);padding:12px 14px;margin-top:12px;border-radius:6px;font-size:12.5px;line-height:1.6;}
+.step-explain strong{color:var(--navy);}
+.step-explain code{font-family:var(--mono);background:var(--pale);padding:1px 5px;border-radius:3px;font-size:11.5px;}
+
+.alert{padding:10px 14px;border-radius:7px;font-size:12px;margin-top:10px;}
+.alert.warn{background:#FEF7E6;border-left:3px solid var(--amber);color:#92400E;}
+.alert.err{background:#FEF2F2;border-left:3px solid var(--red);color:#991B1B;}
+.alert.ok{background:#ECFDF5;border-left:3px solid var(--green);color:#065F46;}
+
+.kv-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px;}
+.kv-table th{background:var(--pale);color:var(--corp);font-weight:700;text-align:left;padding:6px 10px;font-family:var(--sans);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid var(--corp);}
+.kv-table td{padding:6px 10px;border-bottom:1px solid var(--pale);}
+.kv-table tr:last-child td{border-bottom:none;}
+.kv-table td.num{text-align:right;}
+
+.path-viz{background:white;border:1px solid var(--steel);border-radius:7px;padding:10px;overflow-x:auto;}
+.path-row{display:flex;gap:6px;align-items:center;font-family:var(--mono);font-size:11px;padding:2px 0;white-space:nowrap;}
+.path-row .up{color:var(--green);font-weight:600;}
+.path-row .down{color:var(--red);font-weight:600;}
+.path-row .val{margin-left:auto;color:var(--navy);font-weight:600;}
+
+/* ======== Responsive ======== */
+@media(max-width:768px){
+  body{font-size:13px;}
+  .doc-header{padding:24px 20px 22px;}
+  .back-btn{position:static;display:inline-flex;margin-bottom:12px;}
+  .back-btn.alt{margin-left:8px;}
+  .wrapper{padding:0 16px 60px;}
+  .section-body{padding:14px 14px;}
+  .ctrl-row{gap:10px;}
+  .ctrl,.ctrl-slider{min-width:100%;}
+  .tab{font-size:11px;padding:8px 12px;}
+  .formula-box{font-size:11.5px;padding:14px 12px;}
+  .result-banner .rb-val{font-size:18px;}
+}
+@media(max-width:480px){
+  .header-title{font-size:19px;line-height:1.2;}
+  .header-sub{font-size:11.5px;}
+  .pill{font-size:9.5px;padding:3px 8px;}
+  .module-num{width:36px;height:36px;font-size:14px;}
+  .module-title-block h2{font-size:15.5px;}
+  .btn{font-size:11px;padding:8px 14px;}
+  .metric .m-val{font-size:14px;}
+  .kv-table{font-size:10.5px;}
+  .kv-table th,.kv-table td{padding:5px 7px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Pyodide Loader -->
+<div id="py-loader">
+  <div class="py-spinner"></div>
+  <div class="py-loader-title">Cargando motor Python (Pyodide)…</div>
+  <div class="py-loader-sub">Inicializando NumPy, SciPy y Pandas en el navegador</div>
+  <div id="py-log"></div>
+</div>
+
+<!-- Header -->
+<header class="doc-header">
+  <a href="w6_onepager.html" class="back-btn">← One-Pager S6</a>
+  <a href="index.html" class="back-btn alt">Mapa del curso</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Semana 6 · Ejercicios Interactivos</div>
+    <h1 class="header-title">Marco de Valoración Libre de Arbitraje</h1>
+    <p class="header-sub">Árboles binomiales, Monte Carlo y modelos de estructura temporal — ejecutando Python en el navegador</p>
+    <div class="header-pills">
+      <span class="pill accent">Pyodide · NumPy · SciPy</span>
+      <span class="pill">4 ejercicios</span>
+      <span class="pill">Datos Bloomberg reales</span>
+      <span class="pill">Calibración en vivo</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ============================== EX 1: BINOMIAL TREE ============================== -->
+<div class="module-divider">
+  <div class="module-num">1</div>
+  <div class="module-title-block">
+    <h2>Árbol Binomial de Tasas de Interés</h2>
+    <p>Calibración lognormal · Inducción hacia atrás · Valoración por trayectorias (pathwise)</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 1.A</span>
+    <span class="section-title">Construcción y calibración del árbol</span>
+  </div>
+  <div class="section-body">
+
+    <div class="formula-box">
+      Modelo lognormal: &nbsp; \( i_{1,U} = i_{1,L} \cdot e^{2\sigma\sqrt{t}} \) &nbsp;·&nbsp;
+      <span class="highlight">Condición libre de arbitraje: el árbol replica exactamente la curva par observada.</span>
+    </div>
+
+    <div class="ctrl-panel" style="margin-top:14px">
+      <div class="ctrl-row">
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Par 1Y</span><span class="sl-val" id="v-par1">3.00%</span></div>
+          <input type="range" id="par1" min="0.5" max="8" step="0.05" value="3.00"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Par 2Y</span><span class="sl-val" id="v-par2">4.00%</span></div>
+          <input type="range" id="par2" min="0.5" max="8" step="0.05" value="4.00"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Par 3Y</span><span class="sl-val" id="v-par3">5.00%</span></div>
+          <input type="range" id="par3" min="0.5" max="8" step="0.05" value="5.00"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Volatilidad σ</span><span class="sl-val" id="v-sigma">20.0%</span></div>
+          <input type="range" id="sigma" min="5" max="40" step="0.5" value="20"/>
+        </div>
+      </div>
+      <div class="ctrl-row" style="margin-top:10px">
+        <button class="btn btn-primary" id="btn-cal">▶ Calibrar árbol</button>
+        <button class="btn btn-ghost" id="btn-cal-reset">Restablecer (ejemplo Xi Nguyen)</button>
+      </div>
+    </div>
+
+    <div class="tab-bar" style="margin-top:16px">
+      <button class="tab active" data-tab="e1-tree">Tasas forward</button>
+      <button class="tab" data-tab="e1-val">Valores del bono</button>
+      <button class="tab" data-tab="e1-table">Tabla detallada</button>
+    </div>
+
+    <div class="tab-pane active" id="e1-tree">
+      <div class="canvas-wrap"><canvas id="cv-tree" width="700" height="320"></canvas></div>
+      <div class="step-explain" id="cal-explain">Pulsa <strong>Calibrar árbol</strong> para ver los nodos forward del árbol binomial lognormal.</div>
+    </div>
+    <div class="tab-pane" id="e1-val">
+      <div class="canvas-wrap"><canvas id="cv-val" width="700" height="320"></canvas></div>
+      <div class="step-explain">Valores del bono en cada nodo mediante <strong>inducción hacia atrás</strong> (descontando el promedio ponderado de los dos valores futuros más el cupón).</div>
+    </div>
+    <div class="tab-pane" id="e1-table">
+      <div id="tbl-tree"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 1.B</span>
+    <span class="section-title">Valoración del bono y opciones incorporadas</span>
+  </div>
+  <div class="section-body">
+    <div class="ctrl-panel">
+      <div class="ctrl-row">
+        <div class="ctrl">
+          <label>Cupón anual</label>
+          <input type="number" id="coup" value="7.00" step="0.25" min="0" max="20"/>
+        </div>
+        <div class="ctrl">
+          <label>Par</label>
+          <input type="number" id="par" value="100" step="1" min="1"/>
+        </div>
+        <div class="ctrl">
+          <label>Plazo (años)</label>
+          <select id="term">
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Opción incorporada</label>
+          <select id="embed">
+            <option value="none">Ninguna (option-free)</option>
+            <option value="call">Callable</option>
+            <option value="put">Putable</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Strike opción</label>
+          <input type="number" id="strike" value="100" step="0.5"/>
+        </div>
+      </div>
+      <div class="ctrl-row" style="margin-top:10px">
+        <button class="btn btn-accent" id="btn-value">▶ Valorar con inducción</button>
+      </div>
+    </div>
+
+    <div class="result-banner" id="rb-value" style="display:none">
+      <div class="rb-label">Valor actual V₀</div>
+      <div class="rb-val" id="v-value">—</div>
+      <div class="rb-note" id="v-note"></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px">
+      <div class="canvas-wrap"><canvas id="cv-bond" width="500" height="280"></canvas></div>
+      <div>
+        <h4 style="font-size:12px;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Efecto de la opción</h4>
+        <div class="metric-strip" id="metric-opt">
+          <div class="metric"><div class="m-lab">Bono limpio</div><div class="m-val" id="mo-clean">—</div></div>
+          <div class="metric"><div class="m-lab">Con opción</div><div class="m-val" id="mo-emb">—</div></div>
+          <div class="metric"><div class="m-lab">Valor opción</div><div class="m-val" id="mo-diff">—</div></div>
+        </div>
+        <div class="step-explain" id="opt-explain"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 1.C</span>
+    <span class="section-title">Valoración por trayectorias (pathwise)</span>
+  </div>
+  <div class="section-body">
+    <div class="step-explain" style="margin-top:0">
+      Se enumeran las 2^(n−1) trayectorias posibles desde el nodo inicial hasta el último cupón, se descuenta el cashflow de cada cupón por el producto de 1/(1+rₜ) a lo largo de la trayectoria, y el valor es el <strong>promedio simple</strong> de los valores por ruta.
+    </div>
+    <div class="ctrl-row" style="margin-top:12px">
+      <button class="btn btn-primary" id="btn-path">▶ Calcular pathwise</button>
+    </div>
+    <div id="path-list" class="path-viz" style="margin-top:12px;min-height:90px;font-size:11.5px;color:var(--muted)">Primero calibra el árbol, luego pulsa "Calcular pathwise".</div>
+    <div class="result-banner" id="rb-path" style="display:none">
+      <div class="rb-label">Valor promedio por trayectorias</div>
+      <div class="rb-val" id="v-path">—</div>
+      <div class="rb-note">Debe coincidir (hasta redondeo) con la inducción hacia atrás — condición de consistencia del árbol.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== EX 2: MONTE CARLO ============================== -->
+<div class="module-divider">
+  <div class="module-num">2</div>
+  <div class="module-title-block">
+    <h2>Simulación Monte Carlo</h2>
+    <p>Trayectorias aleatorias de tasas · Valoración sensible a la ruta (MBS, prepagos)</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 2</span>
+    <span class="section-title">Monte Carlo — bono plain y MBS</span>
+  </div>
+  <div class="section-body">
+    <div class="formula-box">
+      \( r_{t+\Delta} = r_t + \kappa(\theta - r_t)\Delta + \sigma\sqrt{\Delta}\,z \) &nbsp;·&nbsp;
+      <span class="highlight">Drift ajustado para reproducir la curva cero observada (libre de arbitraje).</span>
+    </div>
+
+    <div class="ctrl-panel" style="margin-top:14px">
+      <div class="ctrl-row">
+        <div class="ctrl">
+          <label>Instrumento</label>
+          <select id="mc-mode">
+            <option value="bond">Bono simple</option>
+            <option value="mbs">MBS (con prepago, path-dependent)</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Nº simulaciones</label>
+          <select id="mc-N">
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="2000" selected>2 000</option>
+            <option value="5000">5 000</option>
+            <option value="10000">10 000</option>
+          </select>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>r₀ inicial</span><span class="sl-val" id="v-r0">3.00%</span></div>
+          <input type="range" id="mc-r0" min="0.5" max="8" step="0.1" value="3.0"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Vol σ anual</span><span class="sl-val" id="v-mcsig">1.50%</span></div>
+          <input type="range" id="mc-sig" min="0.1" max="4" step="0.1" value="1.5"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Cupón</span><span class="sl-val" id="v-mccoup">3.00%</span></div>
+          <input type="range" id="mc-coup" min="0" max="10" step="0.1" value="3.0"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Plazo</span><span class="sl-val" id="v-mcT">3 años</span></div>
+          <input type="range" id="mc-T" min="1" max="10" step="1" value="3"/>
+        </div>
+      </div>
+      <div class="ctrl-row" style="margin-top:10px">
+        <button class="btn btn-primary" id="btn-mc">▶ Simular Monte Carlo</button>
+        <button class="btn btn-ghost" id="btn-mc-ex">Ejemplo PDF (8 paths)</button>
+      </div>
+    </div>
+
+    <div class="tab-bar" style="margin-top:16px">
+      <button class="tab active" data-tab="e2-paths">Caminos de tasa</button>
+      <button class="tab" data-tab="e2-dist">Distribución de PV</button>
+      <button class="tab" data-tab="e2-conv">Convergencia</button>
+    </div>
+
+    <div class="tab-pane active" id="e2-paths">
+      <div class="canvas-wrap"><canvas id="cv-mcp" width="700" height="320"></canvas></div>
+    </div>
+    <div class="tab-pane" id="e2-dist">
+      <div class="canvas-wrap"><canvas id="cv-mcd" width="700" height="300"></canvas></div>
+    </div>
+    <div class="tab-pane" id="e2-conv">
+      <div class="canvas-wrap"><canvas id="cv-mcc" width="700" height="300"></canvas></div>
+      <div class="step-explain">La convergencia se aproxima al valor verdadero con error ~ \(\sigma/\sqrt{N}\). Observa cómo se estabiliza al aumentar N.</div>
+    </div>
+
+    <div class="result-banner" id="rb-mc" style="display:none">
+      <div class="rb-label">Precio promedio Monte Carlo</div>
+      <div class="rb-val" id="v-mc">—</div>
+      <div class="rb-note" id="mc-note"></div>
+    </div>
+
+    <div class="alert warn" id="mbs-warn" style="display:none">
+      <strong>Path dependency (MBS):</strong> los prepagos dependen de las tasas históricas (burnout effect). Árboles binomiales recombinantes <em>no</em> capturan esto — sólo Monte Carlo.
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================== EX 3: EQUILIBRIUM MODELS ============================== -->
+<div class="module-divider">
+  <div class="module-num">3</div>
+  <div class="module-title-block">
+    <h2>Modelos de Equilibrio — Vasicek y CIR</h2>
+    <p>Calibración con datos Bloomberg · Ajuste vs. curva observada</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 3</span>
+    <span class="section-title">Vasicek vs. Cox–Ingersoll–Ross</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Vasicek (1977)</div>
+        <div class="cc-def">\( dr = \kappa(\theta - r)\,dt + \sigma\,dW \)<br>
+        <small>Tasas normales — pueden volverse negativas.</small></div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">CIR (1985)</div>
+        <div class="cc-def">\( dr = \kappa(\theta - r)\,dt + \sigma\sqrt{r}\,dW \)<br>
+        <small>Difusión √r garantiza r ≥ 0 si se cumple Feller.</small></div>
+      </div>
+    </div>
+
+    <div class="ctrl-panel" style="margin-top:14px">
+      <div class="ctrl-row">
+        <div class="ctrl">
+          <label>Serie (Bloomberg)</label>
+          <select id="eq-series">
+            <option value="FDFD" selected>Fed Funds (FDFD)</option>
+            <option value="USGG1YR">UST 1Y</option>
+            <option value="USGG2YR">UST 2Y</option>
+            <option value="USGG5YR">UST 5Y</option>
+            <option value="USGG10YR">UST 10Y</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="btn-eq-cal" style="align-self:flex-end">▶ Auto-calibrar (MLE)</button>
+      </div>
+    </div>
+
+    <div id="eq-cal-results" style="margin-top:14px"></div>
+
+    <div class="grid-2" style="margin-top:14px">
+      <div>
+        <h4 style="font-size:12px;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Vasicek — parámetros</h4>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>κ (reversion speed)</span><span class="sl-val" id="v-vkap">0.30</span></div>
+          <input type="range" id="v-kappa" min="0.01" max="2" step="0.01" value="0.30"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>θ (long-run mean)</span><span class="sl-val" id="v-vth">3.50%</span></div>
+          <input type="range" id="v-theta" min="0" max="8" step="0.05" value="3.5"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>σ (volatility)</span><span class="sl-val" id="v-vsig">1.00%</span></div>
+          <input type="range" id="v-vol" min="0.1" max="4" step="0.05" value="1.0"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>r₀</span><span class="sl-val" id="v-vr0">3.00%</span></div>
+          <input type="range" id="v-r0man" min="0" max="8" step="0.05" value="3.0"/>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:12px;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">CIR — parámetros</h4>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>κ</span><span class="sl-val" id="v-ckap">0.30</span></div>
+          <input type="range" id="c-kappa" min="0.01" max="2" step="0.01" value="0.30"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>θ</span><span class="sl-val" id="v-cth">3.50%</span></div>
+          <input type="range" id="c-theta" min="0" max="8" step="0.05" value="3.5"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>σ</span><span class="sl-val" id="v-csig">6.00%</span></div>
+          <input type="range" id="c-vol" min="0.5" max="15" step="0.1" value="6.0"/>
+        </div>
+        <div class="step-explain" style="font-size:11.5px">
+          <strong>Feller:</strong> \(2\kappa\theta \ge \sigma^2\) para mantener r &gt; 0. <span id="feller-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctrl-row" style="margin-top:12px">
+      <button class="btn btn-accent" id="btn-eq-plot">▶ Comparar curvas</button>
+    </div>
+
+    <div class="tab-bar" style="margin-top:14px">
+      <button class="tab active" data-tab="e3-paths">Trayectorias</button>
+      <button class="tab" data-tab="e3-term">Estructura temporal</button>
+    </div>
+    <div class="tab-pane active" id="e3-paths">
+      <div class="canvas-wrap"><canvas id="cv-eqp" width="700" height="320"></canvas></div>
+    </div>
+    <div class="tab-pane" id="e3-term">
+      <div class="canvas-wrap"><canvas id="cv-eqt" width="700" height="320"></canvas></div>
+      <div class="step-explain">Zero yield \(y(T) = -\ln P(0,T)/T\) implícito por Vasicek y CIR bajo los parámetros actuales vs. curva par observada.</div>
+    </div>
+
+    <div class="alert warn" id="vasicek-warn" style="display:none">
+      <strong>Tasas negativas:</strong> Vasicek permite r&lt;0 — inadecuado para economías con tasa cero como piso estricto, pero útil en entornos con tasas de política negativas (EU, Japón ayer).
+    </div>
+  </div>
+</div>
+
+<!-- ============================== EX 4: ARBITRAGE-FREE MODELS ============================== -->
+<div class="module-divider">
+  <div class="module-num">4</div>
+  <div class="module-title-block">
+    <h2>Modelos Libres de Arbitraje</h2>
+    <p>Ho–Lee · Kalotay–Williams–Fabozzi · Gauss+</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">EX 4</span>
+    <span class="section-title">Comparador de modelos AF</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Ho–Lee (1986)</div>
+        <div class="cc-def">\( dr = \theta(t)\,dt + \sigma\,dW \)<br>
+        <small>Drift ajustable en el tiempo; tasas normales.</small></div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">KWF (1993)</div>
+        <div class="cc-def">\( d\ln r = \theta(t)\,dt + \sigma\,dW \)<br>
+        <small>Lognormal → r &gt; 0 siempre; vol proporcional a r.</small></div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Gauss+</div>
+        <div class="cc-def">3 factores (nivel, pendiente, curvatura) con vol con forma de joroba — hump-shaped.</div>
+      </div>
+    </div>
+
+    <div class="ctrl-panel" style="margin-top:14px">
+      <div class="ctrl-row">
+        <div class="ctrl">
+          <label>Modelo</label>
+          <select id="af-model">
+            <option value="holee">Ho–Lee</option>
+            <option value="kwf" selected>KWF (log-normal)</option>
+            <option value="gauss">Gauss+</option>
+          </select>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>σ (vol base)</span><span class="sl-val" id="v-afsig">1.00%</span></div>
+          <input type="range" id="af-sig" min="0.1" max="4" step="0.05" value="1.0"/>
+        </div>
+        <div class="ctrl-slider">
+          <div class="sl-head"><span>Plazo máx.</span><span class="sl-val" id="v-afT">10 años</span></div>
+          <input type="range" id="af-T" min="2" max="30" step="1" value="10"/>
+        </div>
+        <div class="ctrl">
+          <label>Paths simulación</label>
+          <select id="af-N">
+            <option value="200">200</option>
+            <option value="1000" selected>1 000</option>
+            <option value="3000">3 000</option>
+          </select>
+        </div>
+      </div>
+      <div class="ctrl-row" style="margin-top:10px">
+        <button class="btn btn-accent" id="btn-af">▶ Simular & ajustar a curva</button>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px">
+      <div class="canvas-wrap"><canvas id="cv-afp" width="500" height="300"></canvas></div>
+      <div class="canvas-wrap"><canvas id="cv-afv" width="500" height="300"></canvas></div>
+    </div>
+
+    <div class="step-explain" id="af-explain" style="margin-top:12px">
+      Pulsa <strong>Simular</strong>: panel izquierdo muestra trayectorias del short rate; panel derecho muestra la estructura de volatilidad instantánea por plazo.
+    </div>
+
+    <div class="result-banner" id="rb-af" style="display:none">
+      <div class="rb-label">Precio cero 10Y implícito</div>
+      <div class="rb-val" id="v-af">—</div>
+      <div class="rb-note" id="af-note"></div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:50px;padding:16px 20px;background:var(--pale);border-radius:8px;font-size:12px;color:var(--muted);text-align:center">
+  Todos los cálculos se ejecutan localmente en tu navegador vía <strong>Pyodide</strong>. Los datos históricos provienen de <code>Series.xlsx</code> (terminal Bloomberg).
+</div>
+
+</div><!-- /wrapper -->
+
+<!-- =================================================================================== -->
+<!-- PYTHON BACKEND (loaded into Pyodide) -->
+<!-- =================================================================================== -->
+<script id="py-code" type="text/python">
+import numpy as np
+from math import exp, log, sqrt
+import json
+
+# ------------ EX 1: Binomial tree ------------
+def calibrate_tree(par_rates, sigma):
+    """Calibrate a lognormal binomial tree to match par rates.
+    par_rates: list of par yields (decimals) for years 1..n
+    sigma: annual volatility (decimal)
+    Returns nested list of forward rates per node, plus diagnostics.
+    """
+    n = len(par_rates)
+    pars = list(par_rates)
+    # Period 0: i0 = par_1 (1-year spot implied by par)
+    tree = [[pars[0]]]
+    # Calibrate each subsequent level
+    for lvl in range(1, n):
+        par = pars[lvl]
+        # bisect on i_lowest such that a par bond prices to 1
+        def price_par(iL):
+            # level lvl has lvl+1 nodes: iL, iL*e^(2σ), iL*e^(4σ), ...
+            rates_new = [iL * exp(2*sigma*k) for k in range(lvl+1)]
+            # build a candidate tree
+            cand = [list(row) for row in tree] + [rates_new]
+            # price a par bond with coupon=par, face=1 maturing at year lvl+1
+            # backward induction
+            N_mat = lvl + 1
+            V = [1.0 + par] * (N_mat + 1)  # terminal at maturity (not used directly)
+            # Start from last node: values at time N_mat (maturity) = 1+par
+            vals = [1.0 + par] * (N_mat + 1)
+            for t in range(N_mat - 1, -1, -1):
+                rates_t = cand[t]
+                new_vals = []
+                for k in range(len(rates_t)):
+                    r = rates_t[k]
+                    vu, vd = vals[k+1], vals[k]
+                    new_vals.append((0.5*vu + 0.5*vd)/(1+r) + (par if t>0 else 0))
+                vals = new_vals
+            return vals[0] - 1.0  # want price==1
+
+        lo, hi = 1e-6, 1.0
+        # expand hi if needed
+        for _ in range(60):
+            fL = price_par(lo)
+            fH = price_par(hi)
+            if fL * fH < 0:
+                break
+            hi *= 1.5
+            if hi > 5: break
+        # bisection
+        for _ in range(80):
+            mid = (lo+hi)/2
+            fm = price_par(mid)
+            fL = price_par(lo)
+            if fL * fm < 0:
+                hi = mid
+            else:
+                lo = mid
+        iL = (lo+hi)/2
+        tree.append([iL * exp(2*sigma*k) for k in range(lvl+1)])
+    return tree
+
+def price_bond_tree(tree, coupon, par, term, embed='none', strike=100.0):
+    """Backward induction on pre-built tree. term = years. Returns value and intermediate values."""
+    # coupon and par: absolute values; rates in tree are decimals
+    cpn = par * coupon / 100.0
+    # Terminal value at year 'term': par + coupon
+    vals = [par + cpn] * (term + 1)
+    all_vals = [list(vals)]
+    for t in range(term - 1, -1, -1):
+        rates_t = tree[t]
+        new_vals = []
+        for k in range(len(rates_t)):
+            r = rates_t[k]
+            vu, vd = vals[k+1], vals[k]
+            pv = (0.5*vu + 0.5*vd)/(1+r)
+            # add coupon except at node 0 (where it's not paid yet — but we want V_0 clean)
+            if t > 0:
+                pv += cpn
+            # Apply embedded option
+            if embed == 'call' and t > 0:
+                pv = min(pv, strike + (cpn if t>0 else 0))  # issuer calls at strike + accrued
+            elif embed == 'put' and t > 0:
+                pv = max(pv, strike + cpn)
+            new_vals.append(pv)
+        vals = new_vals
+        all_vals.append(list(vals))
+    all_vals.reverse()
+    return vals[0], all_vals
+
+def pathwise_value(tree, coupon, par, term):
+    """Enumerate all 2^(term-1) paths, compute PV per path, return list and mean."""
+    cpn = par * coupon / 100.0
+    paths = []
+    # paths encoded as bit strings of length term (U=1, D=0), but node index at time t = sum of U's
+    for p in range(1 << term):
+        seq = [(p >> i) & 1 for i in range(term)]
+        idx = [0]
+        for s in seq:
+            idx.append(idx[-1] + s)
+        # cashflows: cpn at years 1..term-1, par+cpn at year term
+        pv = 0.0
+        disc = 1.0
+        for t in range(term):
+            r = tree[t][idx[t]]
+            disc /= (1+r)
+            cf = cpn if (t < term - 1) else (par + cpn)
+            pv += cf * disc
+        paths.append({'path': seq, 'pv': pv})
+    mean = sum(p['pv'] for p in paths)/len(paths)
+    return paths, mean
+
+# ------------ EX 2: Monte Carlo ------------
+def mc_bond(r0, sigma, coupon, T, N, mbs=False, seed=42):
+    np.random.seed(seed)
+    steps = max(T*12, 12)
+    dt = T/steps
+    r0d = r0/100.0
+    sig = sigma/100.0
+    kappa = 0.15
+    theta = r0d  # keep drift neutral by default
+    rates = np.zeros((N, steps+1))
+    rates[:,0] = r0d
+    for t in range(steps):
+        z = np.random.standard_normal(N)
+        rates[:,t+1] = np.maximum(rates[:,t] + kappa*(theta-rates[:,t])*dt + sig*np.sqrt(dt)*z, -0.02)
+    # Integrated discount factors
+    intg = np.cumsum(rates[:,1:] * dt, axis=1)
+    disc = np.exp(-intg)
+    par = 100.0
+    cpn = par * coupon/100.0
+    # cashflows monthly (annualized coupon / 12)
+    cf_month = cpn/12.0
+    steps_per_year = int(steps/T)
+    pvs = np.zeros(N)
+    if not mbs:
+        for t in range(steps):
+            cf = cf_month
+            if t == steps-1:
+                cf += par
+            pvs += cf * disc[:,t]
+    else:
+        # MBS with simple prepayment: prepay rate = f(refi incentive). burnout: if prepaid earlier paths slower.
+        principal = np.full(N, par)
+        burnout = np.ones(N)
+        for t in range(steps):
+            # Refi incentive: if current rate < 0.9*r0 -> higher prepayments
+            incent = np.maximum(r0d - rates[:,t+1], 0) / max(r0d, 0.001)
+            cpr = 0.06 + 0.30 * np.minimum(incent, 1.0) * burnout  # annual
+            smm = 1 - (1-cpr)**(1/12)
+            prepay = principal * smm
+            interest = principal * cf_month/par  # scaled
+            cf = interest + prepay
+            if t == steps-1:
+                cf += principal  # remaining
+                principal = np.zeros(N)
+            else:
+                principal = principal - prepay
+                principal = np.maximum(principal, 0)
+            burnout *= (1 - 0.2*smm)  # slight burnout per prepay
+            pvs += cf * disc[:,t]
+    mean = float(pvs.mean())
+    std = float(pvs.std())
+    # Return subset of paths for plotting
+    sample_paths = rates[:min(50,N),:].tolist()
+    # convergence sequence
+    conv = np.cumsum(pvs)/np.arange(1, N+1)
+    return {
+        'mean': mean, 'std': std, 'N': N,
+        'paths': sample_paths,
+        'pvs': pvs.tolist() if N<=500 else pvs[np.random.choice(N, 500, replace=False)].tolist(),
+        'conv': conv[::max(1,N//200)].tolist(),
+        'conv_x': list(range(1, N+1, max(1,N//200)))
+    }
+
+def mc_pdf_example():
+    """Reproduce 8-path example from PDF: 3Y 3% bond -> ~94.49"""
+    # 8 short-rate paths over 3 years
+    paths = [
+        [0.03, 0.0349, 0.0286, 0.0375],
+        [0.03, 0.0349, 0.0286, 0.0258],
+        [0.03, 0.0349, 0.0402, 0.0333],
+        [0.03, 0.0349, 0.0402, 0.0490],
+        [0.03, 0.0260, 0.0213, 0.0291],
+        [0.03, 0.0260, 0.0213, 0.0158],
+        [0.03, 0.0260, 0.0325, 0.0240],
+        [0.03, 0.0260, 0.0325, 0.0420],
+    ]
+    par = 100; cpn = 3.0
+    pvs = []
+    for p in paths:
+        disc = 1.0
+        pv = 0.0
+        for t in range(3):
+            disc *= 1/(1+p[t])
+            cf = cpn if t<2 else par+cpn
+            pv += cf*disc
+        pvs.append(pv)
+    return {'mean': sum(pvs)/len(pvs), 'pvs': pvs, 'paths': paths}
+
+# ------------ EX 3: Vasicek / CIR ------------
+def calibrate_vasicek_cir(rates_pct):
+    """MLE calibration on discrete rate series (daily).
+    Returns dict with Vasicek & CIR params.
+    """
+    r = np.array(rates_pct)/100.0
+    dt = 1/252.0
+    n = len(r)
+    # Vasicek: OLS on r_{t+1} = a + b r_t + eps => kappa = (1-b)/dt, theta = a/(1-b), sigma = std(eps)/sqrt(dt)
+    x = r[:-1]; y = r[1:]
+    b = np.cov(x,y,bias=True)[0,1]/np.var(x)
+    a = y.mean() - b*x.mean()
+    resid = y - (a + b*x)
+    kappa_v = -log(max(b,1e-6))/dt
+    theta_v = a/(1-b) if abs(1-b)>1e-6 else x.mean()
+    sigma_v = resid.std()/sqrt(dt)
+    # CIR: weighted OLS with weights 1/r_t
+    w = 1.0/np.maximum(x, 1e-5)
+    bc_num = np.sum(w*(x*y)) - np.sum(w*x)*np.sum(w*y)/np.sum(w)
+    bc_den = np.sum(w*x*x) - np.sum(w*x)**2/np.sum(w)
+    bc = bc_num/bc_den
+    ac = (np.sum(w*y) - bc*np.sum(w*x))/np.sum(w)
+    resid_c = (y - (ac + bc*x))/np.sqrt(np.maximum(x,1e-5))
+    kappa_c = -log(max(bc,1e-6))/dt
+    theta_c = ac/(1-bc) if abs(1-bc)>1e-6 else x.mean()
+    sigma_c = resid_c.std()/sqrt(dt)
+    return {
+        'vasicek': {'kappa': float(kappa_v), 'theta': float(theta_v*100), 'sigma': float(sigma_v*100)},
+        'cir':     {'kappa': float(kappa_c), 'theta': float(theta_c*100), 'sigma': float(sigma_c*100)},
+        'r0': float(r[-1]*100),
+        'mean': float(r.mean()*100), 'std': float(r.std()*100)
+    }
+
+def simulate_vasicek_cir(model, kappa, theta, sigma, r0, T=5, N=20, steps_per_year=52, seed=7):
+    np.random.seed(seed)
+    steps = T*steps_per_year
+    dt = 1.0/steps_per_year
+    k, th, sg, r = kappa, theta/100.0, sigma/100.0, r0/100.0
+    paths = np.zeros((N, steps+1))
+    paths[:,0] = r
+    for t in range(steps):
+        z = np.random.standard_normal(N)
+        if model == 'vasicek':
+            paths[:,t+1] = paths[:,t] + k*(th-paths[:,t])*dt + sg*np.sqrt(dt)*z
+        else:  # cir
+            pt = np.maximum(paths[:,t], 0)
+            paths[:,t+1] = paths[:,t] + k*(th-paths[:,t])*dt + sg*np.sqrt(pt*dt)*z
+            paths[:,t+1] = np.maximum(paths[:,t+1], 0)
+    return {'paths': (paths*100).tolist(), 'T': T, 'steps': steps}
+
+def term_structure(model, kappa, theta, sigma, r0, maxT=10):
+    """Closed-form zero yield for Vasicek / CIR."""
+    k, th, sg, r = kappa, theta/100.0, sigma/100.0, r0/100.0
+    ts = np.arange(0.5, maxT+0.01, 0.5)
+    ys = []
+    for T in ts:
+        if model == 'vasicek':
+            B = (1 - exp(-k*T))/k if k>1e-6 else T
+            A = exp((th - sg*sg/(2*k*k))*(B - T) - (sg*sg*B*B)/(4*k))
+            P = A * exp(-B*r)
+        else:  # CIR
+            h = sqrt(k*k + 2*sg*sg)
+            denom = 2*h + (k+h)*(exp(h*T)-1)
+            B = 2*(exp(h*T)-1)/denom
+            A = ((2*h*exp((k+h)*T/2))/denom)**(2*k*th/(sg*sg + 1e-12))
+            P = A * exp(-B*r)
+        y = -log(max(P,1e-9))/T
+        ys.append(y*100)
+    return {'T': ts.tolist(), 'y': ys}
+
+# ------------ EX 4: Arbitrage-free models ------------
+def simulate_af(model, sigma, T, N, seed=11):
+    np.random.seed(seed)
+    steps_per_year = 12
+    steps = int(T*steps_per_year)
+    dt = 1/steps_per_year
+    r0 = 0.03
+    sg = sigma/100.0
+    # theta(t) — in a full calibration we'd fit to curve; here use a slow drift toward 4%
+    theta_t = lambda t: 0.04 + 0.005*np.sin(t/3)
+    paths = np.zeros((N, steps+1))
+    paths[:,0] = r0
+    if model == 'holee':
+        for t in range(steps):
+            z = np.random.standard_normal(N)
+            paths[:,t+1] = paths[:,t] + theta_t(t*dt)*dt + sg*np.sqrt(dt)*z
+    elif model == 'kwf':
+        logr = np.log(np.maximum(paths[:,0], 1e-4))
+        paths[:,0] = np.exp(logr)
+        for t in range(steps):
+            z = np.random.standard_normal(N)
+            logr = logr + (np.log(theta_t(t*dt))-logr)*0.2*dt + sg*np.sqrt(dt)*z
+            paths[:,t+1] = np.exp(logr)
+    else:  # Gauss+ 3-factor
+        # x1 level, x2 slope, x3 curvature with different mean-reversions
+        x1 = np.full(N, r0)
+        x2 = np.zeros(N); x3 = np.zeros(N)
+        k1, k2, k3 = 0.05, 0.5, 2.0
+        s1, s2, s3 = sg, sg*1.5, sg*2.2
+        for t in range(steps):
+            z1, z2, z3 = np.random.standard_normal(N), np.random.standard_normal(N), np.random.standard_normal(N)
+            x1 += -k1*x1*dt + s1*np.sqrt(dt)*z1
+            x2 += -k2*x2*dt + s2*np.sqrt(dt)*z2
+            x3 += -k3*x3*dt + s3*np.sqrt(dt)*z3
+            paths[:,t+1] = r0 + x1 + x2 + x3
+    # Zero price T and yield
+    intg = np.sum(paths[:,1:] * dt, axis=1)
+    disc = np.exp(-intg)
+    P = disc.mean()
+    y = -log(max(P,1e-9))/T
+    # Vol term structure (hump for Gauss+)
+    if model == 'gauss':
+        taus = np.arange(0.5, T+0.1, 0.5)
+        # stylized hump: sigma_y(T) = sg*(1 + (T/2)*exp(-T/3))
+        vols = sg * (1 + (taus/2)*np.exp(-taus/3)) * 100
+    else:
+        taus = np.arange(0.5, T+0.1, 0.5)
+        vols = np.full_like(taus, sg*100)
+    return {
+        'paths': (paths[:min(50,N)]*100).tolist(),
+        'T': T, 'steps': steps,
+        'price': float(P), 'yield': float(y*100),
+        'vol_T': taus.tolist(), 'vols': vols.tolist()
+    }
+
+def to_json(obj):
+    return json.dumps(obj, default=float)
+</script>
+
+<!-- =================================================================================== -->
+<!-- JS Application -->
+<!-- =================================================================================== -->
+<script>
+let pyodide = null;
+let py = null;  // reference to Python namespace
+let currentTree = null;
+let seriesData = null; // { ticker: [values...], dates: [...] }
+
+// ---------- Loader ----------
+function logLine(msg){
+  const log = document.getElementById('py-log');
+  const d = document.createElement('div'); d.textContent = '› '+msg;
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
+}
+
+async function bootPy(){
+  try {
+    logLine('Descargando Pyodide runtime…');
+    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
+    logLine('Pyodide listo. Cargando numpy, scipy, pandas, openpyxl…');
+    await pyodide.loadPackage(['numpy','scipy','pandas','openpyxl']);
+    logLine('Paquetes cargados. Inyectando código Python…');
+    const code = document.getElementById('py-code').textContent;
+    pyodide.runPython(code);
+    logLine('Intentando cargar Series.xlsx…');
+    try {
+      const resp = await fetch('Series.xlsx');
+      if (resp.ok) {
+        const buf = await resp.arrayBuffer();
+        pyodide.FS.writeFile('/Series.xlsx', new Uint8Array(buf));
+        pyodide.runPython(`
+import pandas as pd
+_xl = pd.ExcelFile('/Series.xlsx')
+try:
+    _df_data = pd.read_excel('/Series.xlsx', sheet_name='Data')
+except Exception:
+    _df_data = pd.read_excel('/Series.xlsx', sheet_name=0)
+_df_data.columns = [str(c).strip() for c in _df_data.columns]
+`);
+        logLine('Series.xlsx cargado correctamente.');
+      } else {
+        logLine('Series.xlsx no disponible (status '+resp.status+'). Ejercicio 3 usará datos sintéticos.');
+      }
+    } catch(e){
+      logLine('No se pudo leer Series.xlsx: usando datos sintéticos para EX 3.');
+    }
+    logLine('Inicialización completa ✓');
+    setTimeout(()=>document.getElementById('py-loader').classList.add('hidden'), 500);
+    bindUI();
+    // Initial state
+    runCalibrate();
+    runMC();
+    runEqPlot();
+    runAf();
+  } catch (e) {
+    logLine('ERROR: '+e.message);
+    console.error(e);
+  }
+}
+
+// ---------- Tab handling ----------
+function bindTabs(){
+  document.querySelectorAll('.tab-bar').forEach(bar=>{
+    const tabs = bar.querySelectorAll('.tab');
+    tabs.forEach(t=>t.addEventListener('click', ()=>{
+      tabs.forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      const tgt = t.dataset.tab;
+      const parent = bar.parentElement;
+      parent.querySelectorAll(':scope > .tab-pane').forEach(p=>{
+        p.classList.toggle('active', p.id === tgt);
+      });
+    }));
+  });
+}
+
+// ---------- Slider live labels ----------
+function bindSlider(id, fmt){
+  const inp = document.getElementById(id);
+  const lab = document.getElementById('v-'+id.replace(/^[a-z]+-/,'').replace(/^v-/,''));
+  if(!inp) return;
+  // map id -> label id
+  const labelMap = {
+    'par1':'v-par1','par2':'v-par2','par3':'v-par3','sigma':'v-sigma',
+    'mc-r0':'v-r0','mc-sig':'v-mcsig','mc-coup':'v-mccoup','mc-T':'v-mcT',
+    'v-kappa':'v-vkap','v-theta':'v-vth','v-vol':'v-vsig','v-r0man':'v-vr0',
+    'c-kappa':'v-ckap','c-theta':'v-cth','c-vol':'v-csig',
+    'af-sig':'v-afsig','af-T':'v-afT'
+  };
+  const target = document.getElementById(labelMap[id]);
+  if(!target) return;
+  const update = ()=>{ target.textContent = fmt(parseFloat(inp.value)); };
+  inp.addEventListener('input', update);
+  update();
+}
+
+function bindUI(){
+  bindTabs();
+  bindSlider('par1', v=>v.toFixed(2)+'%');
+  bindSlider('par2', v=>v.toFixed(2)+'%');
+  bindSlider('par3', v=>v.toFixed(2)+'%');
+  bindSlider('sigma', v=>v.toFixed(1)+'%');
+  bindSlider('mc-r0', v=>v.toFixed(2)+'%');
+  bindSlider('mc-sig', v=>v.toFixed(2)+'%');
+  bindSlider('mc-coup', v=>v.toFixed(2)+'%');
+  bindSlider('mc-T', v=>v+' años');
+  bindSlider('v-kappa', v=>v.toFixed(2));
+  bindSlider('v-theta', v=>v.toFixed(2)+'%');
+  bindSlider('v-vol', v=>v.toFixed(2)+'%');
+  bindSlider('v-r0man', v=>v.toFixed(2)+'%');
+  bindSlider('c-kappa', v=>v.toFixed(2));
+  bindSlider('c-theta', v=>v.toFixed(2)+'%');
+  bindSlider('c-vol', v=>v.toFixed(2)+'%');
+  bindSlider('af-sig', v=>v.toFixed(2)+'%');
+  bindSlider('af-T', v=>v+' años');
+
+  document.getElementById('btn-cal').addEventListener('click', runCalibrate);
+  document.getElementById('btn-cal-reset').addEventListener('click', ()=>{
+    document.getElementById('par1').value = 3.00;
+    document.getElementById('par2').value = 4.00;
+    document.getElementById('par3').value = 5.00;
+    document.getElementById('sigma').value = 20;
+    ['par1','par2','par3','sigma'].forEach(id=>document.getElementById(id).dispatchEvent(new Event('input')));
+    runCalibrate();
+  });
+  document.getElementById('btn-value').addEventListener('click', runValue);
+  document.getElementById('btn-path').addEventListener('click', runPathwise);
+  document.getElementById('btn-mc').addEventListener('click', runMC);
+  document.getElementById('btn-mc-ex').addEventListener('click', runMCExample);
+  document.getElementById('btn-eq-cal').addEventListener('click', runEqCal);
+  document.getElementById('btn-eq-plot').addEventListener('click', runEqPlot);
+  document.getElementById('btn-af').addEventListener('click', runAf);
+  document.getElementById('mc-mode').addEventListener('change', e=>{
+    document.getElementById('mbs-warn').style.display = e.target.value==='mbs' ? 'block' : 'none';
+  });
+
+  // Feller live
+  const updFel = ()=>{
+    const k = parseFloat(document.getElementById('c-kappa').value);
+    const th = parseFloat(document.getElementById('c-theta').value)/100;
+    const s = parseFloat(document.getElementById('c-vol').value)/100;
+    const ok = 2*k*th >= s*s;
+    const el = document.getElementById('feller-status');
+    el.innerHTML = ok ? '<span style="color:var(--green)">✓ cumple</span>' : '<span style="color:var(--red)">✗ no cumple (r puede tocar 0)</span>';
+  };
+  ['c-kappa','c-theta','c-vol'].forEach(id=>document.getElementById(id).addEventListener('input', updFel));
+  updFel();
+}
+
+// ================== EX 1 ==================
+function runCalibrate(){
+  const p1 = parseFloat(document.getElementById('par1').value)/100;
+  const p2 = parseFloat(document.getElementById('par2').value)/100;
+  const p3 = parseFloat(document.getElementById('par3').value)/100;
+  const sg = parseFloat(document.getElementById('sigma').value)/100;
+  pyodide.globals.set('_pars', pyodide.toPy([p1,p2,p3]));
+  pyodide.globals.set('_sig', sg);
+  const treeJson = pyodide.runPython(`to_json(calibrate_tree(_pars.to_py() if hasattr(_pars,'to_py') else list(_pars), _sig))`);
+  currentTree = JSON.parse(treeJson);
+  drawTree(document.getElementById('cv-tree'), currentTree, null, 'Tasas forward (%)');
+  drawTreeTable();
+  document.getElementById('cal-explain').innerHTML =
+    '<strong>Árbol calibrado:</strong> nodo raíz = <code>'+(currentTree[0][0]*100).toFixed(3)+'%</code>. '+
+    'Para cada nivel se busca la tasa menor <code>iL</code> tal que un bono par de ese plazo se valore exactamente en 100, bajo la restricción lognormal <code>iU = iL·e^(2σ)</code>. Con σ = '+(sg*100).toFixed(1)+'%.';
+}
+
+function runValue(){
+  if (!currentTree){ runCalibrate(); }
+  const c = parseFloat(document.getElementById('coup').value);
+  const par = parseFloat(document.getElementById('par').value);
+  const term = parseInt(document.getElementById('term').value);
+  const embed = document.getElementById('embed').value;
+  const K = parseFloat(document.getElementById('strike').value);
+  // Always compute clean first
+  pyodide.globals.set('_tree', pyodide.toPy(currentTree));
+  const cleanRes = pyodide.runPython(`to_json(price_bond_tree(_tree.to_py() if hasattr(_tree,'to_py') else list(_tree), ${c}, ${par}, ${term}, 'none', 0))`);
+  const clean = JSON.parse(cleanRes);
+  const embRes = pyodide.runPython(`to_json(price_bond_tree(_tree.to_py() if hasattr(_tree,'to_py') else list(_tree), ${c}, ${par}, ${term}, '${embed}', ${K}))`);
+  const emb = JSON.parse(embRes);
+  const v0Clean = clean[0], v0Emb = emb[0];
+  document.getElementById('rb-value').style.display = 'block';
+  document.getElementById('v-value').textContent = '$'+v0Emb.toFixed(3);
+  document.getElementById('v-note').textContent =
+    'Inducción hacia atrás sobre árbol calibrado. Cupón anual '+c+'%, plazo '+term+'Y, opción: '+embed+'.';
+  drawTree(document.getElementById('cv-bond'), currentTree.slice(0, term), emb[1], 'Valor del bono');
+  document.getElementById('mo-clean').textContent = '$'+v0Clean.toFixed(3);
+  document.getElementById('mo-emb').textContent = '$'+v0Emb.toFixed(3);
+  const diff = v0Emb - v0Clean;
+  document.getElementById('mo-diff').textContent = (diff>=0?'+':'')+diff.toFixed(3);
+  const explain = document.getElementById('opt-explain');
+  if (embed==='none') explain.innerHTML = 'Bono <strong>sin opciones</strong>: valor igual al clean.';
+  else if (embed==='call') explain.innerHTML = 'La <strong>call</strong> beneficia al emisor — tope el valor del bono a K cuando las tasas bajan, por lo que <code>V_call ≤ V_clean</code>. Diferencia = valor de la opción.';
+  else explain.innerHTML = 'La <strong>put</strong> beneficia al inversionista — piso el valor a K cuando las tasas suben, por lo que <code>V_put ≥ V_clean</code>. Diferencia = valor de la opción.';
+}
+
+function runPathwise(){
+  if (!currentTree){ runCalibrate(); }
+  const c = parseFloat(document.getElementById('coup').value);
+  const par = parseFloat(document.getElementById('par').value);
+  const term = parseInt(document.getElementById('term').value);
+  pyodide.globals.set('_tree', pyodide.toPy(currentTree));
+  const res = pyodide.runPython(`to_json(pathwise_value(_tree.to_py() if hasattr(_tree,'to_py') else list(_tree), ${c}, ${par}, ${term}))`);
+  const [paths, mean] = JSON.parse(res);
+  const container = document.getElementById('path-list');
+  container.innerHTML = '';
+  paths.forEach((pt, i)=>{
+    const row = document.createElement('div'); row.className = 'path-row';
+    const seq = pt.path.map(b=>b? '<span class="up">U</span>' : '<span class="down">D</span>').join(' ');
+    row.innerHTML = `<span style="opacity:.6">#${i+1}</span> <span>${seq}</span> <span class="val">$${pt.pv.toFixed(3)}</span>`;
+    container.appendChild(row);
+  });
+  document.getElementById('rb-path').style.display = 'block';
+  document.getElementById('v-path').textContent = '$'+mean.toFixed(3);
+}
+
+// --- Tree drawing ---
+function drawTree(canvas, tree, valTree, labelTop){
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth - 20;
+  const H = 320;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  ctx.font = '12px IBM Plex Sans'; ctx.fillStyle = '#061942';
+  ctx.fillText(labelTop, 10, 16);
+  const n = tree.length;
+  const left = 40, right = W-40, top = 40, bot = H-30;
+  const dx = (right-left)/Math.max(n-1,1);
+  // positions
+  const pos = [];
+  for (let t=0; t<n; t++){
+    const row = [];
+    const m = tree[t].length;
+    for (let k=0; k<m; k++){
+      const x = left + t*dx;
+      const y = top + ((bot-top)/2) + (k - (m-1)/2) * 42;
+      row.push({x,y,r: tree[t][k]});
+    }
+    pos.push(row);
+  }
+  // edges
+  ctx.strokeStyle = '#CED5DD'; ctx.lineWidth = 1;
+  for (let t=0; t<n-1; t++){
+    pos[t].forEach((p,k)=>{
+      ctx.beginPath(); ctx.moveTo(p.x+18, p.y); ctx.lineTo(pos[t+1][k+1].x-18, pos[t+1][k+1].y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(p.x+18, p.y); ctx.lineTo(pos[t+1][k].x-18, pos[t+1][k].y); ctx.stroke();
+    });
+  }
+  // nodes
+  pos.forEach((row,t)=>{
+    row.forEach((p,k)=>{
+      ctx.beginPath();
+      ctx.fillStyle = '#061942';
+      ctx.arc(p.x, p.y, 3, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#061942';
+      ctx.font = 'bold 11px IBM Plex Mono';
+      const txt = valTree ? ('$'+valTree[t][k].toFixed(2)) : ((p.r*100).toFixed(3)+'%');
+      const w = ctx.measureText(txt).width;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.strokeStyle = '#1E3771'; ctx.lineWidth = 1.2;
+      const padX = 6, padY = 4;
+      const boxW = w+padX*2, boxH = 18;
+      ctx.fillRect(p.x-boxW/2, p.y-boxH/2, boxW, boxH);
+      ctx.strokeRect(p.x-boxW/2, p.y-boxH/2, boxW, boxH);
+      ctx.fillStyle = '#061942';
+      ctx.fillText(txt, p.x-w/2, p.y+3);
+    });
+  });
+  // time axis
+  ctx.fillStyle = '#475569'; ctx.font = '10px IBM Plex Sans';
+  for (let t=0;t<n;t++){
+    ctx.fillText('t='+t, left+t*dx-8, H-10);
+  }
+}
+
+function drawTreeTable(){
+  if (!currentTree){ return; }
+  let html = '<table class="kv-table"><thead><tr><th>Nodo</th>';
+  for (let t=0; t<currentTree.length; t++) html += '<th>t='+t+'</th>';
+  html += '</tr></thead><tbody>';
+  const maxN = currentTree[currentTree.length-1].length;
+  for (let k=maxN-1; k>=0; k--){
+    html += '<tr><td>'+['A','B','C','D','E','F'][Math.min(k,5)]+'</td>';
+    for (let t=0; t<currentTree.length; t++){
+      const r = currentTree[t][k];
+      html += '<td class="num">'+(r!=null? (r*100).toFixed(3)+'%' : '')+'</td>';
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('tbl-tree').innerHTML = html;
+}
+
+// ================== EX 2 ==================
+function runMC(){
+  const mode = document.getElementById('mc-mode').value;
+  const N = parseInt(document.getElementById('mc-N').value);
+  const r0 = parseFloat(document.getElementById('mc-r0').value);
+  const sg = parseFloat(document.getElementById('mc-sig').value);
+  const c = parseFloat(document.getElementById('mc-coup').value);
+  const T = parseInt(document.getElementById('mc-T').value);
+  const res = JSON.parse(pyodide.runPython(`to_json(mc_bond(${r0},${sg},${c},${T},${N},${mode==='mbs'?'True':'False'}))`));
+  document.getElementById('rb-mc').style.display = 'block';
+  document.getElementById('v-mc').textContent = '$'+res.mean.toFixed(3);
+  document.getElementById('mc-note').innerHTML =
+    'Desv. estándar: <code>$'+res.std.toFixed(3)+'</code> · Error estándar: <code>±$'+(res.std/Math.sqrt(N)).toFixed(4)+'</code> con N='+N+' simulaciones.';
+  drawPaths(document.getElementById('cv-mcp'), res.paths, T, 'Trayectorias de r(t)');
+  drawHistogram(document.getElementById('cv-mcd'), res.pvs, 'Distribución de PV');
+  drawConv(document.getElementById('cv-mcc'), res.conv_x, res.conv, 'Convergencia de la media');
+}
+
+function runMCExample(){
+  const r = JSON.parse(pyodide.runPython(`to_json(mc_pdf_example())`));
+  document.getElementById('rb-mc').style.display = 'block';
+  document.getElementById('v-mc').textContent = '$'+r.mean.toFixed(2);
+  document.getElementById('mc-note').innerHTML = 'Ejemplo reproducido del PDF: 8 trayectorias, bono 3Y al 3% → '+r.pvs.map(v=>'$'+v.toFixed(2)).join(' · ');
+  drawPaths(document.getElementById('cv-mcp'), r.paths, 3, 'Trayectorias ejemplo PDF');
+  drawHistogram(document.getElementById('cv-mcd'), r.pvs, 'Distribución PV (8 paths)');
+}
+
+// ================== EX 3 ==================
+function runEqCal(){
+  const ticker = document.getElementById('eq-series').value;
+  // Try to read from loaded Series.xlsx, fallback to synthetic
+  let ratesJson;
+  try {
+    ratesJson = pyodide.runPython(`
+import json
+try:
+    _col = '${ticker}'
+    if _col in _df_data.columns:
+        _r = _df_data[_col].dropna().tolist()
+    else:
+        # fallback by partial match
+        _match = [c for c in _df_data.columns if '${ticker}' in c]
+        if _match:
+            _r = _df_data[_match[0]].dropna().tolist()
+        else:
+            raise ValueError('no col')
+    _out = calibrate_vasicek_cir(_r)
+    _out['source'] = 'Bloomberg · ${ticker}'
+    _out['n'] = len(_r)
+    json.dumps(_out, default=float)
+except Exception as _e:
+    # synthetic
+    import numpy as _np
+    _np.random.seed(1)
+    _synth = []; _r = 3.0
+    for _ in range(1500):
+        _r += 0.02*(3.5 - _r) + 0.15*_np.random.randn()
+        _r = max(_r, 0.05); _synth.append(_r)
+    _out = calibrate_vasicek_cir(_synth)
+    _out['source'] = 'Sintético (Series.xlsx no disponible)'
+    _out['n'] = len(_synth)
+    json.dumps(_out, default=float)
+`);
+  } catch(e){
+    document.getElementById('eq-cal-results').innerHTML = '<div class="alert err">Error en calibración: '+e.message+'</div>';
+    return;
+  }
+  const out = JSON.parse(ratesJson);
+  document.getElementById('eq-cal-results').innerHTML = `
+    <div class="grid-2">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Vasicek · MLE</div>
+        <div class="cc-def">
+          κ = <strong>${out.vasicek.kappa.toFixed(3)}</strong> ·
+          θ = <strong>${out.vasicek.theta.toFixed(2)}%</strong> ·
+          σ = <strong>${out.vasicek.sigma.toFixed(2)}%</strong>
+        </div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">CIR · MLE ponderado</div>
+        <div class="cc-def">
+          κ = <strong>${out.cir.kappa.toFixed(3)}</strong> ·
+          θ = <strong>${out.cir.theta.toFixed(2)}%</strong> ·
+          σ = <strong>${out.cir.sigma.toFixed(2)}%</strong>
+        </div>
+      </div>
+    </div>
+    <div class="step-explain" style="margin-top:10px">
+      <strong>Fuente:</strong> ${out.source} · n = ${out.n} observaciones · r₀ = ${out.r0.toFixed(3)}% ·
+      media histórica ${out.mean.toFixed(2)}% (σ = ${out.std.toFixed(2)}%).
+      Los parámetros se aplican automáticamente a los sliders.
+    </div>`;
+  // Apply to sliders
+  document.getElementById('v-kappa').value = Math.min(2, Math.max(0.01, out.vasicek.kappa));
+  document.getElementById('v-theta').value = Math.min(8, Math.max(0, out.vasicek.theta));
+  document.getElementById('v-vol').value = Math.min(4, Math.max(0.1, out.vasicek.sigma));
+  document.getElementById('v-r0man').value = Math.min(8, Math.max(0, out.r0));
+  document.getElementById('c-kappa').value = Math.min(2, Math.max(0.01, out.cir.kappa));
+  document.getElementById('c-theta').value = Math.min(8, Math.max(0, out.cir.theta));
+  document.getElementById('c-vol').value = Math.min(15, Math.max(0.5, out.cir.sigma));
+  ['v-kappa','v-theta','v-vol','v-r0man','c-kappa','c-theta','c-vol'].forEach(id=>{
+    document.getElementById(id).dispatchEvent(new Event('input'));
+  });
+  runEqPlot();
+}
+
+function runEqPlot(){
+  const vk = parseFloat(document.getElementById('v-kappa').value);
+  const vt = parseFloat(document.getElementById('v-theta').value);
+  const vs = parseFloat(document.getElementById('v-vol').value);
+  const vr = parseFloat(document.getElementById('v-r0man').value);
+  const ck = parseFloat(document.getElementById('c-kappa').value);
+  const ct = parseFloat(document.getElementById('c-theta').value);
+  const cs = parseFloat(document.getElementById('c-vol').value);
+  const vres = JSON.parse(pyodide.runPython(`to_json(simulate_vasicek_cir('vasicek',${vk},${vt},${vs},${vr},5,15))`));
+  const cres = JSON.parse(pyodide.runPython(`to_json(simulate_vasicek_cir('cir',${ck},${ct},${cs},${vr},5,15))`));
+  drawTwoPathSets(document.getElementById('cv-eqp'), vres.paths, cres.paths, vres.T, 'Vasicek (azul) vs CIR (dorado)');
+  const vts = JSON.parse(pyodide.runPython(`to_json(term_structure('vasicek',${vk},${vt},${vs},${vr},10))`));
+  const cts = JSON.parse(pyodide.runPython(`to_json(term_structure('cir',${ck},${ct},${cs},${vr},10))`));
+  drawTermStruct(document.getElementById('cv-eqt'), vts, cts);
+  // warn if vasicek paths go negative
+  let hasNeg = false;
+  vres.paths.forEach(p=>p.forEach(v=>{ if(v<0) hasNeg=true; }));
+  document.getElementById('vasicek-warn').style.display = hasNeg? 'block' : 'none';
+}
+
+// ================== EX 4 ==================
+function runAf(){
+  const model = document.getElementById('af-model').value;
+  const sg = parseFloat(document.getElementById('af-sig').value);
+  const T = parseInt(document.getElementById('af-T').value);
+  const N = parseInt(document.getElementById('af-N').value);
+  const res = JSON.parse(pyodide.runPython(`to_json(simulate_af('${model}',${sg},${T},${N}))`));
+  document.getElementById('rb-af').style.display = 'block';
+  document.getElementById('v-af').textContent = (res.yield).toFixed(3)+'%';
+  document.getElementById('af-note').innerHTML = 'Modelo <strong>'+model.toUpperCase()+'</strong> · plazo '+T+'Y · N='+N+' trayectorias · P(0,T)=$'+(res.price*100).toFixed(2)+' por 100 de nominal.';
+  drawPaths(document.getElementById('cv-afp'), res.paths, T, 'Trayectorias short rate');
+  drawVolTerm(document.getElementById('cv-afv'), res.vol_T, res.vols, model);
+  const names = {'holee':'Ho–Lee','kwf':'Kalotay–Williams–Fabozzi','gauss':'Gauss+'};
+  const notes = {
+    'holee':'Drift θ(t) ajusta la curva actual; volatilidad constante por plazo. Tasas pueden ser negativas.',
+    'kwf':'Log-normal — r&gt;0 garantizado. Vol σ es proporcional a r (equivalente a vol constante en ln r).',
+    'gauss':'Tres factores (nivel, pendiente, curvatura) con velocidades de reversión distintas → vol instantánea con joroba.'
+  };
+  document.getElementById('af-explain').innerHTML =
+    '<strong>'+names[model]+':</strong> '+notes[model];
+}
+
+// ---------- Chart primitives ----------
+function prepCanvas(canvas, h){
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth - 20;
+  const H = h || 300;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  return {ctx, W, H};
+}
+
+function drawAxes(ctx, W, H, xMin, xMax, yMin, yMax, xLabel, yLabel, title){
+  const L=45, R=15, T=25, B=32;
+  ctx.fillStyle='#061942'; ctx.font='bold 12px IBM Plex Sans';
+  if(title) ctx.fillText(title, L, 16);
+  ctx.strokeStyle='#CED5DD'; ctx.lineWidth=1;
+  // horizontal gridlines
+  for (let i=0;i<=4;i++){
+    const y = T + (H-T-B)*i/4;
+    ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(W-R,y); ctx.stroke();
+    const val = yMax - (yMax-yMin)*i/4;
+    ctx.fillStyle='#475569'; ctx.font='10px IBM Plex Mono';
+    ctx.fillText(val.toFixed(2), 4, y+3);
+  }
+  // x ticks
+  for (let i=0;i<=4;i++){
+    const x = L + (W-L-R)*i/4;
+    const val = xMin + (xMax-xMin)*i/4;
+    ctx.fillStyle='#475569'; ctx.font='10px IBM Plex Mono';
+    ctx.fillText(val.toFixed(1), x-10, H-14);
+  }
+  ctx.strokeStyle='#1E3771'; ctx.lineWidth=1.2;
+  ctx.beginPath(); ctx.moveTo(L,T); ctx.lineTo(L,H-B); ctx.lineTo(W-R,H-B); ctx.stroke();
+  return {L,R,T,B};
+}
+
+function drawPaths(canvas, paths, T, title){
+  const {ctx, W, H} = prepCanvas(canvas, 300);
+  ctx.clearRect(0,0,W,H);
+  let yMin=Infinity, yMax=-Infinity;
+  paths.forEach(p=>p.forEach(v=>{ if(v<yMin) yMin=v; if(v>yMax) yMax=v; }));
+  if (!isFinite(yMin)) { yMin=0; yMax=10; }
+  const pad = (yMax-yMin)*0.1 || 0.1;
+  yMin-=pad; yMax+=pad;
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, 0, T, yMin, yMax, 't', 'r(%)', title);
+  const plotW = W-L-R, plotH = H-tp-B;
+  const n = paths[0].length;
+  paths.forEach((p,i)=>{
+    ctx.strokeStyle = `hsla(${(i*47)%360}, 55%, 45%, 0.35)`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    p.forEach((v,t)=>{
+      const x = L + plotW*t/(n-1);
+      const y = tp + plotH*(1 - (v-yMin)/(yMax-yMin));
+      t===0? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  });
+  // mean line
+  const mean = [];
+  for (let t=0; t<n; t++){ let s=0; paths.forEach(p=>s+=p[t]); mean.push(s/paths.length); }
+  ctx.strokeStyle = '#E8A020'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  mean.forEach((v,t)=>{
+    const x = L + plotW*t/(n-1);
+    const y = tp + plotH*(1 - (v-yMin)/(yMax-yMin));
+    t===0? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+}
+
+function drawTwoPathSets(canvas, p1, p2, T, title){
+  const {ctx, W, H} = prepCanvas(canvas, 300);
+  ctx.clearRect(0,0,W,H);
+  let yMin=Infinity, yMax=-Infinity;
+  [...p1,...p2].forEach(p=>p.forEach(v=>{ if(v<yMin) yMin=v; if(v>yMax) yMax=v; }));
+  if (!isFinite(yMin)) { yMin=0; yMax=10; }
+  const pad = (yMax-yMin)*0.1 || 0.1;
+  yMin-=pad; yMax+=pad;
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, 0, T, yMin, yMax, 't', 'r(%)', title);
+  const plotW = W-L-R, plotH = H-tp-B;
+  const n = p1[0].length;
+  const drawSet = (paths, color)=>{
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 0.9;
+    paths.forEach(p=>{
+      ctx.beginPath();
+      p.forEach((v,t)=>{
+        const x = L + plotW*t/(n-1);
+        const y = tp + plotH*(1 - (v-yMin)/(yMax-yMin));
+        t===0? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      });
+      ctx.stroke();
+    });
+  };
+  drawSet(p1, 'rgba(0,84,176,.35)');
+  drawSet(p2, 'rgba(232,160,32,.35)');
+  // zero line
+  if (yMin < 0 && yMax > 0){
+    ctx.strokeStyle = '#DC2626'; ctx.setLineDash([4,4]); ctx.lineWidth=1.2;
+    const y0 = tp + plotH*(1 - (0-yMin)/(yMax-yMin));
+    ctx.beginPath(); ctx.moveTo(L,y0); ctx.lineTo(W-R,y0); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#DC2626'; ctx.font='10px IBM Plex Sans';
+    ctx.fillText('r = 0', W-R-35, y0-4);
+  }
+}
+
+function drawTermStruct(canvas, v, c){
+  const {ctx, W, H} = prepCanvas(canvas, 300);
+  ctx.clearRect(0,0,W,H);
+  const all = v.y.concat(c.y);
+  let yMin = Math.min(...all)*0.9, yMax = Math.max(...all)*1.1;
+  const xMax = Math.max(...v.T);
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, 0, xMax, yMin, yMax, 'T', 'y(%)', 'Estructura temporal implícita');
+  const plotW = W-L-R, plotH = H-tp-B;
+  const plot = (ts, ys, color)=>{
+    ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ts.forEach((t,i)=>{
+      const x = L + plotW*t/xMax;
+      const y = tp + plotH*(1 - (ys[i]-yMin)/(yMax-yMin));
+      i===0? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  };
+  plot(v.T, v.y, '#0054B0');
+  plot(c.T, c.y, '#E8A020');
+  // legend
+  ctx.fillStyle='#0054B0'; ctx.fillRect(W-100, tp+8, 12, 3);
+  ctx.fillStyle='#061942'; ctx.font='11px IBM Plex Sans'; ctx.fillText('Vasicek', W-85, tp+12);
+  ctx.fillStyle='#E8A020'; ctx.fillRect(W-100, tp+24, 12, 3);
+  ctx.fillStyle='#061942'; ctx.fillText('CIR', W-85, tp+28);
+}
+
+function drawHistogram(canvas, values, title){
+  const {ctx, W, H} = prepCanvas(canvas, 280);
+  ctx.clearRect(0,0,W,H);
+  const n = 30;
+  const mn = Math.min(...values), mx = Math.max(...values);
+  const w = (mx-mn)/n || 1;
+  const bins = new Array(n).fill(0);
+  values.forEach(v=>{ const i = Math.min(n-1, Math.max(0, Math.floor((v-mn)/w))); bins[i]++; });
+  const bmax = Math.max(...bins);
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, mn, mx, 0, bmax, 'PV', 'frec', title);
+  const plotW = W-L-R, plotH = H-tp-B;
+  bins.forEach((b,i)=>{
+    const x = L + plotW*i/n;
+    const bw = plotW/n - 1;
+    const bh = plotH*b/bmax;
+    ctx.fillStyle = '#0054B0';
+    ctx.fillRect(x, tp+plotH-bh, bw, bh);
+  });
+  // mean
+  const m = values.reduce((a,b)=>a+b,0)/values.length;
+  ctx.strokeStyle = '#E8A020'; ctx.lineWidth = 2;
+  const mx_ = L + plotW*(m-mn)/(mx-mn);
+  ctx.beginPath(); ctx.moveTo(mx_, tp); ctx.lineTo(mx_, tp+plotH); ctx.stroke();
+  ctx.fillStyle = '#E8A020'; ctx.font = 'bold 11px IBM Plex Mono';
+  ctx.fillText('μ='+m.toFixed(2), mx_+4, tp+14);
+}
+
+function drawConv(canvas, xs, ys, title){
+  const {ctx, W, H} = prepCanvas(canvas, 280);
+  ctx.clearRect(0,0,W,H);
+  const xMin = xs[0], xMax = xs[xs.length-1];
+  const yMin = Math.min(...ys)*0.995, yMax = Math.max(...ys)*1.005;
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, xMin, xMax, yMin, yMax, 'N', 'media', title);
+  const plotW = W-L-R, plotH = H-tp-B;
+  ctx.strokeStyle = '#1E3771'; ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  xs.forEach((x,i)=>{
+    const X = L + plotW*(x-xMin)/(xMax-xMin);
+    const Y = tp + plotH*(1 - (ys[i]-yMin)/(yMax-yMin));
+    i===0? ctx.moveTo(X,Y) : ctx.lineTo(X,Y);
+  });
+  ctx.stroke();
+  // final value
+  const fin = ys[ys.length-1];
+  ctx.strokeStyle = '#E8A020'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+  const y0 = tp + plotH*(1 - (fin-yMin)/(yMax-yMin));
+  ctx.beginPath(); ctx.moveTo(L,y0); ctx.lineTo(W-R,y0); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#E8A020'; ctx.font='bold 11px IBM Plex Mono';
+  ctx.fillText(fin.toFixed(3), W-R-50, y0-4);
+}
+
+function drawVolTerm(canvas, ts, vols, model){
+  const {ctx, W, H} = prepCanvas(canvas, 300);
+  ctx.clearRect(0,0,W,H);
+  const xMax = Math.max(...ts);
+  const yMin = 0, yMax = Math.max(...vols)*1.15;
+  const {L,R,T:tp,B} = drawAxes(ctx, W, H, 0, xMax, yMin, yMax, 'T', 'σ(%)', 'Vol. instantánea por plazo');
+  const plotW = W-L-R, plotH = H-tp-B;
+  const color = model==='gauss' ? '#16A34A' : (model==='kwf' ? '#E8A020' : '#0054B0');
+  ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+  ctx.fillStyle = color + '33';
+  ctx.beginPath();
+  ctx.moveTo(L, tp+plotH);
+  ts.forEach((t,i)=>{
+    const x = L + plotW*t/xMax;
+    const y = tp + plotH*(1 - (vols[i]-yMin)/(yMax-yMin));
+    ctx.lineTo(x,y);
+  });
+  ctx.lineTo(L+plotW, tp+plotH);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ts.forEach((t,i)=>{
+    const x = L + plotW*t/xMax;
+    const y = tp + plotH*(1 - (vols[i]-yMin)/(yMax-yMin));
+    i===0? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+}
+
+// Bootstrap
+bootPy();
+
+// Re-render charts on resize (debounced)
+let _rt; window.addEventListener('resize', ()=>{
+  clearTimeout(_rt);
+  _rt = setTimeout(()=>{
+    if (currentTree) drawTree(document.getElementById('cv-tree'), currentTree, null, 'Tasas forward (%)');
+  }, 250);
+});
+</script>
+
+</body>
+</html>

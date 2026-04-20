@@ -72,6 +72,19 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 .pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
 .pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
 
+.exercises-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--accent); color:var(--navy);
+  border:none; border-radius:24px;
+  font-family:var(--sans); font-size:12.5px; font-weight:700;
+  letter-spacing:.5px; text-decoration:none;
+  padding:10px 22px; margin-top:16px; cursor:pointer;
+  box-shadow:0 4px 14px rgba(232,160,32,.40);
+  transition:all .2s ease;
+}
+.exercises-cta:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(232,160,32,.55); background:#F0B038; }
+.exercises-cta:active { transform:translateY(0); }
+
 .wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
 
 .module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
@@ -203,6 +216,64 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
   .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
   .cmp-cell:last-child { border-bottom:none; }
 }
+
+/* ──────────── Responsive mobile refinements ──────────── */
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .exercises-cta { font-size:11.5px; padding:9px 16px; width:100%; justify-content:center; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+/* Prevent horizontal overflow on any device */
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+
+/* Self-test overlay (only shown when ?selftest=1) */
+#self-test-panel { position:fixed; bottom:16px; left:16px; z-index:9999; background:var(--navy); color:white; font-family:var(--mono); font-size:11px; padding:10px 14px; border-radius:8px; max-width:360px; box-shadow:0 4px 16px rgba(0,0,0,.3); display:none; }
+#self-test-panel.ok { border-left:4px solid #16A34A; }
+#self-test-panel.fail { border-left:4px solid #DC2626; }
+#self-test-panel .st-line { margin:2px 0; }
+#self-test-panel .st-pass { color:#4ADE80; }
+#self-test-panel .st-fail { color:#F87171; }
 </style>
 </head>
 <body>
@@ -220,6 +291,11 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
       <span class="pill">03 Simulación Monte Carlo</span>
       <span class="pill">04 Modelos de Estructura de Tasas</span>
     </div>
+    <a href="exercises.html" class="exercises-cta no-print">
+      <span aria-hidden="true">⚡</span>
+      Ejercicios Interactivos — Semana 6
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </header>
 
@@ -272,29 +348,41 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 
     <div class="inner-divider"></div>
 
-    <!-- Ejercicio resuelto -->
+    <!-- Ejercicio resuelto — basado en ejemplo del PDF con A, B, C, D -->
     <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Ejercicio — Identificar y Explotar Oportunidades de Arbitraje</div>
+    <div class="table-scroll-wrap" style="margin-bottom:12px">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Valor</th><th>Precio Actual</th><th>Payoff en 1 Año</th><th>Relación</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td class="mono">$99</td><td class="mono">$100</td><td>A y B deberían cumplir Precio(B) = 10 × A</td></tr>
+          <tr><td><strong>B</strong></td><td class="mono">$990</td><td class="mono">$1,010</td><td class="val-red">❌ Violación de aditividad</td></tr>
+          <tr><td><strong>C</strong></td><td class="mono">$100</td><td class="mono">$102</td><td>C y D tienen mismo precio</td></tr>
+          <tr><td><strong>D</strong></td><td class="mono">$100</td><td class="mono">$103</td><td class="val-red">❌ Dominancia: D paga más</td></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="grid-2">
       <div class="ex-box">
-        <div class="ex-title">Arbitraje por Valor Aditivo — Valor A=$1,000 (bono) · Valor B=$950 (STRIPS)</div>
+        <div class="ex-title">Estrategia 1 — Arbitraje por Valor Aditivo (A vs B)</div>
         <div class="ex-body">
-          El bono intacto (A) vale <strong>más</strong> que la suma de sus partes (B).<br>
-          <strong>Estrategia:</strong><br>
-          Paso 1: Comprar el Valor B (STRIPS) por $950<br>
-          Paso 2: Recombinar los STRIPS → reconstitución del bono<br>
-          Paso 3: Vender el bono intacto (A) por $1,000
+          <strong>Short</strong> 10 unidades de A: +$990 hoy · −$1,000 en t=1<br>
+          <strong>Long</strong> 1 unidad de B: −$990 hoy · +$1,010 en t=1<br><br>
+          Flujo neto t=0: <strong>$0</strong> (sin inversión)<br>
+          Flujo neto t=1: <strong>+$10</strong> (sin riesgo)
         </div>
-        <div class="result-banner gain">Ganancia de arbitraje: $1,000 − $950 = $50 (sin inversión neta)</div>
+        <div class="result-banner gain">Ganancia libre de riesgo: <strong>+$10</strong></div>
       </div>
       <div class="ex-box">
-        <div class="ex-title">Arbitraje por Dominancia — Valor C=$980 · Valor D=$1,000 (idéntico a C)</div>
+        <div class="ex-title">Estrategia 2 — Arbitraje por Dominancia (C vs D)</div>
         <div class="ex-body">
-          Dos valores idénticos cotizan a precios distintos.<br>
-          <strong>Estrategia:</strong><br>
-          Paso 1: Comprar el Valor C por $980<br>
-          Paso 2: Vender el Valor D (idéntico) por $1,000
+          <strong>Short</strong> 1 unidad de C: +$100 hoy · −$102 en t=1<br>
+          <strong>Long</strong> 1 unidad de D: −$100 hoy · +$103 en t=1<br><br>
+          Flujo neto t=0: <strong>$0</strong> (sin inversión)<br>
+          Flujo neto t=1: <strong>+$1</strong> (sin riesgo)
         </div>
-        <div class="result-banner gain">Ganancia de arbitraje: $1,000 − $980 = $20 (sin inversión neta)</div>
+        <div class="result-banner gain">Ganancia libre de riesgo: <strong>+$1</strong></div>
       </div>
     </div>
   </div>
@@ -385,18 +473,28 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
       </div>
       <div>
         <div class="ex-box">
-          <div class="ex-title">Ejercicio — Sam Givens · GBO Bank · Valoración con Tasas Spot</div>
+          <div class="ex-title">Ejercicio 1 — Sam Given · GBO Bank · Valoración con Tasas Spot</div>
           <div class="ex-body">
             <strong>Bono:</strong> Vencimiento 3 años · Cupón 3% anual · Valor nominal €100 · Pago anual<br>
-            <strong>Curva spot:</strong> S₁ = 2.5% · S₂ = 3.0% · S₃ = 3.5%<br><br>
+            <strong>Curva spot benchmark:</strong> S₁ = 3.00% · S₂ = 3.25% · S₃ = 3.50%<br><br>
             <strong>Flujos de caja:</strong><br>
             Año 1: €3.00 &nbsp;|&nbsp; Año 2: €3.00 &nbsp;|&nbsp; Año 3: €3.00 + €100 = €103.00<br><br>
             <strong>Valores Presentes:</strong><br>
-            VP(Año 1) = €3.00 / (1.025)¹ = <strong>€2.9268</strong><br>
-            VP(Año 2) = €3.00 / (1.030)² = <strong>€2.8278</strong><br>
-            VP(Año 3) = €103.00 / (1.035)³ = <strong>€93.0679</strong>
+            VP(Año 1) = €3.00 / (1.0300)¹ = <strong>€2.91</strong><br>
+            VP(Año 2) = €3.00 / (1.0325)² = <strong>€2.81</strong><br>
+            VP(Año 3) = €103.00 / (1.0350)³ = <strong>€92.91</strong>
           </div>
-          <div class="result-banner neutral">V = €2.9268 + €2.8278 + €93.0679 = <strong>€98.82</strong></div>
+          <div class="result-banner neutral">V = €2.91 + €2.81 + €92.91 = <strong>€98.63</strong></div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejercicio 2 — Samuel Favre · Treasury 3Y · Cupón 3% · $100 par</div>
+          <div class="ex-body">
+            <strong>Curva spot:</strong> S₁ = 3.00% · S₂ = 4.020% · S₃ = 5.069%<br><br>
+            VP(Año 1) = $3.00 / (1.03)¹ = <strong>$2.91</strong><br>
+            VP(Año 2) = $3.00 / (1.04020)² = <strong>$2.77</strong><br>
+            VP(Año 3) = $103.00 / (1.05069)³ = <strong>$88.81</strong>
+          </div>
+          <div class="result-banner neutral">V = $2.91 + $2.77 + $88.81 = <strong>$94.485</strong></div>
         </div>
         <div class="rule-callout" style="margin-top:8px">
           <strong>Limitación del método de tasas spot:</strong> Solo funciona para bonos <em>sin opciones</em> donde los flujos son conocidos y fijos. Para bonos con opciones integradas (callable, putable, convertibles), se necesita un modelo que permita que tanto las tasas como los flujos <strong>varíen</strong> — de ahí los árboles binomiales.
@@ -521,19 +619,19 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
       </div>
       <div>
         <div class="ex-box">
-          <div class="ex-title">Construcción del Árbol — Xi Nguyen / Alok Nath · σ = 20%</div>
+          <div class="ex-title">Construcción del Árbol — Xi Nguyen · σ = 20%</div>
           <div class="ex-body">
-            <strong>Datos:</strong> S₁=3.5% · S₂=4.0% · S₃=4.5% · σ=20%<br><br>
-            <strong>Período 0:</strong> i₀ = 3.5% (raíz = tasa spot 1 año)<br><br>
+            <strong>Datos:</strong> Par: 3%/4%/5% · Spot: 3.000%/4.020%/5.069% · σ=20%<br><br>
+            <strong>Período 0:</strong> i₀ = 3.000% (raíz = tasa spot 1 año)<br><br>
             <strong>Período 1:</strong> i₁,U = 5.7883% (calibrada al benchmark)<br>
-            i₁,L = 5.7883% × e^(−0.40) = <strong>3.88%</strong><br><br>
-            <strong>Período 2 — Tasa del medio:</strong><br>
-            f(2,1): (1.045)³ = (1.040)² × (1+f) → f = <strong>5.503%</strong><br><br>
+            <strong>A</strong> = i₁,L = 5.7883% × e^(−0.40) = <strong>3.88%</strong><br><br>
+            <strong>Período 2 — Tasa del medio C = f(2,1):</strong><br>
+            (1.05069)³ = (1.04020)² × (1+f) → <strong>C = 7.199%</strong><br><br>
             <strong>Tasas extremas Período 2:</strong><br>
-            i₂,LL = 5.503% × 0.6703 = <strong>3.69%</strong><br>
-            i₂,UU = 5.503% × 1.4918 = <strong>8.21%</strong>
+            <strong>B</strong> = i₂,UU = 7.199% × e^(+0.40) = <strong>10.74%</strong><br>
+            <strong>D</strong> = i₂,LL = 7.199% × e^(−0.40) = <strong>4.83%</strong>
           </div>
-          <div class="ex-result">La tasa f(2,1) se obtiene de la curva spot del benchmark como mejor estimación de la tasa del medio.</div>
+          <div class="ex-result">Tree calibrado: i₀=3.00% | i₁U=5.79%, i₁L=3.88% | i₂UU=10.74%, i₂LU=7.20%, i₂LL=4.83%</div>
         </div>
       </div>
     </div>
@@ -563,14 +661,14 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
           <strong>Intuición:</strong> Se comienza en el vencimiento (V = nominal + cupón) y se trabaja <em>hacia atrás</em> hasta el Nodo 0. En cada nodo el valor = promedio ponderado (50%/50%) de los dos nodos siguientes más el cupón, descontado a la tasa forward del nodo.
         </div>
         <div class="ex-box" style="margin-top:8px">
-          <div class="ex-title">Ejercicio — Bono 7% · VN=$100 · Vencimiento 2 años · i₀=5.0% · i₁U=7.5% · i₁L=4.5%</div>
+          <div class="ex-title">Ejercicio 1 — Bono 7% · VN=$100 · 2 años · i₀=4.5749% · i₁U=7.1826% · i₁L=5.3210%</div>
           <div class="ex-body">
-            <strong>Año 2 (vencimiento):</strong> V = $100 + $7 = $107 (cualquier nodo)<br><br>
-            <strong>V₁,U:</strong> [0.5×(107+7) + 0.5×(107+7)] / 1.075 = 114 / 1.075 = <strong>$106.05</strong><br>
-            <strong>V₁,L:</strong> [0.5×(107+7) + 0.5×(107+7)] / 1.045 = 114 / 1.045 = <strong>$109.09</strong><br><br>
-            <strong>V₀:</strong> [0.5×(106.05+7) + 0.5×(109.09+7)] / 1.050 = 114.57 / 1.050
+            <strong>Año 2 (vencimiento):</strong> V = $100 + $7 = $107 (en todos los nodos)<br><br>
+            <strong>V₁,U:</strong> [0.5×(107) + 0.5×(107)] / 1.071826 = 107 / 1.071826 = <strong>$99.830</strong><br>
+            <strong>V₁,L:</strong> [0.5×(107) + 0.5×(107)] / 1.053210 = 107 / 1.053210 = <strong>$101.594</strong><br><br>
+            <strong>V₀:</strong> [0.5×(99.830+7) + 0.5×(101.594+7)] / 1.045749
           </div>
-          <div class="result-banner neutral">V₀ = <strong>$109.11</strong></div>
+          <div class="result-banner neutral">V₀ = <strong>$102.999</strong></div>
         </div>
       </div>
 
@@ -582,15 +680,15 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
         </div>
 
         <div class="ex-box">
-          <div class="ex-title">Ejercicio — Samuel Favre · Bono 3% · 3 años · $100 par · 4 caminos</div>
+          <div class="ex-title">Ejercicio 2 — Samuel Favre · Bono 3% · 3 años · $100 par · 4 caminos</div>
           <div class="ex-body">
-            <strong>Tasas del árbol:</strong> S=2.5% · Año1: U=4.5%, L=3.0% · Año2: UU=6.0%, UL/LU=4.0%, LL=2.5%<br><br>
-            Camino 1 SUU (2.5%→4.5%→6.0%): V₁ = 3/1.025 + 3/(1.025×1.045) + 103/(1.025×1.045×1.060) = <strong>$96.43</strong><br>
-            Camino 2 SUL (2.5%→4.5%→4.0%): V₂ = 3/1.025 + 3/(1.025×1.045) + 103/(1.025×1.045×1.040) = <strong>$98.26</strong><br>
-            Camino 3 SLU (2.5%→3.0%→4.0%): V₃ = 3/1.025 + 3/(1.025×1.030) + 103/(1.025×1.030×1.040) = <strong>$99.30</strong><br>
-            Camino 4 SLL (2.5%→3.0%→2.5%): V₄ = 3/1.025 + 3/(1.025×1.030) + 103/(1.025×1.030×1.025) = <strong>$100.97</strong>
+            <strong>Árbol calibrado:</strong> S=3.00% · Año1: U=5.7883%, L=3.8800% · Año2: UU=10.7383%, UL/LU=7.1981%, LL=4.8250%<br><br>
+            C1 SUU: V₁ = 3/1.03 + 3/(1.03×1.057883) + 103/(1.03×1.057883×1.107383) = <strong>$91.03</strong><br>
+            C2 SUL: V₂ = 3/1.03 + 3/(1.03×1.057883) + 103/(1.03×1.057883×1.071981) = <strong>$93.85</strong><br>
+            C3 SLU: V₃ = 3/1.03 + 3/(1.03×1.038800) + 103/(1.03×1.038800×1.071981) = <strong>$95.52</strong><br>
+            C4 SLL: V₄ = 3/1.03 + 3/(1.03×1.038800) + 103/(1.03×1.038800×1.048250) = <strong>$97.55</strong>
           </div>
-          <div class="result-banner neutral">V = (96.43 + 98.26 + 99.30 + 100.97) / 4 = <strong>$98.74 ≡ Inducción hacia atrás</strong></div>
+          <div class="result-banner neutral">V = (91.03 + 93.85 + 95.52 + 97.55) / 4 = <strong>$94.49 ≡ Inducción hacia atrás</strong></div>
         </div>
 
         <div class="rule-callout green" style="margin-top:8px">
@@ -659,15 +757,15 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 
       <div>
         <div class="ex-box">
-          <div class="ex-title">Ejercicio — Samuel Favre · Monte Carlo · Bono 3% · 3 años · $100 par</div>
-          <div class="ex-body">
-            <strong>Caminos simulados (ajustados por drift):</strong><br>
-            Camino 1 (2.5%→4.2%→5.8%): V₁ = 3/1.025 + 3/(1.025×1.042) + 103/(1.025×1.042×1.058) = <strong>$96.97</strong><br>
-            Camino 2 (2.5%→3.8%→4.5%): V₂ = 3/1.025 + 3/(1.025×1.038) + 103/(1.025×1.038×1.045) = <strong>$98.43</strong><br>
-            Camino 3 (2.5%→3.2%→3.8%): V₃ = 3/1.025 + 3/(1.025×1.032) + 103/(1.025×1.032×1.038) = <strong>$99.67</strong><br>
-            Camino 4 (2.5%→2.8%→3.2%): V₄ = 3/1.025 + 3/(1.025×1.028) + 103/(1.025×1.028×1.032) = <strong>$100.90</strong>
+          <div class="ex-title">Ejercicio — Samuel Favre · Monte Carlo · Bono 3% · 3 años · $100 par · 8 caminos</div>
+          <div class="ex-body" style="font-size:11px">
+            <strong>Caminos simulados (ajustados por drift, calibrados a curva de mercado):</strong><br>
+            P1 (3%→5.32%→10.59%): V₁ = <strong>$91.53</strong> &nbsp;|&nbsp; P2 (3%→5.11%→10.33%): V₂ = <strong>$91.91</strong><br>
+            P3 (3%→4.79%→9.89%): V₃ = <strong>$92.53</strong> &nbsp;|&nbsp; P4 (3%→4.56%→9.10%): V₄ = <strong>$93.36</strong><br>
+            P5 (3%→4.11%→8.22%): V₅ = <strong>$94.47</strong> &nbsp;|&nbsp; P6 (3%→3.79%→6.54%): V₆ = <strong>$96.15</strong><br>
+            P7 (3%→3.58%→5.11%): V₇ = <strong>$97.57</strong> &nbsp;|&nbsp; P8 (3%→3.62%→4.11%): V₈ = <strong>$98.42</strong>
           </div>
-          <div class="result-banner neutral">V = (96.97 + 98.43 + 99.67 + 100.90) / 4 = <strong>$98.99 ≈ resultado árbol binomial</strong></div>
+          <div class="result-banner neutral">V̄ = (91.53 + 91.91 + 92.53 + 93.36 + 94.47 + 96.15 + 97.57 + 98.42) / 8 = <strong>$94.49</strong></div>
         </div>
 
         <div class="concept-card accent-gold" style="margin-top:10px">
@@ -1076,6 +1174,52 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 </div><!-- /wrapper -->
 
 <button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+<div id="self-test-panel" class="no-print" aria-live="polite"></div>
+
+<script>
+(function(){
+  if (!/[?&]selftest=1/.test(location.search)) return;
+  var panel = document.getElementById('self-test-panel');
+  panel.style.display = 'block';
+  var results = [];
+  function check(label, cond){ results.push({label:label, pass:!!cond}); }
+
+  function run(){
+    var vw = document.documentElement.clientWidth;
+    var sw = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
+    check('Sin overflow horizontal ('+vw+'px)', sw <= vw + 1);
+
+    check('Header visible', !!document.querySelector('.doc-header'));
+    check('Botón Ejercicios visible', !!document.querySelector('.exercises-cta'));
+    check('4 módulos renderizados', document.querySelectorAll('.module-block').length >= 4);
+    check('MathJax cargado', !!(window.MathJax && window.MathJax.typesetPromise));
+
+    var anyOverflow = false;
+    document.querySelectorAll('.module-block, .concept-card, .formula-box, .ex-box, .cmp-strip, .step-flow').forEach(function(el){
+      if (el.scrollWidth > el.clientWidth + 1) anyOverflow = true;
+    });
+    check('Ningún bloque clave desborda', !anyOverflow);
+
+    var ctaRect = document.querySelector('.exercises-cta');
+    check('CTA Ejercicios con ancho > 120px', ctaRect && ctaRect.getBoundingClientRect().width > 120);
+
+    var allPass = results.every(function(r){ return r.pass; });
+    panel.classList.toggle('ok', allPass);
+    panel.classList.toggle('fail', !allPass);
+    var html = '<div class="st-line"><strong>Self-test '+(allPass?'OK':'FAIL')+' @ '+vw+'px</strong></div>';
+    results.forEach(function(r){
+      html += '<div class="st-line ' + (r.pass?'st-pass':'st-fail') + '">' + (r.pass?'✓':'✗') + ' ' + r.label + '</div>';
+    });
+    panel.innerHTML = html;
+    try { console[allPass?'log':'warn']('[selftest]', vw+'px', results); } catch(e){}
+  }
+
+  if (document.readyState === 'complete') setTimeout(run, 400);
+  else window.addEventListener('load', function(){ setTimeout(run, 400); });
+  window.addEventListener('resize', function(){ clearTimeout(window.__st); window.__st = setTimeout(run, 200); });
+})();
+</script>
 
 </body>
 </html>

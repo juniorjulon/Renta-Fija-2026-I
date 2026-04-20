@@ -570,17 +570,16 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
         </div>
 
         <div class="ex-box" style="margin-top:8px">
-          <div class="ex-title">Ejemplo — Volatilidad σ = 20%: Relación entre Tasas Adyacentes</div>
+          <div class="ex-title">Ejemplo — Xi Nguyen · σ = 20%: Relación entre Tasas Adyacentes</div>
           <div class="ex-body">
-            Multiplicador: e^(−2×0.20) = e^(−0.40) ≈ <strong>0.6703</strong><br>
-            Por tanto: i₁,L = i₁,U × 0.6703<br><br>
-            Si i₁,U = 5.7883%:<br>
-            i₁,L = 0.057883 × 0.6703 = <strong>3.88%</strong><br><br>
-            Si i₂,LU = 5.503% (tasa del medio, Período 2):<br>
-            i₂,LL = 5.503% × 0.6703 = <strong>3.69%</strong><br>
-            i₂,UU = 5.503% × e^(+0.40) = 5.503% × 1.4918 = <strong>8.21%</strong>
+            Multiplicador: e^(−2×0.20) = e^(−0.40) ≈ <strong>0.6703</strong> &nbsp;|&nbsp; e^(+0.40) ≈ <strong>1.4918</strong><br><br>
+            <strong>Período 1</strong> (i₁,U = 5.7883%):<br>
+            i₁,L = 5.7883% × 0.6703 = <strong>3.88%</strong><br><br>
+            <strong>Período 2</strong> (i₂,LU = 7.199%, tasa del medio calibrada):<br>
+            i₂,LL = 7.199% × 0.6703 = <strong>4.83%</strong><br>
+            i₂,UU = 7.199% × 1.4918 = <strong>10.74%</strong>
           </div>
-          <div class="ex-result">La tasa inferior es ≈67.03% de la tasa superior en cada período.</div>
+          <div class="ex-result">La tasa inferior es ≈67.03% de la superior · La superior es ≈149.18% de la del medio.</div>
         </div>
       </div>
     </div>
@@ -1115,58 +1114,6 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
         <div class="cc-label">Forecasting de Tasas</div>
         <div class="cc-def">Modelos de <strong>equilibrio</strong> (CIR, Vasicek) para entender las dinámicas económicas subyacentes de los movimientos de tasas de interés.</div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     SÍNTESIS FINAL
-══════════════════════════════════════════════ -->
-<div class="module-divider">
-  <div class="module-num" style="background:var(--accent)">✦</div>
-  <div class="module-title-block">
-    <h2 style="color:var(--navy)">Síntesis: Errores de Examen y Bibliografía</h2>
-    <p>Errores frecuentes en examen · Lecturas recomendadas</p>
-  </div>
-  <div class="module-rule"></div>
-</div>
-
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-num">✦</span>
-    <span class="section-title">Errores Frecuentes en Examen y Bibliografía</span>
-  </div>
-  <div class="section-body">
-
-    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">⚠ Errores Frecuentes en Examen</div>
-    <div class="grid-2">
-      <div class="rule-callout red">
-        <strong>Error 1:</strong> Usar tasas spot para valorar bonos con opciones. Las tasas spot suponen flujos fijos. Un callable bond puede ser redimido anticipadamente si las tasas bajan — los flujos no son fijos. Se necesita árbol binomial.
-      </div>
-      <div class="rule-callout red">
-        <strong>Error 2:</strong> Confundir reconstitución con stripping. Reconstitución = STRIPS → bono (cuando STRIPS &lt; bono). Stripping = bono → STRIPS (cuando bono &lt; componentes). Siempre se compra lo barato y vende lo caro.
-      </div>
-      <div class="rule-callout gold">
-        <strong>Error 3:</strong> Asumir que backward induction y pathwise valuation son distintos. Son <strong>matemáticamente idénticos</strong> — producen el mismo resultado. La diferencia es solo computacional/algorítmica.
-      </div>
-      <div class="rule-callout gold">
-        <strong>Error 4:</strong> Usar árbol binomial para valorar MBS. El árbol asume que los flujos en un nodo son independientes del camino. Los prepagos de MBS dependen del historial de tasas → usar Monte Carlo.
-      </div>
-      <div class="rule-callout">
-        <strong>Error 5:</strong> Confundir modelos de equilibrio con libres de arbitraje. Los de equilibrio (CIR, Vasicek) generalmente <strong>no coinciden con precios de mercado</strong>. Los libres de arbitraje (Ho-Lee, KWF, Gauss+) se calibran a la curva actual y sí coinciden.
-      </div>
-      <div class="rule-callout">
-        <strong>Error 6:</strong> Asumir que el modelo Vasicek es superior al CIR por ser más simple. La ventaja de CIR es crítica: su término √r <strong>prohíbe tasas negativas</strong>. Vasicek puede producirlas — limitación importante en entornos de tasas bajas.
-      </div>
-    </div>
-
-    <div class="inner-divider"></div>
-    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Lecturas Recomendadas por Tema</div>
-    <div class="badge-row">
-      <span class="badge badge-blue">Fundamentos: Schweser R.62 · Fabozzi Fixed Income Mathematics Ch.5</span>
-      <span class="badge badge-outline">Árboles Binomiales: Tuckman Ch.7 · Fabozzi Handbook Ch.17</span>
-      <span class="badge badge-pale">Monte Carlo: Fabozzi Handbook Ch.18 · Veronesi Ch.18</span>
-      <span class="badge badge-gray">Modelos de Tasas: CIR (1985) · Vasicek (1977) · Ho-Lee (1986) · KWF (1993)</span>
     </div>
   </div>
 </div>

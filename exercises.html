@@ -485,11 +485,12 @@ canvas{display:block;width:100%;height:auto;}
         <div class="ctrl">
           <label>Serie (Bloomberg)</label>
           <select id="eq-series">
-            <option value="FDFD" selected>Fed Funds (FDFD)</option>
-            <option value="USGG1YR">UST 1Y</option>
-            <option value="USGG2YR">UST 2Y</option>
-            <option value="USGG5YR">UST 5Y</option>
-            <option value="USGG10YR">UST 10Y</option>
+            <option value="FDTR Index" selected>Fed Funds Target (FDTR)</option>
+            <option value="GB12 @BGN Govt">T-Bill 1Y (GB12)</option>
+            <option value="GT02 @BGN Govt">UST 2Y (GT02)</option>
+            <option value="GT05 @BGN Govt">UST 5Y (GT05)</option>
+            <option value="GT10 @BGN Govt">UST 10Y (GT10)</option>
+            <option value="GT30 @BGN Govt">UST 30Y (GT30)</option>
           </select>
         </div>
         <button class="btn btn-primary" id="btn-eq-cal" style="align-self:flex-end">▶ Auto-calibrar (MLE)</button>
@@ -1001,32 +1002,32 @@ async function bootPy(){
   try {
     logLine('Descargando Pyodide runtime…');
     pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
-    logLine('Pyodide listo. Cargando numpy, scipy, pandas, openpyxl…');
-    await pyodide.loadPackage(['numpy','scipy','pandas','openpyxl']);
+    logLine('Pyodide listo. Cargando numpy, scipy, pandas…');
+    await pyodide.loadPackage(['numpy','scipy','pandas']);
     logLine('Paquetes cargados. Inyectando código Python…');
     const code = document.getElementById('py-code').textContent;
     pyodide.runPython(code);
-    logLine('Intentando cargar Series.xlsx…');
+    logLine('Cargando datos Bloomberg (bloomberg.json)…');
     try {
-      const resp = await fetch('Series.xlsx');
+      const resp = await fetch('data/bloomberg.json');
       if (resp.ok) {
-        const buf = await resp.arrayBuffer();
-        pyodide.FS.writeFile('/Series.xlsx', new Uint8Array(buf));
-        pyodide.runPython(`
-import pandas as pd
-_xl = pd.ExcelFile('/Series.xlsx')
-try:
-    _df_data = pd.read_excel('/Series.xlsx', sheet_name='Data')
-except Exception:
-    _df_data = pd.read_excel('/Series.xlsx', sheet_name=0)
-_df_data.columns = [str(c).strip() for c in _df_data.columns]
+        const bloombergData = await resp.json();
+        pyodide.globals.set('bloomberg_json', JSON.stringify(bloombergData));
+        await pyodide.runPythonAsync(`
+import json, pandas as pd
+_raw = json.loads(bloomberg_json)
+_dates = pd.to_datetime(_raw["dates"])
+_df_data = pd.DataFrame(_raw["series"], index=_dates)
+_df_data.index.name = "Date"
+_df_data = _df_data.sort_index()
+_ticker_names = dict(zip(_raw["metadata"]["tickers"], _raw["metadata"]["names"]))
 `);
-        logLine('Series.xlsx cargado correctamente.');
+        logLine('Bloomberg OK — ' + bloombergData.dates.length + ' fechas · ' + Object.keys(bloombergData.series).length + ' series.');
       } else {
-        logLine('Series.xlsx no disponible (status '+resp.status+'). Ejercicio 3 usará datos sintéticos.');
+        logLine('bloomberg.json no encontrado (status '+resp.status+'). Ejercicio 3 usará datos sintéticos.');
       }
     } catch(e){
-      logLine('No se pudo leer Series.xlsx: usando datos sintéticos para EX 3.');
+      logLine('No se pudo leer bloomberg.json: usando datos sintéticos para EX 3.');
     }
     logLine('Inicialización completa ✓');
     setTimeout(()=>document.getElementById('py-loader').classList.add('hidden'), 500);

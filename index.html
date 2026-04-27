@@ -839,32 +839,31 @@ html,body{height:100%;overflow:hidden;font-family:'Tahoma','Montserrat',sans-ser
   <div class="card">
     <div class="card-header">
       <span class="tag">Semana 7 · 27–30 abr 2026 · PC1 (30 abr) · <span class="phase-badge phase-adv" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.8)">Avanzado</span></span>
-      <div class="wk-title-row"><h2 class="wk-title">Credit Risk I: Fundamentals</h2><a href="w7_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 7"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
-      <div class="wk-date">PD · LGD · Credit Ratings · Análisis de Emisores</div>
+      <div class="wk-title-row"><h2 class="wk-title">Valorización y Análisis de Bonos con Opciones</h2><a href="w7_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 7"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
+      <div class="wk-date">Callable · Putable · OAS · Duración Efectiva · Convertibles</div>
     </div>
     <div class="card-body">
       <div class="section-label">Resumen ejecutivo</div>
       <p class="summary-text" style="margin-bottom:20px">
-        El riesgo crediticio es la probabilidad de pérdida por incumplimiento del emisor. Esta semana establece el framework fundamental: las cinco dimensiones del crédito (default risk, recovery risk, spread risk, downgrade risk, migration risk), la descomposición formal en PD × LGD = Expected Loss, y el rol de las agencias calificadoras (S&P, Moody's, Fitch) con sus matrices de transición. Se trabaja el análisis de crédito para cada categoría de emisor: soberanos (con los factores de calidad institucional, capacidad fiscal y liquidez externa), corporativos (con los ratios financieros estándar: Deuda/EBITDA, cobertura de intereses, free cash flow), y entidades subnacionales. La seniority y los waterfall de recuperación son el cierre del módulo.
+        Las opciones embebidas en bonos (call, put, conversión) alteran tanto el valor como el perfil de riesgo del instrumento. Esta semana desarrolla el framework completo para valorar bonos con opciones mediante árboles binomiales y backward induction, aplicando la call rule y la put rule en cada nodo. Se introduce el Option-Adjusted Spread (OAS) como medida del spread crediticio una vez removido el riesgo de la opción, y se derivan las medidas de riesgo apropiadas: duración efectiva, duraciones unilaterales, key rate durations y convexidad efectiva. El módulo cierra con la valorización de floaters con cap/floor y bonos convertibles en un marco libre de arbitraje.
       </p>
       <div class="section-label">Keywords</div>
       <div class="kw-list" style="margin-bottom:20px">
-        <span class="kw kw-blue">Probability of Default (PD)</span><span class="kw kw-blue">Loss Given Default (LGD)</span><span class="kw kw-blue">Expected Loss (EL)</span><span class="kw kw-blue">Recovery Rate</span>
-        <span class="kw kw-outline">Credit Rating (AAA–D)</span><span class="kw kw-outline">Transition Matrix</span><span class="kw kw-outline">Downgrade Risk</span>
-        <span class="kw kw-outline">Credit Spread</span><span class="kw kw-outline">Seniority</span>
-        <span class="kw kw-gray">Deuda/EBITDA</span><span class="kw kw-gray">Interest Coverage</span><span class="kw kw-gray">Sovereign Analysis</span><span class="kw kw-gray">Fallen Angel</span>
+        <span class="kw kw-blue">Callable Bond</span><span class="kw kw-blue">Putable Bond</span><span class="kw kw-blue">Option-Adjusted Spread (OAS)</span><span class="kw kw-blue">Effective Duration</span>
+        <span class="kw kw-outline">Backward Induction</span><span class="kw kw-outline">Call Rule / Put Rule</span><span class="kw kw-outline">One-Sided Duration</span><span class="kw kw-outline">Key Rate Duration</span>
+        <span class="kw kw-gray">Capped Floater</span><span class="kw kw-gray">Floored Floater</span><span class="kw kw-gray">Convertible Bond</span><span class="kw kw-gray">Effective Convexity</span>
       </div>
       <div class="section-label">Conceptos clave</div>
       <ul class="concepts" style="margin-bottom:20px">
-        <li><strong>EL = PD × LGD × Exposure:</strong> Expected Loss es la pérdida promedio esperada. PD varía desde 0.00% (Aaa) a 25%+ (C). LGD = (1−recovery rate); secured senior ~20-40%, subordinated ~60-80%.</li>
-        <li><strong>Spreads crediticios:</strong> el credit spread sobre el soberano compensa por EL + prima de riesgo + prima de liquidez. Un spread de 200bps en un bono de duration 5 implica ~10% de "seguro" por crédito acumulado.</li>
-        <li><strong>Análisis soberano:</strong> 4 pilares → capacidad de pago (crecimiento económico, ingresos fiscales), disposición de pago (estabilidad política), liquidez externa (reservas/deuda), y acceso a mercados de capitales.</li>
-        <li><strong>Análisis corporativo:</strong> leverage (Deuda/EBITDA &lt;2x IG, &gt;4x HY), cobertura (EBIT/intereses &gt;3x IG), free cash flow yield, estructura de capital y covenants de deuda. Sectores cyclical vs. defensive.</li>
-        <li><strong>Waterfall de recuperación:</strong> secured > senior unsecured > subordinated > equity. Senior secured: 60-80% recovery; subordinated: 20-40%. La posición en la estructura de capital es más importante que el sector.</li>
+        <li><strong>Descomposición de valor:</strong> \(V_{\text{callable}} = V_{\text{straight}} - V_{\text{call}}\) y \(V_{\text{putable}} = V_{\text{straight}} + V_{\text{put}}\). El callable vale menos porque el inversor está corto la call; el putable vale más porque el inversor está largo la put.</li>
+        <li><strong>Árbol binomial con opciones (backward induction):</strong> se usan tasas forward de un período. En cada nodo callable se usa \(\min(\text{call price},\, V_{\text{calculado}})\); en cada nodo putable se usa \(\max(\text{put price},\, V_{\text{calculado}})\).</li>
+        <li><strong>OAS:</strong> spread constante que se suma a todas las tasas del árbol (post-ajuste por opción) hasta que el valor calculado iguale el precio de mercado. Refleja solo riesgo de crédito y liquidez — la opción ya fue removida.</li>
+        <li><strong>Duración efectiva:</strong> \(\displaystyle D_{\text{ef}} = \frac{BV_{-\Delta y} - BV_{+\Delta y}}{2\,BV_0\,\Delta y}\). Se calcula revaluando el bono con el árbol tras desplazar la curva ±Δy (con OAS fijo). Siempre menor o igual a la del straight equivalente.</li>
+        <li><strong>Convexidad efectiva de callables:</strong> cuando la call está cerca del dinero (tasas bajas), la apreciación está topada por el call price → convexidad negativa. Los putables exhiben convexidad positiva en todos los niveles de tasa.</li>
       </ul>
       <div class="two-col">
-        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Calcular EL de un portafolio de bonos corporativos</li><li>Analizar ratings de bonos peruanos (S&P BBB, Moody's Baa1)</li><li>Calcular credit spread de un bono corporativo vs. curva soberana</li></ul></div>
-        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S2: Z-spread como medida de crédito</li><li>→ S9: Modelos cuantitativos de crédito (Merton, CVA)</li><li>→ S10: CDS como instrumento de transferencia de crédito</li><li>→ S12: LGD y recovery son inputs del pricing de CDOs</li></ul></div>
+        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Valorar un bono callable de 2 años con árbol binomial de 1 período y volatilidad del 15%</li><li>Calcular el OAS de un bono callable dado su precio de mercado</li><li>Calcular duración efectiva y convexidad efectiva con desplazamientos ±25 bps</li></ul></div>
+        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S6: El árbol binomial calibrado es el input para valorar opciones embebidas</li><li>← S4–S5: Duration y convexity estándar son el punto de partida</li><li>→ S11: OAS y duración efectiva son la base del análisis de MBS</li></ul></div>
       </div>
     </div>
   </div>

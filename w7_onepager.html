@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · VALORIZACIÓN Y ANÁLISIS DE BONOS CON OPCIONES</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .exercises-cta { font-size:11.5px; padding:9px 16px; width:100%; justify-content:center; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 7</div>
+    <h1 class="header-title">Valorización y Análisis<br>de Bonos con Opciones</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Fundamentos: Opciones Embebidas</span>
+      <span class="pill">02 Árbol Binomial</span>
+      <span class="pill">03 OAS</span>
+      <span class="pill">04 Medidas de Riesgo</span>
+      <span class="pill">05 Floaters con Cap/Floor</span>
+      <span class="pill">06 Bonos Convertibles</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · FUNDAMENTOS DE BONOS CON OPCIONES
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Fundamentos de Bonos con Opciones</h2>
+    <p>Opciones simples · Opciones complejas · Relación entre valores · Descomposición callable y putable</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Opciones Simples -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Opciones Simples: Call, Put y Estilos de Ejercicio <span class="slide-tag">Slides 3–4</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">¿Qué es una opción embebida?</div>
+        <div class="cc-def">
+          Las opciones embebidas en un bono permiten al emisor <strong>(1) gestionar el riesgo de tasa de interés</strong> y/o <strong>(2) emitir el bono a un cupón atractivo</strong>. Pueden ser simples (call o put) o más complejas.
+        </div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Opción Call — Callable Bond</div>
+        <div class="cc-def">
+          El <strong>emisor</strong> tiene el derecho de redimir (recomprar) el bono antes del vencimiento. El inversor está <strong>corto</strong> la opción call.<br><br>
+          Casi todos los callable incluyen un <strong>período de protección</strong> durante el cual la opción no puede ejercerse.
+        </div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Opción Put — Putable Bond</div>
+        <div class="cc-def">
+          El <strong>inversor</strong> tiene el derecho de vender el bono al emisor antes del vencimiento. El inversor está <strong>largo</strong> la opción put.<br><br>
+          El inversor paga una prima por este derecho — protección frente a subidas de tasa o deterioro crediticio.
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Estilos de Ejercicio de la Opción</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Europea</div>
+        <div class="cmp-rule" style="font-size:11.5px">Un único día</div>
+        <p>La opción puede ejercerse <strong>únicamente en un día</strong>, inmediatamente después del período de protección.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Americana</div>
+        <div class="cmp-rule" style="font-size:11.5px">Cualquier momento</div>
+        <p>La opción puede ejercerse <strong>en cualquier momento</strong> después del período de protección.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">Bermudan</div>
+        <div class="cmp-rule" style="font-size:11.5px">Fechas específicas</div>
+        <p>La opción puede ejercerse en <strong>fechas predeterminadas</strong> después del período de protección.</p>
+      </div>
+    </div>
+
+    <div class="rule-callout gold" style="margin-top:12px">
+      <strong>Bono extendible:</strong> Permite al inversor extender el vencimiento. Se valora como un bono putable con vencimiento más largo. <em>Ejemplo:</em> un bono de 2 años, cupón 3%, extendible 1 año al mismo cupón, equivale a un bono putable europeo de 3 años con período de protección de 2 años.
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Opciones Complejas -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Opciones Complejas Embebidas <span class="slide-tag">Slide 5</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Estate Put</div>
+        <div class="cc-def">
+          Provisión que permite a los <strong>herederos del inversor</strong> vender el bono al emisor en caso de fallecimiento del tenedor.<br><br>
+          El valor de esta opción put contingente está <strong>inversamente relacionado</strong> con la expectativa de vida del inversor: cuanto menor la expectativa, mayor el valor de la opción.
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Sinking Fund Bonds (Sinkers)</div>
+        <div class="cc-def">
+          Obligan al emisor a apartar fondos periódicamente para retirar el bono (fondo de amortización). Esta provisión <strong>reduce el riesgo de crédito</strong> del bono.<br><br>
+          Los sinkers típicamente incluyen varias opciones del emisor: <em>call provisions</em>, <em>acceleration provisions</em> y <em>delivery options</em>.
+        </div>
+      </div>
+    </div>
+    <div class="rule-callout" style="margin-top:12px">
+      El valor de la mayoría de estas opciones complejas favorece al emisor o al inversor según quién las posea; al fijarlas en el contrato se <strong>altera la rentabilidad requerida del bono</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Relación Entre Valores -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Relación Entre Valores: Descomposición Callable y Putable <span class="slide-tag">Slides 6–7</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Bono Callable</div>
+        <div class="formula-box">
+          <div class="f-label">Descomposición del Valor — Callable</div>
+          <div class="f-eq">$$V_{\text{callable}} = V_{\text{straight}} - V_{\text{call}}$$
+$$\Rightarrow V_{\text{call}} = V_{\text{straight}} - V_{\text{callable}}$$</div>
+          <div class="f-vars">
+            <span>V<sub>callable</sub></span> = valor de mercado del bono con opción call embebida<br>
+            <span>V<sub>straight</sub></span> = valor del bono comparable libre de opciones (option-free)<br>
+            <span>V<sub>call</sub></span> = valor de la opción call embebida (siempre ≥ 0)
+          </div>
+        </div>
+        <div class="rule-callout red" style="margin-top:8px">
+          <strong>Justificación económica:</strong> El inversor exige un descuento porque le ha "vendido" al emisor el derecho de recomprar el bono cuando las tasas caigan. Por eso <strong>V<sub>callable</sub> &lt; V<sub>straight</sub></strong>.
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Bono Putable</div>
+        <div class="formula-box">
+          <div class="f-label">Descomposición del Valor — Putable</div>
+          <div class="f-eq">$$V_{\text{putable}} = V_{\text{straight}} + V_{\text{put}}$$
+$$\Rightarrow V_{\text{put}} = V_{\text{putable}} - V_{\text{straight}}$$</div>
+          <div class="f-vars">
+            <span>V<sub>putable</sub></span> = valor de mercado del bono con opción put embebida<br>
+            <span>V<sub>straight</sub></span> = valor del bono comparable libre de opciones<br>
+            <span>V<sub>put</sub></span> = valor de la opción put embebida (siempre ≥ 0)
+          </div>
+        </div>
+        <div class="rule-callout green" style="margin-top:8px">
+          <strong>Justificación económica:</strong> El inversor recibe protección frente a subidas de tasa o deterioro crediticio, por lo que está dispuesto a pagar más. Por eso <strong>V<sub>putable</sub> &gt; V<sub>straight</sub></strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · VALORIZACIÓN CON ÁRBOL BINOMIAL
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Valorización con Árbol Binomial</h2>
+    <p>Marco libre de arbitraje · Inducción hacia atrás · Call rule · Put rule · Efecto de volatilidad y forma de curva</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Marco Libre de Arbitraje -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Marco Libre de Arbitraje en Árbol Binomial <span class="slide-tag">Slides 9–11</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Diferencias Clave frente al Bono Straight</div>
+          <div class="cc-def">
+            <strong>(1)</strong> En lugar de tasas spot, se usan <strong>tasas forward de un período</strong> (one-period forward rates) dentro de un árbol binomial.<br><br>
+            <strong>(2)</strong> Se calcula el valor del bono en distintos nodos — necesario para determinar si la opción embebida está <strong>in-the-money</strong> y será ejercida.
+          </div>
+        </div>
+
+        <div class="rule-callout">
+          <strong>Inducción hacia atrás (backward induction):</strong> El valor en cada nodo se obtiene como el promedio de los valores presentes de los dos posibles flujos del período siguiente, descontados a la tasa de un período del nodo bajo análisis.
+          $$V = \frac{0.5\,(V_U + C) + 0.5\,(V_L + C)}{1 + i}$$
+        </div>
+
+        <div class="inner-divider"></div>
+
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Call Rule (Regla del Call)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Usar el <strong>MENOR</strong> entre:</div>
+            <p>• El precio al que el emisor ejercerá el call (call price)<br>• El valor calculado si el bono no se redime</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Put Rule (Regla del Put)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Usar el <strong>MAYOR</strong> entre:</div>
+            <p>• El precio al que el inversor ejercerá el put (put price)<br>• El valor calculado si la opción put no es ejercida</p>
+          </div>
+        </div>
+        <div class="footnote">La "fecha de call" o "fecha de put" varía según el estilo de la opción (europea, americana o bermudan).</div>
+      </div>
+
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono 7% · 2 años · par $100 · vol. 15% · callable/putable en 1 año a $100</div>
+          <div class="ex-body">
+            <strong>Árbol calibrado:</strong> r₀ = 4.5749% &nbsp;|&nbsp; r₁,U = 7.1826% &nbsp;|&nbsp; r₁,L = 5.3210%<br><br>
+            <strong>Bono straight (sin opciones):</strong><br>
+            V₁,U = 107 / 1.071826 = <strong>$99.830</strong><br>
+            V₁,L = 107 / 1.053210 = <strong>$101.594</strong><br>
+            V₀ = [0.5×(99.830+7) + 0.5×(101.594+7)] / 1.045749 = <strong>$102.999</strong><br><br>
+            <strong>Bono callable (call price = $100):</strong><br>
+            Nodo superior: $99.830 &lt; $100 → <em>NO se ejerce</em> → V₁,U = $99.830<br>
+            Nodo inferior: $101.594 &gt; $100 → <em>SÍ se ejerce</em> → V₁,L = $100.00<br>
+            V₀ = [0.5×(99.830+7) + 0.5×(100.00+7)] / 1.045749 = <strong>$102.238</strong><br><br>
+            <strong>Bono putable (put price = $100):</strong><br>
+            Nodo superior: $99.830 &lt; $100 → <em>SÍ se ejerce</em> → V₁,U = $100.00<br>
+            Nodo inferior: $101.594 &gt; $100 → <em>NO se ejerce</em> → V₁,L = $101.594<br>
+            V₀ = [0.5×(100.00+7) + 0.5×(101.594+7)] / 1.045749 = <strong>$103.081</strong>
+          </div>
+          <div class="result-banner neutral">
+            V<sub>call</sub> = $102.999 − $102.238 = <strong>$0.76</strong> &nbsp;|&nbsp;
+            V<sub>put</sub> = $103.081 − $102.999 = <strong>$0.082</strong>
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Interpretación:</strong> El call vale más que el put porque la opción del emisor a recomprar a $100 está más cerca del dinero (uno de los nodos del Año 1 ya supera $100), mientras que el put rara vez se vuelve in-the-money con esta curva.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 y 2.3 Efecto de Volatilidad y Curva -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2 – 2.3</span>
+    <span class="section-title">Efecto de Volatilidad de Tasas y Forma de la Curva de Rendimientos <span class="slide-tag">Slides 12–14</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Efecto de la Volatilidad de Tasas</div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">Principio General</div>
+          <div class="cc-def">El valor de una opción está <strong>positivamente relacionado</strong> con la volatilidad del subyacente. El bono straight no se ve afectado por cambios en la volatilidad — sólo por cambios en el nivel de tasas.</div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">↑ Volatilidad → Callable</div>
+            <div class="cmp-rule" style="font-size:11.5px">Valor call ↑ → Vcallable ↓</div>
+            <p>El inversor (corto la call) ve su bono reducirse en valor al incrementarse la volatilidad.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">↑ Volatilidad → Putable</div>
+            <div class="cmp-rule" style="font-size:11.5px">Valor put ↑ → Vputable ↑</div>
+            <p>El inversor (largo la put) ve su bono incrementarse en valor al aumentar la volatilidad.</p>
+          </div>
+        </div>
+        <div class="result-banner neutral" style="margin-top:8px">
+          <strong>Resumen:</strong> ↑ volatilidad ⇒ ↓ V<sub>callable</sub> y ↑ V<sub>putable</sub>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Efecto del Nivel y Pendiente de la Curva</div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Tasas Bajas → Callable</div>
+            <div class="cmp-rule" style="font-size:11.5px">Opción call cerca del dinero</div>
+            <p>La call limita la apreciación del precio — el callable sube <strong>menos rápido</strong> que el straight equivalente. Convexidad negativa.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Tasas Altas → Putable</div>
+            <div class="cmp-rule" style="font-size:11.5px">Opción put cerca del dinero</div>
+            <p>La put limita la depreciación — el putable cae <strong>menos rápido</strong> que el straight equivalente. Convexidad positiva.</p>
+          </div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Efecto de la Pendiente de la Curva</div>
+          <div class="cc-def">
+            <strong>Curva con pendiente positiva (normal):</strong> Tasas forward altas reducen la probabilidad de que el call esté in-the-money → menor valor del call; mayor valor del put.<br><br>
+            <strong>A medida que la curva se aplana:</strong> El valor del call <strong>aumenta</strong> y el valor del put <strong>disminuye</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · OPTION-ADJUSTED SPREAD (OAS)
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Option-Adjusted Spread (OAS)</h2>
+    <p>Definición y cálculo · Interpretación · Relación entre volatilidad asumida y OAS</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 OAS: Definición y Cálculo -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">OAS: Definición, Cálculo e Interpretación <span class="slide-tag">Slides 16–19</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Definición del OAS</div>
+          <div class="cc-def">
+            Si se descontaran los flujos de un bono corporativo con riesgo usando tasas libres de riesgo, el valor calculado sería demasiado alto.<br><br>
+            <strong>Solución:</strong> añadir un spread constante a todas las tasas de un período del árbol, tal que el valor calculado iguale el precio de mercado del bono con riesgo. Ese spread es el <strong>Option-Adjusted Spread (OAS)</strong>.
+          </div>
+        </div>
+        <div class="rule-callout">
+          <strong>Interpretación:</strong> El OAS se aplica al árbol <em>después</em> del ajuste por la opción embebida (después de aplicar la call/put rule). El OAS se calcula una vez <strong>removido el riesgo de la opción</strong> — refleja únicamente el riesgo de crédito y de liquidez del bono.
+        </div>
+        <div class="inner-divider"></div>
+        <div class="cmp-strip">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">OAS Mayor que sus pares</div>
+            <div class="cmp-rule" style="font-size:11.5px">→ Infravalorado (atractivo)</div>
+            <p>Ofrece mayor compensación por el mismo nivel de riesgo crediticio y de liquidez.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">OAS Menor que sus pares</div>
+            <div class="cmp-rule" style="font-size:11.5px">→ Sobrevalorado</div>
+            <p>Ofrece menor compensación para el mismo nivel de riesgo en relación a bonos comparables.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Cálculo del OAS · Bono callable ABC Inc. · 3 años · cupón 6% · bermudan (año 1 y año 2) · vol. 20%</div>
+          <div class="ex-body">
+            <strong>Árbol benchmark calibrado:</strong><br>
+            t=0: r₀ = 3.0000% &nbsp;|&nbsp; t=1: r₁,U = 5.7883%, r₁,L = 3.8800%<br>
+            t=2: r₂,UU = 10.7383%, r₂,UL = 7.1981%, r₂,LL = 4.8250%<br><br>
+            <strong>Valoración del bono callable con call rule:</strong><br>
+            V₂,UU = 106/(1.107383) = $95.72 → NO se ejerce ($95.72 &lt; $100)<br>
+            V₂,UL = 106/(1.071981) = $98.88 → NO se ejerce ($98.88 &lt; $100)<br>
+            V₂,LL = 106/(1.048250) = $101.12 → <em>SÍ se ejerce</em> → V₂,LL = $100<br>
+            V₁,U = [0.5×(95.72+6) + 0.5×(98.88+6)] / 1.057883 = $97.65 → NO ejerce<br>
+            V₁,L = [0.5×(98.88+6) + 0.5×(100.00+6)] / 1.038800 = $101.50 → <em>SÍ se ejerce</em> → V₁,L = $100<br>
+            V₀ = [0.5×(97.65+6) + 0.5×(100.00+6)] / 1.030000 = <strong>$101.77</strong><br><br>
+            <strong>Precio de mercado = $99.95 &lt; $101.77</strong> → Se requiere spread positivo.
+          </div>
+          <div class="result-banner neutral">
+            OAS = <strong>100 bps</strong> — spread constante añadido a cada tasa del árbol que iguala el valor calculado al precio de mercado de $99.95
+          </div>
+        </div>
+        <div class="footnote">La estimación real del OAS es mayormente iterativa y puede realizarse con herramientas como SOLVER de Excel.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Volatilidad y OAS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Relación entre Volatilidad Asumida y OAS <span class="slide-tag">Slide 20</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Bono Callable</div>
+            <div class="cmp-rule" style="font-size:11.5px">↑ vol. → ↓ OAS</div>
+            <p>A mayor volatilidad asumida → menor valor calculado del callable → <strong>menor OAS</strong> necesario para ajustar al precio de mercado.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Bono Putable</div>
+            <div class="cmp-rule" style="font-size:11.5px">↑ vol. → ↑ OAS</div>
+            <p>A mayor volatilidad asumida → mayor valor calculado del putable → <strong>mayor OAS</strong> necesario para ajustar al precio de mercado.</p>
+          </div>
+        </div>
+        <div class="rule-callout red">
+          <strong>Errores de clasificación:</strong> Si se usa volatilidad menor que la real, el OAS de un callable saldrá demasiado alto → bono clasificado erróneamente como <em>infravalorado</em>. Si se usa volatilidad mayor que la real → OAS demasiado bajo → bono clasificado como <em>sobrevalorado</em>. El sentido es el opuesto para un putable.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono callable XYZ Corp. · cupón 7% · 10 años · precio de mercado $958</div>
+          <div class="ex-body">
+            Para el mismo precio de mercado, el OAS calculado varía según la volatilidad asumida.
+          </div>
+          <div class="table-scroll-wrap" style="margin-top:8px">
+            <table class="ref-table">
+              <thead>
+                <tr><th>Analista</th><th>Volatilidad asumida</th><th>Valor calculado del bono</th><th>OAS calculado</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>A</strong></td><td class="mono">15%</td><td class="mono">$1,050</td><td class="val-blue">80 bps</td></tr>
+                <tr><td><strong>B</strong></td><td class="mono">20%</td><td class="mono">$992</td><td class="val-blue">54 bps</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footnote">A mayor volatilidad asumida, menor el valor calculado del callable (la call corta vale más) → menor OAS necesario para ajustar al precio de mercado.</div>
+        </div>
+        <div class="table-scroll-wrap" style="margin-top:10px">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Volatilidad asumida</th><th>Valor calls</th><th>Valor puts</th><th>V callable</th><th>V putable</th><th>OAS (callable)</th><th>OAS (putable)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Alta</strong></td><td class="val-blue">Alto</td><td class="val-blue">Alto</td><td class="val-red">Bajo</td><td class="val-green">Alto</td><td class="val-red">Bajo</td><td class="val-green">Alto</td></tr>
+              <tr><td><strong>Baja</strong></td><td class="val-red">Bajo</td><td class="val-red">Bajo</td><td class="val-green">Alto</td><td class="val-red">Bajo</td><td class="val-green">Alto</td><td class="val-red">Bajo</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · MEDIDAS DE RIESGO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Medidas de Riesgo para Bonos con Opciones</h2>
+    <p>Duración efectiva · Duraciones unilaterales · Key rate durations · Convexidad efectiva</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Limitaciones -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Limitaciones de la Duración Modificada y Solución <span class="slide-tag">Slide 22</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Problema: Duración Modificada</div>
+        <div class="cc-def">Mide la sensibilidad del precio ante cambios en la tasa, <strong>asumiendo que los flujos no cambian</strong> al cambiar las tasas. En bonos con opciones embebidas, los flujos sí cambian si la opción se ejerce → medida inadecuada.</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Problema: Convexidad Estándar</div>
+        <div class="cc-def">Mejora la estimación de la duración modificada, pero también asume flujos invariantes. Igualmente inadecuada para bonos con opciones donde los flujos dependen del camino de las tasas.</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Solución</div>
+        <div class="cc-def">Usar la <strong>duración efectiva</strong> y la <strong>convexidad efectiva</strong>, que sí incorporan el cambio de flujos al cambiar las tasas, revaluando el bono con el modelo binomial para cada escenario de tasa.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Duración Efectiva -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Duración Efectiva: Fórmula, Procedimiento y Comparación <span class="slide-tag">Slides 23–24</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Duración Efectiva</div>
+          <div class="f-eq">$$\text{Duración Efectiva} = \frac{BV_{-\Delta y} - BV_{+\Delta y}}{2 \times BV_0 \times \Delta y}$$</div>
+          <div class="f-vars">
+            <span>BV₀</span> = precio inicial del bono<br>
+            <span>BV<sub>+Δy</sub></span> = precio tras desplazamiento paralelo al alza de Δy en la curva benchmark<br>
+            <span>BV<sub>−Δy</sub></span> = precio tras desplazamiento paralelo a la baja de Δy<br>
+            <span>Δy</span> = magnitud (pequeña) del desplazamiento paralelo
+          </div>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px">Procedimiento para calcular BV<sub>+Δy</sub> y BV<sub>−Δy</sub></div>
+        <div class="step-flow" style="flex-direction:column;gap:4px;">
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;border-radius:6px 6px 0 0;">
+            <div class="step-n">PASO 01</div><div class="step-txt">Calcular el <strong>OAS del bono</strong> usando el precio de mercado actual y el modelo binomial.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;">
+            <div class="step-n">PASO 02</div><div class="step-txt">Aplicar desplazamiento paralelo <strong>+Δy</strong> a la curva benchmark.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;">
+            <div class="step-n">PASO 03</div><div class="step-txt">Construir nuevo árbol binomial con la curva desplazada y <strong>sumar el OAS</strong> del paso 1 a cada tasa.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-bottom:2px solid white;">
+            <div class="step-n">PASO 04</div><div class="step-txt">Calcular <strong>BV<sub>+Δy</sub></strong> con este árbol modificado.</div>
+          </div>
+          <div class="step-item" style="border-right:none;border-radius:0 0 6px 6px;">
+            <div class="step-n">PASO 05</div><div class="step-txt">Repetir pasos 2–4 con desplazamiento <strong>−Δy</strong> para obtener BV<sub>−Δy</sub>.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Comparación entre Tipos de Bono</div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">Relaciones Fundamentales</div>
+          <div class="cc-def">
+            Tanto la opción call como la put pueden <strong>acortar la vida</strong> del bono, por lo que:<br><br>
+            • Duración efectiva (callable) <strong>≤</strong> duración efectiva (straight)<br>
+            • Duración efectiva (putable) <strong>≤</strong> duración efectiva (straight)<br>
+            • Duración efectiva (cupón cero) <strong>≈</strong> vencimiento del bono<br>
+            • Duración efectiva (cupón fijo) <strong>&lt;</strong> vencimiento del bono<br>
+            • Duración efectiva (floater) <strong>≈</strong> tiempo al próximo reset
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          La duración efectiva del bono <strong>straight</strong> es relativamente insensible a cambios en el nivel de tasas. En cambio, un alza de tasas <strong>aumenta</strong> la duración efectiva del callable y <strong>disminuye</strong> la del putable.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 Duraciones Unilaterales -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.3</span>
+    <span class="section-title">Duraciones Unilaterales (One-Sided Durations) <span class="slide-tag">Slide 25</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">¿Por qué duraciones unilaterales?</div>
+      <div class="cc-def">La duración efectiva calculada con desplazamientos paralelos iguales al alza y a la baja captura bien el riesgo en bonos sin opciones, pero no en bonos con opciones <strong>in-the-money o cerca del dinero</strong>.</div>
+    </div>
+    <div class="cmp-strip">
+      <div class="cmp-cell down">
+        <div class="cmp-head">Callable cerca del dinero</div>
+        <div class="cmp-rule" style="font-size:11.5px">One-sided down-duration &lt; One-sided up-duration</div>
+        <p>Una caída de tasas produce un cambio de precio <strong>menor</strong> que una subida equivalente: el precio está topado por el call price. El bono es menos sensible a caídas de tasa.</p>
+      </div>
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Putable cerca del dinero</div>
+        <div class="cmp-rule" style="font-size:11.5px">One-sided down-duration &gt; One-sided up-duration</div>
+        <p>El putable es más sensible a movimientos a la <strong>baja</strong> de la curva: la put protege frente a subidas de tasa, pero no frente a caídas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.4 Key Rate Durations -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.4</span>
+    <span class="section-title">Key Rate Durations (KRDs) — Duraciones Parciales <span class="slide-tag">Slides 26–28</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Definición</div>
+      <div class="cc-def">Las KRDs capturan la sensibilidad del bono a cambios en los rendimientos (tasas par) de <strong>vencimientos benchmark específicos</strong>, en lugar de un desplazamiento paralelo de toda la curva. Sirven para identificar el <strong>riesgo de forma de la curva (shaping risk)</strong>. El procedimiento es igual al de la duración efectiva, pero desplazando únicamente una tasa par específica (la key rate).</div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Generalizaciones Clave (Bonos a 15 años, ejercicio en 10 años)</div>
+    <div class="grid-2">
+      <div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>1.</strong> Bono straight <strong>a la par</strong>: solo la tasa del vencimiento afecta su valor. Key rate duration al vencimiento = duración efectiva; el resto son cero.</div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>2.</strong> Bono straight <strong>no a la par</strong>: la tasa de vencimiento sigue siendo la más importante (key rate 15 años es la más alta).</div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>3.</strong> Bono con <strong>cupón bajo (o cero)</strong>: puede tener key rate durations negativas en horizontes distintos al vencimiento.</div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>4. Callable con cupón bajo</strong>: baja probabilidad de ejercicio → key rate de vencimiento (15 años) es la más crítica.</div>
+      </div>
+      <div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>5. Callable con cupón alto</strong>: alta probabilidad de ejercicio → key rate hasta el ejercicio (10 años) domina sobre la de vencimiento.</div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>6. Putable con cupón alto</strong>: baja probabilidad de ejercicio → más sensible a la tasa de vencimiento (15 años).</div>
+        <div class="rule-callout" style="margin-bottom:6px"><strong>7. Putable con cupón bajo</strong>: alta probabilidad de ejercicio → key rate hasta el ejercicio (10 años) domina sobre la de vencimiento.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.5 Convexidad Efectiva -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.5</span>
+    <span class="section-title">Convexidad Efectiva <span class="slide-tag">Slide 29</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Convexidad Efectiva</div>
+          <div class="f-eq">$$\text{Convexidad Efectiva} = \frac{BV_{-\Delta y} + BV_{+\Delta y} - 2\,BV_0}{BV_0 \times (\Delta y)^2}$$</div>
+          <div class="f-vars">
+            <span>BV₀, BV<sub>±Δy</sub></span> = definidos como en duración efectiva (con OAS añadido al árbol modificado)<br>
+            <span>Δy</span> = tamaño (pequeño) del desplazamiento paralelo
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="cmp-strip cmp-strip-3">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Straight Bond</div>
+            <div class="cmp-rule" style="font-size:11.5px">Convexidad positiva</div>
+            <p>La apreciación cuando tasas caen es <strong>mayor</strong> que la depreciación cuando suben en la misma cantidad.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">Putable Bond</div>
+            <div class="cmp-rule" style="font-size:11.5px">Convexidad positiva siempre</div>
+            <p>Exhibe convexidad positiva en <strong>todos los niveles</strong> de tasa. La put limita las pérdidas.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Callable Bond</div>
+            <div class="cmp-rule" style="font-size:11.5px">Puede ser negativa</div>
+            <p>Con tasas altas → convexidad positiva. Cuando call está cerca del dinero (tasas bajas) → apreciación limitada → <strong>convexidad negativa</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · BONOS DE TASA FLOTANTE CON CAP Y FLOOR
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Bonos de Tasa Flotante con Cap y Floor</h2>
+    <p>Capped floater · Floored floater · Valorización de FRN con árbol binomial de MRR</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 5.1 y 5.2 Cap y Floor -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1 – 5.2</span>
+    <span class="section-title">Capped Floater y Floored Floater <span class="slide-tag">Slides 31–32</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Floater (FRN)</div>
+      <div class="cc-def">Un floater paga un cupón que se ajusta cada período según una <strong>tasa de referencia de mercado (MRR)</strong>. El cupón típicamente se paga "en arrears": se fija al inicio del período y se paga al final. Tanto en el capped como en el floored floater se utiliza la <strong>inducción hacia atrás</strong> en un árbol binomial; en cada nodo se ajusta el valor para reflejar el ejercicio de la opción in-the-money.</div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Capped Floater — Opción del Emisor</div>
+          <div class="f-eq">$$V_{\text{capped floater}} = V_{\text{floater straight}} - V_{\text{cap embebido}}$$</div>
+          <div class="f-vars">El emisor está <span>largo</span> el cap; el inversor está <span>corto</span>. El cap impide que el cupón supere un máximo especificado.</div>
+        </div>
+        <div class="rule-callout red" style="margin-top:8px">
+          El capped floater vale <strong>menos</strong> que el floater straight porque el inversor ha cedido al emisor el derecho de limitar los cupones cuando la MRR supere el cap.
+        </div>
+      </div>
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Floored Floater — Opción del Inversor</div>
+          <div class="f-eq">$$V_{\text{floored floater}} = V_{\text{floater straight}} + V_{\text{floor embebido}}$$</div>
+          <div class="f-vars">El inversor está <span>largo</span> el floor. El floor evita que el cupón caiga por debajo de un mínimo especificado, ofreciendo protección frente a tasas decrecientes.</div>
+        </div>
+        <div class="rule-callout green" style="margin-top:8px">
+          El floored floater vale <strong>más</strong> que el floater straight porque el inversor posee la protección del floor.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.3 Valorización FRN -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.3</span>
+    <span class="section-title">Valorización de FRN con Árbol Binomial de MRR <span class="slide-tag">Slides 33–34</span></span>
+  </div>
+  <div class="section-body">
+    <div class="ex-box">
+      <div class="ex-title">Ejemplo — Floater $100 par · 2 años · paga MRR en arrears · misma calidad crediticia que curva swap · vol. 15%</div>
+      <div class="ex-body">
+        <strong>Árbol de MRR:</strong> MRR₀ = 4.5749% &nbsp;|&nbsp; MRR₁,U = 7.1826% &nbsp;|&nbsp; MRR₁,L = 5.3210%<br>
+        Un bono libre de opciones con cupón igual a la tasa requerida vale par → <strong>Vfloater straight = $100</strong>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Capped Floater (cap = 6%)</div>
+          <div class="ex-body">
+            <strong>Nodo superior (Año 1):</strong> MRR₁,U = 7.1826% &gt; 6% → Cap activo → Cupón = $6<br>
+            V₁,U = (100 + 6) / (1 + 0.071826) = <strong>$98.90</strong><br><br>
+            <strong>Nodo inferior (Año 1):</strong> MRR₁,L = 5.3210% &lt; 6% → Cap no activo → Cupón = $5.3210<br>
+            V₁,L = (100 + 5.3210) / (1 + 0.053210) = <strong>$100.00</strong><br><br>
+            Cupón del nodo 0 = MRR₀ = 4.5749% → Cupón = $4.57<br>
+            V₀ = [0.5×(98.90+4.57) + 0.5×(100.00+4.57)] / (1+0.045749) = <strong>$97.47</strong>
+          </div>
+          <div class="result-banner neutral">Valor del cap embebido = $100 − $97.47 = <strong>$2.53</strong></div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Floored Floater (floor = 5%)</div>
+          <div class="ex-body">
+            En Año 2 ningún nodo cae por debajo del floor. En Año 1 se aplica el floor cuando la MRR es inferior al 5%.<br><br>
+            <strong>Nodo superior (Año 1):</strong> MRR₁,U = 7.1826% &gt; 5% → Floor no activo<br>
+            <strong>Nodo inferior (Año 1):</strong> MRR₁,L = 5.3210% &gt; 5% → Floor no activo en ese nodo<br>
+            Cuando los cupones se ajustan al floor: Cupón mínimo = $5<br><br>
+            V₀ = [0.5×(100+5) + 0.5×(100+5)] / (1+0.045749) = <strong>$100.41</strong>
+          </div>
+          <div class="result-banner neutral">Valor del floor embebido = $100.41 − $100 = <strong>$0.41</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 06 · BONOS CONVERTIBLES
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">06</div>
+  <div class="module-title-block">
+    <h2>Bonos Convertibles</h2>
+    <p>Características y terminología · Componentes del valor · Valorización libre de arbitraje · Riesgo y retorno vs acciones</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 6.1 Características y Terminología -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.1</span>
+    <span class="section-title">Características y Terminología de los Bonos Convertibles <span class="slide-tag">Slide 36</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Definición</div>
+          <div class="cc-def">
+            El tenedor de un bono convertible tiene el derecho de <strong>convertirlo en un número fijo de acciones comunes</strong> del emisor durante un período especificado (<strong>conversion period</strong>) y a un precio fijo (<strong>conversion price</strong>).<br><br>
+            Los convertibles permiten al inversor disfrutar del <strong>upside de la acción</strong>, a cambio de un cupón menor. El emisor se beneficia de un menor costo financiero; los accionistas existentes pueden enfrentar <strong>dilución</strong> si la opción se ejerce.
+          </div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Conversion Ratio y Conversion Price</div>
+          <div class="cc-def">
+            <strong>Conversion ratio:</strong> número de acciones por las que se puede intercambiar el bono.<br><br>
+            <em>Ejemplo:</em> bono emitido a la par con conversion ratio = 10 → se convierte un bono $1,000 en 10 acciones.<br><br>
+            <strong>Conversion price = $1,000 / 10 = $100</strong><br>
+            Para bonos no emitidos a la par: Conversion price = precio de emisión / conversion ratio.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Ajustes y Protecciones</div>
+          <div class="cc-def">
+            • Los documentos especifican ajustes al conversion ratio ante <strong>splits o dividendos en acciones</strong>.<br>
+            • Pueden incluir un <strong>put contingente</strong> ante eventos de cambio de control (fusiones).<br>
+            • El conversion ratio puede ajustarse al alza si la empresa paga un dividendo <strong>por encima de un umbral</strong> (protección del bonista).
+          </div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Hard Puts</div>
+            <div class="cmp-rule" style="font-size:11.5px">Solo en efectivo</div>
+            <p>Redimibles <strong>únicamente en efectivo</strong>. El emisor no puede elegir otra forma de pago.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Soft Puts</div>
+            <div class="cmp-rule" style="font-size:11.5px">Emisor elige la forma</div>
+            <p>El emisor decide si redime en efectivo, acciones, <strong>deuda subordinada</strong> o una combinación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6.2 Componentes del Valor -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.2</span>
+    <span class="section-title">Fórmulas Centrales y Ejemplo: BSC Inc. <span class="slide-tag">Slides 37–38</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Fórmulas Centrales del Bono Convertible</div>
+          <div class="f-eq">
+            $$\text{Conversion value} = P_{\text{acción}} \times \text{Conversion ratio}$$
+            $$\text{Straight value} = \text{VP flujos bono comparable libre de opciones}$$
+            $$\text{Minimum value} = \max(\text{Straight value},\; \text{Conversion value})$$
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          Si el convertible cotizara por debajo de su conversion value, se podría comprar, convertir y vender las acciones con beneficio inmediato (arbitraje). Por eso <strong>el mínimo no puede romperse</strong>.
+        </div>
+        <div class="concept-card accent-mid" style="margin-top:10px">
+          <div class="cc-label mid">Métricas de Valoración Adicionales</div>
+          <div class="cc-def">
+            <strong>Market conversion price</strong> = precio del bono / conversion ratio<br>
+            <strong>Market conversion premium per share</strong> = market conversion price − precio de la acción<br>
+            <strong>Market conversion premium ratio</strong> = premium per share / precio de la acción<br>
+            <strong>Premium over straight value</strong> = (precio del bono / straight value) − 1
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — BSC Inc. · Cupón 7% · precio $985 · conversion ratio 25 · straight value $950 · acción $35 · dividendo $1</div>
+          <div class="ex-body">
+            <strong>Conversion value</strong> = 25 × $35 = <strong>$875</strong><br>
+            <strong>Minimum value</strong> = max($950, $875) = <strong>$950</strong><br>
+            Como straight value &gt; conversion value, el bono vale al menos $950.<br><br>
+            <strong>Market conversion price</strong> = $985 / 25 = <strong>$39.40</strong><br>
+            Es el precio implícito al que el inversor "compra" la acción si compra el bono y convierte.<br><br>
+            <strong>Market conversion premium per share</strong> = $39.40 − $35 = <strong>$4.40</strong><br>
+            Prima por la oportunidad de beneficiarse si la acción supera el conversion price.<br><br>
+            <strong>Market conversion premium ratio</strong> = $4.40 / $35 ≈ <strong>12.57%</strong><br>
+            <strong>Premium over straight value</strong> = ($985/$950) − 1 ≈ <strong>3.68%</strong>
+          </div>
+          <div class="footnote">A mayor premium over straight value, menos atractivo el convertible. El straight value no es constante; varía con tasas y spread crediticio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6.3 y 6.4 Valorización y Riesgo/Retorno -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.3 – 6.4</span>
+    <span class="section-title">Valorización en Marco Libre de Arbitraje y Riesgo/Retorno vs Acciones <span class="slide-tag">Slides 39–41</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Descomposición en Marco Libre de Arbitraje</div>
+        <div class="formula-box">
+          <div class="f-label">Convertible No Callable, No Putable</div>
+          <div class="f-eq">$$V_{\text{conv}} = V_{\text{straight}} + V_{\text{call sobre acción}}$$</div>
+        </div>
+        <div class="formula-box" style="margin-top:6px">
+          <div class="f-label">Convertible Callable (emisor puede redimir)</div>
+          <div class="f-eq">$$V_{\text{conv callable}} = V_{\text{straight}} + V_{\text{call sobre acción}} - V_{\text{call sobre el bono}}$$</div>
+        </div>
+        <div class="formula-box" style="margin-top:6px">
+          <div class="f-label">Convertible Callable + Putable</div>
+          <div class="f-eq">$$V_{\text{conv c+p}} = V_{\text{straight}} + V_{\text{call sobre acción}} - V_{\text{call sobre bono}} + V_{\text{put sobre bono}}$$</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Riesgo y Retorno frente a la Acción — Ejemplo BSC Inc.</div>
+        <div class="ex-box" style="margin-bottom:8px">
+          <div class="ex-title">Parte 1: La acción sube a $45</div>
+          <div class="ex-body">
+            Conversion value = 25 × $45 = <strong>$1,125</strong><br>
+            Retorno del bono ≈ ($1,125 + $70 − $985) / $985 ≈ <strong>21.32%</strong><br>
+            Retorno de la acción ≈ ($45 + $1 − $35) / $35 ≈ <strong>31.43%</strong><br>
+            El bono rinde menos porque el inversor "compró" la acción al market conversion price de $39.40 — la conversion premium reduce el upside.
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Parte 2: La acción cae a $30</div>
+          <div class="ex-body">
+            Conversion value = 25 × $30 = <strong>$750</strong><br>
+            Precio del bono = max($950, $750) = <strong>$950</strong> (straight value como piso)<br>
+            Retorno del bono ≈ ($950 + $70 − $985) / $985 ≈ <strong>3.55%</strong><br>
+            Retorno de la acción ≈ ($30 + $1 − $35) / $35 ≈ <strong>−11.43%</strong>
+          </div>
+          <div class="result-banner gain">El straight value actúa como piso — la pérdida del convertible es menor que la de la acción.</div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          Si la acción cae mucho → <strong>busted convertible</strong> (renta fija equivalente). Si sube mucho → <strong>common stock equivalent</strong>. La mayoría del tiempo, el convertible es un <strong>híbrido</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

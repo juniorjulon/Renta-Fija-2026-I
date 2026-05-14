@@ -522,7 +522,7 @@ html,body{height:100%;overflow:hidden;font-family:'Tahoma','Montserrat',sans-ser
     <div class="tl-step phase-mid" data-goto="6"><div class="tl-num">S6</div><div class="tl-mini">Arb-Free</div></div>
     <div class="tl-step phase-adv" data-goto="7"><div class="tl-num">S7</div><div class="tl-mini">Crédito I</div></div>
     <div class="tl-step exam-step" data-goto="8"><div class="tl-num">S8</div><div class="tl-mini">Parciales</div></div>
-    <div class="tl-step phase-adv" data-goto="9"><div class="tl-num">S9</div><div class="tl-mini">Crédito II</div></div>
+    <div class="tl-step phase-adv" data-goto="9"><div class="tl-num">S9</div><div class="tl-mini">Crédito I</div></div>
     <div class="tl-step phase-adv" data-goto="10"><div class="tl-num">S10</div><div class="tl-mini">Der. Cred.</div></div>
     <div class="tl-step phase-adv" data-goto="11"><div class="tl-num">S11</div><div class="tl-mini">Op. Emb.</div></div>
     <div class="tl-step phase-adv" data-goto="12"><div class="tl-num">S12</div><div class="tl-mini">Securitiz.</div></div>
@@ -914,32 +914,34 @@ html,body{height:100%;overflow:hidden;font-family:'Tahoma','Montserrat',sans-ser
   <div class="card">
     <div class="card-header">
       <span class="tag">Semana 9 · 11–14 may 2026 · <span class="phase-badge phase-adv" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.8)">Avanzado</span></span>
-      <div class="wk-title-row"><h2 class="wk-title">Credit Risk II: Credit Analysis Models</h2><a href="w9_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 9"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
-      <div class="wk-date">Expected Exposure · CVA · Structural Models · Reduced-Form Models</div>
+      <div class="wk-title-row"><h2 class="wk-title">Riesgo de Crédito I</h2><a href="w9_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 9"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
+      <div class="wk-date">PD · LGD · Expected Loss · Yield Spread · Crédito Soberano y Corporativo · Notching</div>
     </div>
     <div class="card-body">
       <div class="section-label">Resumen ejecutivo</div>
       <p class="summary-text" style="margin-bottom:20px">
-        Se pasa de los fundamentos cualitativos del crédito a los modelos cuantitativos formales. La semana establece las tres medidas centrales: Expected Exposure (lo que se puede perder antes de recovery), Loss Given Default (lo que se pierde después de recovery) y la Credit Valuation Adjustment (CVA), que es el ajuste al valor del instrumento por el riesgo de contraparte. Los modelos estructurales (Merton) modelan el default como un evento endógeno cuando el valor de los activos cae bajo la deuda. Los modelos de forma reducida (Jarrow-Turnbull, CIR++) tratan el default como un proceso exógeno con intensidad estocástica. CVA se calcula como la suma descontada de EL a lo largo del tiempo, y tiene implicaciones directas en el pricing de bonos corporativos y CDS.
+        Se introducen los fundamentos del riesgo de crédito como riesgo de pérdida derivado del incumplimiento del emisor. Se distingue iliquidez de insolvencia y se presentan las cláusulas clave del indenture (cross-default y pari passu). El análisis combina factores bottom-up (las 5 C: Capacity, Capital, Collateral, Covenants, Character) y top-down (Conditions, Country, Currency). La medición central es la Pérdida Esperada (EL = PD × LGD%), que aproxima el credit spread justo. Se cubre el sistema de calificaciones (Moody's, S&amp;P, Fitch), el umbral IG/HY, y los determinantes del yield spread (ciclo macro, liquidez de mercado, factores del emisor). El módulo cierra con el análisis aplicado a deuda gubernamental (soberana y no soberana, GO Bonds vs. Revenue Bonds, DSCR), corporativa (ratios de rentabilidad, cobertura, apalancamiento) y la jerarquía de prelación en quiebra (notching CFR vs. CCR).
       </p>
       <div class="section-label">Keywords</div>
       <div class="kw-list" style="margin-bottom:20px">
-        <span class="kw kw-blue">Expected Exposure</span><span class="kw kw-blue">CVA (Credit Valuation Adjustment)</span><span class="kw kw-blue">Structural Model (Merton)</span><span class="kw kw-blue">Hazard Rate</span>
-        <span class="kw kw-outline">Reduced-Form Model</span><span class="kw kw-outline">Risk-Neutral PD</span><span class="kw kw-outline">Asset Value Process</span>
-        <span class="kw kw-outline">Default Barrier</span><span class="kw kw-outline">Distance to Default</span>
-        <span class="kw kw-gray">Transition Matrix</span><span class="kw kw-gray">Credit Migration</span><span class="kw kw-gray">Conditional PD</span>
+        <span class="kw kw-blue">Probability of Default (PD)</span><span class="kw kw-blue">Loss Given Default (LGD)</span><span class="kw kw-blue">Expected Loss</span><span class="kw kw-blue">Credit Spread</span>
+        <span class="kw kw-outline">5 C del Emisor</span><span class="kw kw-outline">Investment Grade vs. High Yield</span><span class="kw kw-outline">Sovereign Immunity</span>
+        <span class="kw kw-outline">Debt-Service Coverage Ratio</span><span class="kw kw-outline">Pari Passu</span><span class="kw kw-outline">Seniority Ranking</span>
+        <span class="kw kw-gray">Cross-Default Clause</span><span class="kw kw-gray">Credit Migration Risk</span><span class="kw kw-gray">Notching</span><span class="kw kw-gray">Subordinación Estructural</span>
       </div>
       <div class="section-label">Conceptos clave</div>
       <ul class="concepts" style="margin-bottom:20px">
-        <li><strong>Expected Exposure (t):</strong> Para un bono zero-coupon: <span class="math-block">\[EE(t) = \frac{FV}{(1+r_f)^{T-t}}\]</span> El exposure de un bono con cupón excede el par valor porque incluye todos los flujos futuros descontados.</li>
-        <li><strong>CVA:</strong> <span class="math-block">\[\text{CVA} = \sum_t PD(t)\cdot LGD(t)\cdot EE(t)\cdot DF(t)\]</span> Es el descuento que se aplica al precio risk-free del instrumento para reflejar el riesgo de crédito del emisor.</li>
-        <li><strong>Modelo de Merton:</strong> la firma emite deuda y equity. El equity es una call option sobre los activos de la firma con strike = valor de la deuda. El default ocurre cuando VA(activos) &lt; Deuda en T. Usa Black-Scholes para calcular PD implícita.</li>
-        <li><strong>Modelos de forma reducida:</strong> el default llega como un proceso de Poisson con intensidad \(\lambda(t)\). <span class="math-block">\[PD(0,T) = 1 - e^{-\int_0^T \lambda(t)\,dt}\]</span> Más tractables para calibración a datos de mercado (CDS spreads).</li>
-        <li><strong>Risk-neutral vs. real-world PD:</strong> las PD implícitas de mercado (CDS) son risk-neutral; incluyen prima de riesgo. Siempre son mayores que las PD históricas de las agencias. Para pricing usar risk-neutral; para gestión de riesgo, real-world.</li>
+        <li><strong>Pérdida Esperada y Credit Spread:</strong> <span class="math-block">\[\text{EL} = \text{PD} \times \text{LGD\%} \qquad \text{Credit Spread} \approx \text{PD} \times (1 - \text{Recuperación})\]</span> Si el spread real &gt; spread estimado, el bono sobrecompensa el riesgo (atractivo); si es menor, no compensa adecuadamente.</li>
+        <li><strong>5 C bottom-up + 3 top-down:</strong> Capacity es el factor más importante del análisis bottom-up. Los factores top-down (Conditions, Country, Currency) capturan el riesgo macroeconómico, geopolítico y cambiario que afecta a todos los emisores.</li>
+        <li><strong>Descomposición del yield spread:</strong> Spread total = Liquidity spread + Credit spread. El liquidity spread se estima por la diferencia entre yield al bid y al offer; el credit spread es residual.</li>
+        <li><strong>Sovereign Immunity:</strong> a diferencia de los corporativos, los tenedores de bonos soberanos no tienen recurso legal si un gobierno se niega a pagar. La <em>willingness to pay</em> es tan importante como la capacidad de pago.</li>
+        <li><strong>Ratios crediticios corporativos:</strong> Margen EBIT (alto), EBIT/Intereses (alto), Deuda/EBITDA (bajo), RCF/Deuda Neta (alto) → mayor calidad crediticia. Top-down (industria, ciclo) + bottom-up (cash flow del emisor).</li>
+        <li><strong>Jerarquía de prelación:</strong> First Lien &gt; Senior Secured &gt; Junior Secured &gt; Senior Unsecured &gt; Senior Subordinated &gt; Subordinated &gt; Junior Subordinated. Pari passu rige dentro de cada categoría; la prioridad absoluta puede flexibilizarse en quiebras negociadas.</li>
+        <li><strong>CFR vs. CCR y notching:</strong> el Corporate Family Rating califica al emisor; el Corporate Credit Rating ajusta por seniority y covenants de cada emisión. La subordinación estructural (holdings) genera notching negativo aunque no sea formal.</li>
       </ul>
       <div class="two-col">
-        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Calcular CVA de un bono corporativo a 3 años</li><li>Extraer PD risk-neutral de un CDS spread de 200bps</li><li>Aplicar Merton model con datos de equity y balance sheet</li></ul></div>
-        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S7: PD y LGD son los inputs fundamentales</li><li>→ S10: CVA es la base del pricing de CDS</li><li>→ S12: Loss rates y PD son inputs de CDO tranching</li></ul></div>
+        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Evaluar si un bono con PD 3% y recuperación 75% sobrecompensa al inversor</li><li>Descomponer el yield spread de un bono 10y en componentes de liquidez y crédito</li><li>Comparar la calidad crediticia de dos emisores con los 4 ratios clave (rentabilidad, cobertura, apalancamiento)</li><li>Calcular DSCR de un revenue bond municipal</li></ul></div>
+        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S7: La duración efectiva y convexidad también aplican a Δspread, no solo a Δyield</li><li>← S2–S3: El spread se aplica al yield para descontar flujos riesgosos</li><li>→ S10: PD y LGD son inputs del pricing de CDS y modelos estructurales/reduced-form</li><li>→ S12: Loss rates y seniority son inputs del tranching de CDOs</li></ul></div>
       </div>
     </div>
   </div>
@@ -1229,7 +1231,7 @@ const LABELS = [
   'S6 · Arbitrage-Free · PC1',
   'S7 · Credit Risk I',
   'S8 · Exámenes Parciales',
-  'S9 · Credit Risk II',
+  'S9 · Riesgo de Crédito I',
   'S10 · Credit Derivatives',
   'S11 · Embedded Options',
   'S12 · Securitization',
@@ -1313,7 +1315,7 @@ counter.textContent = LABELS[0] + ' · 0 / ' + TOTAL;
 
 // ── Onepagers disponibles ─────────────────────────────────────────────────
 // Agrega el número de semana a este array cada vez que publiques un onepager.
-const ONEPAGERS_AVAILABLE = [1,2,3,4,5,6,7];
+const ONEPAGERS_AVAILABLE = [1,2,3,4,5,6,7,9];
 
 (function applyOnepagerState(){
   document.querySelectorAll('a.onepager-btn').forEach(btn => {

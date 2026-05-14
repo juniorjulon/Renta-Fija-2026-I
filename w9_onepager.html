@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · RIESGO DE CRÉDITO I</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .exercises-cta { font-size:11.5px; padding:9px 16px; width:100%; justify-content:center; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 8</div>
+    <h1 class="header-title">Riesgo de Crédito I</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Fundamentos del Riesgo de Crédito</span>
+      <span class="pill">02 Determinantes del Yield Spread</span>
+      <span class="pill">03 Crédito Gubernamental</span>
+      <span class="pill">04 Crédito Corporativo</span>
+      <span class="pill">05 Estructura, Prelación y Notching</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · FUNDAMENTOS DEL RIESGO DE CRÉDITO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Fundamentos del Riesgo de Crédito</h2>
+    <p>Naturaleza y fuentes · Factores bottom-up y top-down · PD, LGD y pérdida esperada · Calificaciones crediticias</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Naturaleza del Riesgo de Crédito -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Naturaleza del Riesgo de Crédito: Iliquidez, Insolvencia y Cláusulas <span class="slide-tag">Slide 4</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Definición</div>
+      <div class="cc-def"><strong>Riesgo de Crédito</strong> es el riesgo de pérdida para inversores de renta fija derivado del incumplimiento (<em>default</em>) de un emisor en sus pagos de intereses o principal.</div>
+    </div>
+    <div class="grid-2">
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Iliquidez</div>
+        <div class="cc-def">El emisor <strong>no puede obtener fondos</strong> para cubrir sus pagos, pero sus activos pueden superar sus deudas. Un emisor ilíquido puede incumplir <strong>sin ser insolvente</strong>.</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Insolvencia</div>
+        <div class="cc-def">Los <strong>activos del emisor son menores</strong> al valor total de sus deudas. La insolvencia generalmente lleva al default formal y a procesos de quiebra o reestructuración.</div>
+      </div>
+    </div>
+    <div class="rule-callout" style="margin-top:12px">
+      <strong>Cláusulas clave del indenture:</strong> <em>Cross-default clause</em> — el incumplimiento en una emisión provoca el default automático en todas las emisiones del emisor. <em>Pari passu clause</em> — todos los bonos de una misma categoría tienen igual prioridad de cobro en caso de default.
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Factores Bottom-Up: 5 C -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Factores Bottom-Up: Las 5 C del Emisor <span class="slide-tag">Slide 5</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Capacity (Capacidad)</div>
+        <div class="cc-def">Capacidad del emisor para realizar sus pagos de deuda puntualmente. Es el <strong>factor más importante</strong> del análisis bottom-up.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Capital</div>
+        <div class="cc-def">Otros recursos disponibles que reducen su dependencia en deuda (activos, capital propio, acceso a financiamiento).</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Collateral (Garantías)</div>
+        <div class="cc-def">Valor de los activos pignorados como garantía. Determina la <strong>tasa de recuperación</strong> en caso de default.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">Covenants (Pactos)</div>
+        <div class="cc-def">Términos y condiciones legales acordados entre emisor y prestamistas (afirmativos y negativos) en la emisión de bonos.</div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">Character (Carácter)</div>
+        <div class="cc-def">Integridad del emisor (gestión corporativa) y compromiso para cumplir obligaciones de deuda. Considera historial y gobierno.</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Síntesis</div>
+        <div class="cc-def">Las 5 C evalúan la capacidad y voluntad del emisor de honrar sus compromisos: una baja PD requiere fortaleza en todas ellas.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Factores Top-Down y Fuentes de Repago -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Factores Top-Down y Fuentes de Repago <span class="slide-tag">Slide 6</span></span>
+  </div>
+  <div class="section-body">
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Factores Top-Down (macroeconómicos)</div>
+    <div class="cmp-strip cmp-strip-3">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Conditions</div>
+        <div class="cmp-rule" style="font-size:11.5px">Entorno económico</div>
+        <p>Ciclo económico, tasas e inflación. Afectan la capacidad de <strong>todos los emisores</strong> para servir su deuda.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Country</div>
+        <div class="cmp-rule" style="font-size:11.5px">Riesgo soberano</div>
+        <p>Entorno geopolítico, sistema legal y político, estabilidad institucional y reglas de mercado.</p>
+      </div>
+      <div class="cmp-cell gold-bg">
+        <div class="cmp-head">Currency</div>
+        <div class="cmp-rule" style="font-size:11.5px">Tipo de cambio</div>
+        <p>Fluctuaciones FX y su impacto sobre la capacidad de servir deuda <strong>denominada en moneda extranjera</strong>.</p>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Fuentes de repago según tipo de emisor</div>
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Corporativa Garantizada</div>
+        <div class="cc-def">Flujos operativos + inversiones del negocio + flujos del <strong>colateral pignorado</strong>.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Corporativa No Garantizada</div>
+        <div class="cc-def">Flujos operativos + fuentes secundarias (venta de activos, emisión de nueva deuda/capital).</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Soberana</div>
+        <div class="cc-def">Ingresos fiscales, aranceles y tarifas. Fuentes secundarias: nueva deuda y privatizaciones.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.4 Medición del Riesgo de Crédito -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.4</span>
+    <span class="section-title">Medición: PD, LGD y Pérdida Esperada <span class="slide-tag">Slides 7–9</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Pérdida Esperada (Expected Loss)</div>
+          <div class="f-eq">$$\text{EL} = \text{PD} \times \text{LGD\%}$$
+$$\text{LGD\%} = \text{Exposición} \times (1 - \text{Tasa de Recuperación})$$</div>
+          <div class="f-vars">
+            <span>PD</span> = probabilidad de default (anualizada)<br>
+            <span>LGD%</span> = pérdida dado el default (loss severity)<br>
+            <span>Tasa de Recuperación</span> = proporción del crédito que el inversor recupera<br>
+            <span>Exposición</span> = adeudo (principal + intereses) − valor del colateral
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Aproximación al credit spread:</strong> $$\text{Credit Spread} \approx \text{PD} \times \text{LGD\%}$$ La pérdida esperada anualizada estima el spread crediticio que el inversor debería exigir sobre el activo libre de riesgo.
+        </div>
+        <div class="cmp-strip" style="margin-top:8px">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Spread real &gt; Spread estimado</div>
+            <div class="cmp-rule" style="font-size:11.5px">SOBRECOMPENSADO</div>
+            <p>El bono ofrece valor relativo atractivo.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Spread real &lt; Spread estimado</div>
+            <div class="cmp-rule" style="font-size:11.5px">SUBCOMPENSADO</div>
+            <p>Evitar la inversión o exigir mejores condiciones.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — PD 3% · Recuperación 75% · Cupón 4% (a la par) · Soberano 2.5%</div>
+          <div class="ex-body">
+            <strong>Paso 1 — Spread real:</strong><br>
+            Spread real = 4.0% − 2.5% = <strong>1.5%</strong><br><br>
+            <strong>Paso 2 — Spread estimado (justo):</strong><br>
+            = PD × (1 − Recuperación)<br>
+            = 0.03 × (1 − 0.75) = 0.03 × 0.25 = <strong>0.75%</strong><br><br>
+            <strong>Conclusión:</strong> Spread real (1.5%) es el <strong>doble</strong> del spread estimado (0.75%).
+          </div>
+          <div class="result-banner gain">El bono SOBRECOMPENSA al inversor por el riesgo de crédito → inversión atractiva.</div>
+        </div>
+        <div class="concept-card accent-green" style="margin-top:8px">
+          <div class="cc-label green">Indicadores de baja PD (alta calidad)</div>
+          <div class="cc-def">
+            • <strong>Alto margen EBIT</strong> (EBIT/Revenue) — rentabilidad operativa<br>
+            • <strong>Alto cobertura de intereses</strong> (EBIT/Intereses)<br>
+            • <strong>Bajo apalancamiento</strong> (Deuda/EBITDA)<br>
+            • <strong>Alto flujo/deuda neta</strong> (RCF/Deuda Neta)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.5 Calificaciones Crediticias -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.5</span>
+    <span class="section-title">Calificaciones Crediticias: Usos, Escala y Limitaciones <span class="slide-tag">Slides 10–12</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Usos de los Ratings</div>
+        <div class="concept-card accent-mid" style="margin-bottom:8px">
+          <div class="cc-label mid">Comparación entre emisores</div>
+          <div class="cc-def">Comparar riesgo entre industrias, tipos de bono y geografías; evaluar la evolución crediticia en el tiempo.</div>
+        </div>
+        <div class="concept-card accent-gold" style="margin-bottom:8px">
+          <div class="cc-label gold">Credit Migration Risk</div>
+          <div class="cc-def">Riesgo de que un <strong>downgrade</strong> reduzca el valor del bono y active covenants de rating o umbrales regulatorios.</div>
+        </div>
+        <div class="concept-card accent-green">
+          <div class="cc-label green">Requisitos regulatorios</div>
+          <div class="cc-def">Fondos de pensiones y aseguradoras suelen tener mandatos para invertir <strong>solo en grado de inversión</strong>.</div>
+        </div>
+        <div class="rule-callout red" style="margin-top:10px">
+          <strong>Limitaciones:</strong> (1) Los ratings <em>rezagan</em> al mercado; (2) algunos riesgos (litigios, M&amp;A, fraude) son difíciles de capturar y producen <em>split ratings</em>; (3) las agencias no son infalibles (ejemplo: subprime 2008–2009).
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Escala de Ratings</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th colspan="2">Grado de Inversión</th><th colspan="2">High Yield / No Inversión</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Moody's</strong></td><td><strong>S&amp;P / Fitch</strong></td><td><strong>Moody's</strong></td><td><strong>S&amp;P / Fitch</strong></td></tr>
+              <tr><td class="mono">Aaa</td><td class="mono">AAA</td><td class="mono">Ba1</td><td class="mono">BB+</td></tr>
+              <tr><td class="mono">Aa1 / Aa2 / Aa3</td><td class="mono">AA+ / AA / AA−</td><td class="mono">Ba2 / Ba3</td><td class="mono">BB / BB−</td></tr>
+              <tr><td class="mono">A1 / A2 / A3</td><td class="mono">A+ / A / A−</td><td class="mono">B1 / B2 / B3</td><td class="mono">B+ / B / B−</td></tr>
+              <tr><td class="mono">Baa1 / Baa2</td><td class="mono">BBB+ / BBB</td><td class="mono">Caa1–Caa3</td><td class="mono">CCC+ / CCC / CCC−</td></tr>
+              <tr><td class="mono val-green">Baa3</td><td class="mono val-green">BBB−</td><td class="mono">Ca / C / C</td><td class="mono">CC / C / D</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="result-banner neutral" style="margin-top:8px">
+          <strong>Umbral:</strong> Baa3 / BBB− o superior = <span style="color:#15803D">Grado de Inversión</span> &nbsp;|&nbsp; Ba1 / BB+ o inferior = <span style="color:#BE123C">High Yield</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · DETERMINANTES DEL YIELD SPREAD
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Determinantes del Yield Spread</h2>
+    <p>Ciclo macro · IG vs HY · Liquidez de mercado · Factores del emisor · Impacto sobre el precio</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Factores Macroeconómicos -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Comportamiento del Spread: Investment Grade vs. High Yield <span class="slide-tag">Slide 13</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card accent-red" style="margin-bottom:12px">
+      <div class="cc-label red">Credit Spread Risk</div>
+      <div class="cc-def">Riesgo de que los spreads se amplíen por condiciones deterioradas, reduciendo el precio de bonos crediticios. El riesgo crediticio sigue el <strong>ciclo económico</strong>: en expansión los spreads se contraen; en recesión se amplían.</div>
+    </div>
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Comportamiento</th><th>Investment Grade (IG)</th><th>High Yield (HY)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Nivel de spreads</strong></td><td>Menores (menor pérdida esperada)</td><td>Mayores (mayor riesgo de default)</td></tr>
+          <tr><td><strong>Forma habitual de curva</strong></td><td>Inclinada positiva (al alza)</td><td>Puede invertirse en recesión</td></tr>
+          <tr><td><strong>Recesión</strong></td><td class="val-red">Suben y curva se aplana</td><td class="val-red">Suben dramáticamente; curva puede invertirse</td></tr>
+          <tr><td><strong>Expansión</strong></td><td class="val-green">Bajan y curva se empina</td><td class="val-green">Bajan; retornos tipo equity</td></tr>
+          <tr><td><strong>Dispersión entre emisores</strong></td><td>Menor (más homogéneos)</td><td>Alta (mayor variabilidad)</td></tr>
+          <tr><td><strong>Liquidez en crisis</strong></td><td>Bid-offer se amplía menos</td><td>Bid-offer se amplía sustancialmente</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rule-callout gold" style="margin-top:10px">
+      <strong>Incentivos para asumir HY (pese al mayor riesgo):</strong> diversificación (baja correlación con IG) · apreciación de capital (mayores cambios de precio) · retornos tipo equity con menor volatilidad.
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Factores de Mercado y del Emisor -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Factores de Mercado, del Emisor y Descomposición del Spread <span class="slide-tag">Slides 14–15</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Market Liquidity Risk</div>
+          <div class="cc-def">
+            Costos de transacción para comprar/vender un bono, evaluados por el <strong>diferencial bid-offer</strong>. Mayor diferencial → mayor riesgo de liquidez.<br><br>
+            <strong>Bid:</strong> precio al que el inversor VENDE · <strong>Offer:</strong> precio al que el inversor COMPRA.<br>
+            Menor liquidez para: bonos poco negociados, emisores de menor calidad y menor deuda outstanding.
+          </div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Factores Específicos del Emisor</div>
+          <div class="cc-def">El desempeño financiero afecta nivel y volatilidad del spread. Si el emisor tiene dificultades para servir su deuda, sus spreads serán <strong>más amplios que el promedio</strong> de su categoría de rating.</div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>Otros factores sistémicos que amplían spreads:</strong> mayor regulación de broker-dealers (encarece financiar inventarios) · estrés de financiamiento (aumenta aversión al riesgo) · emisión primaria abundante sin demanda equivalente.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono 10y · cupón 5% · bid/offer 99.5 / 100.5 · benchmark 3%</div>
+          <div class="ex-body">
+            <strong>Paso 1 — Midprice:</strong> (99.5 + 100.5) / 2 = 100 → YTM = 5% (a la par)<br><br>
+            <strong>Paso 2 — Spread total:</strong> 5% − 3% = <strong>2%</strong><br><br>
+            <strong>Paso 3 — YTM al bid (99.5):</strong><br>
+            N=10, PV=−99.5, PMT=5, FV=100 → I/Y = <strong>5.065%</strong><br><br>
+            <strong>Paso 4 — YTM al offer (100.5):</strong><br>
+            N=10, PV=−100.5, PMT=5, FV=100 → I/Y = <strong>4.935%</strong><br><br>
+            <strong>Paso 5 — Liquidity spread:</strong><br>
+            5.065% − 4.935% = <strong>0.13%</strong><br><br>
+            <strong>Paso 6 — Credit spread (residual):</strong><br>
+            2% − 0.13% = <strong>1.87%</strong>
+          </div>
+          <div class="result-banner gain">Credit spread = <strong>1.87%</strong> · Liquidity spread = <strong>0.13%</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 Impacto sobre el precio -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">Impacto de Cambios en Spread sobre el Precio <span class="slide-tag">Slide 16</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Cambio en precio por cambio en spread</div>
+          <div class="f-eq">$$\%\Delta P \approx -\text{ModDur} \times \Delta s + \tfrac{1}{2}\,\text{Convexidad}\times (\Delta s)^2$$</div>
+          <div class="f-vars">
+            <span>ModDur</span> = duración modificada — sensibilidad porcentual a un cambio en yield/spread<br>
+            <span>Δs</span> = cambio en el credit spread del bono<br>
+            <span>Convexidad</span> = corrección de segundo orden (curvatura precio-yield)
+          </div>
+        </div>
+        <div class="rule-callout">La sensibilidad del precio a un cambio en yield (Duración y Convexidad) <strong>también aplica a cambios en spread</strong>, reemplazando ΔYTM por Δs.</div>
+      </div>
+      <div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">↑ Spread (deterioro)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Caída de precio</div>
+            <p>El precio cae aproximadamente ModDur × Δs, atenuado por la convexidad positiva.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">↓ Spread (mejora)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Subida de precio</div>
+            <p>El precio sube más que la simetría sugeriría — <strong>asimetría favorable</strong> por convexidad.</p>
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:10px">
+          <strong>Asimetría:</strong> para un mismo |Δs|, la subida de precio cuando spreads bajan es <strong>mayor</strong> que la caída cuando spreads suben (efecto de convexidad).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · ANÁLISIS DE CRÉDITO GUBERNAMENTAL
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Análisis de Crédito Gubernamental</h2>
+    <p>Deuda soberana — factores cualitativos, cuantitativos y sovereign immunity · Deuda no soberana — GO Bonds vs. Revenue Bonds y DSCR</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 Deuda Soberana - Cualitativo -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Deuda Soberana — Factores Cualitativos <span class="slide-tag">Slide 18</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card" style="margin-bottom:12px">
+      <div class="cc-label">Premisa central</div>
+      <div class="cc-def">La capacidad de un emisor soberano para servir su deuda proviene principalmente de su <strong>capacidad de recaudar impuestos</strong>. La evaluación requiere analizar factores que proporcionen crecimiento estable con baja inflación.</div>
+    </div>
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">1. Instituciones y Política</div>
+        <div class="cc-def">Estabilidad política y económica, derechos de propiedad, cultura de repago, transparencia y coexistencia pacífica con vecinos.</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">2. Flexibilidad Fiscal</div>
+        <div class="cc-def">Capacidad de aumentar recaudación o reducir gasto público; nivel de déficit y deuda sobre PIB.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">3. Efectividad Monetaria</div>
+        <div class="cc-def">BC independiente que ajuste oferta monetaria y tasas de forma creíble. Reduce el riesgo de inflación/debilidad cambiaria por monetización de deuda.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cc-label">4. Flexibilidad Económica</div>
+        <div class="cc-def">Tendencias de crecimiento, ingreso per cápita y diversificación de las fuentes de crecimiento.</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">5. Estatus Externo</div>
+        <div class="cc-def">Posición de la moneda en mercados internacionales. Países con monedas de reserva soportan mayores déficits. Considera riesgos geopolíticos.</div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">Síntesis</div>
+        <div class="cc-def">Estos cinco factores definen un marco que captura tanto la capacidad como la voluntad del Estado para sostener el servicio de su deuda.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Deuda Soberana - Cuantitativo -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Deuda Soberana — Factores Cuantitativos y Sovereign Immunity <span class="slide-tag">Slide 19</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">1. Fortaleza Fiscal</div>
+        <div class="cc-def">
+          • Bajo ratio <strong>deuda/PIB</strong> y deuda/ingresos fiscales (bajas cargas).<br>
+          • Bajos ratios <strong>intereses/PIB</strong> e intereses/ingresos (alta asequibilidad).
+        </div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">2. Crecimiento Económico</div>
+        <div class="cc-def">
+          • Alto crecimiento real del PIB, economía grande, alto PIB per cápita.<br>
+          • <strong>Baja volatilidad</strong> del crecimiento real.
+        </div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">3. Estabilidad Externa</div>
+        <div class="cc-def">
+          • Altas <strong>reservas/PIB</strong> y reservas/deuda externa.<br>
+          • Baja deuda externa LP y CP / PIB.<br>
+          • Reservas se acumulan con superávit de cuenta corriente; <strong>concentración exportadora</strong> = riesgo crediticio ligado a una materia prima.
+        </div>
+      </div>
+    </div>
+    <div class="rule-callout gold" style="margin-top:12px">
+      <strong>Sovereign Immunity:</strong> A diferencia de los emisores corporativos, los tenedores de bonos soberanos generalmente <strong>no tienen recurso legal</strong> si un gobierno se niega a pagar. Por ello, la <strong>VOLUNTAD de pago (willingness to pay)</strong> es tan importante como la CAPACIDAD de pago.
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 Deuda No Soberana -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.3</span>
+    <span class="section-title">Deuda No Soberana: Tipos de Emisor, GO vs. Revenue Bonds y DSCR <span class="slide-tag">Slides 20–21</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2" style="margin-bottom:12px">
+      <div class="concept-card">
+        <div class="cc-label">Agencias y Bancos Gubernamentales</div>
+        <div class="cc-def">Entidades cuasi-gubernamentales con apoyo implícito del gobierno (infraestructura, bonos verdes). Sus ratings son <strong>similares al soberano</strong>.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Supranacionales</div>
+        <div class="cc-def">Banco Mundial, CAF — creadas por grupos de soberanos para proyectos de desarrollo. Ratings dependen del apoyo de países patrocinadores.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Gobiernos Regionales</div>
+        <div class="cc-def">Provincias, estados y municipios. Su deuda se clasifica en <strong>GO Bonds</strong> y <strong>Revenue Bonds</strong>. <strong>NO pueden</strong> usar política monetaria para servir deuda.</div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">Diferencia clave vs. Soberano</div>
+        <div class="cc-def">Los gobiernos regionales <strong>deben equilibrar</strong> sus presupuestos operativos y no pueden emitir moneda. Su análisis se asemeja al corporativo.</div>
+      </div>
+    </div>
+
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">General Obligation (GO) Bonds</div>
+        <div class="cmp-rule" style="font-size:11.5px">Respaldo: poder tributario</div>
+        <p><strong>No garantizados</strong>, respaldados por la plena fe y crédito del gobierno emisor (su base tributaria local).<br><br><strong>Riesgo:</strong> generalmente menor que los revenue bonds — el respaldo es más amplio.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Revenue Bonds</div>
+        <div class="cmp-rule" style="font-size:11.5px">Respaldo: ingresos del proyecto</div>
+        <p>Emitidos para financiar proyectos específicos (aeropuertos, peajes, hospitales, energía). Solo los ingresos del proyecto sirven la deuda.<br><br><strong>Riesgo:</strong> generalmente MAYOR que los GO bonds.</p>
+      </div>
+    </div>
+
+    <div class="formula-box" style="margin-top:12px">
+      <div class="f-label">Debt-Service Coverage Ratio (DSCR)</div>
+      <div class="f-eq">$$\text{DSCR} = \frac{\text{Ingresos del proyecto} - \text{Costos operativos}}{\text{Intereses} + \text{Amortizaciones de principal}}$$</div>
+      <div class="f-vars">Métrica clave para revenue bonds. <span>DSCR &gt; 1</span> indica que el proyecto genera ingresos suficientes para cubrir sus pagos de deuda. Análisis similar al de bonos corporativos: enfoque en flujos de caja del proyecto.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · ANÁLISIS DE CRÉDITO CORPORATIVO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Análisis de Crédito Corporativo</h2>
+    <p>Factores cualitativos: modelo de negocio, competencia, gobierno · Factores cuantitativos: cash flow y ratios de rentabilidad, cobertura y apalancamiento</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Factores Cualitativos -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Factores Cualitativos: Modelo de Negocio, Competencia y Gobierno <span class="slide-tag">Slides 23–24</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Modelo de Negocio</div>
+        <div class="cc-def">Alta calidad crediticia = flujos de caja <strong>estables y predecibles</strong>. En deuda LP el analista evalúa el modelo actual y los cambios necesarios para mantener la competitividad. Cambios al modelo aumentan el <em>business risk</em>.</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Competencia en la Industria</div>
+        <div class="cc-def">Industrias con <strong>altas barreras de entrada</strong>, pocos competidores y márgenes estables son más favorables. Considerar cambios competitivos a largo plazo.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Riesgo de Negocio</div>
+        <div class="cc-def">Bajo riesgo de desviaciones inesperadas en ingresos y márgenes. Puede provenir de factores específicos del emisor, de la industria o externos. <strong>Mayor previsibilidad = mayor calidad</strong>.</div>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Gobierno Corporativo: Covenants y Políticas Contables</div>
+    <div class="cmp-strip">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Covenants Afirmativos (IG, no garantizada)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Obligaciones positivas</div>
+        <p>Cumplir leyes, mantener activos, pagar impuestos. <strong>Riesgo:</strong> la gestión puede emitir <em>deuda adicional</em> diluyendo reclamos existentes.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Covenants Negativos (HY)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Restricciones</div>
+        <p>Restringen el pago de dividendos y la emisión de nueva deuda. El analista evalúa si la gestión ha priorizado equity sobre deuda (<em>buybacks con deuda</em> → downgrades).</p>
+      </div>
+    </div>
+    <div class="rule-callout red" style="margin-top:10px">
+      <strong>Señales de alerta contables:</strong> reconocimiento acelerado de ingresos · uso significativo de financiamiento <em>off-balance-sheet</em> (leases, SPVs) · capitalización agresiva de gastos · cambios frecuentes de auditores o CFO · evidencia de <strong>fraude</strong> (riesgo extremo).
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Conceptos de Flujo de Caja -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Conceptos Clave de Flujo de Caja <span class="slide-tag">Slide 25</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card">
+        <div class="cc-label">EBITDA</div>
+        <div class="cc-def"><strong>Earnings Before Interest, Taxes, D&amp;A.</strong> Ingreso operativo + D&amp;A. Limitación: no ajusta por <em>capex</em> ni por cambios en capital de trabajo.</div>
+      </div>
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">CFO</div>
+        <div class="cc-def"><strong>Cash Flow from Operations.</strong> Flujo neto de operaciones continuas = Ingreso neto + cargos no cash − ↑ capital de trabajo. (Estado de Flujos de Caja).</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">FFO</div>
+        <div class="cc-def"><strong>Funds from Operations.</strong> Ingreso neto + D&amp;A + impuestos diferidos + partidas no cash. Similar al CFO, pero <strong>excluye</strong> cambios en capital de trabajo.</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">FCF</div>
+        <div class="cc-def"><strong>Free Cash Flow.</strong> CFO − Capex + Gasto neto de intereses. Flujo discrecional disponible para los financiadores tras cumplir todas las obligaciones.</div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">RCF</div>
+        <div class="cc-def"><strong>Retained Cash Flow.</strong> Flujo de caja operativo − Dividendos. Mide la generación de caja retenida tras retribuir a accionistas.</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Nota</div>
+        <div class="cc-def">Los analistas pueden usar CFO, FFO u otra medida preferida como <em>flujo de caja operativo</em> según la industria y el caso.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.3 Ratios Financieros -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.3</span>
+    <span class="section-title">Ratios Financieros para Análisis de Crédito Corporativo <span class="slide-tag">Slide 26</span></span>
+  </div>
+  <div class="section-body">
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Tipo de Ratio</th><th>Nombre</th><th>Cálculo</th><th>Indica Mayor Calidad Crediticia</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Rentabilidad</strong></td><td>Margen EBIT</td><td class="mono">EBIT / Revenue</td><td class="val-green">Ratio más alto</td></tr>
+          <tr><td><strong>Cobertura</strong></td><td>EBIT / Intereses</td><td class="mono">EBIT / Gasto de intereses</td><td class="val-green">Ratio más alto</td></tr>
+          <tr><td><strong>Apalancamiento</strong></td><td>Deuda / EBITDA</td><td class="mono">Deuda Total / EBITDA</td><td class="val-red">Ratio más bajo</td></tr>
+          <tr><td><strong>Apalancamiento</strong></td><td>RCF / Deuda Neta</td><td class="mono">RCF / (Deuda − Caja)</td><td class="val-green">Ratio más alto</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Top-Down Inputs</div>
+        <div class="cc-def">Ciclo macroeconómico, tamaño de la industria y potencial cuota de mercado, riesgo de eventos (shocks externos).</div>
+      </div>
+      <div class="concept-card accent-green">
+        <div class="cc-label green">Bottom-Up Inputs</div>
+        <div class="cc-def">Factores específicos del emisor: ingresos, costos, activos, pasivos y flujos de caja futuros.</div>
+      </div>
+    </div>
+    <div class="rule-callout gold" style="margin-top:10px">
+      <strong>Mayor calidad crediticia si el emisor tiene:</strong> beneficios operativos sólidos y recurrentes · bajo apalancamiento · alta cobertura del servicio de deuda · alta liquidez para cumplir pagos a corto plazo.
+    </div>
+  </div>
+</div>
+
+<!-- 4.4 Ejemplo York vs Zale -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.4</span>
+    <span class="section-title">Ejemplo: York, Inc. vs. Zale, Inc. — Análisis Basado en Ratios <span class="slide-tag">Slides 27–28</span></span>
+  </div>
+  <div class="section-body">
+    <div class="ex-box">
+      <div class="ex-title">Datos financieros seleccionados (USD)</div>
+      <div class="table-scroll-wrap">
+        <table class="ref-table">
+          <thead><tr><th>Concepto</th><th>York, Inc.</th><th>Zale, Inc.</th></tr></thead>
+          <tbody>
+            <tr><td>Revenue</td><td class="mono">$2,200,000</td><td class="mono">$11,000,000</td></tr>
+            <tr><td>D&amp;A</td><td class="mono">$220,000</td><td class="mono">$900,000</td></tr>
+            <tr><td>EBIT</td><td class="mono">$550,000</td><td class="mono">$2,250,000</td></tr>
+            <tr><td>CFO</td><td class="mono">$300,000</td><td class="mono">$850,000</td></tr>
+            <tr><td>Interest expense</td><td class="mono">$40,000</td><td class="mono">$160,000</td></tr>
+            <tr><td>Total debt</td><td class="mono">$1,900,000</td><td class="mono">$2,700,000</td></tr>
+            <tr><td>Cash &amp; marketable sec.</td><td class="mono">$500,000</td><td class="mono">$1,000,000</td></tr>
+            <tr><td>Dividends</td><td class="mono">$30,000</td><td class="mono">$200,000</td></tr>
+            <tr><td><strong>EBITDA (calc.)</strong></td><td class="val-blue">$770,000</td><td class="val-blue">$3,150,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Rentabilidad — Margen EBIT</div>
+          <div class="ex-body">
+            <strong>York:</strong> $550 / $2,200 = <strong style="color:#15803D">25.0%</strong><br>
+            <strong>Zale:</strong> $2,250 / $11,000 = <strong>20.5%</strong><br>
+            <em>York gana en rentabilidad → mayor calidad crediticia desde esta perspectiva.</em>
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Cobertura — EBIT / Intereses</div>
+          <div class="ex-body">
+            <strong>York:</strong> $550 / $40 = <strong>13.8×</strong><br>
+            <strong>Zale:</strong> $2,250 / $160 = <strong>14.1×</strong><br>
+            <em>Diferencia muy pequeña — ambas cubren cómodamente sus intereses.</em>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Apalancamiento — Deuda / EBITDA</div>
+          <div class="ex-body">
+            <strong>York:</strong> $1,900 / $770 = <strong style="color:#BE123C">2.5×</strong><br>
+            <strong>Zale:</strong> $2,700 / $3,150 = <strong style="color:#15803D">0.9×</strong><br>
+            <em>York mucho más apalancado → menor calidad crediticia.</em>
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Apalancamiento — RCF / Deuda Neta</div>
+          <div class="ex-body">
+            <strong>York:</strong> ($300 − $30) / ($1,900 − $500) = <strong>19%</strong><br>
+            <strong>Zale:</strong> ($850 − $200) / ($2,700 − $1,000) = <strong style="color:#15803D">38%</strong><br>
+            <em>RCF de Zale relativo a su deuda neta es el doble.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="result-banner neutral" style="margin-top:8px">
+      <strong>Conclusión:</strong> panorama mixto — York es <em>más rentable</em> pero <em>más apalancado</em>; ambas presentan coberturas sólidas y similares.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · ESTRUCTURA DE DEUDA, PRELACIÓN Y NOTCHING
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Estructura de Deuda, Prelación en Quiebra y Notching</h2>
+    <p>Deuda secured vs. unsecured · Jerarquía de seniority · Pari passu y prioridad absoluta · CFR vs. CCR y notching</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 5.1 Estructura y Seniority -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1</span>
+    <span class="section-title">Deuda Garantizada vs. No Garantizada y Jerarquía de Prelación <span class="slide-tag">Slide 29</span></span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip">
+      <div class="cmp-cell flat">
+        <div class="cmp-head">Deuda Garantizada (Secured)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Respaldada por colateral específico</div>
+        <p>Tipos: <em>first lien</em> (activo específico), <em>first mortgage</em> (propiedad específica), <em>senior secured</em> (segunda prenda), <em>junior secured</em>.<br><br><strong>Mayor prioridad</strong> de cobro → menor riesgo de crédito y mayores tasas de recuperación.</p>
+      </div>
+      <div class="cmp-cell down">
+        <div class="cmp-head">Deuda No Garantizada (Unsecured)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Reclamación general sobre activos</div>
+        <p>Sin colateral específico. Tipos: <em>senior unsecured</em>, <em>senior subordinated</em>, <em>subordinated</em>, <em>junior subordinated</em>.<br><br>La deuda <strong>subordinada</strong> tiene rango inferior al resto de la unsecured.</p>
+      </div>
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Jerarquía de Prelación (de mayor a menor prioridad)</div>
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead><tr><th>#</th><th>Tipo de Deuda</th><th>Categoría</th><th>Riesgo / Recuperación</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>First Lien / First Mortgage</td><td>Garantizada</td><td class="val-green">Mayor prioridad / Mayor recuperación</td></tr>
+          <tr><td><strong>2</strong></td><td>Senior Secured (Second Lien)</td><td>Garantizada</td><td class="val-green">Alta</td></tr>
+          <tr><td><strong>3</strong></td><td>Junior Secured</td><td>Garantizada</td><td>Media-alta</td></tr>
+          <tr><td><strong>4</strong></td><td>Senior Unsecured</td><td><em>Límite garantizado/no garantizado</em></td><td>Media</td></tr>
+          <tr><td><strong>5</strong></td><td>Senior Subordinated</td><td>No garantizada</td><td>Media-baja</td></tr>
+          <tr><td><strong>6</strong></td><td>Subordinated</td><td>No garantizada</td><td class="val-red">Baja</td></tr>
+          <tr><td><strong>7</strong></td><td>Junior Subordinated</td><td>No garantizada</td><td class="val-red">Menor prioridad / Mayor riesgo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 5.2 Pari Passu y Prioridad Absoluta -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.2</span>
+    <span class="section-title">Pari Passu y Limitaciones de la Prioridad Absoluta <span class="slide-tag">Slide 30</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Principio Pari Passu</div>
+          <div class="cc-def">Toda la deuda dentro de una misma categoría tiene la <strong>misma prioridad</strong> de cobro ("igual rango"). Si el colateral no cubre la deuda senior garantizada, el exceso se convierte automáticamente en un reclamo <strong>pari passu</strong> con la deuda senior unsecured.</div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Tasas de Recuperación según Seniority</div>
+          <div class="cc-def">Las tasas son <strong>máximas para la deuda con mayor prioridad</strong> y disminuyen con cada nivel inferior. La deuda <em>first lien</em> típicamente recupera la mayor proporción.</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">Limitaciones en la Práctica</div>
+          <div class="cc-def">
+            <strong>En teoría:</strong> primero los acreedores con mayor seniority — prioridad absoluta.<br><br>
+            <strong>En la práctica:</strong> acreedores con menor prioridad (e incluso accionistas) pueden recibir pagos aunque los seniors no sean pagados en su totalidad, si <strong>acelera</strong> el proceso de quiebra.<br><br>
+            <strong>Razón económica:</strong> las quiebras son costosas y prolongadas; el valor se deteriora durante el proceso. Un acuerdo negociado puede maximizar el valor total recuperable.
+          </div>
+        </div>
+        <div class="rule-callout">
+          <strong>Implicancia para inversores IG sin garantía:</strong> el mayor riesgo no es el aumento del LGD, sino el incremento en la <strong>probabilidad de default</strong> por deterioro financiero del emisor.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5.3 CFR vs CCR y Notching -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.3</span>
+    <span class="section-title">Ratings de Emisor vs. Ratings de Emisión — Notching <span class="slide-tag">Slide 31</span></span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip">
+      <div class="cmp-cell up">
+        <div class="cmp-head">Corporate Family Rating (CFR)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Issuer credit rating</div>
+        <p>Rating del <strong>EMISOR</strong> (la empresa). Basado típicamente en la deuda <em>senior unsecured</em>. Representa la creditworthiness GLOBAL.</p>
+      </div>
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Corporate Credit Rating (CCR)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Issue credit rating</div>
+        <p>Rating de una <strong>EMISIÓN</strong> específica. Determinado por seniority y garantías del bono. Puede diferir del CFR.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">¿Qué es el notching?</div>
+          <div class="cc-def">Práctica de <strong>ajustar (al alza o a la baja)</strong> el rating de una emisión específica respecto al rating del emisor.</div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Notching positivo (CCR &gt; CFR)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Mejor que el emisor</div>
+            <p>Deuda garantizada con colateral de alta calidad o posición muy senior.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Notching negativo (CCR &lt; CFR)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Peor que el emisor</div>
+            <p>Deuda subordinada o con covenants más débiles.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="rule-callout gold">
+          <strong>Más frecuente en emisores de menor calificación:</strong> con alta PD, las diferencias en tasas de recuperación entre bonos son más significativas, por lo que el notching tiende a ser <em>mayor en valor absoluto</em>.
+        </div>
+        <div class="concept-card accent-red" style="margin-top:10px">
+          <div class="cc-label red">Subordinación Estructural (Holding Company)</div>
+          <div class="cc-def">En estructuras holding, los <strong>covenants de la subsidiaria</strong> pueden restringir transferencias de efectivo a la matriz. Aunque los bonos de la matriz no son <em>formalmente</em> subordinados, quedan <strong>efectivamente subordinados</strong> respecto a los flujos de la subsidiaria → notching negativo para el bono de la matriz.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SÍNTESIS FINAL
+══════════════════════════════════════════════ -->
+<div class="section-block" style="margin-top:30px;background:linear-gradient(135deg,var(--navy),var(--corp));color:white;border:none">
+  <div class="section-header" style="background:transparent;border-bottom:1px solid rgba(255,255,255,.15)">
+    <span class="section-num" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:white">SÍNTESIS</span>
+    <span class="section-title" style="color:white">Mensajes Centrales del Módulo</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">01 · Pérdida Esperada</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">EL = PD × LGD%. El credit spread debe aproximar la pérdida esperada anualizada. Comparar spread real vs. estimado para identificar valor relativo.</p>
+      </div>
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">02 · Spread = Crédito + Liquidez</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">El yield spread total descompone en componente crediticio (PD × LGD) y de liquidez (bid-offer). Cambios en spread impactan al precio vía ModDur y convexidad.</p>
+      </div>
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">03 · Soberanos: Voluntad ≈ Capacidad</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">Sin recurso legal, la <em>willingness to pay</em> importa tanto como la capacidad. Análisis combina factores cualitativos (5) y cuantitativos (fortaleza fiscal, crecimiento, estabilidad externa).</p>
+      </div>
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">04 · Corporativo: 4 Ratios Clave</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">Margen EBIT (alto), EBIT/Intereses (alto), Deuda/EBITDA (bajo), RCF/Deuda Neta (alto). Los cuatro indican mayor calidad crediticia. Combinar con análisis cualitativo de modelo de negocio y gobierno.</p>
+      </div>
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">05 · Seniority Define Recuperación</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">First lien &gt; Senior secured &gt; Senior unsecured &gt; Subordinated. La prioridad absoluta puede flexibilizarse en quiebras negociadas; pari passu rige dentro de cada categoría.</p>
+      </div>
+      <div style="padding:10px">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">06 · CFR vs. CCR y Notching</div>
+        <p style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.55">El CFR refleja al emisor; el CCR ajusta por seniority y covenants de la emisión. La subordinación estructural (holdings) genera notching negativo aunque no sea formal.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+
+</body>
+</html>

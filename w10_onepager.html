@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · RIESGO DE CRÉDITO II</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 10</div>
+    <h1 class="header-title">Riesgo de Crédito II</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Medidas de Riesgo de Crédito</span>
+      <span class="pill">02 CVA y Credit Spread</span>
+      <span class="pill">03 Ratings y Migración Crediticia</span>
+      <span class="pill">04 Modelos Estructurales y FR</span>
+      <span class="pill">05 Spread de Crédito</span>
+      <span class="pill">06 Deuda Securitizada</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · MEDIDAS DE RIESGO DE CRÉDITO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Medidas de Riesgo de Crédito</h2>
+    <p>Expected Exposure · Recovery Rate · LGD · Probability of Default · Hazard Rate · Probability of Survival</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 EE, RR, LGD -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Expected Exposure, Recovery Rate y LGD <span class="slide-tag">Slide 4</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Expected Exposure (EE)</div>
+        <div class="cc-def">Monto en riesgo <strong>antes de recuperación</strong> en un momento del tiempo. Para bono cupón cero: $$EE_t = \frac{FV}{(1+r_f)^{T-t}}$$ Para bono con cupón: PV de todos los flujos restantes + cupón del período.</div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Recovery Rate (RR)</div>
+        <div class="cc-def">Porcentaje del valor expuesto recuperado en default. Relación inversa con Loss Severity: $$RR = 1 - \text{Loss Severity}$$ Si RR = 60% → el inversor recupera $60 por cada $100 de exposición.</div>
+      </div>
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Loss Given Default (LGD)</div>
+        <div class="cc-def">Pérdida absoluta en caso de default. Combina severidad de pérdida y exposición: $$LGD = (1 - RR) \times EE$$ <strong>Ejemplo:</strong> EE=$100, RR=60% → Loss Severity=40% → LGD=$40</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 PD y Hazard Rate -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Probability of Default y Hazard Rate <span class="slide-tag">Slide 5</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Probability of Default (PD)</div>
+          <div class="cc-def">Probabilidad de que el emisor entre en default en un <strong>año específico</strong>. Se diferencia según el período considerado.</div>
+        </div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Hazard Rate (h)</div>
+          <div class="cc-def">Probabilidad <strong>condicional</strong> de default dado que el bono <em>no ha entrado en default hasta ese momento</em>. Medida de riesgo instantáneo.<br><br>
+          • Año 1: <strong>PD₁ = h</strong> (porque PS₀ = 1)<br>
+          • Años posteriores: <strong>PD_t &lt; h</strong>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Probabilidad de Default por Período</div>
+          <div class="f-eq">$$PD_t = h \times PS_{t-1}$$</div>
+          <div class="f-vars">
+            <span>h</span> = hazard rate (constante o variable)<br>
+            <span>PS_(t-1)</span> = probabilidad de supervivencia al inicio del período t<br>
+            <span>PD_t</span> = probabilidad incondicional de default en el período t
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Distinción clave:</strong> el hazard rate es la probabilidad <em>condicional</em> (dado que sobrevivió hasta ahora); la PD_t es la probabilidad <em>incondicional</em> de entrar en default exactamente en el período t.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Probability of Survival -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Probability of Survival (PS) <span class="slide-tag">Slide 6</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-green" style="margin-bottom:10px">
+          <div class="cc-label green">Definición</div>
+          <div class="cc-def">Probabilidad de que el bono <strong>NO haya entrado en default</strong> hasta el período t. Es el complemento acumulado de la probabilidad de default. La PS <strong>disminuye con el tiempo</strong>.</div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula con Hazard Rate Constante</div>
+          <div class="f-eq">$$PS_t = (1 - h)^t$$</div>
+          <div class="f-vars">
+            <span>h</span> = hazard rate anual constante<br>
+            <span>t</span> = período en años
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplo — Hazard Rate = 2%</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Período (t)</th><th>PS = (0.98)^t</th><th>PD_t = h × PS_(t-1)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td class="val-green">98.00%</td><td>0.02 × 1.0000 = <strong class="val-blue">2.0000%</strong></td></tr>
+              <tr><td><strong>2</strong></td><td class="val-green">96.04%</td><td>0.02 × 0.9800 = <strong class="val-blue">1.9600%</strong></td></tr>
+              <tr><td><strong>3</strong></td><td class="val-green">94.12%</td><td>0.02 × 0.9604 = <strong class="val-blue">1.9208%</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footnote">La PD_t decrece con el tiempo porque el universo de bonos que pueden hacer default se reduce (los que ya han sobrevivido).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · CVA Y CREDIT SPREAD
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Credit Valuation Adjustment (CVA) y Credit Spread</h2>
+    <p>Fórmula · Ejemplo bono cupón cero y con cupón · Credit Spread desde CVA · PD Neutral al Riesgo</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 CVA -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">CVA: Definición y Fórmula <span class="slide-tag">Slides 7–8</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">¿Qué es el CVA?</div>
+          <div class="cc-def">El <strong>Credit Valuation Adjustment</strong> es el ajuste monetario al precio de un bono por riesgo de crédito. Representa cuánto menos vale un bono riesgoso respecto a un bono idéntico libre de riesgo:<br><br>
+          • CVA = Precio RF − Precio riesgoso<br>
+          • CVA = Descuento por riesgo de default del emisor</div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula del CVA</div>
+          <div class="f-eq">$$CVA = \sum_{t=1}^{T} DF_t \times LGD_t \times PD_t$$</div>
+          <div class="f-vars">
+            <span>DF_t</span> = factor de descuento a tasa libre de riesgo<br>
+            <span>LGD_t</span> = (1 − RR) × EE_t = pérdida en default<br>
+            <span>PD_t</span> = probabilidad incondicional de default en t
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="formula-box" style="margin-bottom:10px">
+          <div class="f-label">Del CVA al Credit Spread</div>
+          <div class="f-eq">$$\text{Precio}_{\text{riesgoso}} = VND - CVA$$
+$$\text{Credit Spread} = YTM_{\text{riesgoso}} - YTM_{\text{benchmark}}$$</div>
+          <div class="f-vars">
+            <span>VND</span> = Value Given No Default (descontado a tasa libre de riesgo)<br>
+            <span>YTM_riesgoso</span> = TIR del bono riesgoso a su precio de mercado
+          </div>
+        </div>
+        <div class="step-flow">
+          <div class="step-item"><div class="step-n">PASO 1</div><div class="step-txt">Calcular VND usando tasa libre de riesgo</div></div>
+          <div class="step-item"><div class="step-n">PASO 2</div><div class="step-txt">Precio_riesgoso = VND − CVA</div></div>
+          <div class="step-item"><div class="step-n">PASO 3</div><div class="step-txt">Hallar YTM implícita del precio riesgoso</div></div>
+          <div class="step-item"><div class="step-n">PASO 4</div><div class="step-txt">Spread = YTM_risky − YTM_benchmark</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Ejemplo bono cupón cero -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Ejemplo Completo: Bono Cupón Cero y Bono con Cupón <span class="slide-tag">Slides 9–11</span></span>
+  </div>
+  <div class="section-body">
+    <div class="rule-callout" style="margin-bottom:14px">
+      <strong>Datos del problema:</strong> Bono cupón cero (y variante con cupón del 4%), $100 par, 3 años · Hazard rate = 2% · Recovery rate = 60% · Curva benchmark plana al 3%
+    </div>
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Expected Exposure — Cupón Cero</div>
+        <div class="formula-inline">$$EE_1 = \frac{100}{1.03^2} = 94.26 \quad EE_2 = \frac{100}{1.03} = 97.09 \quad EE_3 = 100$$</div>
+        <div class="footnote" style="border-radius:6px;margin-bottom:10px">EE es mayor al acercarse al vencimiento porque el valor presente aumenta conforme pasan los períodos.</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Año</th><th>EE ($)</th><th>LGD (40%)</th><th>PS</th><th>PD</th><th>Pérd. Esp.</th><th>DF (3%)</th><th>PV Pérd.</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td>94.26</td><td>37.70</td><td>98.00%</td><td>2.000%</td><td>0.7541</td><td>0.9709</td><td class="val-blue">0.7321</td></tr>
+              <tr><td><strong>2</strong></td><td>97.09</td><td>38.84</td><td>96.04%</td><td>1.960%</td><td>0.7612</td><td>0.9426</td><td class="val-blue">0.7175</td></tr>
+              <tr><td><strong>3</strong></td><td>100.00</td><td>40.00</td><td>94.12%</td><td>1.921%</td><td>0.7683</td><td>0.9151</td><td class="val-blue">0.7030</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="result-banner neutral"><strong>CVA = $2.15</strong> · Precio RF = $91.51 · Precio riesgoso = <strong>$89.36</strong> · Credit Spread = <strong>0.82%</strong></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Expected Exposure — Bono con Cupón del 4%</div>
+        <div class="concept-card accent-gold" style="margin-bottom:8px">
+          <div class="cc-label gold">Cálculo backward de la EE con cupones</div>
+          <div class="cc-def">
+            La exposición incluye el PV del próximo cupón más el PV del precio en el nodo siguiente:<br>
+            • <strong>EE₃</strong> = $104 (FV + último cupón)<br>
+            • <strong>EE₂</strong> = (EE₃ / 1.03) + $4 = $104.97<br>
+            • <strong>EE₁</strong> = (EE₃ / 1.03² + $4/1.03) + $4 = $105.91
+          </div>
+        </div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Año</th><th>EE ($)</th><th>LGD (40%)</th><th>PD</th><th>Pérd. Esp.</th><th>DF</th><th>PV Pérd.</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1</strong></td><td>105.91</td><td>42.37</td><td>2.000%</td><td>0.8473</td><td>0.9709</td><td class="val-blue">0.8226</td></tr>
+              <tr><td><strong>2</strong></td><td>104.97</td><td>41.99</td><td>1.960%</td><td>0.8230</td><td>0.9426</td><td class="val-blue">0.7759</td></tr>
+              <tr><td><strong>3</strong></td><td>104.00</td><td>41.60</td><td>1.921%</td><td>0.7991</td><td>0.9151</td><td class="val-blue">0.7312</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="result-banner neutral"><strong>CVA = $2.33</strong> · Mayor que el bono cupón cero por mayor exposición en cada período.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 PD Neutral al Riesgo -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">PD Observada vs. PD Neutral al Riesgo <span class="slide-tag">Slides 12–13</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip">
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">PD Observada (Histórica)</div>
+            <div class="cmp-rule" style="font-size:11.5px">Estadística empírica</div>
+            <p>Estimada a partir de datos históricos de defaults. Refleja la probabilidad real de incumplimiento.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">PD Neutral al Riesgo</div>
+            <div class="cmp-rule" style="font-size:11.5px">Implícita en el precio</div>
+            <p>Extraída del precio de mercado del bono. Incluye probabilidad real <strong>+ prima de riesgo</strong> exigida por el mercado.</p>
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Derivación — Bono 1 año, cupón cero, precio=$95, r_f=3%, RR=60%</div>
+          <div class="ex-body">
+            Flujo esperado si PD = p:<br>
+            $$E(CF) = 60p + 100(1-p) = 100 - 40p$$
+            Igualando al precio de mercado:<br>
+            $$\frac{100 - 40p}{1.03} = 95$$
+            $$100 - 40p = 97.85 \Rightarrow p = \mathbf{5.38\%}$$
+          </div>
+          <div class="ex-result">PD Neutral al Riesgo = 5.38%</div>
+        </div>
+      </div>
+      <div>
+        <div class="rule-callout gold">
+          <strong>Correlación positiva PD neutral ↔ Recovery Rate:</strong><br>
+          Si se asume un RR mayor → la PD neutral implícita debe ser <strong>mayor</strong> para mantener el mismo precio de mercado. El mercado solo revela la combinación PD×LGD, no cada componente por separado.
+        </div>
+        <div class="concept-card accent-green" style="margin-top:10px">
+          <div class="cc-label green">Implicación para el analista</div>
+          <div class="cc-def">
+            Para calcular la PD neutral se debe <strong>asumir</strong> el recovery rate. No es posible identificar ambos simultáneamente solo del precio de mercado.<br><br>
+            Una PD baja solo tiene sentido con un recovery rate bajo — y viceversa. El analista debe ser consistente en sus supuestos.
+          </div>
+        </div>
+        <div class="concept-card accent-navy" style="margin-top:10px">
+          <div class="cc-label">Consideraciones ESG</div>
+          <div class="cc-def">
+            Los analistas deben evaluar factores ESG al estimar riesgo de default:<br>
+            • <strong>E:</strong> empresas contaminantes → multas → mayor PD<br>
+            • <strong>S:</strong> malas prácticas laborales → pérdida de clientes → deterioro crediticio<br>
+            • <strong>G:</strong> gobernanza deficiente → fraude contable → default sorpresivo<br>
+            <em>Caso:</em> Pandemic Bonds OMS (2017) → principal perdido en COVID-19 (2020).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.4 Tasas de Retorno ante Default -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.4</span>
+    <span class="section-title">Tasas de Retorno ante Escenarios de Default y Análisis Relativo <span class="slide-tag">Slides 16–17</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Bono cupón cero, precio=$89.36, RR=60%</div>
+        <div class="cmp-strip" style="margin-bottom:8px">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Sin Default</div>
+            <div class="cmp-rule">IRR = +3.82%</div>
+            <p>N=3, PV=−89.36, FV=100</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Default Año 1</div>
+            <div class="cmp-rule">IRR = −36.71%</div>
+            <p>Recuperación = 60% × $94.26 = $56.56</p>
+          </div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Default Año 2</div>
+            <div class="cmp-rule">IRR = −19.26%</div>
+            <p>Recuperación = 60% × $97.09 = $58.25</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Default Año 3</div>
+            <div class="cmp-rule">IRR = −12.43%</div>
+            <p>Recuperación = 60% × $100 = $60.00</p>
+          </div>
+        </div>
+        <div class="rule-callout red" style="margin-top:8px"><strong>Conclusión:</strong> Cuanto más tarde ocurre el default, <strong>menor la pérdida</strong>. El peor escenario en IRR es el default en el primer año.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Análisis Relativo: Expected Loss</div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Expected Loss = LGD × PD</div>
+          <div class="cc-def">Métrica que combina PD y severidad de pérdida para comparar bonos. <strong>A mayor Expected Loss → mayor riesgo de crédito.</strong></div>
+        </div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Bono</th><th>EE ($)</th><th>Rec ($)</th><th>PD</th><th>LGD</th><th>Exp. Loss</th></tr></thead>
+            <tbody>
+              <tr><td><strong>X</strong></td><td>100</td><td>40</td><td>1.50%</td><td>$60</td><td class="val-blue">$0.900</td></tr>
+              <tr><td><strong>Y</strong></td><td>88</td><td>45</td><td>2.25%</td><td>$43</td><td class="val-green">$0.968</td></tr>
+              <tr><td><strong>Z</strong></td><td>105</td><td>50</td><td>2.00%</td><td>$55</td><td class="val-red">$1.100</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="result-banner neutral">Ranking de riesgo: <span style="color:#BE123C">Z (mayor)</span> > Y > <span style="color:#15803D">X (menor)</span></div>
+        <div class="footnote">El Expected Loss es necesario pero no suficiente para recomendar una estrategia: también se necesita el precio de mercado para determinar si el bono está bien valorado.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · CREDIT SCORES, RATINGS Y MIGRACIÓN
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Credit Scores, Credit Ratings y Migración Crediticia</h2>
+    <p>FICO Score · Agencias calificadoras · Escala ordinal · Notching · Impacto del downgrade en el precio</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 Credit Scoring -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Credit Scoring: El Puntaje FICO <span class="slide-tag">Slide 19</span></span>
+  </div>
+  <div class="section-body">
+    <div class="concept-card accent-mid" style="margin-bottom:12px">
+      <div class="cc-label mid">¿Qué es el Credit Scoring?</div>
+      <div class="cc-def">Se usa para evaluar calidad crediticia de <strong>individuos y pequeñas empresas</strong>. Mayor puntaje indica mejor calidad. Es un ranking <strong>ordinal</strong> — no cardinal.</div>
+    </div>
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead><tr><th>Factor FICO</th><th>Descripción</th><th>Efecto en Puntaje</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Historial de crédito</strong></td><td>Antigüedad de la cuenta más vieja</td><td class="val-green">Mayor antigüedad → FICO más alto</td></tr>
+          <tr><td><strong>Ausencia de delinquencias</strong></td><td>Historial de pagos sin mora</td><td class="val-green">Sin mora → FICO más alto</td></tr>
+          <tr><td><strong>Utilización</strong></td><td>Saldo pendiente / Línea disponible</td><td class="val-green">Menor utilización → FICO más alto</td></tr>
+          <tr><td><strong>Consultas de crédito</strong></td><td>Número de solicitudes de crédito</td><td class="val-green">Menos consultas → FICO más alto</td></tr>
+          <tr><td><strong>Variedad de crédito</strong></td><td>Tipos: tarjeta, auto, hipoteca</td><td class="val-green">Mayor variedad → FICO más alto</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Credit Ratings y Notching -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Credit Ratings: Agencias, Escala y Notching <span class="slide-tag">Slides 20–21</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Agencia</th><th>Grado de Inversión</th><th>Grado Especulativo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Moody's</strong></td><td class="mono">Aaa, Aa, A, Baa</td><td class="mono">Ba, B, Caa, Ca, C</td></tr>
+              <tr><td><strong>S&amp;P</strong></td><td class="mono">AAA, AA, A, BBB</td><td class="mono">BB, B, CCC, CC, C, D</td></tr>
+              <tr><td><strong>Fitch</strong></td><td class="mono">AAA, AA, A, BBB</td><td class="mono">BB, B, CCC, CC, C, D</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="badge-row" style="margin-top:8px">
+          <span class="badge badge-blue">Ranking Ordinal — No Cardinal</span>
+          <span class="badge badge-outline">Rating del emisor = Deuda Senior No Garantizada</span>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          <strong>Características importantes:</strong><br>
+          • Perspectiva (Outlook): Positiva, Negativa o Estable → señala posibles cambios<br>
+          • Bonos con mejor rating → <strong>menores spreads</strong> sobre tasa benchmark
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Notching — Ajuste por Seniority y LGD</div>
+        <div class="concept-card" style="margin-bottom:8px">
+          <div class="cc-label">¿Qué es el Notching?</div>
+          <div class="cc-def">Práctica de <strong>reducir el rating</strong> de una deuda más subordinada del mismo emisor por uno o más niveles, ya que tiene mayor LGD en default.</div>
+        </div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Tipo de Deuda</th><th>Seniority</th><th>LGD</th><th>Rating Típico</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Senior Garantizada</strong></td><td>1° cobrar</td><td class="val-green">Bajo</td><td class="mono val-green">A+</td></tr>
+              <tr><td><strong>Senior No Garantizada</strong></td><td>2° cobrar</td><td>Medio</td><td class="mono">A (base)</td></tr>
+              <tr><td><strong>Subordinada</strong></td><td>3° cobrar</td><td class="val-red">Alto</td><td class="mono val-red">A− / BBB+</td></tr>
+              <tr><td><strong>Junior Subordinada</strong></td><td>Último</td><td class="val-red">Muy Alto</td><td class="mono val-red">BBB o menor</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 Impacto de la Migración Crediticia -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.3</span>
+    <span class="section-title">Impacto de la Migración Crediticia en el Precio <span class="slide-tag">Slide 22</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Impacto del Cambio de Rating en el Precio</div>
+          <div class="f-eq">$$\Delta\%P = -(Dur.Mod.) \times \Delta Spread$$</div>
+          <div class="f-vars">
+            <span>Δ%P</span> = cambio porcentual en el precio del bono<br>
+            <span>Dur. Mod.</span> = sensibilidad del precio ante cambios en spread<br>
+            <span>ΔSpread</span> = cambio en el credit spread (positivo si spread sube → downgrade)
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Regla intuitiva:</strong> DOWNGRADE → ΔSpread &gt; 0 → Precio BAJA. Mayor Duración Modificada → mayor impacto del cambio de rating sobre el precio.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono downgraded de AAA a AA</div>
+          <div class="ex-body">
+            • Duración Modificada: <strong>6.32 años</strong><br>
+            • Spread típico AAA: 60 bps | Spread típico AA: 87 bps<br><br>
+            $$\Delta Spread = 87 - 60 = 27\, bps = 0.0027$$
+            $$\Delta\%P = -6.32 \times 0.0027 = -0.0171$$
+          </div>
+          <div class="ex-result red">Precio cae <strong>−1.71%</strong> por el downgrade de AAA a AA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · MODELOS ESTRUCTURALES Y FR
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Modelos Estructurales y de Forma Reducida</h2>
+    <p>Option pricing · Default endógeno · Default intensity · Comparativa y aplicaciones</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Modelos Estructurales -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Modelos Estructurales: Base Teórica y Analogía con Opciones <span class="slide-tag">Slides 24–25</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Idea Central</div>
+          <div class="cc-def">
+            Basados en la <strong>estructura del balance general</strong>. La PD es <strong>endógena</strong>: surge del modelo, no se asume externamente.<br><br>
+            <strong>Default barrier K</strong> = valor facial de la deuda.<br>
+            Default ocurre cuando <strong>A_T &lt; K</strong>.
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Analogía con opciones (al vencimiento T)</div>
+          <div class="f-eq">$$Equity_T = \max(0,\, A_T - K)$$
+$$Deuda_T = \min(A_T,\, K)$$</div>
+          <div class="f-vars">
+            <span>A_T</span> = valor de activos al vencimiento<br>
+            <span>K</span> = valor facial de la deuda (strike price)
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>Equivalencia CVA = Valor de la Put:</strong><br>
+          Los tenedores de deuda riesgosa son <em>long</em> deuda libre de riesgo y <em>short</em> una put option sobre los activos:<br>
+          Deuda Riesgosa = Deuda RF − Opción Put → <strong>CVA = Valor de la Put</strong>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ventajas vs. Desventajas</div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Ventajas</div>
+            <p>1. Razón económica para el default: A_T &lt; K explica <em>por qué</em> ocurre.</p>
+            <p style="margin-top:6px">2. Usa option pricing (Black-Scholes) bien establecido.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Desventajas</div>
+            <p>1. Asumen balance SIMPLE — no capturan deuda off-balance sheet.</p>
+            <p style="margin-top:6px">2. Asumen activos <strong>negociables</strong> en mercado — supuesto muy restrictivo.</p>
+          </div>
+        </div>
+        <div class="concept-card" style="margin-top:4px">
+          <div class="cc-label">Distribución del valor de activos</div>
+          <div class="cc-def">
+            El modelo estima <strong>P(A_T &lt; K)</strong> como la PD. A mayor volatilidad de activos y mayor deuda (K), mayor área bajo la curva en la zona de default.<br><br>
+            La <em>distancia a la barrera</em> determina la PD: empresas muy apalancadas están más cerca del umbral K.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Modelos de Forma Reducida + tabla comparativa -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Modelos de Forma Reducida y Comparativa <span class="slide-tag">Slides 27–28</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="concept-card accent-mid">
+        <div class="cc-label mid">Modelos de Forma Reducida (FR)</div>
+        <div class="cc-def">
+          NO se apoyan en el balance general. Modelan estadísticamente <strong>cuándo</strong> ocurre el default, no por qué.<br><br>
+          • Default = variable <strong>exógena aleatoria</strong> (ocurre sorpresivamente)<br>
+          • La <strong>default intensity</strong> varía con el tiempo según condiciones de la empresa y macro
+        </div>
+      </div>
+      <div class="concept-card accent-gold">
+        <div class="cc-label gold">Default Intensity — Estimación</div>
+        <div class="cc-def">
+          Estimada mediante regresión con variables:<br>
+          • <strong>Empresa:</strong> apalancamiento, beta, cobertura de intereses<br>
+          • <strong>Macro:</strong> ciclo económico, tasas de interés, spreads de crédito<br><br>
+          A diferencia del hazard rate constante, la default intensity varía dinámicamente.
+        </div>
+      </div>
+    </div>
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Característica</th><th>Modelo Estructural</th><th>Modelo de Forma Reducida</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>¿Explica el default?</strong></td><td class="val-green">Sí (A_T &lt; K)</td><td class="val-red">No — modela cuándo, no porqué</td></tr>
+          <tr><td><strong>Probabilidad de Default</strong></td><td>Endógena</td><td>Exógena (estimada por regresión)</td></tr>
+          <tr><td><strong>Supuesto de activos</strong></td><td class="val-red">Activos deben negociarse</td><td class="val-green">No requiere activos negociables</td></tr>
+          <tr><td><strong>Default Intensity</strong></td><td>Implícita (constante)</td><td>Variable explícita en el modelo</td></tr>
+          <tr><td><strong>Aplicabilidad</strong></td><td>Balance simple</td><td class="val-green">Amplia — diversas empresas</td></tr>
+          <tr><td><strong>Default sorpresivo</strong></td><td>No (se anticipa)</td><td class="val-red">Sí (supuesto no realista)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · ANÁLISIS DEL SPREAD DE CRÉDITO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Análisis del Spread de Crédito y Estructura de Plazos</h2>
+    <p>VND · Árbol binomial · Interpretación de cambios · Credit Spread Curve · Determinantes</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 5.1 VND y Credit Spread desde CVA -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1</span>
+    <span class="section-title">Value Given No Default (VND) y Credit Spread desde Árbol Binomial <span class="slide-tag">Slides 30–32</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Value Given No Default (VND)</div>
+          <div class="cc-def">Valor del bono riesgoso suponiendo que <strong>NO hace default</strong>. Se calcula descontando los flujos a la <strong>tasa libre de riesgo</strong> (benchmark).</div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Relaciones fundamentales</div>
+          <div class="f-eq">$$\text{Precio}_{\text{riesgoso}} = VND - CVA$$
+$$\text{Credit Spread} = YTM_{\text{risky}} - YTM_{\text{bench}}$$</div>
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Ejemplo — Jack Gordon (Omega Bank): bono AA, cupón 3.5%, 5 años, spread 135bps</div>
+          <div class="ex-body">
+            YTM riesgoso = 2% + 1.35% = <strong>3.35%</strong><br>
+            VND: N=5, PMT=3.5, I/Y=2%, FV=100 → PV = <strong>$107.07</strong><br>
+            Precio riesgoso: N=5, PMT=3.5, I/Y=3.35%, FV=100 → PV = <strong>$100.68</strong>
+          </div>
+          <div class="ex-result">CVA = $107.07 − $100.68 = <strong>$6.39</strong></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">VND con Árbol Binomial — Backward Induction</div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Procedimiento</div>
+          <div class="cc-def">
+            El árbol binomial introduce <strong>volatilidad en las tasas futuras</strong>. Se usa backward induction: desde el vencimiento hacia el presente. El valor en t=0 obtenido es el <strong>VND del bono</strong>.<br><br>
+            La <strong>Expected Exposure</strong> en cada nodo = valor del bono + cupón del período (promedio ponderado de los nodos posibles).
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Backward Induction — nodo genérico</div>
+          <div class="f-eq">$$V_{\text{nodo}} = \frac{0.5 \times V_{\text{up}} + 0.5 \times V_{\text{down}} + \text{Cupón}}{1 + r_{\text{nodo}}}$$</div>
+          <div class="f-vars">
+            Probabilidades up/down = 50%/50% bajo medida de riesgo neutral
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Interpretación de Cambios en el Credit Spread — Impacto de Recesión</div>
+    <div class="grid-2">
+      <div class="concept-card accent-red">
+        <div class="cc-label red">Escenario base (HR=1.25%, RR=70%)</div>
+        <div class="cc-def">CVA = $1.12 · Precio riesgoso = $102.50 · Credit Spread = <strong>0.55%</strong></div>
+      </div>
+      <div class="concept-card accent-navy">
+        <div class="cc-label">Escenario recesión (HR=1.50%, RR=60%)</div>
+        <div class="cc-def">CVA = $1.79 · Precio riesgoso = $101.83 · Credit Spread = <strong>0.61%</strong></div>
+      </div>
+    </div>
+    <div class="rule-callout red" style="margin-top:8px"><strong>Conclusión:</strong> Mayor HR + menor RR eleva el CVA y amplía el credit spread. Expectativas de recesión → spreads se amplían.</div>
+    <div class="rule-callout" style="margin-top:6px">
+      <strong>XVA — Componentes del Credit Spread:</strong> el spread compensa por (1) riesgo de default (CVA), (2) iliquidez, y (3) impuestos. En la práctica, el componente más relevante es el CVA.
+    </div>
+  </div>
+</div>
+
+<!-- 5.2 Credit Spread Curve -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.2</span>
+    <span class="section-title">Estructura de Plazos del Spread de Crédito <span class="slide-tag">Slides 37–38</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Credit Spread Curve</div>
+          <div class="cc-def">
+            Muestra la <strong>relación entre el credit spread y el plazo al vencimiento</strong> para un sector o emisor. Útil para:<br>
+            (1) Fijar precio a nuevas emisiones<br>
+            (2) Determinar si una emisión existente está bien valorada
+          </div>
+        </div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Construcción de la curva</div>
+          <div class="cc-def">
+            • Todos los bonos deben tener <strong>características crediticias similares</strong><br>
+            • Si no hay benchmark líquido → se <strong>interpola</strong> entre benchmarks disponibles<br>
+            • Si mercado poco activo → se usa la <strong>tasa swap fija</strong> como referencia<br>
+            • Distorsionan el spread: diferencias en seniority, garantías y opciones embebidas
+          </div>
+        </div>
+        <div class="cmp-strip" style="margin-top:8px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Curva Positiva</div>
+            <p>Mayor riesgo de default esperado en el futuro. Típica para emisores high yield.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Curva Plana</div>
+            <p>Expectativas estables de PD y recovery rates. Típica para emisores AAA.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Determinantes de la Estructura de Plazos</div>
+        <div class="grid-2" style="gap:8px">
+          <div class="concept-card accent-navy" style="padding:10px 12px">
+            <div class="cc-label">1. Calidad del Emisor</div>
+            <div class="cc-def" style="font-size:11.5px">AAA → curvas planas. HY → curvas más empinadas y sensibles al ciclo.</div>
+          </div>
+          <div class="concept-card accent-mid" style="padding:10px 12px">
+            <div class="cc-label mid">2. Ciclo Económico</div>
+            <div class="cc-def" style="font-size:11.5px">Expansión → spreads se comprimen. Recesión → spreads se amplían.</div>
+          </div>
+          <div class="concept-card accent-gold" style="padding:10px 12px">
+            <div class="cc-label gold">3. Oferta y Demanda</div>
+            <div class="cc-def" style="font-size:11.5px">Spreads incluyen prima por iliquidez. Bonos menos negociados → spreads más altos.</div>
+          </div>
+          <div class="concept-card accent-red" style="padding:10px 12px">
+            <div class="cc-label red">4. Volatilidad Accionaria</div>
+            <div class="cc-def" style="font-size:11.5px">Mayor volatilidad de acciones → mayor PD estimada → spreads más amplios, especialmente en largo plazo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 06 · DEUDA SECURITIZADA
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">06</div>
+  <div class="module-title-block">
+    <h2>Análisis Crediticio de Deuda Securitizada</h2>
+    <p>SPE · Collateral Pool · Servicer Quality · Credit Enhancement · Covered Bonds</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 6.1 Diferencias vs. Corporativo -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.1</span>
+    <span class="section-title">Diferencias frente al Crédito Corporativo <span class="slide-tag">Slide 40</span></span>
+  </div>
+  <div class="section-body">
+    <div class="cmp-strip">
+      <div class="cmp-cell neutral">
+        <div class="cmp-head">Deuda Corporativa Tradicional</div>
+        <div class="cmp-rule" style="font-size:11.5px">Obligación general del emisor</div>
+        <p>Financiada contra el <strong>balance completo</strong>. El inversor tiene recurso contra <em>todos los activos</em> de la empresa.</p>
+      </div>
+      <div class="cmp-cell up">
+        <div class="cmp-head">Deuda Securitizada (SPE)</div>
+        <div class="cmp-rule" style="font-size:11.5px">Activos específicos aislados</div>
+        <p>Financia activos específicos (hipotecas, créditos). La <strong>SPE es bankruptcy-remote</strong>: los activos están legalmente aislados del originador. El inversor <strong>NO tiene recurso</strong> contra el originador.</p>
+      </div>
+    </div>
+    <div class="rule-callout gold" style="margin-top:10px">
+      <strong>Ventajas del modelo SPE:</strong> mayor apalancamiento y menor costo de financiamiento para el originador · mayor diversificación y flujos estables para inversores · prima de riesgo mayor vs. bonos corporativos equivalentes (compensación por complejidad).
+    </div>
+  </div>
+</div>
+
+<!-- 6.2 Collateral Pool y Credit Enhancement -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.2</span>
+    <span class="section-title">Collateral Pool, Servicer Quality y Credit Enhancement <span class="slide-tag">Slides 41–43</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2" style="margin-bottom:14px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Collateral Pool — Método de Análisis</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Tipo de Pool</th><th>Plazo</th><th>Método</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Granular + Homogéneo</strong></td><td>Corto</td><td>Estadístico (promedios)</td></tr>
+              <tr><td><strong>Granular + Homogéneo</strong></td><td>Mediano</td><td>Por portafolios</td></tr>
+              <tr><td><strong>Discreto / No granular</strong></td><td>Cualquier</td><td>Préstamo por préstamo</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="concept-card" style="margin-top:10px">
+          <div class="cc-label">Servicer Quality</div>
+          <div class="cc-def">El servicer cobra pagos, gestiona moras y ejecuta garantías. Dos riesgos:<br>
+          • <strong>Operacional:</strong> mala gestión del pool<br>
+          • <strong>Contraparte:</strong> quiebra del servicer mismo<br>
+          Indicador: track record en pools similares.</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Credit Enhancements</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th colspan="2">Internos (preferidos)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Tranching</strong></td><td>Pérdidas absorbidas primero por tramos subordinados</td></tr>
+              <tr><td><strong>Overcollateralization</strong></td><td>Valor colateral &gt; bonos emitidos; exceso = colchón</td></tr>
+              <tr><td><strong>Excess Spread</strong></td><td>Rendimiento del pool &gt; cupones pagados; exceso cubre pérdidas</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-scroll-wrap" style="margin-top:6px">
+          <table class="ref-table">
+            <thead><tr><th colspan="2">Externos (dependen de tercero)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Garantías de terceros</strong></td><td>Bancos/aseguradoras prometen cubrir pérdidas</td></tr>
+              <tr><td><strong>Cartas de crédito</strong></td><td>Compromiso de pago ante default del pool</td></tr>
+              <tr><td><strong>Bond Insurance</strong></td><td>Garantizan pago de principal e intereses (monolines)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footnote">Un external enhancement es tan bueno como la solvencia de quien lo provee. Los internos son preferidos por no depender de terceros.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6.3 Covered Bonds -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.3</span>
+    <span class="section-title">Covered Bonds <span class="slide-tag">Slide 44</span></span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-green" style="margin-bottom:10px">
+          <div class="cc-label green">¿Qué son los Covered Bonds?</div>
+          <div class="cc-def">
+            Bonos <strong>senior y garantizados</strong> emitidos por un banco con <strong>DOBLE RECURSO</strong>:<br>
+            1. Contra el <strong>collateral pool</strong> (cover pool)<br>
+            2. Contra el <strong>emisor</strong> (el banco también garantiza)<br><br>
+            El cover pool es dinámico: el emisor debe reemplazar activos prepagados o en default.
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-outline">Hipotecas comerciales/residenciales</span>
+          <span class="badge badge-outline">Préstamos sector público</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Soft Bullet vs. Hard Bullet</div>
+        <div class="cmp-strip">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Soft Bullet</div>
+            <div class="cmp-rule">Madurez extendida</div>
+            <p>Si el banco no paga, la madurez se extiende hasta <strong>1 año adicional</strong>. Menor riesgo de liquidez inmediata para el inversor.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Hard Bullet</div>
+            <div class="cmp-rule">Pagos acelerados</div>
+            <p>Todo el principal e intereses se vuelven exigibles <strong>inmediatamente</strong>. Mayor urgencia y riesgo de liquidez.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

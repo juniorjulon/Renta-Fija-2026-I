@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · DERIVADOS DE RENTA FIJA I</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 11</div>
+    <h1 class="header-title">Derivados de Renta Fija I: Derivados de Crédito</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Gestión de Riesgo de Crédito</span>
+      <span class="pill">02 Fundamentos del CDS</span>
+      <span class="pill">03 CTD, Index CDS y Settlement</span>
+      <span class="pill">04 Valoración: Hazard Rate y RR</span>
+      <span class="pill">05 Credit Curve</span>
+      <span class="pill">06 Estrategias con CDS</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · GESTIÓN DE RIESGO DE CRÉDITO
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Gestión de Riesgo de Crédito</h2>
+    <p>Fuentes de riesgo · Mecanismos tradicionales · Ventajas de derivados de crédito · Panorama de instrumentos</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Fuentes de riesgo de crédito -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Fuentes de Riesgo de Crédito y Mecanismos Tradicionales</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">Fuentes de Riesgo de Crédito</div>
+          <div class="cc-def">
+            El riesgo de crédito surge cuando el valor de una cartera cambia por deterioro crediticio del emisor:<br><br>
+            • <strong>Default:</strong> incumplimiento total o parcial de pagos<br>
+            • <strong>Downgrade:</strong> rebaja de calificación → amplía spreads → cae el precio<br>
+            • <strong>Spread widening:</strong> mercado exige mayor compensación aunque no haya rebaja formal
+          </div>
+        </div>
+        <div class="concept-card" style="margin-bottom:10px">
+          <div class="cc-label">Mecanismos Tradicionales de Gestión</div>
+          <div class="cc-def">
+            • <strong>Diversificación:</strong> limita concentración por emisor, sector y geografía<br>
+            • <strong>Colateral:</strong> garantías que reducen LGD en caso de default<br>
+            • <strong>Covenants:</strong> restricciones contractuales (ratio deuda/EBITDA, límites de dividendos)<br>
+            • <strong>Ratings crediticios:</strong> umbral mínimo IG como filtro de elegibilidad de cartera
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Ventajas de los Derivados de Crédito</div>
+          <div class="cc-def">
+            Los derivados de crédito ofrecen tres ventajas estructurales sobre los mecanismos tradicionales:<br><br>
+            1. <strong>Separación del riesgo:</strong> permiten transferir el riesgo crediticio sin vender el bono subyacente (preserva la relación con el emisor)<br>
+            2. <strong>Eficiencia de capital:</strong> posiciones sintéticas no requieren el desembolso total del nocional<br>
+            3. <strong>Mercado sintético:</strong> permiten tomar exposición a créditos no disponibles en el mercado de bonos
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          <strong>Panorama de instrumentos:</strong> CDS (Credit Default Swap) — instrumento más líquido y estandarizado; TRS (Total Return Swap); CLN (Credit-Linked Note); Basket CDS y CDO (estructurados sobre portafolios de referencia)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · FUNDAMENTOS DEL CDS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Fundamentos del CDS</h2>
+    <p>Protection buyer/seller · Premium Leg vs. Protection Leg · CDS Spread · Cupones estandarizados · Upfront Payment</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Mecánica del CDS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Mecánica del CDS: Partes y Flujos</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Protection Buyer</div>
+            <div class="cmp-rule">Paga el spread periódico</div>
+            <p>Tiene el bono de referencia o exposición crediticia. Paga el <strong>CDS spread</strong> (prima) a cambio de protección ante un credit event. Posición equivalente a <em>short</em> en crédito.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Protection Seller</div>
+            <div class="cmp-rule">Recibe el spread periódico</div>
+            <p>Acepta el riesgo crediticio del Reference Entity. Recibe el spread periódico y paga el nocional ajustado ante un credit event. Posición equivalente a <em>long</em> en crédito.</p>
+          </div>
+        </div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Terminología Clave</div>
+          <div class="cc-def">
+            • <strong>Reference Entity:</strong> emisor cuyo crédito se transfiere (ej: empresa corporativa)<br>
+            • <strong>Reference Obligation:</strong> bono específico de referencia para el contrato<br>
+            • <strong>Notional:</strong> monto sobre el que se calculan los pagos<br>
+            • <strong>Credit Event:</strong> acontecimiento que activa el pago de protección
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Premium Leg vs. Protection Leg</div>
+          <div class="cc-def">
+            <strong>Premium Leg:</strong> flujos que paga el protection buyer. Pagos periódicos del CDS spread × notional / 4 (trimestral). Si ocurre credit event, se paga la prima acumulada hasta la fecha.<br><br>
+            <strong>Protection Leg:</strong> pago contingente del protection seller. Se activa solo ante un credit event: Notional × (1 − Recovery Rate). Sin credit event, no hay pago.
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Condición de No Arbitraje</div>
+          <div class="f-eq">$$PV(\text{Premium Leg}) = PV(\text{Protection Leg})$$</div>
+          <div class="f-vars">
+            El CDS spread se fija para que ambas patas tengan el mismo valor presente en la fecha de emisión.<br>
+            <span>CDS Spread</span> = precio de la protección = compensación justa por el riesgo crediticio
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Cupones estandarizados y upfront payment -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Cupones Estandarizados y Upfront Payment</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-gold" style="margin-bottom:10px">
+          <div class="cc-label gold">Post-2009: ISDA Big Bang — Estandarización</div>
+          <div class="cc-def">
+            Para facilitar la compensación central (clearing) y la fungibilidad de contratos, los CDS se estandarizaron con cupones fijos:<br><br>
+            • <strong>Investment Grade (IG):</strong> cupón fijo = <strong>100 bps (1%)</strong><br>
+            • <strong>High Yield (HY):</strong> cupón fijo = <strong>500 bps (5%)</strong><br><br>
+            El spread de mercado raramente coincide exactamente con el cupón fijo, por lo que se calcula un <strong>upfront payment</strong> para compensar la diferencia.
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Fórmula del Upfront Payment (aproximación)</div>
+          <div class="f-eq">$$\text{Upfront} \approx (\text{CDS Spread} - \text{CDS Coupon}) \times \text{Dur} \times \text{Notional}$$</div>
+          <div class="f-vars">
+            <span>CDS Spread</span> = spread de mercado (fair value)<br>
+            <span>CDS Coupon</span> = cupón fijo estandarizado (1% IG / 5% HY)<br>
+            <span>Dur</span> = duración del CDS (años restantes ÷ sensibilidad del precio al spread)<br><br>
+            Si Spread &gt; Coupon → upfront <strong>pagado por el buyer</strong> al seller<br>
+            Si Spread &lt; Coupon → upfront <strong>pagado por el seller</strong> al buyer
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Ejemplos de Upfront Payment</div>
+        <div class="ex-box" style="margin-bottom:10px">
+          <div class="ex-title">Ejemplo 1 — Alpha Corp (Comprador de protección)</div>
+          <div class="ex-body">
+            • Notional: $10M · Cupón fijo: 1% · CDS Spread: 150 bps · Duración: 4.5 años<br><br>
+            $$\text{Upfront} = (0.015 - 0.01) \times 4.5 \times \$10\text{M}$$
+            $$= 0.005 \times 4.5 \times \$10\text{M} = \mathbf{-\$225{,}000}$$
+          </div>
+          <div class="ex-result red">Alpha Corp paga $225,000 al inicio (spread &gt; coupon)</div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo 2 — Aki Mutaro (precio del CDS como bono)</div>
+          <div class="ex-body">
+            Los CDS también se expresan como precio (como un bono):<br>
+            Si el CDS cotiza con −10.5% upfront → precio implícito = <strong>$110.50</strong><br><br>
+            El vendedor de protección paga $10.50 por cada $100 nocional al inicio, y recibe el cupón fijo a lo largo de la vida del contrato.
+          </div>
+          <div class="ex-result">Precio CDS = $110.50 → el mercado valora el riesgo por debajo del cupón</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · CTD, INDEX CDS Y SETTLEMENT
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>CTD, Index CDS y Settlement</h2>
+    <p>Cheapest-to-Deliver · CDX / iTraxx · Credit Events · Physical vs. Cash Settlement</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 CTD -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Cheapest-to-Deliver (CTD)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">¿Qué es el CTD?</div>
+          <div class="cc-def">
+            Ante un credit event con <strong>liquidación física</strong>, el protection buyer puede entregar cualquier bono elegible del Reference Entity (misma seniority — <strong>pari passu</strong>). Racionalmente elegirá el bono de <strong>menor precio de mercado</strong>, que le implica el mayor pago neto recibido.
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          <strong>Regla CTD:</strong> el protection seller siempre asume el riesgo del CTD — el buyer entregará el bono más barato disponible, independientemente de si era el bono de referencia original del contrato.
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Ejemplo — Alpha Corp: Notional $10M, 3 bonos elegibles</div>
+          <div class="ex-body">
+            <table class="ref-table" style="margin-top:4px">
+              <thead><tr><th>Bono</th><th>Precio</th><th>Pago Seller</th></tr></thead>
+              <tbody>
+                <tr><td><strong>A</strong></td><td>45%</td><td>$5.5M</td></tr>
+                <tr><td><strong>B (CTD)</strong></td><td>25%</td><td class="val-blue">$7.5M</td></tr>
+                <tr><td><strong>C</strong></td><td>35%</td><td>$6.5M</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ex-result">Buyer entrega Bono B (precio 25%) → recibe $10M − $2.5M = <strong>$7.5M</strong></div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">CTD con Distinta Seniority</div>
+          <div class="cc-def">
+            Si el Reference Entity tiene deuda de <strong>diferentes seniorities</strong>, cada nivel tiene su propio Recovery Rate y, por tanto, su propio CDS. El CTD se selecciona dentro del nivel de seniority del contrato:<br><br>
+            • Senior Secured → mayor RR → menor pago del seller<br>
+            • Senior Unsecured → RR intermedio<br>
+            • Subordinada → menor RR → mayor pago → candidata CTD
+          </div>
+        </div>
+        <div class="rule-callout">
+          <strong>Implicación para el pricing:</strong> la opción CTD otorga valor adicional al protection buyer. Por ello, el CDS spread de liquidación física es ligeramente superior al de liquidación en efectivo.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Index CDS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Index CDS: CDX e iTraxx</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Estructura del Index CDS</div>
+          <div class="cc-def">
+            Un Index CDS es un contrato estandarizado sobre una <strong>canasta de Reference Entities</strong> con igual ponderación. Cada entidad representa 1/N del nocional total:<br><br>
+            • <strong>CDX.NA.IG:</strong> 125 emisores IG de Norteamérica<br>
+            • <strong>CDX.NA.HY:</strong> 100 emisores HY de Norteamérica<br>
+            • <strong>iTraxx Europe:</strong> 125 emisores IG europeos<br>
+            • <strong>iTraxx Crossover:</strong> 75 emisores sub-IG europeos<br><br>
+            Índices se renuevan cada 6 meses (series). Versiones antiguas se negocian "off-the-run".
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Payoff ante Default en Index CDS</div>
+          <div class="f-eq">$$\text{Pago}_{i} = \frac{N}{n} \times (1 - RR_i)$$
+$$\text{Nuevo nocional} = N \times \frac{n - \text{defaults}}{n}$$</div>
+          <div class="f-vars">
+            <span>N</span> = nocional total del índice<br>
+            <span>n</span> = número de entidades en el índice<br>
+            <span>RR_i</span> = recovery rate de la entidad defaulteada
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — CDX.NA.IG: Company A en default (RR=30%)</div>
+          <div class="ex-body">
+            • Notional total: $100M · Entidades: 125<br>
+            • Peso por entidad: $100M / 125 = <strong>$800,000</strong><br><br>
+            Pago del seller al buyer:<br>
+            $$\$800{,}000 \times (1 - 0.30) = \mathbf{\$560{,}000}$$<br>
+            Nuevo notional después del default:<br>
+            $$\$100\text{M} \times \frac{124}{125} = \mathbf{\$99.2\text{M}}$$
+          </div>
+          <div class="ex-result">Seller paga $560K · El contrato continúa con nocional de $99.2M y 124 entidades</div>
+        </div>
+        <div class="rule-callout" style="margin-top:8px">
+          <strong>Ventaja del Index CDS:</strong> mayor liquidez que los CDS single-name; permite tomar posiciones en crédito diversificadas con un solo instrumento.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 Credit Events y Settlement -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.3</span>
+    <span class="section-title">Credit Events y Modalidades de Settlement</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Credit Events Reconocidos (ISDA)</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Credit Event</th><th>Descripción</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Bankruptcy</strong></td><td>Inicio de proceso concursal o insolvencia declarada</td></tr>
+              <tr><td><strong>Failure to Pay</strong></td><td>Incumplimiento de pago de cupón o principal tras el período de gracia</td></tr>
+              <tr><td><strong>Restructuring</strong></td><td>Modificación de términos (reducción cupón, extensión de plazo, haircut). Tres variantes: Full / Modified / Modified-Modified</td></tr>
+              <tr><td><strong>Obligation Acceleration</strong></td><td>Deuda se vuelve exigible anticipadamente por cláusula cross-default</td></tr>
+              <tr><td><strong>Repudiation/Moratorium</strong></td><td>Negación de pago por parte del emisor (soberanos)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footnote">Los CDS corporativos típicamente reconocen: Bankruptcy, Failure to Pay y Restructuring. Los CDS soberanos también incluyen Repudiation/Moratorium.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Modalidades de Settlement</div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Physical Settlement</div>
+            <p>El buyer entrega bonos del Reference Entity (elegibles pari passu) y recibe el nocional a la par. El buyer elige el CTD para maximizar el pago recibido.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">Cash Settlement</div>
+            <p>ISDA conduce una <strong>auction</strong> para determinar el precio final de recuperación. El seller paga: Notional × (1 − Precio de subasta). Más eficiente; elimina la necesidad de entregar físicamente los bonos.</p>
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Beta Corp: Cash Settlement tras default</div>
+          <div class="ex-body">
+            • Notional: $10M · Precio de subasta ISDA: 35%<br>
+            $$\text{Pago} = \$10\text{M} \times (1 - 0.35) = \mathbf{\$6.5\text{M}}$$
+          </div>
+          <div class="ex-result">Seller paga $6.5M al buyer · El buyer conserva sus bonos físicos de Beta Corp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · VALORACIÓN: HAZARD RATE Y RR
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Valoración del CDS: Hazard Rate y Recovery Rate</h2>
+    <p>Probability of Survival · CDS Spread ≈ HR × (1−RR) · Calibración riesgo-neutral · Upfront pricing</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Hazard Rate y PS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Hazard Rate y Probability of Survival</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box" style="margin-bottom:10px">
+          <div class="f-label">Fórmulas de Survival Probability</div>
+          <div class="f-eq">$$PS(T) = e^{-\lambda T} \quad \text{(continuo)}$$
+$$PS_T = \prod_{i=1}^{T}(1 - h_i) \quad \text{(discreto)}$$
+$$PD_t = PS_{t-1} \times h_t$$</div>
+          <div class="f-vars">
+            <span>λ</span> = hazard rate continuo (tasa instantánea de default)<br>
+            <span>h_i</span> = hazard rate discreto en el período i<br>
+            <span>PS(T)</span> = probabilidad de no default hasta T<br>
+            <span>PD_t</span> = probabilidad incondicional de default en t
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Bono a 5 años, HR = 3% anual</div>
+          <div class="ex-body">
+            Continuo: $PS(5) = e^{-0.03 \times 5} = e^{-0.15} = \mathbf{86.07\%}$<br>
+            Discreto: $PS(5) = (1-0.03)^5 = 0.97^5 = \mathbf{85.87\%}$
+          </div>
+          <div class="ex-result">La PS discretizada es ligeramente inferior — el continuo es la aproximación teórica</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">LGD en el contexto del CDS</div>
+          <div class="cc-def">
+            En un CDS, la Loss Given Default es el pago contingente que realiza el protection seller:<br><br>
+            $$LGD = Notional \times (1 - RR)$$<br><br>
+            • Si RR = 40% y Notional = $10M → LGD = $6M<br>
+            • El hazard rate calibra qué tan frecuente es este evento<br>
+            • El producto <strong>HR × LGD</strong> determina la pérdida esperada por período
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Xeon Corp: HR variable por año</div>
+          <div class="ex-body">
+            H₁=2%, H₂=3%, H₃=2.5%, H₄=3%, H₅=2%<br>
+            $PS_5 = (0.98)(0.97)(0.975)(0.97)(0.98)$<br>
+            $\quad\;\;= \mathbf{81.5\%}$
+          </div>
+          <div class="ex-result">Probabilidad de supervivencia a 5 años con HR variable = 81.5%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Relación CDS Spread ~ HR × (1-RR) -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Relación Fundamental: CDS Spread, Hazard Rate y Recovery Rate</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box" style="margin-bottom:10px">
+          <div class="f-label">Relación de Aproximación</div>
+          <div class="f-eq">$$\text{CDS Spread} \approx \lambda \times (1 - RR)$$
+$$\Rightarrow \quad \lambda = \frac{\text{CDS Spread}}{1 - RR}$$</div>
+          <div class="f-vars">
+            <span>λ</span> = hazard rate (riesgo-neutral)<br>
+            <span>RR</span> = recovery rate supuesto<br>
+            Esta relación es la base de la calibración riesgo-neutral del hazard rate a partir de spreads observados en el mercado.
+          </div>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Sensibilidad al Recovery Rate (HR=3%)</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead><tr><th>Recovery Rate</th><th>LGD</th><th>CDS Spread ≈</th></tr></thead>
+            <tbody>
+              <tr><td><strong>70%</strong></td><td>30%</td><td class="val-green">90 bps</td></tr>
+              <tr><td><strong>60%</strong></td><td>40%</td><td class="val-blue">120 bps</td></tr>
+              <tr><td><strong>50%</strong></td><td>50%</td><td class="val-blue">150 bps</td></tr>
+              <tr><td><strong>40%</strong></td><td>60%</td><td class="val-red">180 bps</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footnote">A hazard rate constante, un menor RR supuesto → mayor LGD → mayor spread de equilibrio.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Calibración Riesgo-Neutral: λ dado CDS Spread = 200 bps</div>
+        <div class="table-scroll-wrap" style="margin-bottom:10px">
+          <table class="ref-table">
+            <thead><tr><th>Recovery Rate</th><th>LGD</th><th>λ = Spread / LGD</th></tr></thead>
+            <tbody>
+              <tr><td><strong>70%</strong></td><td>30%</td><td class="val-red">6.67%</td></tr>
+              <tr><td><strong>60%</strong></td><td>40%</td><td class="val-blue">5.00%</td></tr>
+              <tr><td><strong>40%</strong></td><td>60%</td><td class="val-green">3.33%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rule-callout gold">
+          <strong>Ambigüedad identificación:</strong> el mercado solo observa el producto λ×(1−RR). Para calibrar el hazard rate, el analista debe <strong>asumir</strong> el recovery rate. Un RR mayor implica un λ mayor (y viceversa) para el mismo spread observado.
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Ejemplo — Gamma Corp IG: Pricing del upfront</div>
+          <div class="ex-body">
+            • Notional: $10M · CDS Spread (fair): 120 bps · Cupón fijo: 100 bps<br>
+            • Duración: 4.7 años<br><br>
+            $\text{Upfront} = (0.012 - 0.010) \times 4.7 \times \$10\text{M} = \mathbf{\$94{,}000}$<br>
+            Precio del CDS: $100 - \frac{\$94{,}000}{\$10\text{M}} \times 100 = \mathbf{99.06}$
+          </div>
+          <div class="ex-result">Buyer paga $94K al inicio · Precio CDS = 99.06 (spread > coupon)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 05 · CREDIT CURVE
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">05</div>
+  <div class="module-title-block">
+    <h2>Credit Curve del CDS</h2>
+    <p>Formas de la curva · Forward Hazard Rate · Extracción e interpretación</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 5.1 Formas y forward HR -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">5.1</span>
+    <span class="section-title">Formas de la Credit Curve y Forward Hazard Rate</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Formas de la Curva de CDS</div>
+        <div class="cmp-strip cmp-strip-3" style="margin-bottom:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Upward Sloping</div>
+            <div class="cmp-rule">Más común</div>
+            <p>Spreads cortos &lt; spreads largos. El mercado anticipa mayor riesgo en el futuro. Típica para emisores IG con perspectiva estable.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Flat</div>
+            <div class="cmp-rule">Riesgo estable</div>
+            <p>Spreads similares en todos los plazos. Mercado ve riesgo de default constante en el tiempo.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Downward Sloping</div>
+            <div class="cmp-rule">Estrés inmediato</div>
+            <p>Spreads cortos &gt; spreads largos. El mercado anticipa riesgo de default inminente — pero si el emisor sobrevive, la percepción mejora.</p>
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          <strong>Señal de alarma:</strong> una credit curve invertida (downward sloping) indica que el mercado descuenta una alta probabilidad de credit event en el corto plazo — el clásico "distressed" spread.
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Extracción del Forward Hazard Rate</div>
+          <div class="cc-def">
+            A partir de los spreads de dos CDS de distinto plazo, se puede extraer el hazard rate implícito en el período futuro [t₁, t₂]:<br><br>
+            El procedimiento es análogo a la extracción de tasas forward de la curva de rendimientos:
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Forward Hazard Rate entre t₁ y t₂</div>
+          <div class="f-eq">$$PS(t_2) = PS(t_1) \times (1 - f_{t_1,t_2})^{t_2-t_1}$$
+$$\Rightarrow f_{t_1,t_2} = 1 - \left(\frac{PS(t_2)}{PS(t_1)}\right)^{\frac{1}{t_2-t_1}}$$</div>
+          <div class="f-vars">
+            <span>f_{t₁,t₂}</span> = hazard rate forward en el intervalo [t₁, t₂]<br>
+            <span>PS(t)</span> = probabilidad de supervivencia hasta t, derivada del spread observado
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Ejemplo — Delta Corp: CDS 3Y = 110 bps, CDS 5Y = 140 bps, RR = 40%</div>
+          <div class="ex-body">
+            $\lambda_{3Y} = \frac{0.011}{0.60} = 1.833\%$ → $PS(3) = (1-0.01833)^3 = 94.62\%$<br>
+            $\lambda_{5Y} = \frac{0.014}{0.60} = 2.333\%$ → $PS(5) = (1-0.02333)^5 = 88.85\%$<br><br>
+            $$f_{3,5} = 1 - \left(\frac{0.8885}{0.9462}\right)^{1/2} = 1 - 0.9694 = \mathbf{3.06\%}$$
+          </div>
+          <div class="ex-result">Forward HR entre años 3 y 5 = ~3.06% — mercado anticipa deterioro crediticio futuro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 06 · ESTRATEGIAS CON CDS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">06</div>
+  <div class="module-title-block">
+    <h2>Estrategias con CDS</h2>
+    <p>Hedging · Naked CDS · Pairs Trade · Curve Trade · Basis Trade · Arbitraje de estructura de capital · Index vs. Single-Name</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 6.1 Hedging y Naked CDS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.1</span>
+    <span class="section-title">Hedging y Naked CDS</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-green" style="margin-bottom:10px">
+          <div class="cc-label green">Estrategia 1: Hedging (Cobertura)</div>
+          <div class="cc-def">
+            Un inversor con exposición larga a un bono corporativo compra protección CDS para neutralizar el riesgo de crédito, conservando el bono (relación bancaria, retención fiscal, etc.):<br><br>
+            <strong>Posición:</strong> Long Bond + Buy CDS Protection<br>
+            <strong>Resultado:</strong> el rendimiento neto = Cupón del bono − Prima CDS ≈ tasa libre de riesgo
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Epsilon Corp: Bono $50M, cupón 5%, CDS Spread 150 bps</div>
+          <div class="ex-body">
+            • Upfront pagado: $(0.015 - 0.010) \times 4.5 \times \$50\text{M} = \$1.125\text{M}$<br>
+            • Ingreso anual bono: $50M × 5% = $2.5M<br>
+            • Prima anual CDS: $50M × 1.5% = $0.75M<br>
+            • Rendimiento neto anual ≈ <strong>$2.5M − $0.75M = $1.75M (3.5%)</strong>
+          </div>
+          <div class="ex-result green">Net carry ≈ 3.5% (proche del benchmark libre de riesgo)</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">Estrategia 2: Naked CDS (Especulación)</div>
+          <div class="cc-def">
+            El inversor toma posición en CDS <strong>sin tener el bono subyacente</strong>. Vista pura sobre el crédito:<br><br>
+            • <strong>Bearish (deterioro crediticio):</strong> compra protección → gana si el spread sube<br>
+            • <strong>Bullish (mejora crediticia):</strong> vende protección → gana si el spread baja
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Zeta Corp: Naked CDS bearish</div>
+          <div class="ex-body">
+            • Compra CDS a 200 bps (Duración 4.5) sobre $10M<br>
+            • Spread sube a 280 bps por downgrade<br><br>
+            $\Delta\text{Precio} = -(280-200)\text{bps} \times 4.5 = -3.6\%$<br>
+            Ganancia del buyer = $10\text{M} \times 3.6\% = \mathbf{\$360{,}000}$
+          </div>
+          <div class="ex-result green">Ganancia de $360,000 sin poseer el bono de Zeta Corp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6.2 Pairs Trade y Curve Trade -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.2</span>
+    <span class="section-title">Pairs Trade (Long–Short) y Curve Trade</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Estrategia 3: Pairs Trade / Long–Short</div>
+          <div class="cc-def">
+            El inversor toma posiciones opuestas en CDS de dos empresas del mismo sector, apostando a que el diferencial de spreads entre ellas cambiará:<br><br>
+            • <strong>Sell protection</strong> en la empresa que cree que mejorará (se estrechará)<br>
+            • <strong>Buy protection</strong> en la empresa que cree que se deteriorará (se ampliará)<br><br>
+            El riesgo de mercado (beta crediticio del sector) se neutraliza parcialmente.
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — AutoCorp A vs. AutoCorp B</div>
+          <div class="ex-body">
+            Sell protection en A (spread 180 bps) + Buy protection en B (spread 220 bps)<br>
+            Spread diferencial inicial: 40 bps<br><br>
+            Después: A estrecha a 140 bps, B amplia a 270 bps<br>
+            Spread diferencial final: 130 bps<br>
+            $$\text{Ganancia} = (130 - 40)\text{bps} \times \text{Dur} \times N = \mathbf{\$440{,}000}$$
+          </div>
+          <div class="ex-result green">Ganancia total $440,000 — neutro al mercado, direccional al diferencial</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-gold" style="margin-bottom:10px">
+          <div class="cc-label gold">Estrategia 4: Curve Trade (Steepener / Flattener)</div>
+          <div class="cc-def">
+            Posiciones en CDS de distinto plazo del <strong>mismo emisor</strong>, apostando a cambios en la pendiente de la credit curve:<br><br>
+            • <strong>Curve steepener:</strong> sell protection corto + buy protection largo → gana si la curva se empina<br>
+            • <strong>Curve flattener:</strong> buy protection corto + sell protection largo → gana si la curva se aplana
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Theta Corp: Curve Flattener</div>
+          <div class="ex-body">
+            Inicial: CDS 5Y = 200 bps, CDS 10Y = 280 bps (diferencial = 80 bps)<br>
+            Compra 5Y + Vende 10Y (nocional ajustado por DV01)<br><br>
+            Final: CDS 5Y = 210 bps, CDS 10Y = 255 bps (diferencial = 45 bps)<br>
+            Curva se aplanó 35 bps<br><br>
+            $\text{Ganancia} = 35\text{bps} \times 7.2 \times N \approx \mathbf{\$85{,}458}$
+          </div>
+          <div class="ex-result green">Ganancia de $85,458 — la curva se aplanó como se anticipaba</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6.3 Basis Trade, Cap Structure Arb y Index Arb -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">6.3</span>
+    <span class="section-title">Basis Trade · Arbitraje de Estructura de Capital · Index vs. Single-Name</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-3">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Estrategia 5: Basis Trade</div>
+          <div class="cc-def">
+            Explota la diferencia entre el spread del bono en el mercado cash y el CDS spread del mismo emisor:<br><br>
+            $$\text{Basis} = \text{Spread}_{\text{bono}} - \text{CDS Spread}$$<br><br>
+            • <strong>Basis positivo:</strong> Spread_bono &gt; CDS → buy bond + buy CDS<br>
+            • <strong>Basis negativo:</strong> CDS &gt; Spread_bono → short bond + sell CDS
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Lambda Corp: Basis positivo +40 bps</div>
+          <div class="ex-body">
+            Spread bono = 190 bps · CDS Spread = 150 bps<br>
+            Buy bond (larga) + Buy CDS (hedged)<br>
+            Net carry anual: 190 − 150 = <strong>40 bps</strong><br>
+            En $50M: $50M × 0.40% = <strong>$200,000/año</strong>
+          </div>
+          <div class="ex-result green">Captura el basis de 40 bps sin riesgo crediticio neto</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-red" style="margin-bottom:10px">
+          <div class="cc-label red">Estrategia 6: Capital Structure Arbitrage + LBO</div>
+          <div class="cc-def">
+            Explota divergencias de precio entre CDS de <strong>distinto nivel de seniority</strong> del mismo emisor, o ante una operación corporativa (LBO) que modifica la estructura de capital:<br><br>
+            • LBO → aumenta apalancamiento → deterioro crediticio para tenedores de deuda<br>
+            • <strong>Anticipación LBO:</strong> buy protection antes del anuncio; sell equity puts
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Nu Corp: LBO anticipado</div>
+          <div class="ex-body">
+            Buy CDS protection 100 bps (ante LBO inminente)<br>
+            LBO ocurre → spread salta a 350 bps<br><br>
+            $\text{Ganancia CDS} = (350-100)\text{bps} \times 4.8 \times \$30\text{M}$<br>
+            $= \mathbf{\$360{,}000}$<br>
+            Más ganancia en equity put: $486,500<br>
+            <strong>Total: $846,500</strong>
+          </div>
+          <div class="ex-result green">Total profit $846,500 de la anticipación correcta del LBO</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Estrategia 7: Index vs. Single-Name Arbitrage</div>
+          <div class="cc-def">
+            Si el spread del índice de CDS difiere del promedio ponderado de sus CDS individuales, existe una oportunidad de arbitraje:<br><br>
+            $$\text{Arb} = \text{Spread}_{\text{índice}} - \overline{\text{Spread}}_{\text{single-names}}$$<br><br>
+            • Buy índice + sell todos los single-names (o viceversa)<br>
+            • El arb desaparece cuando agentes explotan la discrepancia
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">CDX.NA.IG Arbitrage: 15 bps neto</div>
+          <div class="ex-body">
+            Spread promedio single-names: 115 bps<br>
+            Spread CDX índice: 100 bps<br>
+            Diferencial: 15 bps<br><br>
+            Buy single-names (sell protección) + Buy CDX (buy protección)<br>
+            Ingreso neto: 15 bps × $10M = <strong>$15,000/año</strong>
+          </div>
+          <div class="ex-result green">Captura 15 bps anuales mientras persista la discrepancia</div>
+        </div>
+        <div class="footnote">En la práctica, el spread del índice puede diferir del promedio por liquidez, costos de transacción y composición de la canasta.</div>
+      </div>
+    </div>
+    <div class="inner-divider"></div>
+    <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Resumen de Estrategias con CDS</div>
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Estrategia</th><th>Posición CDS</th><th>Vista del mercado</th><th>P&amp;L si la vista es correcta</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Hedging</strong></td><td>Long bond + Buy protection</td><td>Neutral (elimina riesgo)</td><td class="val-green">Carry neto ≈ tasa libre de riesgo</td></tr>
+          <tr><td><strong>Naked Bearish</strong></td><td>Buy protection (sin bono)</td><td>Spread subirá (deterioro)</td><td class="val-green">Ganancia si spread sube</td></tr>
+          <tr><td><strong>Naked Bullish</strong></td><td>Sell protection (sin bono)</td><td>Spread bajará (mejora)</td><td class="val-green">Ganancia si spread baja</td></tr>
+          <tr><td><strong>Pairs (Long/Short)</strong></td><td>Sell A + Buy B</td><td>Diferencial spread A−B cambiará</td><td class="val-green">Ganancia en el diferencial relativo</td></tr>
+          <tr><td><strong>Curve Steepener</strong></td><td>Sell corto + Buy largo</td><td>Curva se empinará</td><td class="val-green">Ganancia si pendiente aumenta</td></tr>
+          <tr><td><strong>Curve Flattener</strong></td><td>Buy corto + Sell largo</td><td>Curva se aplanará</td><td class="val-green">Ganancia si pendiente reduce</td></tr>
+          <tr><td><strong>Basis Trade</strong></td><td>Long bond + Buy CDS</td><td>Basis positivo convergirá</td><td class="val-green">Carry neto del basis</td></tr>
+          <tr><td><strong>Cap. Structure Arb</strong></td><td>Buy senior + Sell sub (o LBO arb)</td><td>Seniority mal valorada</td><td class="val-green">P&amp;L del re-pricing relativo</td></tr>
+          <tr><td><strong>Index vs. Single-Name</strong></td><td>Long/Short en índice vs. componentes</td><td>Discrepancia de spreads</td><td class="val-green">Captura el diferencial de spread</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · DERIVADOS DE RENTA FIJA II</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 12</div>
+    <h1 class="header-title">Derivados de Renta Fija II: Forwards, FRAs y Swaps</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Forwards sobre Bonos</span>
+      <span class="pill">02 FRA</span>
+      <span class="pill">03 Swaps de Tasa de Interés</span>
+      <span class="pill">04 Swaps de Moneda</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · FORWARDS SOBRE BONOS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Forwards sobre Bonos</h2>
+    <p>Cost-of-Carry · Precio forward con cupones · PVC y FVC · Precio limpio vs. sucio · Valoración · T-Bond Futures · CTD · QFP</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Precio forward -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">Precio de un Forward sobre Bono con Cupones</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Modelo Cost-of-Carry</div>
+          <div class="cc-def">
+            El precio forward sin arbitraje equivale al precio spot más el costo neto de mantener el activo. El comprador de la posición <strong>larga no recibe los cupones</strong> que ocurren antes del vencimiento del contrato, por lo que el precio spot se ajusta restando el <strong>Valor Presente de los Cupones (PVC)</strong>.
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Dos formas equivalentes</div>
+          <div class="f-eq">
+            $$\text{FP} = (S_0 - \text{PVC}) \times (1+R_f)^T$$
+            $$\text{FP} = S_0 \times (1+R_f)^T - \text{FVC}$$
+          </div>
+          <div class="f-vars">
+            <span>S₀</span> = precio spot al inicio (precio completo / full price)<br>
+            <span>R_f</span> = tasa libre de riesgo anual<br>
+            <span>T</span> = plazo del contrato en años (días/365 para renta fija)<br>
+            <span>PVC</span> = VP de cupones pagados antes de expiración<br>
+            <span>FVC</span> = VF de cupones pagados antes de expiración
+          </div>
+        </div>
+        <div class="concept-card" style="margin-top:10px">
+          <div class="cc-label">Precio Limpio, Sucio e Interés Acumulado</div>
+          <div class="cc-def">
+            Los bonos se cotizan como <strong>precio limpio</strong> (clean price), sin incluir el interés acumulado. Al liquidar, el comprador paga el <strong>precio completo o sucio</strong> (full price):<br><br>
+            $$\text{Full Price} = \text{Clean Price} + \text{AI}$$
+            $$\text{AI} = \frac{\text{Días desde el último pago}}{\text{Días entre pagos}} \times \text{Cupón}$$
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Forward a 250 días sobre T-Bond al 7%</div>
+          <div class="ex-body">
+            Valor nominal: $1,000 · Spot S₀: $1,050 (full price, acaba de pagar cupón)<br>
+            Cupón semestral siguiente: en 182 días · \(R_f = 6\%\)<br><br>
+            <strong>① Cupón semestral:</strong><br>
+            $$C = \frac{\$1{,}000 \times 0.07}{2} = \$35.00$$
+            <strong>② PVC del cupón en 182 días:</strong><br>
+            $$\text{PVC} = \frac{\$35.00}{1.06^{182/365}} = \$34.00$$
+            <strong>③ Precio forward:</strong><br>
+            $$\text{FP} = (\$1{,}050 - \$34.00) \times 1.06^{250/365}$$
+          </div>
+          <div class="ex-result">FP = $1,057.37</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Valoración de forwards -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Valoración de un Forward sobre Bono (antes del vencimiento)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Valor de la posición larga en el tiempo t</div>
+          <div class="f-eq">
+            $$V_t\,(\text{largo}) = S_t - \text{PVC}_t - \frac{\text{FP}}{(1+R_f)^{(T-t)}}$$
+          </div>
+          <div class="f-vars">
+            <span>S_t</span> = precio spot del bono en la fecha de valoración t<br>
+            <span>PVC_t</span> = VP de cupones que quedan antes de la expiración, descontados desde t<br>
+            <span>FP</span> = precio forward fijado al inicio del contrato
+          </div>
+        </div>
+        <div class="formula-box" style="margin-top:10px">
+          <div class="f-label">Método alternativo: usando el FP actualizado (FP_t)</div>
+          <div class="f-eq">
+            $$V_t\,(\text{largo}) = \frac{\text{FP}_t - \text{FP}}{(1+R_f)^{(T-t)}}$$
+          </div>
+          <div class="f-vars">
+            <span>FP_t</span> = precio forward de mercado en t (nuevo contrato, mismo vencimiento)<br>
+            Ambos métodos producen el mismo resultado.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Valoración 100 días después (FP original = $1,057.37)</div>
+          <div class="ex-body">
+            Spot S₁₀₀ = $1,090 · Queda 1 cupón en 82 días antes del vencimiento (150 días)<br>
+            \(R_f = 6\%\)<br><br>
+            <strong>① PVC del cupón restante:</strong><br>
+            $$\text{PVC} = \frac{\$35.00}{1.06^{82/365}} = \$34.54$$
+            <strong>② Valor posición larga:</strong><br>
+            $$V_{100} = \$1{,}090 - \$34.54 - \frac{\$1{,}057.37}{1.06^{150/365}}$$
+          </div>
+          <div class="ex-result">V₁₀₀ = $23.11</div>
+        </div>
+        <div class="ex-box" style="margin-top:8px">
+          <div class="ex-title">Verificación: método FP actualizado (FP₁₀₀ = $1,081.04)</div>
+          <div class="ex-body">
+            $$V_{100} = \frac{\$1{,}081.04 - \$1{,}057.37}{1.06^{150/365}}$$
+          </div>
+          <div class="ex-result">V₁₀₀ = $23.11 — mismo resultado, confirma consistencia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 T-Bond Futures -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Futuros sobre Bonos del Tesoro (T-Bond Futures): CTD y QFP</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Opción de Entrega (CTD)</div>
+            <div class="cmp-rule">Posición corta elige el bono</div>
+            <p>La posición corta puede entregar cualquier bono elegible. Selecciona el <strong>Cheapest-to-Deliver (CTD)</strong> para maximizar su beneficio. Cada bono tiene un <strong>Factor de Conversión (CF)</strong> que ajusta el pago recibido.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Factor de Conversión (CF)</div>
+            <div class="cmp-rule">Ajusta el pago de la posición larga</div>
+            <p>El comprador paga: FP × CF al vencimiento. Los bonos más valiosos (mayor cupón, mayor plazo) tienen CF &gt; 1. Estandariza la entrega entre bonos con distintas características.</p>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Precio Futuro Cotizado (QFP)</div>
+          <div class="f-eq">
+            $$\text{FP} = \text{Full Price} \times (1+R_f)^T - \text{FVC} - \text{AI}_T$$
+            $$\text{QFP} = \frac{\text{FP}}{\text{CF}} = \left[\text{Full Price} \times (1+R_f)^T - \text{FVC} - \text{AI}_T\right] \times \frac{1}{\text{CF}}$$
+          </div>
+          <div class="f-vars">
+            <span>AI_T</span> = interés acumulado al vencimiento del contrato futuro<br>
+            <span>FVC</span> = valor futuro de los cupones pagados antes de expiración<br>
+            <span>CF</span> = factor de conversión del bono CTD
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — QFP a 1.2 años sobre T-Bond CTD al 7%</div>
+          <div class="ex-body">
+            Full price (=limpio, recién pagó cupón): $1,040<br>
+            Cupones: $35 en 0.5 y 1.0 años · CF = 1.13 · AI al vencimiento = $14 · \(R_f = 5\%\)<br><br>
+            <strong>① FVC de cupones:</strong><br>
+            $$\text{FVC} = \$35 \times 1.05^{0.7} + \$35 \times 1.05^{0.2} = \$71.56$$
+            <strong>② QFP:</strong><br>
+            $$\text{QFP} = \left[\$1{,}040 \times 1.05^{1.2} - \$71.56 - \$14\right] \times \frac{1}{1.13}$$
+          </div>
+          <div class="ex-result">QFP = $900.13</div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:8px">
+          <strong>CTD en la práctica:</strong> el vendedor del futuro busca el bono con el menor costo de entrega (precio spot − FP × CF). El mercado compensa al vendedor con la QFP, que incluye implícitamente el valor de la opción de entrega.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · FORWARD RATE AGREEMENTS (FRA)
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Forward Rate Agreements (FRA)</h2>
+    <p>Depósitos Eurodólar · Tasa MRR (add-on, base 360) · Notación m×n · Precio FRA · Valoración al vencimiento · Valoración antes del vencimiento</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Estructura y notación -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Definición, Estructura y Tasa MRR</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">¿Qué es un FRA?</div>
+          <div class="cc-def">
+            Acuerdo para fijar hoy la tasa de un préstamo o depósito futuro. La <strong>posición larga</strong> es el tomador de préstamo (se beneficia si la tasa sube). Si la tasa flotante al vencimiento supera la tasa pactada, la posición larga <em>recibe</em> el diferencial.<br><br>
+            <strong>Notación m × n:</strong> el FRA vence en <em>m</em> meses; el préstamo subyacente finaliza en <em>n</em> meses. El plazo del préstamo es <em>(n − m)</em> meses.
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo de notación</div>
+          <div class="ex-body">
+            <strong>FRA 2 × 3:</strong> vence en 2 meses (60 días); el préstamo subyacente de 1 mes (30 días) finaliza en 3 meses (90 días).<br><br>
+            <strong>FRA 1 × 4:</strong> vence en 1 mes (30 días); el préstamo subyacente de 3 meses (90 días) finaliza en 4 meses (120 días).
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Tasa MRR (Market Reference Rate): 3 Reglas Clave</div>
+          <div class="cc-def">
+            <strong>1. Add-on rate:</strong> el interés se suma al principal al vencimiento (no descuento).<br>
+            &nbsp;&nbsp;&nbsp;Interés = Principal × Tasa_anual × (días / 360)<br><br>
+            <strong>2. Base 360:</strong> el año convencional tiene 360 días.<br><br>
+            <strong>3. Larga en la tasa:</strong> la posición larga del FRA se beneficia cuando la tasa sube. El pago se hace al <em>inicio del préstamo</em> (descuento del interés que ocurre al final).<br><br>
+            Ejemplo: $1M a 30 días, MRR 6%:<br>
+            Interés = $1,000,000 × 0.06 × (30/360) = <strong>$5,000</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Precio del FRA -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Determinación del Precio (Tasa Forward) de un FRA</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Tasas periódicas y tasa forward</div>
+          <div class="f-eq">
+            $$R_{\text{período}} = \text{Tasa Anual} \times \frac{\text{días}}{360}$$
+            $$\text{Precio FRA} = \left(\frac{1 + R_{\text{largo}}}{1 + R_{\text{corto}}} - 1\right) \times \frac{360}{\text{días préstamo}}$$
+          </div>
+          <div class="f-vars">
+            <span>R_largo</span> = tasa MRR no anualizada hasta el fin del préstamo (período n)<br>
+            <span>R_corto</span> = tasa MRR no anualizada hasta el vencimiento del FRA (período m)<br>
+            El resultado se anualiza multiplicando por 360 / días del préstamo
+          </div>
+        </div>
+        <div class="rule-callout gold" style="margin-top:10px">
+          <strong>Intuición:</strong> invertir por n días debe equivaler a invertir por m días y reinvertir por (n−m) días a la tasa forward. Este es el argumento de no-arbitraje que fija el precio del FRA.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Precio FRA 1×4 (préstamo de 90 días en 30 días)</div>
+          <div class="ex-body">
+            MRR a 30 días = 4% · MRR a 120 días = 5%<br><br>
+            <strong>① Tasas no anualizadas:</strong><br>
+            $$R_{30} = 4\% \times \frac{30}{360} = 0.333\%$$
+            $$R_{120} = 5\% \times \frac{120}{360} = 1.667\%$$
+            <strong>② Tasa forward del período (90 días):</strong><br>
+            $$\text{Precio} = \frac{1.01667}{1.00333} - 1 = 1.33\%$$
+            <strong>③ Anualizado:</strong><br>
+            $$1.33\% \times \frac{360}{90} = \mathbf{5.32\%}$$
+          </div>
+          <div class="ex-result">Precio FRA 1×4 = 5.32%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 Valoración al vencimiento -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">Valoración de un FRA al Vencimiento y Antes del Vencimiento</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Pago al vencimiento del FRA (larga)</div>
+          <div class="f-eq">
+            $$\text{Valor} = \frac{\left(\text{Tasa}_{\text{mcdo}} \times \tfrac{d}{360} - \text{Tasa}_{\text{FRA}} \times \tfrac{d}{360}\right) \times \text{Nocional}}{1 + \left(\text{Tasa}_{\text{mcdo}} \times \tfrac{d}{360}\right)}$$
+          </div>
+          <div class="f-vars">
+            El numerador = ahorro de interés al final del préstamo<br>
+            El denominador = descuento del ahorro al inicio del préstamo (fecha de liquidación del FRA)<br>
+            <span>d</span> = días del préstamo subyacente
+          </div>
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Ejemplo — FRA 1×4 al 5.32%, nocional $1M: tasa sube a 6%</div>
+          <div class="ex-body">
+            Ahorro al final del préstamo (90 días después):<br>
+            $$\text{Ahorro} = \left(0.06 \times \frac{90}{360} - 0.0532 \times \frac{90}{360}\right) \times \$1\text{M} = \$1{,}700$$
+            Descontado al 6%:<br>
+            $$\text{VP} = \frac{\$1{,}700}{1 + (0.06 \times 90/360)}$$
+          </div>
+          <div class="ex-result">Pago (larga) = $1,674.88</div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Valoración antes del vencimiento — 3 pasos</div>
+          <div class="cc-def">
+            <strong>1.</strong> Calcular la nueva tasa FRA para el período del préstamo con las tasas MRR actualizadas.<br><br>
+            <strong>2.</strong> Calcular la diferencia de intereses sobre el nocional entre la nueva tasa forward y la tasa FRA original.<br><br>
+            <strong>3.</strong> Descontar la diferencia al <em>plazo total restante</em> (hasta el final del préstamo) usando la tasa MRR para ese plazo completo.
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — FRA 1×4 al 5.32%, valorado 10 días después</div>
+          <div class="ex-body">
+            Nuevas tasas: MRR 110 días = 5.9% · MRR 20 días = 5.7%<br><br>
+            <strong>① Nueva tasa FRA a 90 días, dentro de 20 días:</strong><br>
+            $$R_{\text{new}} = \left[\frac{1+(0.059 \times 110/360)}{1+(0.057 \times 20/360)} - 1\right] \times \frac{360}{90} = 5.93\%$$
+            <strong>② Diferencia de intereses:</strong><br>
+            $$\text{Int} = (0.0593 - 0.0532) \times \frac{90}{360} \times \$1\text{M} = \$1{,}514.20$$
+            <strong>③ Descuento a la tasa de 110 días (5.9%):</strong><br>
+            $$\text{Valor} = \frac{\$1{,}514.20}{1 + (0.059 \times 110/360)}$$
+          </div>
+          <div class="ex-result">Valor = $1,487.39</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · SWAPS DE TASA DE INTERÉS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Swaps de Tasa de Interés (IRS)</h2>
+    <p>Mecánica · Swap Rate (SFR) · Factores de descuento Z · Determinación de la SFR · Valoración en fechas de liquidación</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 Estructura y SFR -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Estructura, Mecánica y Swap Fixed Rate (SFR)</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Pagador Fijo (Fixed Payer)</div>
+            <div class="cmp-rule">Paga fijo, recibe flotante</div>
+            <p>Se beneficia si las tasas <em>suben</em>: sigue pagando la tasa fija antigua más baja y recibe la tasa flotante mayor. Equivale a estar <em>long</em> en bonos flotantes y <em>short</em> en bonos fijos.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Receptor Fijo (Fixed Receiver)</div>
+            <div class="cmp-rule">Recibe fijo, paga flotante</div>
+            <p>Se beneficia si las tasas <em>bajan</em>: recibe la tasa fija mayor y paga la flotante más baja. Equivale a estar <em>long</em> en bonos fijos y <em>short</em> en bonos flotantes.</p>
+          </div>
+        </div>
+        <div class="concept-card accent-mid">
+          <div class="cc-label mid">Swap Rate (SFR) — Condición de No Arbitraje</div>
+          <div class="cc-def">
+            Al inicio del swap, la tasa fija se fija para que <strong>VP pagos fijos = VP pagos flotantes</strong>, haciendo que el valor inicial sea cero. Esta tasa es la <strong>Swap Fixed Rate (SFR)</strong> y equivale a la <em>par rate</em> de la curva MRR.<br><br>
+            Económicamente, el IRS = portafolio long bono fijo + short bono flotante (o viceversa).
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="formula-box">
+          <div class="f-label">Factores de descuento y SFR periódica</div>
+          <div class="f-eq">
+            $$Z_i = \frac{1}{1 + \left(\text{MRR}_i \times \dfrac{\text{días}_i}{360}\right)}$$
+            $$\text{SFR}_{\text{periódico}} = \frac{1 - Z_{\text{final}}}{\sum Z_i}$$
+            $$\text{SFR}_{\text{anual}} = \text{SFR}_{\text{periódico}} \times \frac{360}{\text{días por período}}$$
+          </div>
+          <div class="f-vars">
+            <span>Z_i</span> = factor de descuento para la fecha de pago i<br>
+            <span>Z_final</span> = factor de descuento del último período<br>
+            <span>ΣZ</span> = suma de todos los factores de descuento
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Ejemplo SFR -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Determinación de la SFR — Ejemplo Completo</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--corp);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Swap 1 año, pagos trimestrales, nocional $5M</div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Plazo</th><th>MRR spot</th><th>Factor Z</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>90 días</strong></td><td>3.0%</td><td class="val-blue">0.99256</td></tr>
+              <tr><td><strong>180 días</strong></td><td>3.5%</td><td class="val-blue">0.98280</td></tr>
+              <tr><td><strong>270 días</strong></td><td>4.0%</td><td class="val-blue">0.97087</td></tr>
+              <tr><td><strong>360 días</strong></td><td>4.5%</td><td class="val-blue">0.95694</td></tr>
+              <tr><td><strong>ΣZ</strong></td><td></td><td class="val-blue">3.90317</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ex-box" style="margin-top:10px">
+          <div class="ex-title">Cálculo SFR y pagos</div>
+          <div class="ex-body">
+            $$\text{SFR}_{(Q)} = \frac{1 - 0.95694}{3.90317} = 0.011 = 1.1\%$$
+            $$\text{SFR}_{\text{anual}} = 1.1\% \times \frac{360}{90} = \mathbf{4.4\%}$$
+            Pago fijo trimestral = $5,000,000 × 1.1% = <strong>$55,000</strong><br>
+            Flotante (90d, MRR 3%) = 0.03 × (90/360) × $5M = <strong>$37,500</strong><br>
+            Pago neto (pagador fijo) = $55,000 − $37,500 = <strong>$37,500</strong>
+          </div>
+          <div class="ex-result">SFR = 4.4% anual · Primer pago neto del pagador fijo = $37,500</div>
+        </div>
+      </div>
+      <div>
+        <div class="formula-box" style="margin-bottom:10px">
+          <div class="f-label">Valoración en fechas de liquidación</div>
+          <div class="f-eq">
+            $$V_{\text{pagador fijo}} = \sum Z_i \times (\text{SFR}_{\text{nueva}} - \text{SFR}_{\text{antigua}}) \times \frac{d}{360} \times N$$
+          </div>
+          <div class="f-vars">
+            <span>ΣZ</span> = suma de factores de descuento de períodos restantes<br>
+            Después del intercambio en t, la SFR nueva vs. antigua determina ganancia o pérdida<br>
+            Receptor fijo = −V del pagador fijo
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Valoración tras 180 días: nueva curva plana al 3.5%</div>
+          <div class="ex-body">
+            SFR original = 4.4% · Quedan pagos en 90 y 180 días<br>
+            $$Z_{90} = \frac{1}{1+0.035 \times 90/360} = 0.9913$$
+            $$Z_{180} = \frac{1}{1+0.035 \times 180/360} = 0.9828$$
+            $$\sum Z = 1.9741$$
+            $$V_{\text{pagador fijo}} = 1.9741 \times (0.035-0.044) \times \frac{90}{360} \times \$5\text{M}$$
+          </div>
+          <div class="ex-result red">V pagador fijo = −$22,209 · V receptor fijo = +$22,209</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 04 · SWAPS DE MONEDA
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">04</div>
+  <div class="module-title-block">
+    <h2>Swaps de Moneda (Currency Swaps)</h2>
+    <p>Intercambio de principales · Dos curvas independientes · SFR por divisa · Valoración como portafolio de bonos · Tipo de cambio actual</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 4.1 Estructura -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.1</span>
+    <span class="section-title">Estructura y Determinación de la Tasa Fija</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Características del Swap de Moneda</div>
+          <div class="cc-def">
+            • Se <strong>intercambia el principal nocional</strong> al inicio y se retorna al vencimiento.<br>
+            • Involucra <strong>dos monedas</strong>, dos curvas MRR distintas y, por tanto, <strong>dos SFR diferentes</strong>.<br>
+            • El nocional de la contraparte extranjera se determina con el tipo de cambio al inicio:<br><br>
+            Si TC = $2 / £1 y nocional USD = $25M → nocional GBP = <strong>£12.5M</strong>
+          </div>
+        </div>
+        <div class="step-flow">
+          <div class="step-item">
+            <div class="step-n">INICIO</div>
+            <div class="step-txt">Intercambio de nocionales al tipo de cambio spot actual</div>
+          </div>
+          <div class="step-item">
+            <div class="step-n">PERIÓDICO</div>
+            <div class="step-txt">Pagos de interés en cada divisa sobre sus respectivos nocionales</div>
+          </div>
+          <div class="step-item">
+            <div class="step-n">FINAL</div>
+            <div class="step-txt">Devolución de los nocionales originales (mismo monto inicial)</div>
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          Las SFR se calculan de forma <strong>completamente independiente</strong> para cada moneda usando su propia curva MRR. Luego se aplican a los nocionales correspondientes en cada divisa.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Swap USD/GBP a 1 año, trimestrales, $5M nocional USD</div>
+          <div class="ex-body">
+            SFR$ = 4.4% (1.1% trim.) ya calculada. TC = £0.50/$<br><br>
+            <strong>Curva MRR en libras:</strong><br>
+            <table class="ref-table" style="margin-top:6px;margin-bottom:8px">
+              <thead><tr><th>Plazo</th><th>MRR (£)</th><th>Z (£)</th></tr></thead>
+              <tbody>
+                <tr><td>90 días</td><td>4%</td><td class="val-blue">0.99010</td></tr>
+                <tr><td>180 días</td><td>5%</td><td class="val-blue">0.97561</td></tr>
+                <tr><td>270 días</td><td>6%</td><td class="val-blue">0.95694</td></tr>
+                <tr><td>360 días</td><td>7%</td><td class="val-blue">0.93458</td></tr>
+                <tr><td><strong>ΣZ£</strong></td><td></td><td class="val-blue">3.85723</td></tr>
+              </tbody>
+            </table>
+            $$\text{SFR}_{(£)} = \frac{1-0.93458}{3.85723} = 1.7\% \quad \Rightarrow \quad 6.8\%\text{ anual}$$
+            Nocional £ = $5,000,000 × £0.50/$ = <strong>£2,500,000</strong><br>
+            Paga $ fijo: 1.1% × $5M = <strong>$55,000</strong> trim.<br>
+            Recibe £ fijo: 1.7% × £2.5M = <strong>£42,500</strong> trim.
+          </div>
+          <div class="ex-result">SFR£ = 6.8% anual · Nocional £2.5M</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4.2 Valoración -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">4.2</span>
+    <span class="section-title">Valoración de un Swap de Moneda después del Inicio</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Metodología de Valoración (4 pasos)</div>
+          <div class="cc-def">
+            <strong>1.</strong> Valorar el lado de la moneda doméstica como un <strong>bono</strong>: VP de (flujos restantes + principal) descontado a las tasas spot actuales de esa divisa.<br><br>
+            <strong>2.</strong> Valorar el lado de la moneda extranjera como un <strong>bono</strong>: VP de (flujos restantes + principal) descontado a las tasas spot actuales de la divisa extranjera.<br><br>
+            <strong>3.</strong> Convertir el valor extranjero al <strong>tipo de cambio actual</strong>.<br><br>
+            <strong>4.</strong> Valor neto = Valor lado que se recibe − Valor lado que se paga (en moneda común).
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          El tipo de cambio al vencimiento del swap <strong>no importa</strong>: los principales se devuelven a los montos originales fijados al inicio. Solo el TC actual afecta la valoración intermedia del contrato.
+        </div>
+      </div>
+      <div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Tras 300 días: tasa $ 5.4%, tasa £ 6.6%, TC = £0.52/$</div>
+          <div class="ex-body">
+            Quedan en 60 días: último interés + principal de cada lado<br>
+            Flujos $: $5,000,000 + $55,000 · Flujos £: £2,500,000 + £42,500<br><br>
+            <strong>① Factores de descuento a 60 días:</strong><br>
+            $$Z_{60}^{\$} = \frac{1}{1+(0.054 \times 60/360)} = 0.99108$$
+            $$Z_{60}^{£} = \frac{1}{1+(0.066 \times 60/360)} = 0.98912$$
+            <strong>② Valor de cada lado (como bono):</strong><br>
+            $$V_{\$} = 0.99108 \times \$5{,}055{,}000 = \mathbf{\$5{,}009{,}909}$$
+            $$V_{£} = 0.98912 \times £2{,}542{,}500 = \mathbf{£2{,}514{,}838}$$
+            <strong>③ Convertir £ a $ al TC actual (£0.52/$):</strong><br>
+            $$V_{£\,\text{en}\,\$} = \frac{£2{,}514{,}838}{0.52} = \mathbf{\$4{,}836{,}227}$$
+            <strong>④ Valor neto (recibe $ fijo, paga £ fijo):</strong><br>
+            $$\text{Neto} = \$5{,}009{,}909 - \$4{,}836{,}227$$
+          </div>
+          <div class="ex-result green">Valor neto = $173,682</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla resumen -->
+<div class="section-block" style="margin-top:20px">
+  <div class="section-header">
+    <span class="section-num">REF</span>
+    <span class="section-title">Tabla Resumen: Fórmulas Clave de la Semana</span>
+  </div>
+  <div class="section-body">
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Instrumento</th><th>Precio / Valor</th><th>Fórmula central</th><th>Ajustes clave</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Forward bono</strong><br>(inicio)</td>
+            <td>Precio Forward (FP)</td>
+            <td class="mono">FP = (S₀ − PVC) × (1+Rf)^T</td>
+            <td>PVC = VP cupones antes de T · Base 365</td>
+          </tr>
+          <tr>
+            <td><strong>Forward bono</strong><br>(valoración)</td>
+            <td>V_t (larga)</td>
+            <td class="mono">V_t = S_t − PVC_t − FP/(1+Rf)^(T−t)</td>
+            <td>Equivalente: (FP_t − FP) / (1+Rf)^(T−t)</td>
+          </tr>
+          <tr>
+            <td><strong>T-Bond Futures</strong></td>
+            <td>Precio Cotizado (QFP)</td>
+            <td class="mono">QFP = [Full Price×(1+Rf)^T − FVC − AI_T] × 1/CF</td>
+            <td>CF = factor de conversión del CTD · AI_T = interés acumulado al venc.</td>
+          </tr>
+          <tr>
+            <td><strong>FRA</strong><br>(precio)</td>
+            <td>Tasa Forward</td>
+            <td class="mono">Precio = [(1+R_largo)/(1+R_corto) − 1] × 360/d</td>
+            <td>R_período = Tasa_anual × d/360 · Base 360</td>
+          </tr>
+          <tr>
+            <td><strong>FRA</strong><br>(valoración al venc.)</td>
+            <td>Pago larga</td>
+            <td class="mono">Valor = [(MRR − SFR) × d/360 × N] / [1 + MRR × d/360]</td>
+            <td>El descuento es al inicio del préstamo (vencimiento del FRA)</td>
+          </tr>
+          <tr>
+            <td><strong>IRS</strong><br>(SFR)</td>
+            <td>Swap Fixed Rate</td>
+            <td class="mono">SFR_período = (1 − Z_final) / ΣZ</td>
+            <td>Z = 1/(1 + MRR × d/360) · SFR_anual = SFR_per × 360/d</td>
+          </tr>
+          <tr>
+            <td><strong>IRS</strong><br>(valoración)</td>
+            <td>V pagador fijo</td>
+            <td class="mono">V = ΣZ × (SFR_nueva − SFR_antigua) × d/360 × N</td>
+            <td>ΣZ = solo períodos restantes · Receptor fijo = −V pagador</td>
+          </tr>
+          <tr>
+            <td><strong>Currency Swap</strong><br>(valoración)</td>
+            <td>V neto</td>
+            <td class="mono">V = V_recibe − V_paga (en moneda común)</td>
+            <td>Cada lado valorado como bono · Convertir al TC actual</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

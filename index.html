@@ -1036,32 +1036,32 @@ html,body{height:100%;overflow:hidden;font-family:'Tahoma','Montserrat',sans-ser
   <div class="card">
     <div class="card-header">
       <span class="tag">Semana 12 · 1–4 jun 2026 · <span class="phase-badge phase-adv" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.8)">Avanzado</span></span>
-      <div class="wk-title-row"><h2 class="wk-title">Derivados de Renta Fija II: Derivados de Tasa de Interés</h2><a href="w12_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 12"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
-      <div class="wk-date">FRAs · IRS · Futuros de Tasa · Caps/Floors · Swaptions</div>
+      <div class="wk-title-row"><h2 class="wk-title">Derivados de Renta Fija II: Forwards, FRAs y Swaps</h2><a href="w12_onepager.html" class="onepager-btn" title="Ver one-pager · Semana 12"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.5 2.5h7m0 0v7m0-7L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> One-pager</a></div>
+      <div class="wk-date">Forwards sobre Bonos · FRA · IRS · Currency Swaps · CTD · QFP</div>
     </div>
     <div class="card-body">
       <div class="section-label">Resumen ejecutivo</div>
       <p class="summary-text" style="margin-bottom:20px">
-        Los derivados de tasa de interés permiten transferir, cubrir o expresar vistas sobre la curva sin modificar posiciones en bonos físicos. La semana parte de las tasas forward y discount factors formalizados desde el no-arbitraje, avanza hacia los FRAs como el instrumento más básico, y desarrolla los Interest Rate Swaps como portafolios de FRAs. El swap rate como par rate de la curva SOFR conecta con la term structure. Se trabajan los IR futures (T-Note, SOFR futures), la diferencia entre futuros y forwards (convexity adjustment, tailing the hedge), y los instrumentos de opcionalidad sobre tasas: caps (colección de caplets), floors, collars, y swaptions. El hedge ratio con futuros (DV01 matching) cierra la semana con aplicación directa de gestión de portafolios.
+        La semana desarrolla los derivados lineales sobre tasas de interés bajo el principio de no-arbitraje (cost-of-carry). Se inicia con los forwards sobre bonos con cupones: el precio forward se obtiene ajustando el precio spot completo por el valor presente (PVC) o futuro (FVC) de los cupones intermedios. Los T-Bond Futures introducen la opción de entrega (CTD) y el factor de conversión (CF) que determinan el Quoted Futures Price (QFP). Los FRAs fijan hoy la tasa de un préstamo futuro con tasas MRR add-on en base 360 y se valoran descontando el ahorro de interés. Los Interest Rate Swaps son portafolios de FRAs: la Swap Fixed Rate (SFR) se deriva de los factores de descuento Z de la curva MRR para que el valor inicial sea cero. Finalmente, los Currency Swaps extienden la mecánica al intercambio de dos divisas con nocionales explícitos y valoración como portafolio de bonos en cada moneda convertido al tipo de cambio actual.
       </p>
       <div class="section-label">Keywords</div>
       <div class="kw-list" style="margin-bottom:20px">
-        <span class="kw kw-blue">Interest Rate Swap (IRS)</span><span class="kw kw-blue">FRA (Forward Rate Agreement)</span><span class="kw kw-blue">SOFR Futures</span><span class="kw kw-blue">Swaption</span>
-        <span class="kw kw-outline">Cap / Floor / Collar</span><span class="kw kw-outline">Swap Rate</span><span class="kw kw-outline">Fixed vs. Floating</span>
-        <span class="kw kw-outline">Convexity Adjustment (Futures)</span><span class="kw kw-outline">DV01 Hedge Ratio</span>
-        <span class="kw kw-gray">CTD (Cheapest to Deliver)</span><span class="kw kw-gray">Tailing the Hedge</span><span class="kw kw-gray">CVA in Swaps</span>
+        <span class="kw kw-blue">Forward sobre Bono (Cost-of-Carry)</span><span class="kw kw-blue">FRA (Forward Rate Agreement)</span><span class="kw kw-blue">Interest Rate Swap (IRS)</span><span class="kw kw-blue">Currency Swap</span>
+        <span class="kw kw-outline">Swap Fixed Rate (SFR)</span><span class="kw kw-outline">Factor de Descuento (Z)</span><span class="kw kw-outline">PVC / FVC</span>
+        <span class="kw kw-outline">Tasa MRR (add-on, base 360)</span><span class="kw kw-outline">Precio limpio vs. sucio</span>
+        <span class="kw kw-gray">CTD (Cheapest to Deliver)</span><span class="kw kw-gray">Factor de Conversión (CF)</span><span class="kw kw-gray">QFP (Quoted Futures Price)</span>
       </div>
       <div class="section-label">Conceptos clave</div>
       <ul class="concepts" style="margin-bottom:20px">
-        <li><strong>Forward Discount Factor:</strong> <span class="math-block">\[F(t,T_1,T_2) = \frac{Z(t,T_2)}{Z(t,T_1)}\]</span> El forward rate es la tasa implícita entre \(T_1\) y \(T_2\) que garantiza no-arbitraje entre invertir directo a \(T_2\) o en dos tramos.</li>
-        <li><strong>IRS plain vanilla:</strong> una parte paga tasa fija (swap rate), recibe flotante (SOFR). <span class="math-block">\[V_{\text{swap}} = B_{\text{float}} - B_{\text{fixed}} = \sum_i \text{FRA}_i \cdot DF_i\]</span> En \(t=0\), el swap tiene valor cero (swap rate = par rate de la curva).</li>
-        <li><strong>Hedge ratio con futuros:</strong> <span class="math-block">\[N = \frac{(D^*_{\text{obj}} - D^*_{\text{actual}})\times MV_p}{D^*_f \times MV_f}\]</span> Permite ajustar la duration objetivo sin vender bonos. &ldquo;Tailing the hedge&rdquo; ajusta \(N\) por el tiempo al vencimiento del futuro.</li>
-        <li><strong>Convexity adjustment futuros:</strong> el futuro de tasa es marcado a mercado diariamente → no tiene la convexidad positiva del forward equivalente. El precio del futuro es ligeramente menor que el forward (el vendedor tiene ventaja por el mark-to-market).</li>
-        <li><strong>Cap = colección de caplets:</strong> cada caplet es una call option sobre la tasa de referencia para un período. Un cap sobre SOFR protege a un emisor a tasa flotante: si SOFR &gt; strike, recibe la diferencia. Floor es lo opuesto. Collar = comprar cap + vender floor.</li>
+        <li><strong>Precio Forward (Cost-of-Carry):</strong> <span class="math-block">\[\text{FP} = (S_0 - \text{PVC}) \times (1+R_f)^T = S_0 \times (1+R_f)^T - \text{FVC}\]</span> El comprador de la larga no recibe los cupones intermedios; el spot se ajusta por su valor presente. Alternativamente se restan en valor futuro al capitalizar \(S_0\).</li>
+        <li><strong>Valoración del forward:</strong> <span class="math-block">\[V_t(\text{largo}) = S_t - \text{PVC}_t - \frac{\text{FP}}{(1+R_f)^{T-t}} = \frac{\text{FP}_t - \text{FP}}{(1+R_f)^{T-t}}\]</span> Ambas formas son equivalentes: la segunda usa directamente el nuevo precio forward de mercado en <em>t</em>.</li>
+        <li><strong>FRA — Precio y valoración:</strong> el precio es la tasa forward MRR implícita. Al vencimiento, el pago es el ahorro de interés descontado al inicio del préstamo: \(\frac{(\text{MRR}-\text{FRA})\times\frac{d}{360}\times N}{1+\text{MRR}\times\frac{d}{360}}\). Antes del vencimiento, se recalcula una nueva tasa forward y se descuenta al plazo total restante.</li>
+        <li><strong>IRS — Swap Fixed Rate:</strong> <span class="math-block">\[Z_i = \frac{1}{1+\text{MRR}_i\times\frac{d_i}{360}}, \quad \text{SFR}_{\text{per}} = \frac{1-Z_{\text{final}}}{\sum Z_i}\]</span> La SFR iguala el VP de los pagos fijos con el VP de los pagos flotantes. El swap tiene valor cero al inicio.</li>
+        <li><strong>Currency Swap — Valoración:</strong> cada lado se valora como un bono (flujos + principal) con la curva MRR de su divisa. El lado extranjero se convierte al tipo de cambio <em>actual</em>. Valor neto = VP(lado recibido) − VP(lado pagado).</li>
       </ul>
       <div class="two-col">
-        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Calcular hedge ratio de portafolio con T-Note futures</li><li>Valuar IRS plain vanilla con curva SOFR actual</li><li>Diseñar collar de tasa para emisor de FRN con SOFR +150bps</li></ul></div>
-        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S5: Forward rates como base de FRAs y swap rate</li><li>← S6: Modelos de tasas para valorar swaptions</li><li>← S3: DV01 del portafolio es el input del hedge ratio</li><li>→ S14: Derivados como overlay en gestión de portafolios</li></ul></div>
+        <div class="mini"><h5>⚡ Aplicación práctica</h5><ul><li>Calcular FP de un T-Bond con cupones intermedios y verificar con FVC</li><li>Valorar un FRA 1×4 diez días después de su inicio con nueva curva MRR</li><li>Determinar SFR trimestral de un IRS a 1 año con curva spot dada</li></ul></div>
+        <div class="mini"><h5>🔗 Conexiones del curso</h5><ul><li>← S5: Forward rates como base de FRAs y swap rate</li><li>← S3: DV01 y duration conectan con el hedge ratio de futuros</li><li>← S11: CTD y factor de conversión ya aparecen en forwards sobre bonos</li><li>→ S14: IRS y currency swaps como overlay en gestión de portafolios</li></ul></div>
       </div>
     </div>
   </div>
@@ -1315,7 +1315,7 @@ counter.textContent = LABELS[0] + ' · 0 / ' + TOTAL;
 
 // ── Onepagers disponibles ─────────────────────────────────────────────────
 // Agrega el número de semana a este array cada vez que publiques un onepager.
-const ONEPAGERS_AVAILABLE = [1,2,3,4,5,6,7,9,10,11];
+const ONEPAGERS_AVAILABLE = [1,2,3,4,5,6,7,9,10,11,12];
 
 (function applyOnepagerState(){
   document.querySelectorAll('a.onepager-btn').forEach(btn => {

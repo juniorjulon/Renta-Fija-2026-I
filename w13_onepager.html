@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One-Pager · TITULIZACIÓN DE RENTA FIJA</title>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --navy:   #061942;
+  --corp:   #1E3771;
+  --mid:    #0054B0;
+  --vivid:  #1565C0;
+  --accent: #E8A020;
+  --steel:  #CED5DD;
+  --pale:   #EBF0F8;
+  --off:    #F5F7FA;
+  --white:  #FFFFFF;
+  --text:   #0D1B2A;
+  --muted:  #475569;
+  --mono:   'IBM Plex Mono', monospace;
+  --sans:   'IBM Plex Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--off); color: var(--text); font-size: 13.5px; line-height: 1.6; overflow-x: hidden; }
+
+@media print {
+  body { background: white; font-size: 11px; }
+  .no-print { display: none; }
+  .page-break { page-break-before: always; }
+  .section-block { break-inside: avoid; }
+}
+
+.back-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.10);color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.2);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:background .2s,color .2s;
+  position:absolute;top:24px;left:48px;z-index:10;
+}
+.back-btn:hover{background:rgba(255,255,255,.18);color:white;}
+
+.doc-header {
+  background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
+  color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.doc-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 30px,
+    rgba(255,255,255,.025) 30px, rgba(255,255,255,.025) 60px);
+}
+.doc-header::after {
+  content:''; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:rgba(255,255,255,.04); top:-160px; right:-80px;
+}
+.header-inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; }
+.header-eyebrow { font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:8px; }
+.header-title { font-size:clamp(20px,2.5vw,32px); font-weight:700; line-height:1.2; margin-bottom:6px; }
+.header-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:20px; }
+.header-pills { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.85); font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; letter-spacing:.3px; }
+.pill.accent { background:var(--accent); border-color:var(--accent); color:var(--navy); }
+
+.wrapper { max-width:1200px; margin:0 auto; padding:0 32px 60px; }
+
+.module-divider { margin:40px 0 0; display:flex; align-items:center; gap:14px; }
+.module-num { flex-shrink:0; width:42px; height:42px; border-radius:10px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; }
+.module-title-block h2 { font-size:18px; font-weight:700; color:var(--navy); line-height:1.2; }
+.module-title-block p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+.module-rule { flex:1; height:2px; background:linear-gradient(90deg, var(--corp), transparent); border-radius:2px; }
+
+.section-block { background:var(--white); border-radius:10px; border:1px solid rgba(206,213,221,.5); margin-top:20px; box-shadow:0 1px 8px rgba(6,25,66,.06); }
+.section-header { background:var(--pale); border-bottom:2px solid var(--corp); padding:10px 20px; display:flex; align-items:center; gap:10px; border-radius:10px 10px 0 0; }
+.section-num { font-family:var(--mono); font-size:10px; font-weight:500; color:var(--corp); letter-spacing:1px; background:white; border:1.5px solid var(--corp); padding:2px 8px; border-radius:4px; }
+.section-title { font-size:13px; font-weight:700; color:var(--navy); }
+.section-body { padding:18px 20px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:900px) { .grid-3,.grid-4 { grid-template-columns:1fr 1fr; } .grid-2 { grid-template-columns:1fr; } }
+@media (max-width:600px) { .grid-3,.grid-4 { grid-template-columns:1fr; } }
+
+.concept-card { background:var(--off); border-radius:8px; padding:14px 16px; border-left:3px solid var(--corp); }
+.concept-card.accent-gold { border-left-color:var(--accent); }
+.concept-card.accent-mid  { border-left-color:var(--mid); }
+.concept-card.accent-navy { border-left-color:var(--navy); }
+.concept-card.accent-green { border-left-color:#16A34A; }
+.concept-card.accent-red   { border-left-color:#DC2626; }
+.cc-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:6px; }
+.cc-label.gold  { color:#B45309; }
+.cc-label.mid   { color:var(--mid); }
+.cc-label.green { color:#15803D; }
+.cc-label.red   { color:#B91C1C; }
+.cc-def { font-size:12.5px; color:var(--text); line-height:1.55; }
+.cc-def strong { color:var(--navy); font-weight:600; }
+
+.formula-box { background:var(--navy); border-radius:8px; padding:14px 18px; margin:10px 0; }
+.formula-box .f-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.formula-box .f-eq { color:#93C5FD; font-size:14px; overflow-x:auto; }
+.formula-box .f-vars { margin-top:8px; font-size:11px; color:rgba(255,255,255,.55); line-height:1.7; }
+.formula-box .f-vars span { color:rgba(255,255,255,.8); }
+
+.formula-inline { background:var(--pale); border:1px solid var(--steel); border-radius:6px; padding:10px 16px; margin:8px 0; font-size:13.5px; overflow-x:auto; text-align:center; }
+
+.ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+.ref-table thead tr { background:var(--corp); color:white; }
+.ref-table thead th { padding:8px 12px; text-align:left; font-weight:600; font-size:11px; letter-spacing:.5px; }
+.ref-table tbody tr:nth-child(even) { background:var(--off); }
+.ref-table tbody tr:nth-child(odd)  { background:var(--white); }
+.ref-table td { padding:7px 12px; vertical-align:top; }
+.ref-table td strong { color:var(--navy); }
+.ref-table .mono { font-family:var(--mono); font-size:11px; color:var(--mid); }
+.ref-table .val-blue { color:var(--mid); font-weight:700; font-family:var(--mono); }
+.ref-table .val-red  { color:#DC2626; font-weight:700; font-family:var(--mono); }
+.ref-table .val-green { color:#15803D; font-weight:700; font-family:var(--mono); }
+
+.badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.badge { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; letter-spacing:.2px; }
+.badge-blue    { background:var(--corp); color:white; }
+.badge-outline { background:transparent; color:var(--corp); border:1.5px solid var(--corp); }
+.badge-gray    { background:var(--steel); color:var(--text); }
+.badge-gold    { background:var(--accent); color:var(--navy); }
+.badge-pale    { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.rule-callout { background:linear-gradient(90deg,rgba(30,55,113,.07),rgba(30,55,113,.02)); border-left:4px solid var(--corp); border-radius:0 6px 6px 0; padding:10px 16px; font-size:12.5px; color:var(--text); margin:10px 0; }
+.rule-callout strong { color:var(--navy); }
+.rule-callout.gold { background:linear-gradient(90deg,rgba(228,160,32,.1),transparent); border-left-color:var(--accent); }
+.rule-callout.green { background:linear-gradient(90deg,rgba(22,163,74,.08),transparent); border-left-color:#16A34A; }
+.rule-callout.red   { background:linear-gradient(90deg,rgba(220,38,38,.07),transparent); border-left-color:#DC2626; }
+
+.cmp-strip { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--steel); margin:10px 0; }
+.cmp-strip-3 { grid-template-columns:1fr 1fr 1fr; }
+.cmp-strip-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+.cmp-cell { padding:12px 14px; border-right:1px solid var(--steel); }
+.cmp-cell:last-child { border-right:none; }
+.cmp-cell.up      { background:#EFF6FF; }
+.cmp-cell.flat    { background:#F0FDF4; }
+.cmp-cell.down    { background:#FFF1F2; }
+.cmp-cell.neutral { background:var(--pale); }
+.cmp-cell.gold-bg { background:#FEFCE8; }
+.cmp-cell .cmp-head { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+.cmp-cell.up   .cmp-head { color:var(--mid); }
+.cmp-cell.flat .cmp-head { color:#15803D; }
+.cmp-cell.down .cmp-head { color:#BE123C; }
+.cmp-cell.neutral .cmp-head { color:var(--corp); }
+.cmp-cell.gold-bg .cmp-head { color:#92400E; }
+.cmp-cell .cmp-rule { font-size:13px; font-weight:700; margin-bottom:4px; }
+.cmp-cell p { font-size:11.5px; color:var(--muted); }
+
+.step-flow { display:flex; gap:0; align-items:stretch; margin:10px 0; }
+.step-item { flex:1; background:var(--pale); padding:10px 12px; border-right:2px solid white; position:relative; font-size:12px; }
+.step-item:last-child { border-right:none; }
+.step-item::after { content:'▶'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--corp); font-size:12px; z-index:1; }
+.step-item:last-child::after { display:none; }
+.step-n { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--corp); letter-spacing:1px; margin-bottom:4px; }
+.step-txt { font-size:11.5px; color:var(--text); }
+
+.inner-divider { height:1px; background:var(--off); margin:14px 0; }
+.footnote { font-size:11px; color:var(--muted); padding:8px 12px; background:var(--off); border-radius:0 0 8px 8px; border-top:1px solid var(--steel); margin-top:4px; }
+
+.ex-box { background:var(--off); border:1px solid var(--steel); border-radius:8px; padding:12px 16px; margin:10px 0; }
+.ex-box .ex-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--corp); margin-bottom:8px; }
+.ex-box .ex-body { font-size:12px; line-height:1.7; }
+.ex-box .ex-result { font-size:13px; font-weight:700; color:var(--mid); margin-top:6px; }
+.ex-box .ex-result.red { color:#DC2626; }
+.ex-box .ex-result.green { color:#15803D; }
+
+.result-banner { border-radius:6px; padding:9px 16px; font-size:13px; font-weight:700; text-align:center; margin:8px 0; }
+.result-banner.loss { background:#FEE2E2; color:#991B1B; border:1px solid #FECACA; }
+.result-banner.gain { background:#DCFCE7; color:#166534; border:1px solid #BBF7D0; }
+.result-banner.neutral { background:var(--pale); color:var(--corp); border:1px solid var(--steel); }
+
+.print-btn { position:fixed; bottom:28px; right:28px; background:var(--corp); color:white; border:none; border-radius:30px; padding:12px 22px; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; box-shadow:0 4px 16px rgba(6,25,66,.25); transition:all .2s; z-index:99; }
+.print-btn:hover { background:var(--navy); transform:translateY(-2px); }
+
+.slide-tag { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; background:rgba(30,55,113,.10); color:var(--corp); border:1px solid rgba(30,55,113,.2); border-radius:4px; padding:1px 7px; letter-spacing:.5px; margin-left:8px; vertical-align:middle; }
+
+.table-scroll-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+
+@media (max-width:600px) {
+  .cmp-strip-3 { grid-template-columns:1fr 1fr; }
+  .cmp-strip-4 { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:420px) {
+  .cmp-strip,.cmp-strip-3,.cmp-strip-4 { grid-template-columns:1fr; }
+  .cmp-cell { border-right:none; border-bottom:1px solid var(--steel); }
+  .cmp-cell:last-child { border-bottom:none; }
+}
+
+@media (max-width:768px) {
+  body { font-size:13px; }
+  .doc-header { padding:24px 20px 22px; }
+  .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .wrapper { padding:0 16px 40px; }
+  .module-divider { margin-top:28px; gap:10px; }
+  .module-num { width:36px; height:36px; font-size:14px; }
+  .module-title-block h2 { font-size:16px; }
+  .module-title-block p { font-size:10.5px; }
+  .section-header { padding:9px 14px; }
+  .section-body { padding:14px 14px; }
+  .header-pills { gap:6px; }
+  .pill { font-size:10px; padding:3px 10px; }
+  .ex-box { padding:10px 12px; }
+  .ex-box .ex-body { font-size:11.5px; line-height:1.65; word-break:break-word; }
+  .formula-box { padding:10px 12px; }
+  .formula-box .f-eq { font-size:12px; }
+  .grid-2, .grid-3, .grid-4 { gap:12px; }
+  .ref-table { font-size:11px; }
+  .ref-table thead th { padding:6px 8px; font-size:10px; }
+  .ref-table td { padding:6px 8px; }
+  .step-flow { flex-direction:column; gap:4px; }
+  .step-item::after { display:none; }
+  .step-item { border-right:none; border-bottom:2px solid white; border-radius:6px; }
+  .print-btn { padding:10px 16px; font-size:12px; bottom:16px; right:16px; }
+}
+@media (max-width:480px) {
+  .header-title { font-size:20px; line-height:1.15; }
+  .header-sub { font-size:12px; }
+  .header-eyebrow { font-size:9px; letter-spacing:2px; }
+  .pill { font-size:9.5px; padding:3px 8px; letter-spacing:.2px; }
+  .section-title { font-size:12px; }
+  .section-num { font-size:9px; padding:2px 6px; }
+  .concept-card { padding:11px 12px; }
+  .cc-def { font-size:12px; }
+  .cc-label { font-size:9.5px; letter-spacing:1px; }
+  .formula-box .f-eq { font-size:11px; overflow-x:auto; }
+  .formula-box .f-vars { font-size:10px; }
+  .rule-callout { font-size:11.5px; padding:9px 12px; }
+  .result-banner { font-size:12px; padding:8px 12px; }
+  .ref-table { font-size:10.5px; }
+  .badge { font-size:10px; padding:3px 8px; }
+}
+
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .section-body > * { min-width:0; }
+.formula-box .f-eq { max-width:100%; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="doc-header">
+  <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <div class="header-inner">
+    <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 13</div>
+    <h1 class="header-title">Titulización de Renta Fija: ABS, MBS y CDO</h1>
+    <p class="header-sub">One-pager de referencia rápida · Prof. Serhat Yaman</p>
+    <div class="header-pills">
+      <span class="pill accent">01 Fundamentos de la Titulización</span>
+      <span class="pill">02 Instrumentos ABS</span>
+      <span class="pill">03 Instrumentos MBS</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 01 · FUNDAMENTOS DE LA TITULIZACIÓN
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">01</div>
+  <div class="module-title-block">
+    <h2>Fundamentos de la Titulización</h2>
+    <p>Proceso (3 pasos) · Beneficios para originadores, inversores y economía · Riesgos ABS · Partes: SPE, servicer, trustee · Etapas: cesión, estructuración, distribución</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 1.1 Proceso y beneficios originadores -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.1</span>
+    <span class="section-title">El Proceso de Titulización y Beneficios para el Originador</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Definición</div>
+          <div class="cc-def">
+            La <strong>titulización</strong> es el proceso por el cual activos de deuda (préstamos o cuentas por cobrar) se agrupan y se transforman en valores de renta fija negociables (ABS). Desintermedia al banco originador conectando directamente capital con prestatarios.
+          </div>
+        </div>
+        <div class="step-flow">
+          <div class="step-item">
+            <div class="step-n">PASO 1</div>
+            <div class="step-txt"><strong>Creación del pool.</strong> El <em>originador</em> (banco/empresa) agrupa activos de deuda.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-n">PASO 2</div>
+            <div class="step-txt"><strong>Venta a SPE.</strong> El pool (colateral) se vende a la <em>entidad de propósito especial</em>.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-n">PASO 3</div>
+            <div class="step-txt"><strong>Emisión ABS.</strong> La SPE emite valores respaldados por los flujos del colateral.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Beneficios para el Originador</div>
+          <div class="cc-def">
+            <strong>Mayor actividad de negocio.</strong> Al titulizar la cartera, el banco recibe fondos y origina nuevos préstamos sin crecer el balance.<br><br>
+            <strong>Mejora de la rentabilidad.</strong> Cobra comisiones por originar la transacción y por vender el colateral a la SPE.<br><br>
+            <strong>Menores reservas de capital.</strong> Al retirar los préstamos del balance, se reduce el riesgo de crédito y las reservas regulatorias exigidas.<br><br>
+            <strong>Mejora de la liquidez.</strong> Permite vender carteras ilíquidas, operando más eficientemente desde la perspectiva riesgo/retorno.<br><br>
+            <em style="font-size:11px;color:var(--muted)">Nota: el emisor real de los ABS es la SPE, no el banco originador (el vendedor).</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.2 Beneficios para inversores y riesgos -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.2</span>
+    <span class="section-title">Beneficios para Inversores y Economía · Riesgos para Inversores en ABS</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Para Inversores</div>
+            <div class="cmp-rule">Acceso y diversificación</div>
+            <p><strong>Riesgo/retorno a medida:</strong> perfiles personalizados sin recursos especializados de originación.<br>
+            <strong>Acceso:</strong> inversión en pools de colateral sin administrar préstamos directamente.<br>
+            <strong>Liquidez:</strong> los ABS son más fáciles de vender que el colateral subyacente.</p>
+          </div>
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Para la Economía</div>
+            <div class="cmp-rule">Eficiencia sistémica</div>
+            <p><strong>Menor riesgo de liquidez:</strong> ABS se negocian más fácilmente que el colateral.<br>
+            <strong>Mayor eficiencia:</strong> la liquidez ayuda a fijar precios de equilibrio.<br>
+            <strong>Menores costos de financiamiento</strong> y menor apalancamiento para los originadores.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-red">
+          <div class="cc-label red">Riesgos para Inversores en ABS</div>
+          <div class="cc-def">
+            <strong>Incertidumbre de flujos de caja.</strong> Los flujos del colateral varían en tiempo y monto; por ejemplo, los prestatarios hipotecarios pueden prepagar a un ritmo distinto al esperado.<br><br>
+            <strong>Riesgo de crédito del colateral.</strong> El riesgo de crédito del colateral se traspasa directamente a los inversores del ABS.<br><br>
+            <strong>Riesgo sistémico.</strong> La acumulación de riesgo de crédito en los ABS puede afectar todo el sistema financiero, como evidenció la crisis de 2007–2009.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 Partes y etapas -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">1.3</span>
+    <span class="section-title">Partes, Roles y Etapas del Proceso</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="table-scroll-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Parte</th><th>Rol</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Vendedor / Originador</strong><br><span class="mono">seller / depositor</span></td>
+                <td>Origina los préstamos y vende la cartera a la SPE. Capta fondos mediante la titulización.</td>
+              </tr>
+              <tr>
+                <td><strong>Emisor / Trust</strong><br><span class="mono">SPE o SPV</span></td>
+                <td>Entidad de propósito especial, independiente del vendedor. Compra activos y emite los ABS.</td>
+              </tr>
+              <tr>
+                <td><strong>Administrador</strong><br><span class="mono">servicer</span></td>
+                <td>Realiza cobranzas, envía avisos de morosidad y gestiona garantías. Puede ser el mismo vendedor.</td>
+              </tr>
+              <tr>
+                <td><strong>Fiduciario</strong><br><span class="mono">trustee</span></td>
+                <td>Supervisa custodia del colateral y flujos a inversores. Es desinteresado (sin interés en la estructura).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Etapas del Proceso</div>
+          <div class="cc-def">
+            <strong>Cesión del colateral.</strong> El vendedor cede la cartera a la SPE mediante un contrato de compra (<em>purchase agreement</em>).<br><br>
+            <strong>Estructuración y emisión.</strong> La SPE emite ABS respaldados por flujos del colateral. El <em>prospecto</em> describe comisiones y distribución de flujos.<br><br>
+            <strong>Distribución de flujos.</strong> Los pagos de principal e intereses se asignan a las comisiones del servicer y a los pagos de los tenedores de ABS.
+          </div>
+        </div>
+        <div class="rule-callout gold">
+          <strong>Bankruptcy remote.</strong> Como la SPE es una entidad legal separada, un deterioro financiero del originador no afecta los derechos de los inversores sobre los flujos del colateral. Los compradores del ABS solo tienen derecho sobre el colateral vendido a la SPE.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 02 · INSTRUMENTOS ABS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">02</div>
+  <div class="module-title-block">
+    <h2>Instrumentos ABS y Características del Mercado</h2>
+    <p>Covered bonds · Mejora crediticia interna (sobrecolateralización, excess spread, tranching) · ABS no hipotecarios (tarjetas, solar) · CDO / CLO / CBO</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 2.1 Covered bonds -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.1</span>
+    <span class="section-title">Bonos Cubiertos (Covered Bonds): Estructura y Doble Recurso</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">ABS (titulización clásica)</div>
+            <div class="cmp-rule">Pool fuera del balance</div>
+            <p>El colateral se vende a una <strong>SPE</strong>. El inversor solo tiene derecho sobre el colateral de la SPE. Pool <strong>fijo</strong> a la emisión. Reduce reservas de capital del emisor.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">Covered Bond</div>
+            <div class="cmp-rule">Cover pool en balance + doble recurso</div>
+            <p>El cover pool <strong>permanece en el balance</strong>. No se crea SPE. Pool <strong>dinámico</strong> (el emisor repone activos morosos/prepagados). Sin alivio de capital. Sin tranching crediticio.</p>
+          </div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Doble Recurso (Dual Recourse)</div>
+          <div class="cc-def">
+            Ante default del emisor, el inversor tiene derechos sobre <strong>(1) el cover pool</strong> y <strong>(2) otros activos no gravados</strong> del emisor (<em>unencumbered assets</em>). Esto no existe en ABS con SPE. Mejoras adicionales: límites de LTV sobre hipotecas del cover pool, <strong>sobrecolateralización</strong> y monitoreo independiente por un tercero. Resultado: rendimientos <strong>menores</strong> que ABS comparables.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Tipos según Default del Emisor</div>
+          <div class="cc-def">
+            <strong>Hard-bullet.</strong> El bono entra en default si el emisor no realiza un pago programado, acelerando los pagos hacia los tenedores.<br><br>
+            <strong>Soft-bullet.</strong> Puede posponer la fecha de vencimiento original hasta por un año si se incumple un pago, aplazando el default y la aceleración asociada.<br><br>
+            <strong>Conditional pass-through.</strong> En la fecha de vencimiento se convierte en un bono pass-through si quedan pagos pendientes; cualquier pago recuperado del cover pool se traspasa a los inversores.
+          </div>
+        </div>
+        <div class="rule-callout">
+          Los covered bonds los emiten principalmente bancos europeos, asiáticos y australianos. El cover pool suele estar formado por préstamos hipotecarios.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.2 Mejora crediticia interna -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.2</span>
+    <span class="section-title">Mejora Crediticia Interna: Sobrecolateralización, Excess Spread y Tranching</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip cmp-strip-3" style="margin-bottom:10px">
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Sobrecolateralización</div>
+            <div class="cmp-rule">V<sub>colateral</sub> &gt; V<sub>ABS</sub></div>
+            <p>El colateral puede sufrir defaults de hasta el exceso antes de que los inversores pierdan.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Excess Spread</div>
+            <div class="cmp-rule">Rendimiento col. &gt; Cupón ABS</div>
+            <p>La diferencia acumulada sirve como reserva para absorber pérdidas crediticias del colateral.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Tranching (Waterfall)</div>
+            <div class="cmp-rule">Senior → Mezz → Equity</div>
+            <p>Las tranches subordinadas absorben primero las pérdidas, protegiendo a las senior.</p>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Sobrecolateralización</div>
+          <div class="f-eq">
+            $$\text{Sobrecol.} = V_{\text{colateral}} - V_{\text{nominal ABS}}$$
+            $$\text{Absorción máxima} = \frac{\text{Sobrecol.}}{V_{\text{colateral}}}$$
+          </div>
+          <div class="f-vars">
+            Ejemplo: colateral $600M, ABS $500M → exceso $100M<br>
+            Puede absorber hasta <span>$100/$600 = 16.7%</span> de defaults antes de pérdidas al inversor
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box" style="margin-bottom:10px">
+          <div class="ex-title">Ejercicio — Estructura de Tranches y Orden de Pérdidas</div>
+          <div class="ex-body">
+            <table class="ref-table" style="margin-bottom:8px">
+              <thead><tr><th>Tranche</th><th>Nominal</th><th>Tasa</th></tr></thead>
+              <tbody>
+                <tr><td><strong>A — Senior</strong></td><td>$300M</td><td class="val-blue">MRR + 0.5%</td></tr>
+                <tr><td><strong>B — Subordinada</strong></td><td>$80M</td><td class="val-blue">MRR + 1.5%</td></tr>
+                <tr><td><strong>C — Equity</strong></td><td>$30M</td><td class="val-blue">Variable</td></tr>
+              </tbody>
+            </table>
+            <strong>Tranche C (equity)</strong> absorbe los primeros $30M de pérdidas.<br>
+            <strong>Tranche B</strong> absorbe pérdidas entre $30M y $110M.<br>
+            <strong>Tranche A</strong> protegida ante pérdidas ≤ $110M (27% del pool).
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejercicio — Cupón Tranche B con Defaults de $50M · MRR = 4%</div>
+          <div class="ex-body">
+            Inversor con $10M nominales de Tranche B (MRR 4% + 1.5% spread):<br><br>
+            <strong>Sin defaults:</strong>
+            $$\$10M \times (0.04 + 0.015) = \$550{,}000 / \text{año}$$
+            <strong>Con $50M defaults:</strong> C absorbe $30M; B se reduce de $80M a $60M.
+            $$\$550{,}000 \times \frac{60}{80} = \$412{,}500 / \text{año}$$
+          </div>
+          <div class="ex-result">El cupón se reduce en proporción al nominal vigente de la tranche.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 ABS no hipotecarios -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.3</span>
+    <span class="section-title">ABS No Hipotecarios: Tarjetas de Crédito y Solar</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">ABS de Tarjetas de Crédito</div>
+          <div class="cc-def">
+            Respaldados por pools de deuda de tarjetas (<em>cuentas por cobrar nonamortizing</em>).<br><br>
+            <strong>Flujos del pool:</strong> cargos financieros (intereses), comisiones de membresía y mora, y repagos de principal. Tasas fijas o flotantes, usualmente con <em>cap</em>.<br><br>
+            <strong>Período de lockout (revolving):</strong> los inversores solo reciben interés y comisiones; los repagos de principal se usan para comprar nuevas cuentas por cobrar, manteniendo el pool constante. <em>Sin riesgo de prepago</em> durante este período.<br><br>
+            <strong>Período de amortización:</strong> al terminar el lockout, los pagos de principal del colateral se traspasan a los tenedores.<br><br>
+            <strong>Early (rapid) amortization:</strong> provisión que adelanta la amortización cuando se deteriora la calidad crediticia.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-green">
+          <div class="cc-label green">ABS Solar (Residential Solar ABS)</div>
+          <div class="cc-def">
+            Respaldados por préstamos a hogares para financiar sistemas de energía solar.<br><br>
+            <strong>Colateral.</strong> Préstamos de financieras especializadas o subsidiarias de empresas solares. Pueden garantizarse sobre el propio sistema solar o sobre la vivienda como <em>hipoteca junior</em>.<br><br>
+            <strong>Atractivo ESG.</strong> Financian el cambio a energía renovable; atractivos para inversores con mandatos ambientales, sociales y de gobernanza.<br><br>
+            <strong>Riesgo crediticio bajo pero clase nueva.</strong> Otorgados a hogares con buen score crediticio; aún no probados en un ciclo de crédito completo.<br><br>
+            <strong>Pre-funding period.</strong> Permite al trust invertir en préstamos solares durante un plazo fijo tras captar fondos, logrando un pool mayor y más diversificado.
+          </div>
+        </div>
+        <div class="rule-callout" style="margin-top:10px">
+          En principio, <strong>cualquier activo que genere flujos futuros puede titulizarse</strong>: préstamos comerciales, cuentas por cobrar, préstamos de auto, regalías musicales, licencias de franquicia.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.4 CDO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">2.4</span>
+    <span class="section-title">Obligaciones de Deuda Colateralizada (CDO): CBO, CLO y Tipos</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Estructura General del CDO</div>
+          <div class="cc-def">
+            Un <strong>CDO</strong> es un valor estructurado emitido por una SPE cuyo colateral es un pool de obligaciones de deuda. Lo distingue de un ABS común su <strong>collateral manager activo</strong>, que compra y vende valores del pool dinámicamente para generar los pagos prometidos.<br><br>
+            Emite tranches subordinadas similar a un ABS. La estructura debe ofrecer retorno atractivo a la tranche equity tras cubrir los rendimientos de las tranches de deuda senior.<br><br>
+            Post-crisis 2007–2009: estructuras más simples, mayor calidad de colateral. Hoy el colateral es mayormente <em>leveraged loans</em>, por lo que el CDO más común es el <strong>CLO</strong>.
+          </div>
+        </div>
+        <div class="cmp-strip">
+          <div class="cmp-cell up">
+            <div class="cmp-head">CBO</div>
+            <div class="cmp-rule">Collateralized Bond Obligation</div>
+            <p>Colateral: <strong>deuda corporativa y de mercados emergentes</strong>. Pool formado por valores de renta fija (bonos). Puede incluir deuda soberana de países en desarrollo.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">CLO</div>
+            <div class="cmp-rule">Collateralized Loan Obligation</div>
+            <p>Colateral: <strong>cartera de préstamos bancarios apalancados</strong> (leveraged loans). Pool formado por préstamos, no bonos. Es hoy la forma más común de CDO.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Tipos de CLO</div>
+          <div class="cc-def">
+            <strong>Cash flow CLO.</strong> Los pagos a inversores se generan a través de los flujos de caja del colateral.<br><br>
+            <strong>Market value CLO.</strong> Los pagos se generan negociando el valor de mercado del colateral.<br><br>
+            <strong>Synthetic CLO.</strong> La exposición al pool se genera mediante contratos de <em>derivados de crédito</em>; el trust del CLO <strong>no toma propiedad</strong> del colateral.
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-label">Tests de Cobertura y Calidad del Colateral</div>
+          <div class="cc-def">
+            El colateral de un CDO se somete a pruebas preestablecidas:<br>
+            • <strong>Cobertura de pagos:</strong> flujos del colateral cubren los pagos a inversores.<br>
+            • <strong>Niveles de sobrecolateralización por tranche:</strong> si se incumplen, los flujos se redirigen a comprar colateral adicional o pagar tranches senior.<br>
+            • <strong>Diversificación del pool</strong> de colateral.<br>
+            • <strong>Límite a deuda CCC</strong> dentro del pool.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MÓDULO 03 · INSTRUMENTOS MBS
+══════════════════════════════════════════════ -->
+<div class="module-divider">
+  <div class="module-num">03</div>
+  <div class="module-title-block">
+    <h2>Instrumentos MBS y Características del Mercado</h2>
+    <p>Riesgo de prepago · Time tranching · LTV · DTI · RMBS agency/non-agency · WAM · WAC · CMO (sequential pay, PAC) · CMBS (DSCR, call protection, balloon risk)</p>
+  </div>
+  <div class="module-rule"></div>
+</div>
+
+<!-- 3.1 Riesgo de prepago y time tranching -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.1</span>
+    <span class="section-title">Riesgo de Prepago: Extension Risk, Contraction Risk y Time Tranching</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">Riesgo de Prepago (Prepayment Risk)</div>
+          <div class="cc-def">
+            Los <strong>prepagos</strong> son repagos de principal por encima del cronograma de un préstamo amortizing. En un pool hipotecario, los prestatarios prepagan al vender su vivienda o refinanciar.<br><br>
+            El <strong>riesgo de prepago</strong> es el riesgo de que las velocidades de prepago resulten distintas a las expectativas del inversor.<br><br>
+            <strong>Determinante clave:</strong> el nivel de las tasas de interés. Cuando bajan, los prestatarios refinancian a tasas menores, acelerando los prepagos.<br><br>
+            <strong>Analogía:</strong> los MBS se parecen a bonos rescatables (callable). El prestatario tiene el derecho de repagar anticipadamente → <em>convexidad negativa</em> a tasas bajas.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell down">
+            <div class="cmp-head">Contraction Risk</div>
+            <div class="cmp-rule">Prepagos más rápidos</div>
+            <p>Ocurre cuando las <strong>tasas bajan</strong> y aumentan las refinanciaciones. El inversor recibe capital antes de lo esperado y debe reinvertir a tasas menores. El precio sube menos que otros instrumentos.</p>
+          </div>
+          <div class="cmp-cell up">
+            <div class="cmp-head">Extension Risk</div>
+            <div class="cmp-rule">Prepagos más lentos</div>
+            <p>Ocurre cuando las <strong>tasas suben</strong> y se frena la refinanciación. El inversor espera más por sus flujos, que se descuentan por más períodos a una tasa de descuento mayor.</p>
+          </div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-label">Time Tranching — Redistribución del Riesgo de Prepago</div>
+          <div class="cc-def">
+            Un MBS con <strong>time tranching</strong> tiene distintas clases de bonos con distintos vencimientos. Los riesgos no desaparecen pero se <strong>redistribuyen</strong> entre tranches:<br><br>
+            • Tranches de <strong>menor vencimiento</strong> → más protección contra <em>extension risk</em>.<br>
+            • Tranches de <strong>mayor vencimiento</strong> → más protección contra <em>contraction risk</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.2 Préstamos hipotecarios residenciales -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.2</span>
+    <span class="section-title">Préstamos Hipotecarios Residenciales: LTV, DTI, Recurso y Clasificación</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="formula-box" style="margin-bottom:10px">
+          <div class="f-label">Métricas de Riesgo de Originación</div>
+          <div class="f-eq">
+            $$\text{LTV} = \frac{\text{Monto del préstamo}}{\text{Valor del inmueble}}$$
+            $$\text{DTI} = \frac{\text{Pago mensual de la deuda}}{\text{Ingreso bruto mensual}}$$
+          </div>
+          <div class="f-vars">
+            <span>LTV bajo</span> → mayor equity del prestatario, menor riesgo de default, mayor recuperación en foreclosure<br>
+            <span>DTI bajo</span> → menor riesgo de default (prestatario tiene más margen)
+          </div>
+        </div>
+        <div class="ex-box">
+          <div class="ex-title">Ejemplo — Hipoteca $300K sobre inmueble $400K · Tasa 6% · 25 años · Ingreso $80K/año</div>
+          <div class="ex-body">
+            $$\text{LTV} = \frac{\$300{,}000}{\$400{,}000} = 75\%$$
+            PMT: N=300, I/Y=0.5%, PV=$300K → <strong>PMT = $1,932.90/mes</strong><br>
+            Ingreso mensual: $80,000 / 12 = $6,667
+            $$\text{DTI} = \frac{\$1{,}932.90}{\$6{,}667} \approx 29\%$$
+          </div>
+          <div class="ex-result">LTV = 75% · DTI = 29%</div>
+        </div>
+      </div>
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Recourse (con recurso)</div>
+            <div class="cmp-rule">Recurso a otros activos</div>
+            <p>El prestamista puede reclamar otros activos del prestatario por el monto no cubierto en la ejecución. Reduce el incentivo a incumplir. Común en <strong>Europa</strong>.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Nonrecourse (sin recurso)</div>
+            <div class="cmp-rule">Solo el inmueble como colateral</div>
+            <p>Si el valor cae por debajo del saldo (<em>underwater</em>), el prestatario es más propenso al <strong>default estratégico</strong>. Común en <strong>EE.UU.</strong> (varía por estado).</p>
+          </div>
+        </div>
+        <div class="cmp-strip cmp-strip-3">
+          <div class="cmp-cell up">
+            <div class="cmp-head">Prime</div>
+            <p>Buen crédito, LTV bajo, DTI bajo.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Subprime</div>
+            <p>Menor calidad crediticia, mayor DTI/LTV, menor prioridad sobre colateral.</p>
+          </div>
+          <div class="cmp-cell neutral">
+            <div class="cmp-head">Conforming</div>
+            <p>Cumple estándares de suscripción para agency RMBS. Non-conforming si no los cumple.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 RMBS y CMO -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.3</span>
+    <span class="section-title">RMBS: Agency vs. Non-Agency · WAM, WAC · CMO: Sequential Pay y PAC</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="cmp-strip" style="margin-bottom:10px">
+          <div class="cmp-cell flat">
+            <div class="cmp-head">Agency RMBS</div>
+            <div class="cmp-rule">Garantía del gobierno o GSE</div>
+            <p>Garantizados por gobierno o empresa patrocinada por el gobierno (GSE). Hipotecas deben ser <strong>conforming</strong>. Garantías GSE ≠ plena fe y crédito del gobierno.</p>
+          </div>
+          <div class="cmp-cell down">
+            <div class="cmp-head">Non-Agency RMBS</div>
+            <div class="cmp-rule">Emisores privados, sin garantía</div>
+            <p>Emitidos por bancos; <strong>sin garantía</strong> del gobierno ni GSE. Incluyen mejoras crediticias (seguros, cartas de crédito, tranching). Señalados como catalizador de la crisis 2007–2009.</p>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Pass-Through Hipotecario: WAM y WAC</div>
+          <div class="f-eq">
+            $$\text{WAM} = \sum_i \frac{\text{Saldo}_i}{\text{Saldo Total}} \times \text{Meses a venc.}_i$$
+            $$\text{WAC} = \sum_i \frac{\text{Saldo}_i}{\text{Saldo Total}} \times \text{Tasa}_i$$
+          </div>
+          <div class="f-vars">
+            <span>Pass-through rate</span> = cupón del MBS &lt; WAC (se descuentan comisiones de administración y garantía)<br>
+            Ponderación por saldo de principal vigente de cada hipoteca
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-box" style="margin-bottom:10px">
+          <div class="ex-title">Ejercicio — WAM y WAC de pool con 3 hipotecas (saldos en miles)</div>
+          <div class="ex-body">
+            <table class="ref-table" style="margin-bottom:8px">
+              <thead><tr><th>Hip.</th><th>Tasa</th><th>Saldo act.</th><th>Meses venc.</th></tr></thead>
+              <tbody>
+                <tr><td>A</td><td>2.6%</td><td>$90K</td><td>210</td></tr>
+                <tr><td>B</td><td>1.0%</td><td>$72K</td><td>100</td></tr>
+                <tr><td>C</td><td>5.4%</td><td>$247K</td><td>280</td></tr>
+              </tbody>
+            </table>
+            Total = $409K
+            $$\text{WAM} = \frac{90(210)+72(100)+247(280)}{409} \approx \mathbf{233\text{ meses}}$$
+            $$\text{WAC} = \frac{90(2.6\%)+72(1.0\%)+247(5.4\%)}{409} \approx \mathbf{4.01\%}$$
+          </div>
+        </div>
+        <div class="concept-card accent-mid">
+          <div class="cc-label mid">CMO: Sequential Pay y PAC Tranches</div>
+          <div class="cc-def">
+            <strong>Sequential pay CMO:</strong> los pagos de principal fluyen a las tranches en orden preestablecido; hasta que la primera tranche se paga por completo, el principal va solo a esa tranche. La tranche "corta" protege contra <em>extension risk</em>; la "larga", contra <em>contraction risk</em>.<br><br>
+            <strong>PAC (Planned Amortization Class):</strong> hace pagos predecibles mientras los prepagos estén dentro de un rango. La <em>support tranche</em> absorbe el exceso si prepagos aumentan, y es recortada si disminuyen, preservando el cronograma de la PAC.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-divider"></div>
+
+    <div class="concept-card accent-navy">
+      <div class="cc-label">Otros Tramos CMO</div>
+      <div class="cc-def" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div><strong>Z-tranche (accrual).</strong> No recibe interés durante un período; en su lugar, acumula interés como principal extra (e.g., $100 × 1.05 = $105 al final del primer período con cupón 5%). Suele ser la tranche de menor rango.</div>
+        <div><strong>PO (Principal-only).</strong> Paga solo principal; es efectivamente un cupón cero. Tasas a la baja y prepagos más rápidos <em>benefician</em> al PO (cuanto antes se repaga, mayor el retorno anualizado).<br><br>
+        <strong>IO (Interest-only).</strong> Paga solo interés. Tasas a la baja y prepagos rápidos <em>perjudican</em> al IO.</div>
+        <div><strong>Floating-rate.</strong> Cupón ligado a tasa de referencia variable con cap y floor. Puede estructurarse como <em>inverse floater</em> (cupón sube cuando tasas bajan).<br><br>
+        <strong>Residual.</strong> Rango junior a todas las demás tranches; similar a la tranche equity de un ABS.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.4 CMBS -->
+<div class="section-block">
+  <div class="section-header">
+    <span class="section-num">3.4</span>
+    <span class="section-title">CMBS: Colateral Comercial, DSCR, Call Protection y Balloon Risk</span>
+  </div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div>
+        <div class="concept-card accent-mid" style="margin-bottom:10px">
+          <div class="cc-label mid">CMBS vs. RMBS</div>
+          <div class="cc-def">
+            Los <strong>CMBS</strong> se respaldan en hipotecas comerciales sobre inmuebles que generan ingresos: multifamiliares, naves industriales, centros comerciales, oficinas, hoteles.<br><br>
+            <strong>Menor diversificación:</strong> menos hipotecas que los RMBS; incluso un CMBS puede respaldarse en una sola hipoteca.<br><br>
+            <strong>Quién repaga:</strong> inversores inmobiliarios que dependen de sus inquilinos (empresas) y de los clientes de estos, no dueños-ocupantes.<br><br>
+            <strong>Cupones:</strong> fijos en EE.UU.; flotantes en Europa. El ingreso regular del colateral se denomina <em>WAMP</em> (análogo al WAC de RMBS).<br><br>
+            El análisis se centra en el <strong>riesgo de crédito del inmueble</strong>, no en el del prestatario.
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="f-label">Ratios de Riesgo CMBS</div>
+          <div class="f-eq">
+            $$\text{DSCR} = \frac{\text{Ingreso operativo neto}}{\text{Servicio de la deuda}}$$
+            $$\text{LTV} = \frac{\text{Monto del préstamo}}{\text{Valor de tasación}}$$
+          </div>
+          <div class="f-vars">
+            <span>NOI</span> = ingresos por alquiler − gastos operativos en efectivo − reserva de reemplazo (depreciación)<br>
+            <span>DSCR alto</span> → mayor protección para el prestamista<br>
+            <span>LTV alto</span> → mayor riesgo de default
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="concept-card accent-navy" style="margin-bottom:10px">
+          <div class="cc-label">Call Protection (Protección contra Prepagos)</div>
+          <div class="cc-def">
+            Los CMBS brindan call protection a nivel del préstamo y a nivel de estructura:<br><br>
+            <strong>Prepayment lockout.</strong> Por un período (típicamente 2–5 años) el prestatario tiene prohibido prepagar el préstamo.<br><br>
+            <strong>Penalty points.</strong> Comisión de penalidad expresada en puntos; cada punto = 1% del principal prepagado.<br><br>
+            <strong>Defeasance.</strong> El prestatario compra una cartera de valores del gobierno suficiente para cubrir los pagos programados restantes, protegiendo al prestamista del prepago.<br><br>
+            <strong>A nivel de estructura:</strong> sequential pay tranching del pool (igual que en los CMO).
+          </div>
+        </div>
+        <div class="rule-callout red">
+          <strong>Balloon Risk.</strong> Las hipotecas comerciales típicamente no se amortizan por completo: al vencimiento queda un <em>balloon payment</em>. Si el prestatario no logra refinanciar, entra en default. El prestamista puede extender el plazo bajo un <em>workout period</em>. Como implica extender el plazo, es una forma de <strong>extension risk</strong> para el inversor de CMBS.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla resumen -->
+<div class="section-block" style="margin-top:20px">
+  <div class="section-header">
+    <span class="section-num">REF</span>
+    <span class="section-title">Tabla Resumen: Conceptos Clave de la Semana</span>
+  </div>
+  <div class="section-body">
+    <div class="table-scroll-wrap">
+      <table class="ref-table">
+        <thead>
+          <tr><th>Instrumento</th><th>Característica clave</th><th>Riesgo principal</th><th>Nota distintiva</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ABS (titulización)</strong></td>
+            <td>Pool vendido a SPE → bankruptcy remote; pool fijo a emisión</td>
+            <td>Flujos inciertos + riesgo de crédito del colateral</td>
+            <td>Mejoras internas: OC, excess spread, tranching waterfall</td>
+          </tr>
+          <tr>
+            <td><strong>Covered Bond</strong></td>
+            <td>Cover pool en balance; pool dinámico; sin SPE; doble recurso</td>
+            <td>Riesgo del emisor (además del pool)</td>
+            <td>Menor rendimiento que ABS; tipos: hard-bullet, soft-bullet, CPT</td>
+          </tr>
+          <tr>
+            <td><strong>CDO / CLO</strong></td>
+            <td>Collateral manager activo; colateral = obligaciones de deuda</td>
+            <td>Correlación de defaults en el pool</td>
+            <td>CBO = bonos; CLO = leveraged loans (hoy el más común)</td>
+          </tr>
+          <tr>
+            <td><strong>RMBS pass-through</strong></td>
+            <td>Derechos pro-rata sobre flujos del pool, neto de comisiones</td>
+            <td>Prepayment risk (contraction + extension)</td>
+            <td>WAC − comisiones = pass-through rate; WAM pondera saldos vigentes</td>
+          </tr>
+          <tr>
+            <td><strong>CMO sequential</strong></td>
+            <td>Principal fluye en orden a tranches; redistribuye riesgo de prepago</td>
+            <td>Tranche corta: extension risk; larga: contraction risk</td>
+            <td>PAC + support tranche: planificación de amortización dentro de un rango</td>
+          </tr>
+          <tr>
+            <td><strong>CMBS</strong></td>
+            <td>Hipotecas comerciales; análisis centrado en NOI del inmueble</td>
+            <td>Balloon risk → extension risk</td>
+            <td>DSCR = NOI / servicio deuda; call protection: lockout, penalty points, defeasance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<button class="print-btn no-print" onclick="window.print()">Imprimir / PDF</button>
+
+</body>
+</html>

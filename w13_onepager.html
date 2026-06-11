@@ -51,6 +51,17 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 }
 .back-btn:hover{background:rgba(255,255,255,.18);color:white;}
 
+.resource-btn {
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--accent);color:var(--navy);
+  border:1.5px solid var(--accent);border-radius:20px;
+  font-family:var(--sans);font-size:11px;font-weight:700;
+  letter-spacing:.8px;text-transform:uppercase;text-decoration:none;
+  padding:6px 16px;cursor:pointer;transition:filter .2s,transform .15s;
+  position:absolute;top:24px;right:48px;z-index:10;
+}
+.resource-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+
 .doc-header {
   background: linear-gradient(135deg, var(--navy) 0%, #0D2150 45%, #0054B0 100%);
   color: white; padding: 36px 48px 32px; position: relative; overflow: hidden;
@@ -203,6 +214,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
   body { font-size:13px; }
   .doc-header { padding:24px 20px 22px; }
   .back-btn { position:static; margin-bottom:12px; display:inline-flex; top:auto; left:auto; }
+  .resource-btn { position:static; margin:0 0 12px 8px; display:inline-flex; top:auto; right:auto; }
   .wrapper { padding:0 16px 40px; }
   .module-divider { margin-top:28px; gap:10px; }
   .module-num { width:36px; height:36px; font-size:14px; }
@@ -252,6 +264,7 @@ body { font-family: var(--sans); background: var(--off); color: var(--text); fon
 <!-- ══════════════════ HEADER ══════════════════ -->
 <header class="doc-header">
   <a class="back-btn no-print" href="index.html">← Course Map</a>
+  <a class="resource-btn no-print" href="resources/titulizacion_explainer.html" title="Guía interactiva: calculadoras, simulador de waterfall y quizzes">⚡ Guía interactiva</a>
   <div class="header-inner">
     <div class="header-eyebrow">Universidad del Pacífico · Renta Fija 2026-I · Semana 13</div>
     <h1 class="header-title">Titulización de Renta Fija: ABS, MBS y CDO</h1>

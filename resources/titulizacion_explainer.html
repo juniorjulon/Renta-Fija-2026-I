@@ -136,6 +136,12 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
 .key-idea { background:var(--pale); border:1px solid var(--steel); border-left:4px solid var(--mid); border-radius:8px; padding:12px 16px; margin:12px 0; font-size:12.5px; }
 .key-idea .ki-tag { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--mid); margin-bottom:4px; }
 
+/* Teaching boxes (explicaciones "desde cero") */
+.teach { background:#F6F2FC; border:1px solid #DCCDF2; border-left:4px solid #7C3AED; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:12.5px; line-height:1.62; }
+.teach .t-tag { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#6D28D9; margin-bottom:5px; }
+.teach b, .teach strong { color:#4C1D95; }
+.teach .mini-ej { background:white; border:1px dashed #C4B5FD; border-radius:6px; padding:8px 12px; margin-top:8px; font-size:12px; }
+
 /* ───────────── Steps / flow diagram ───────────── */
 .steps-flow { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:8px; align-items:stretch; margin:14px 0; }
 @media (max-width:780px){ .steps-flow { grid-template-columns:1fr; } .steps-flow .flow-arrow { transform:rotate(90deg); justify-self:center; } }
@@ -267,6 +273,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
       <span class="pill">Parte 2 · ABS</span>
       <span class="pill">Parte 3 · MBS</span>
       <span class="pill">Interactivo · Calculadoras + Quizzes</span>
+      <span class="pill">🟣 Cuadros morados = explicación desde cero</span>
     </div>
   </div>
 </header>
@@ -300,6 +307,14 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-header"><span class="section-num">1.1</span><span class="section-title">El proceso de titulización en 3 pasos</span></div>
     <div class="section-body">
       <p>La <strong>titulización (securitization)</strong> es el proceso mediante el cual préstamos u otros activos generadores de flujos de caja se agrupan y se transforman en valores negociables de renta fija. Su efecto económico clave: <strong>conecta a los dueños del capital (inversionistas) con quienes lo necesitan (los deudores del pool)</strong>, retirando al banco o corporación originadora del proceso de intermediación.</p>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Qué significa todo esto?</div>
+        Empecemos por el principio. Normalmente un banco funciona como <b>intermediario</b>: capta dinero de los ahorristas (depósitos) y lo presta a quienes lo necesitan (hipotecas, créditos vehiculares). El banco queda "en el medio": si los deudores no pagan, el problema es del banco, y mientras los préstamos no se cobren, ese dinero está "atrapado" en su balance.<br><br>
+        La titulización rompe ese esquema: el banco <b>empaqueta</b> miles de préstamos y vende el paquete a inversionistas en forma de bonos. Ahora el dinero de los inversionistas financia directamente a los deudores, y las cuotas mensuales que pagan esos deudores son las que pagan los cupones de los bonos. El banco cobra su comisión y sale de la foto.
+        <div class="mini-ej">🍞 <b>Analogía:</b> vender préstamos uno por uno sería como vender panes sueltos puerta a puerta: lento y costoso. La titulización es empaquetarlos en cajas estandarizadas que cualquiera puede comprar en el supermercado financiero: el ABS es la "caja" — una porción estandarizada y negociable de un paquete de miles de préstamos.</div>
+      </div>
+
       <p style="font-size:12px;color:var(--muted);">👇 Haz clic en cada paso para ver el detalle.</p>
 
       <div class="steps-flow">
@@ -339,7 +354,15 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
   <div class="section-block">
     <div class="section-header"><span class="section-num">1.2</span><span class="section-title">Beneficios de la titulización</span></div>
     <div class="section-body">
-      <p>El examen exige distinguir los beneficios <strong>para tres grupos distintos</strong>: originadores, inversionistas, y la economía/mercados financieros. Despliega cada grupo:</p>
+      <p>Es clave distinguir los beneficios <strong>para tres grupos distintos</strong>: originadores, inversionistas, y la economía/mercados financieros. Antes de la lista, dos conceptos previos que necesitas para entenderla:</p>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · Dos conceptos previos</div>
+        <b>① Reservas de capital:</b> los reguladores obligan a los bancos a mantener un "colchón" de capital propio proporcional al riesgo de sus activos — para que, si los préstamos fallan, las pérdidas las absorba el banco y no los ahorristas. Cada préstamo que el banco mantiene en su balance "consume" parte de ese colchón. Si el banco <b>vende</b> los préstamos, libera colchón y puede usarlo para crecer. Por eso "sacar préstamos del balance" es tan valioso para un banco.<br><br>
+        <b>② Liquidez:</b> un activo es líquido si puede venderse rápido y sin sacrificar precio. Un préstamo individual es muy ilíquido (¿a quién le vendes la hipoteca del Sr. Pérez? ¿cómo verifica el comprador que el Sr. Pérez paga puntual?). Un bono estandarizado que cotiza en el mercado, con rating y prospecto, es muchísimo más líquido. La titulización <b>convierte lo ilíquido en líquido</b>.
+      </div>
+
+      <p>Ahora sí, despliega cada grupo:</p>
 
       <div class="acc open">
         <button class="acc-head" onclick="toggleAcc(this)">🏦 Para los emisores (el banco/corporación originadora) <span class="chev">▶</span></button>
@@ -357,7 +380,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         <button class="acc-head" onclick="toggleAcc(this)">👤 Para los inversionistas <span class="chev">▶</span></button>
         <div class="acc-body">
           <ul>
-            <li><b>Riesgo y retorno a la medida (tailored):</b> la estructura permite crear valores con perfiles de riesgo/retorno alineados a cada inversionista. <i>Ejemplo:</i> un inversionista con horizonte largo puede invertir en un portafolio de hipotecas de largo plazo con riesgo aceptable y ganar <b>más que los Treasuries de larga duración</b>.</li>
+            <li><b>Riesgo y retorno a la medida (tailored):</b> la estructura permite crear valores con perfiles de riesgo/retorno alineados a cada inversionista. <i>Ejemplo:</i> un inversionista con horizonte largo puede invertir en un portafolio de hipotecas de largo plazo con riesgo aceptable y ganar <b>más que los Treasuries de larga duración</b> (los bonos del Tesoro de EE.UU., la referencia "libre de riesgo" del mercado).</li>
             <li><b>Acceso:</b> invertir en ABS da exposición al pool de colateral <b>sin necesitar los recursos ni la experiencia especializada</b> para originar y administrar préstamos. <i>Ejemplo:</i> un fondo de pensiones no puede montar una red de agencias para colocar créditos vehiculares, pero sí puede comprar un auto-loan ABS.</li>
             <li><b>Liquidez:</b> los ABS se venden a otros inversionistas <b>más fácilmente que el colateral subyacente</b>, permitiendo reaccionar rápido a cambios de mercado (vender 50,000 préstamos individuales sería casi imposible).</li>
           </ul>
@@ -390,6 +413,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-body">
       <p><strong>Fred Motor Company</strong> vende la mayoría de sus autos con contratos de venta a plazos (préstamos vehiculares): Fred <b>origina</b> los préstamos garantizados con los autos y, a través de una subsidiaria financiera, también los <b>administra</b> (cobra cuotas, envía avisos de morosidad, embarga y liquida autos en caso de impago — es el <b>servicer</b>).</p>
       <p>Fred tiene <b>50,000 préstamos vehiculares por USD 1,000 millones</b> que quiere sacar de su balance para volver a prestar. Para lograrlo, vende el portafolio a una SPE llamada <b>Auto Loan Trust</b> por USD 1,000 MM. El diagrama resume la estructura de la transacción:</p>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Qué gana Fred exactamente?</div>
+        Sin titulización, Fred tendría que <b>esperar 4 o 5 años</b> a que cada uno de sus 50,000 clientes termine de pagar sus cuotas para recuperar los $1,000 MM — asumiendo todo ese tiempo el riesgo de que algunos no paguen. Con la titulización, Fred recibe <b>$1,000 MM hoy, en efectivo</b>, transfiere el riesgo de impago a los inversionistas, y puede usar ese dinero <b>de inmediato</b> para financiar más ventas de autos (que es su verdadero negocio: vender autos, no cobrar cuotas). Los inversionistas, a cambio de su dinero hoy, reciben el derecho a cobrar las cuotas futuras con su interés.
+      </div>
 
       <div class="fred-diagram">
         <div class="fred-box"><div class="fb-title">Clientes compran autos</div><div class="fb-role">Deudores del colateral</div></div>
@@ -434,6 +462,12 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-header"><span class="section-num">1.4</span><span class="section-title">Bankruptcy remote: la propiedad clave de la SPE</span></div>
     <div class="section-body">
       <p>Como la SPE es una <strong>entidad legal separada</strong> de Fred, un deterioro en la situación financiera de Fred <b>no afecta</b> el valor de los derechos de los tenedores del ABS sobre los flujos del colateral del trust. Esto se conoce como que la SPE es <strong>bankruptcy remote</strong> (remota a la quiebra) respecto del originador.</p>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · La intuición del "bankruptcy remote"</div>
+        La palabra clave es que la operación con la SPE es una <b>venta de verdad</b>: los préstamos ya <b>no le pertenecen</b> a Fred, le pertenecen al trust. Es como si Fred vendiera una casa: si después Fred quiebra, sus acreedores no pueden tocar esa casa, porque ya no es suya — sin importar cuán desesperados estén.<br><br>
+        ¿Por qué importa tanto? Porque el inversionista del ABS solo necesita responder <b>una pregunta: ¿pagarán los 50,000 deudores de autos?</b> No necesita preocuparse por la salud financiera de Fred, sus otras deudas, sus juicios laborales ni sus malas decisiones corporativas. Eso hace al ABS más fácil de analizar, de calificar… y de vender.
+      </div>
       <div class="vs-strip">
         <div class="vs-cell">
           <div class="vs-title">✅ Si Fred tituliza (vende a la SPE)</div>
@@ -516,6 +550,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-body">
       <p>Los <strong>covered bonds</strong> son obligaciones de deuda <b>senior</b> de instituciones financieras, parecidas a los ABS, pero con una diferencia estructural fundamental: los activos subyacentes (el <strong>cover pool</strong>), aunque segregados del resto de activos del emisor, <b>permanecen en el balance</b> de la corporación emisora — <b>no se crea ninguna SPE</b>. Se emiten principalmente por bancos europeos, asiáticos y australianos, y el cover pool suele consistir en préstamos hipotecarios.</p>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Qué significa "recurso" (recourse)?</div>
+        "Tener recurso contra alguien" significa <b>tener el derecho legal de cobrarle</b>. En un ABS normal, si el colateral no alcanza para pagar, el inversionista no puede reclamarle nada a nadie más: su único "bolsillo" de cobro es el colateral de la SPE. En un covered bond, el inversionista tiene <b>dos bolsillos</b>: el cover pool <i>y además</i> el resto de activos libres del banco emisor. Más bolsillos = más seguridad = el inversionista acepta un rendimiento menor. <b>En finanzas, seguridad y rendimiento siempre se intercambian.</b>
+      </div>
+
       <div class="key-idea">
         <div class="ki-tag">🔑 Dual recourse (doble recurso)</div>
         Si el emisor incumple, el inversionista del covered bond tiene <b>doble derecho de cobro</b>: (1) sobre el <b>cover pool</b>, y (2) — a diferencia de una titulización con SPE — sobre los <b>demás activos del emisor</b> que no estén pignorados como colateral de otra deuda (<b>activos no comprometidos / unencumbered assets</b>).
@@ -576,6 +615,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-body">
       <p>Las <strong>mejoras crediticias internas</strong> son características de la estructura diseñadas para mitigar el riesgo de crédito que enfrentan los inversionistas por defaults en el pool de colateral. Toman <b>tres formas principales</b>:</p>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Por qué hacen falta "mejoras"?</div>
+        En un pool de miles de préstamos, <b>siempre</b> habrá deudores que no paguen — es estadísticamente inevitable, incluso en pools de buena calidad. Entonces la pregunta correcta no es <i>"¿habrá defaults?"</i> sino <b>"¿quién absorbe esas pérdidas y en qué orden?"</b>. Las mejoras crediticias son los mecanismos que responden esa pregunta: crean "colchones" (colateral extra, ingresos extra, o un tramo junior que aceptó ir primero en la fila de pérdidas a cambio de más rendimiento) para que el inversionista del tramo senior solo pierda en escenarios extremos.
+      </div>
+
       <div class="grid-3">
         <div class="concept-card accent-mid">
           <div class="cc-label mid">1 · Sobrecolateralización</div>
@@ -589,6 +633,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
           <div class="cc-label">3 · Subordinación (credit tranching)</div>
           <div class="cc-def">El ABS se estructura con <strong>múltiples clases (tranches)</strong> con distinta prioridad sobre los flujos. Los tramos subordinados <b>absorben pérdidas primero</b>, protegiendo a los senior.</div>
         </div>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Mini-ejemplo · Exceso de spread en números</div>
+        Supón que el pool de préstamos rinde en promedio <b>7%</b> anual y el ABS promete a sus inversionistas un cupón de <b>5%</b>. Esa diferencia de <b>2%</b> no se reparte: se acumula en una cuenta de reserva dentro de la estructura. Si un año los defaults consumen el equivalente a 1.5% del pool, la reserva los cubre y el inversionista <b>ni se entera</b>. Solo si las pérdidas superan lo acumulado empiezan a golpear a los tranches (empezando por el de menor rango). Es el mismo principio de una aseguradora: cobra primas de sobra en años buenos para pagar siniestros en años malos.
       </div>
 
       <!-- Widget: overcollateralization -->
@@ -618,6 +667,13 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
       <div class="prof-note">
         <div class="pn-tag">🎓 Nota del profesor</div>
         Esta estructura de subordinación no es nueva: es <b>la misma idea</b> que la estructura de capital de un emisor corporativo (deuda senior / deuda junior / acciones). Y es a través del tranching + el bankruptcy remoteness de la SPE que <b>los tramos senior de un ABS pueden recibir ratings crediticios superiores al de la compañía originadora</b>.
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · La analogía del edificio en zona inundable</div>
+        Imagina un edificio de 3 pisos construido junto a un río. Cuando llega la inundación (las pérdidas por default), el agua cubre primero el <b>primer piso (Tranche C, el equity)</b>; solo si sigue subiendo alcanza el <b>segundo piso (Tranche B)</b>; y únicamente en una catástrofe llega al <b>tercer piso (Tranche A, el senior)</b>. Por eso el piso de arriba es el más seguro y paga el interés más bajo, y el de abajo es el más riesgoso y exige el mayor retorno potencial.<br><br>
+        ¿Quién compra el primer piso? Inversionistas sofisticados (hedge funds, el propio originador) dispuestos a perderlo todo a cambio de quedarse con <b>todo lo que sobre</b> después de pagar a los demás (el derecho residual) — igual que el accionista de una empresa.<br><br>
+        <i>Nota sobre la tabla:</i> <b>MRR</b> = <i>market reference rate</i>, la tasa de referencia del mercado (p. ej., SOFR). Un cupón "MRR + 1.5%" es flotante: se recalcula cada periodo sumando 1.5% a la tasa de referencia vigente.
       </div>
 
       <!-- Widget: waterfall -->
@@ -746,6 +802,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         El CDO <b>no depende solo de los pagos de un pool estático</b>. Tiene un <strong>collateral manager</strong> que <b>compra y vende dinámicamente</b> los valores del pool para generar el efectivo con el que se cumplen los pagos prometidos a los inversionistas.
       </div>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ABS "pasivo" vs. CDO "gestionado"</div>
+        Un ABS normal es como una <b>fotografía</b>: el pool se arma una vez, queda fijo, y los flujos simplemente pasan a los inversionistas — nadie toma decisiones después de la emisión. Un CDO es como una <b>película con director</b>: el collateral manager compra y vende activos dentro del pool — parecido a cómo el gestor de un fondo mutuo rota su portafolio — buscando generar el efectivo necesario para cumplir los pagos prometidos. Esto agrega una capa extra de riesgo para el inversionista: ya no depende solo de la calidad del colateral, sino también de la <b>habilidad del gestor</b>.
+      </div>
+
       <div class="prof-note">
         <div class="pn-tag">🎓 Nota del profesor · ¿Qué es un leveraged loan?</div>
         Son <b>préstamos bancarios senior garantizados</b> otorgados a compañías que <b>ya tienen altos niveles de deuda</b> o un historial crediticio pobre.
@@ -831,6 +892,12 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="section-body">
       <p>Los <strong>prepagos (prepayments)</strong> son repagos de principal de los deudores hipotecarios <b>en exceso del cronograma</b> del préstamo amortizable. En un pool, siempre habrá deudores que prepagan — típicamente porque <b>venden la casa</b> o <b>refinancian</b> su hipoteca. La valuación de un MBS se basa en una <b>velocidad de prepago supuesta</b>; el <strong>riesgo de prepago</strong> es el riesgo de que la velocidad real resulte <b>distinta a la esperada</b> por los inversionistas cuando compraron el MBS.</p>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Qué es prepagar y por qué pasa?</div>
+        Una hipoteca tiene un cronograma: por ejemplo, 360 cuotas mensuales fijas. <b>Prepagar</b> es devolver capital antes de lo programado. ¿Por qué alguien haría eso? Porque vendió la casa y debe cancelar la hipoteca, porque recibió un dinero extra… o — el caso más importante — porque <b>las tasas bajaron</b> y le conviene <b>refinanciar</b>: pide una hipoteca nueva más barata y con ese dinero cancela la antigua.<br><br>
+        Para el deudor, refinanciar es una excelente noticia (paga menos cada mes). Para el inversionista que cobraba los flujos de esa hipoteca es una <b>mala noticia</b>: le devuelven su dinero antes de tiempo, justo cuando reinvertirlo rinde menos. Fíjate en la asimetría: <b>el deudor tiene la opción y la ejerce cuando le conviene a él</b> — es decir, cuando le perjudica al inversionista. Ese es el corazón de todo este tema.
+      </div>
+
       <div class="grid-2">
         <div class="concept-card accent-red">
           <div class="cc-label red">Contraction risk (riesgo de contracción)</div>
@@ -862,6 +929,10 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         <div class="prof-note">
           <div class="pn-tag">🎓 Nota del profesor</div>
           Un MBS se comporta como un <b>bono callable</b>: el deudor tiene el derecho de repagar el préstamo anticipadamente (≈ "call" del emisor). Resultado: <b>convexidad negativa a yields bajos</b> — el precio sube cada vez más despacio conforme cae el yield. (Conecta con S7 del curso: callable bonds.)
+        </div>
+        <div class="teach">
+          <div class="t-tag">🟣 Desde cero · ¿Por qué "convexidad negativa"?</div>
+          Un bono normal sube de precio cada vez más rápido cuando las tasas caen (eso es la convexidad positiva). Un MBS no: su precio tiene una especie de <b>techo</b>. ¿Por qué? Porque el mercado sabe que si las tasas siguen bajando, los deudores refinanciarán y el principal se devolverá <b>a la par (100)</b>. Nadie está dispuesto a pagar 110 por un instrumento que probablemente le devuelvan a 100 en cualquier momento. Ese aplanamiento de la curva precio–tasa cuando los yields son bajos es la <b>convexidad negativa</b>: el precio sube cada vez más despacio conforme cae el yield.
         </div>
       </div>
 
@@ -908,6 +979,13 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         <div class="f-label">Métricas de riesgo del deudor</div>
         <div class="f-eq">\[ LTV = \frac{\text{monto del préstamo}}{\text{valor de la propiedad}} \qquad\qquad DTI = \frac{\text{pago mensual de deuda}}{\text{ingreso bruto mensual (pretax)}} \]</div>
         <div class="f-vars"><span>LTV (loan-to-value):</span> menor LTV → más equity del deudor → menos riesgo (más que perder si incumple, y más recupero para el prestamista). &nbsp;·&nbsp; <span>DTI (debt-to-income):</span> menor DTI → menor riesgo de default.</div>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · La lógica detrás del LTV y el DTI</div>
+        <b>LTV — "¿cuánto pone el deudor de su bolsillo?"</b> Si la casa vale $400,000 y el banco presta $300,000 (LTV = 75%), el deudor puso $100,000 de su propio dinero — su <i>equity</i> en la propiedad. Ese deudor pensará dos veces antes de dejar de pagar: perdería su inversión ("skin in the game"). Y si el banco tuviera que rematar la casa, hay un margen del 25% para recuperar lo prestado aunque el precio del remate sea castigado.<br><br>
+        <b>DTI — "¿le alcanza el sueldo?"</b> Mide qué porción del ingreso mensual se va en pagar deudas. Un DTI de 29% deja espacio de sobra para vivir y absorber imprevistos; un DTI de 55% describe una familia al límite: cualquier shock (despido, enfermedad) la empuja al impago.<br><br>
+        <b>¿Y el PMT?</b> Es la <b>cuota mensual fija</b> que amortiza por completo el préstamo en el plazo pactado: cada cuota mezcla interés (sobre el saldo aún adeudado) y un poco de capital. La fórmula de anualidad \( PMT = P \cdot \frac{r}{1-(1+r)^{-n}} \) (con \(r\) = tasa mensual y \(n\) = número de meses) hace ese cálculo — y es exactamente lo que resuelve la calculadora financiera con N, I/Y, PV → PMT.
       </div>
 
       <!-- Widget DTI/LTV -->
@@ -966,6 +1044,12 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         <div class="f-vars"><span>WAM (weighted average maturity):</span> vencimiento promedio ponderado del pool. &nbsp;·&nbsp; <span>WAC (weighted average coupon):</span> tasa promedio ponderada. Ambos usan el <span>saldo vigente (current balance)</span> como peso, no el saldo original.</div>
       </div>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Por qué promedio "ponderado" y por qué pondera el saldo vigente?</div>
+        Un promedio simple trataría igual a una hipoteca de $90,000 que a una de $247,000 — pero la grande aporta casi el triple de flujos al pool, así que debe "pesar" el triple en el promedio. Por eso cada hipoteca entra al cálculo en proporción a su tamaño.<br><br>
+        ¿Y por qué el saldo <b>vigente</b> y no el original? Porque lo que importa es el dinero que <b>todavía está prestado hoy</b>: esa es la base sobre la que se generan los intereses y los repagos futuros que cobrará el inversionista. Una hipoteca que nació en $200,000 pero ya se amortizó hasta $72,000 solo aporta flujos sobre esos $72,000.
+      </div>
+
       <!-- Widget WAM/WAC -->
       <div class="widget">
         <span class="widget-tag">🧮 Calculadora · WAM y WAC</span>
@@ -1007,6 +1091,10 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
             <li>El tranche <b>largo</b> (último en cobrar principal) → más protección contra <b>contracción</b>, pero carga más <b>extensión</b>.</li>
             <li>Inversionistas que prefieren plazos cortos eligen los tranches que se pagan antes (menor vida promedio esperada).</li>
           </ul>
+          <div class="teach">
+            <div class="t-tag">🟣 Analogía · La fila</div>
+            Piensa en los tranches como personas en una <b>fila de cobro</b>: todo el principal que llega del pool (programado o prepagado) se le entrega íntegro al primero de la fila hasta saldar su parte; recién entonces empieza a cobrar el segundo. El primero sabe que saldrá pronto — su riesgo es que lo paguen <i>demasiado</i> pronto (contracción). El último sabe que esperará — su riesgo es que la fila avance más lento de lo previsto (extensión). El riesgo total de la fila no cambió: solo se repartió según la posición.
+          </div>
         </div>
       </div>
 
@@ -1036,6 +1124,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
                 <li><b>Tasas ↓ / prepagos ↑ → DAÑAN al IO:</b> si el principal se repaga antes, quedan <b>menos cupones</b> por cobrar. (Raro y examinable: ¡el IO puede perder valor cuando las tasas bajan!)</li>
               </ul>
             </div>
+          </div>
+          <div class="teach">
+            <div class="t-tag">🟣 Desde cero · ¿Por qué el IO pierde cuando las tasas bajan?</div>
+            El IO solo cobra <b>intereses</b>, y los intereses se calculan sobre el <b>principal que sigue vivo</b>. Si los deudores prepagan masivamente (tasas bajando), el principal vivo se desploma… y con él desaparecen los cupones futuros del IO. Por eso el IO es de los pocos instrumentos de renta fija que puede <b>perder valor cuando las tasas caen</b> — un resultado contraintuitivo que conviene entender bien.<br><br>
+            El PO es el espejo: lo compraste con descuento (digamos, pagaste 70 por cada 100 de principal) y tu ganancia es la diferencia hasta 100. Cuanto antes te devuelvan el principal, antes cobras esa ganancia → mayor retorno <b>anualizado</b>. Mismo pool, mismos flujos totales — pero al separarlos en "solo principal" y "solo interés", cada pieza reacciona en dirección opuesta al prepago.
           </div>
         </div>
       </div>
@@ -1079,6 +1172,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
         <li>Como las hipotecas comerciales son <b>nonrecourse</b>, el análisis se centra en el <b>riesgo de crédito de la propiedad</b>, no del deudor.</li>
       </ul>
 
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Por qué se analiza la propiedad y no al deudor?</div>
+        Estas hipotecas son <b>nonrecourse</b>: si el negocio inmobiliario fracasa, el prestamista solo puede quedarse con el edificio — no puede perseguir el resto del patrimonio del deudor. Entonces las preguntas relevantes no son "¿qué tan rico es el dueño?" sino: <b>① "¿este edificio genera suficiente renta para pagar su propia deuda?"</b> (eso mide el DSCR) y <b>② "si tengo que rematarlo, ¿su valor cubre el préstamo?"</b> (eso mide el LTV). El edificio es, a la vez, la fuente de pago y la garantía.
+      </div>
+
       <div class="formula-box">
         <div class="f-label">Las dos métricas de crédito del CMBS</div>
         <div class="f-eq">\[ DSCR = \frac{\text{ingreso operativo neto (NOI)}}{\text{servicio de deuda}} \qquad\qquad LTV = \frac{\text{saldo actual de la hipoteca}}{\text{valor de tasación actual}} \]</div>
@@ -1103,6 +1201,11 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
           <div class="cc-label gold">Nivel estructura (CMBS-level)</div>
           <div class="cc-def">Los pools de préstamos pueden someterse a <b>sequential pay tranching</b>, igual que en los CMO: los tranches de menor prioridad proveen protección a los más senior.</div>
         </div>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Mini-ejemplo · El pago "globo"</div>
+        Un préstamo comercial de $10 MM a 7 años puede tener cuotas calculadas como si se fuera a pagar en 25 años (amortización parcial). Resultado: al cumplirse los 7 años solo se ha amortizado una fracción y queda un saldo enorme — digamos $8.5 MM — que vence <b>de golpe</b>: el pago globo. El deudor nunca planeó pagarlo de su bolsillo; su plan siempre fue <b>refinanciarlo</b> con un préstamo nuevo. ¿El problema? Si el vencimiento llega en medio de una crisis de crédito y nadie le presta, no puede pagar el globo aunque su edificio siga rentando bien. Eso es el <b>balloon risk</b>.
       </div>
 
       <div class="key-idea">

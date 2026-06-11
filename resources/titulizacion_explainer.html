@@ -7,7 +7,7 @@
 
 <script>
 window.MathJax = {
-  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
   options: { skipHtmlTags: ['script','noscript','style','textarea'] }
 };
 </script>
@@ -135,6 +135,29 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
 .prof-note .pn-tag { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#B45309; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
 .key-idea { background:var(--pale); border:1px solid var(--steel); border-left:4px solid var(--mid); border-radius:8px; padding:12px 16px; margin:12px 0; font-size:12.5px; }
 .key-idea .ki-tag { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--mid); margin-bottom:4px; }
+
+/* ───────────── Mapa mental del universo ABS ───────────── */
+.abs-map { background:linear-gradient(180deg,#FBFCFE,var(--pale)); border:1.5px solid var(--corp); border-radius:10px; padding:18px 20px 14px; margin:14px 0; overflow-x:auto; }
+.tree, .tree ul { list-style:none; margin:0; padding:0; }
+.tree ul { padding-left:26px; position:relative; }
+.tree ul::before { content:''; position:absolute; left:8px; top:-6px; bottom:16px; border-left:2px solid #AEBDD6; }
+.tree li { position:relative; padding:7px 0 2px 24px; }
+.tree li::before { content:''; position:absolute; left:-18px; top:24px; width:40px; border-top:2px solid #AEBDD6; }
+.tree ul > li::before { left:8px; width:14px; }
+.tree > li { padding-left:0; }
+.tree > li::before { display:none; }
+.tree li:last-child::after { content:''; position:absolute; left:8px; top:25px; bottom:0; width:2px; background:var(--pale); }
+.tree > li:last-child::after { display:none; }
+.node { display:inline-block; font-weight:700; padding:4px 13px; border-radius:8px; font-size:12.5px; line-height:1.45; vertical-align:middle; }
+.node.root { background:var(--navy); color:white; font-size:13.5px; padding:7px 18px; box-shadow:0 2px 8px rgba(6,25,66,.25); }
+.node.cat  { background:var(--corp); color:white; }
+.node.gold { background:var(--accent); color:var(--navy); }
+.node.leaf { background:white; border:1.5px solid var(--steel); color:var(--navy); }
+.node.leaf.dim { border-style:dashed; color:var(--muted); font-weight:600; }
+.node-desc { display:inline-block; font-size:11.5px; color:var(--muted); margin-left:8px; vertical-align:middle; max-width:520px; }
+.node-desc b { color:var(--corp); }
+.map-jump { display:inline-block; background:var(--pale); border:1px solid var(--corp); color:var(--corp); font-size:10px; font-weight:700; padding:1px 9px; border-radius:10px; margin-left:6px; cursor:pointer; vertical-align:middle; transition:background .15s,color .15s; }
+.map-jump:hover { background:var(--corp); color:white; }
 
 /* Teaching boxes (explicaciones "desde cero") */
 .teach { background:#F6F2FC; border:1px solid #DCCDF2; border-left:4px solid #7C3AED; border-radius:8px; padding:12px 16px; margin:12px 0; font-size:12.5px; line-height:1.62; }
@@ -544,8 +567,95 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="module-rule"></div>
   </div>
 
-  <!-- 2.1 Covered bonds -->
+  <!-- 2.0 Mapa del universo ABS -->
   <div class="section-block">
+    <div class="section-header"><span class="section-num">2.0</span><span class="section-title">El mapa del universo: ¿dónde encaja cada instrumento?</span></div>
+    <div class="section-body">
+      <p>Antes de entrar al detalle, mira el bosque completo. Todos los instrumentos de este tema descienden de una misma idea — <strong>transformar préstamos en valores negociables</strong> — y se diferencian entre sí respondiendo tres preguntas:</p>
+      <div class="grid-3">
+        <div class="concept-card accent-mid">
+          <div class="cc-label mid">Pregunta ① · ¿Sale del balance?</div>
+          <div class="cc-def">¿El colateral se <strong>vende a una SPE</strong> (sale del balance, bankruptcy remote) o <strong>se queda en el balance</strong> del emisor? Esta pregunta separa a los <b>covered bonds</b> de todo lo demás.</div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Pregunta ② · ¿Qué colateral respalda?</div>
+          <div class="cc-def">¿<strong>Hipotecas</strong> (→ familia MBS), <strong>préstamos no hipotecarios</strong> (autos, tarjetas, solar…) o <strong>deuda ya emitida</strong> (bonos y leveraged loans → familia CDO)?</div>
+        </div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Pregunta ③ · ¿Pool estático o gestionado?</div>
+          <div class="cc-def">¿El pool queda <strong>fijo</strong> desde la emisión (ABS/MBS clásicos) o hay un <strong>collateral manager</strong> que compra y vende activos dentro del pool (CDO)?</div>
+        </div>
+      </div>
+
+      <div class="abs-map">
+        <ul class="tree">
+          <li>
+            <span class="node root">🌳 Universo de la titulización de renta fija</span>
+            <ul>
+              <li>
+                <span class="node gold">🏦 Covered bonds</span>
+                <span class="node-desc"><b>NO usa SPE</b> — el cover pool queda en el balance del banco · doble recurso · pool dinámico</span>
+                <span class="map-jump" onclick="jumpTo('tab2','sec-cb')">ver §2.1</span>
+              </li>
+              <li>
+                <span class="node cat">📦 Titulización con SPE — el colateral sale del balance</span>
+                <ul>
+                  <li>
+                    <span class="node cat">ABS no hipotecarios</span>
+                    <span class="map-jump" onclick="jumpTo('tab2','sec-nonmtg')">ver §2.3</span>
+                    <ul>
+                      <li><span class="node leaf">🚗 Auto loan ABS</span><span class="node-desc">colateral <b>amortizable</b> — el caso Fred de la Pestaña ①</span></li>
+                      <li><span class="node leaf">💳 Credit card ABS</span><span class="node-desc">colateral <b>no amortizable</b> — fases lockout/revolving y amortización</span></li>
+                      <li><span class="node leaf">☀️ Solar ABS</span><span class="node-desc">préstamos para paneles solares — atractivo ESG, pre-funding</span></li>
+                      <li><span class="node leaf dim">🎵 Exóticos</span><span class="node-desc">regalías musicales, licencias de franquicia… cualquier flujo futuro es titulizable</span></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span class="node cat">MBS — respaldados por hipotecas</span>
+                    <span class="map-jump" onclick="jumpTo('tab3')">ver Pestaña ③</span>
+                    <ul>
+                      <li>
+                        <span class="node leaf">🏠 RMBS — residencial</span>
+                        <span class="node-desc"><b>Agency</b> (garantía del gobierno o GSE) vs. <b>non-agency</b> (emisores privados)</span>
+                        <ul>
+                          <li><span class="node leaf">Pass-through</span><span class="node-desc">los flujos del pool "pasan" directo al inversionista (WAM, WAC)</span></li>
+                          <li><span class="node leaf">CMO</span><span class="node-desc">re-empaqueta pass-throughs en tranches: sequential pay, PAC/support, Z, PO/IO, floaters…</span></li>
+                        </ul>
+                      </li>
+                      <li><span class="node leaf">🏢 CMBS — comercial</span><span class="node-desc">inmuebles que generan renta · análisis DSCR + LTV · balloon risk</span></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span class="node cat">CDO — pool de deuda gestionado</span>
+                    <span class="map-jump" onclick="jumpTo('tab2','sec-cdo')">ver §2.4</span>
+                    <ul>
+                      <li><span class="node leaf">📜 CBO</span><span class="node-desc">colateral = bonos corporativos y de mercados emergentes</span></li>
+                      <li>
+                        <span class="node leaf">🏛️ CLO</span>
+                        <span class="node-desc">colateral = leveraged loans — la forma dominante de CDO hoy</span>
+                        <ul>
+                          <li><span class="node leaf dim">Cash flow · Market value · Synthetic</span><span class="node-desc">según de dónde salen los pagos: flujos del colateral, trading, o derivados de crédito</span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Cómo usar este mapa</div>
+        Cuando te cruces con cualquier sigla de este mundo, ubícala respondiendo las tres preguntas. <i>Ejemplo:</i> ¿qué es un CLO? — ① usa SPE (sale del balance), ② su colateral es deuda ya emitida (leveraged loans), ③ el pool es <b>gestionado</b> por un collateral manager → rama CDO. ¿Y un CMO? — ① usa SPE, ② su colateral son hipotecas residenciales (de hecho, pass-throughs ya titulizados: ¡una <b>titulización de titulizaciones</b>!), ③ pool estático → rama MBS.<br><br>
+        Y cuidado con la trampa clásica de las siglas parecidas: <b>CMO</b> (hipotecas) ≠ <b>CDO</b> (deuda gestionada, término general) ≠ <b>CBO</b> (bonos) ≠ <b>CLO</b> (préstamos apalancados).
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.1 Covered bonds -->
+  <div class="section-block" id="sec-cb">
     <div class="section-header"><span class="section-num">2.1</span><span class="section-title">Covered bonds (bonos cubiertos)</span></div>
     <div class="section-body">
       <p>Los <strong>covered bonds</strong> son obligaciones de deuda <b>senior</b> de instituciones financieras, parecidas a los ABS, pero con una diferencia estructural fundamental: los activos subyacentes (el <strong>cover pool</strong>), aunque segregados del resto de activos del emisor, <b>permanecen en el balance</b> de la corporación emisora — <b>no se crea ninguna SPE</b>. Se emiten principalmente por bancos europeos, asiáticos y australianos, y el cover pool suele consistir en préstamos hipotecarios.</p>
@@ -728,7 +838,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
   </div>
 
   <!-- 2.3 Non-mortgage ABS -->
-  <div class="section-block">
+  <div class="section-block" id="sec-nonmtg">
     <div class="section-header"><span class="section-num">2.3</span><span class="section-title">ABS no hipotecarios: tarjetas de crédito y solar</span></div>
     <div class="section-body">
       <p>Además de hipotecas, se titulizan préstamos empresariales, cuentas por cobrar, préstamos vehiculares… y activos exóticos como <b>regalías musicales</b> o <b>pagos de licencias de franquicia</b>. La distinción clave entre los colaterales es si la deuda es:</p>
@@ -778,7 +888,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
   </div>
 
   <!-- 2.4 CDO -->
-  <div class="section-block">
+  <div class="section-block" id="sec-cdo">
     <div class="section-header"><span class="section-num">2.4</span><span class="section-title">Collateralized Debt Obligations (CDO)</span></div>
     <div class="section-body">
       <p>Un <strong>CDO</strong> es un valor estructurado emitido por una SPE cuyo colateral es <b>un pool de obligaciones de deuda</b>. La familia tiene nombres según el colateral:</p>
@@ -1279,6 +1389,15 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 /* ───────── Accordions ───────── */
 function toggleAcc(head) { head.parentElement.classList.toggle('open'); }
+
+/* ───────── Saltos desde el mapa del universo ───────── */
+function jumpTo(tabId, secId) {
+  document.querySelector('.tab-btn[data-tab="' + tabId + '"]').click();
+  if (secId) setTimeout(() => {
+    const el = document.getElementById(secId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 380);
+}
 
 /* ───────── Scenario toggle (rates) ───────── */
 function setScenario(scn) {

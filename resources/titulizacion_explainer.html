@@ -996,8 +996,102 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
     <div class="module-rule"></div>
   </div>
 
-  <!-- 3.1 Prepayment risk -->
+  <!-- 3.0 Mapa del universo MBS -->
   <div class="section-block">
+    <div class="section-header"><span class="section-num">3.0</span><span class="section-title">El mapa del universo MBS: ¿dónde encaja cada instrumento?</span></div>
+    <div class="section-body">
+      <p>Igual que en la pestaña ②, primero el bosque y luego los árboles. Todo el mundo MBS se ordena respondiendo tres preguntas — y hay un <strong>riesgo central</strong> (el prepago) que atraviesa y organiza todo el tema:</p>
+      <div class="grid-3">
+        <div class="concept-card accent-mid">
+          <div class="cc-label mid">Pregunta ① · ¿Quién paga la hipoteca?</div>
+          <div class="cc-def">¿El <strong>dueño/ocupante</strong> de la vivienda (→ <b>RMBS</b>, residencial) o un <strong>inversionista inmobiliario</strong> que depende de las rentas de sus inquilinos (→ <b>CMBS</b>, comercial)?</div>
+        </div>
+        <div class="concept-card accent-gold">
+          <div class="cc-label gold">Pregunta ② · ¿Quién garantiza? (solo RMBS)</div>
+          <div class="cc-def">¿Una <strong>agencia</strong> compra las hipotecas <i>conforming</i> y garantiza los pagos (→ <b>agency</b>: casi sin riesgo de crédito) o lo emite un <strong>privado sin garantía</strong> (→ <b>non-agency</b>: necesita mejoras crediticias)?</div>
+        </div>
+        <div class="concept-card accent-navy">
+          <div class="cc-label">Pregunta ③ · ¿Flujos directos o re-empaquetados?</div>
+          <div class="cc-def">¿Los flujos del pool <strong>pasan directo</strong> al inversionista (→ <b>pass-through</b>) o se <strong>re-empaquetan en tranches</strong> con distinta exposición al prepago (→ <b>CMO</b>)?</div>
+        </div>
+      </div>
+
+      <div class="abs-map">
+        <ul class="tree">
+          <li>
+            <span class="node root">🌳 Universo MBS — valores respaldados por hipotecas</span>
+            <ul>
+              <li>
+                <span class="node gold">⚠️ El riesgo que organiza TODO: el prepago</span>
+                <span class="map-jump" onclick="jumpTo('tab3','sec-prepago')">ver §3.1</span>
+                <ul>
+                  <li><span class="node leaf">📉 Contracción</span><span class="node-desc">tasas <b>bajan</b> → refinancian → el dinero vuelve <b>antes</b> (y se reinvierte mal) · convexidad negativa</span></li>
+                  <li><span class="node leaf">📈 Extensión</span><span class="node-desc">tasas <b>suben</b> → nadie refinancia → el dinero vuelve <b>después</b> (descontado a tasas más altas)</span></li>
+                </ul>
+              </li>
+              <li>
+                <span class="node cat">🏠 Rama residencial — la hipoteca la paga el dueño de la casa</span>
+                <ul>
+                  <li>
+                    <span class="node leaf">El colateral: hipotecas residenciales</span>
+                    <span class="node-desc">métricas <b>LTV + DTI</b> · prime vs. subprime · recourse vs. nonrecourse · first vs. second lien</span>
+                    <span class="map-jump" onclick="jumpTo('tab3','sec-resmtg')">ver §3.2</span>
+                  </li>
+                  <li>
+                    <span class="node cat">RMBS</span>
+                    <span class="node-desc"><b>Agency</b> (garantía de Ginnie Mae / GSEs sobre hipotecas conforming) vs. <b>non-agency</b> (privados, sin garantía)</span>
+                    <ul>
+                      <li>
+                        <span class="node leaf">➡️ Pass-through</span>
+                        <span class="node-desc">claim directo sobre los flujos del pool, neto de comisiones · se describe con <b>WAM y WAC</b></span>
+                        <span class="map-jump" onclick="jumpTo('tab3','sec-pt')">ver §3.3</span>
+                      </li>
+                      <li>
+                        <span class="node leaf">🧩 CMO — re-empaqueta pass-throughs en tranches</span>
+                        <span class="node-desc">el riesgo de prepago total <b>no cambia</b>: solo se <b>redistribuye</b> entre tranches</span>
+                        <span class="map-jump" onclick="jumpTo('tab3','sec-cmo')">ver §3.4</span>
+                        <ul>
+                          <li><span class="node leaf dim">Sequential pay</span><span class="node-desc">la "fila de cobro": el corto carga contracción, el largo carga extensión</span></li>
+                          <li><span class="node leaf dim">PAC + Support</span><span class="node-desc">pagos predecibles para el PAC; el support es su "paragolpes"</span></li>
+                          <li><span class="node leaf dim">Z-tranche</span><span class="node-desc">no cobra interés al inicio: lo capitaliza ($100 → $105)</span></li>
+                          <li><span class="node leaf dim">PO / IO</span><span class="node-desc">solo principal / solo interés — reaccionan en direcciones <b>opuestas</b> al prepago</span></li>
+                          <li><span class="node leaf dim">Floating · inverse · residual</span><span class="node-desc">cupón flotante con cap/floor · cupón inverso a tasas · equity del CMO</span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="node cat">🏢 Rama comercial — la hipoteca la pagan las rentas del inmueble</span>
+                <ul>
+                  <li>
+                    <span class="node leaf">CMBS</span>
+                    <span class="node-desc">análisis de la <b>propiedad</b> (nonrecourse): <b>DSCR + LTV</b> · pools pequeños, poca diversificación</span>
+                    <span class="map-jump" onclick="jumpTo('tab3','sec-cmbs')">ver §3.5</span>
+                    <ul>
+                      <li><span class="node leaf dim">🔒 Call protection</span><span class="node-desc">aquí el prepago <b>sí se restringe</b>: lockout, penalty points, defeasance + tranching estructural</span></li>
+                      <li><span class="node leaf dim">🎈 Balloon risk</span><span class="node-desc">el principal que vence de golpe y no se logra refinanciar → forma de riesgo de <b>extensión</b></span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Cómo usar este mapa</div>
+        Fíjate en el <b>contraste central</b> entre las dos ramas: en la rama <b>residencial</b>, el deudor puede prepagar casi libremente → el inversionista vive gestionando el riesgo de prepago, y toda la ingeniería del CMO existe para <b>repartir</b> ese riesgo entre inversionistas con distintas tolerancias. En la rama <b>comercial</b>, ocurre lo contrario: el prepago está <b>restringido por contrato</b> (call protection) y el riesgo protagónico pasa a ser el <b>crédito de la propiedad</b> y el pago globo.<br><br>
+        <i>Prueba el método:</i> ¿qué es un PAC tranche? — rama residencial → RMBS → CMO → tranche diseñado para dar pagos predecibles mientras el prepago se mantenga en un rango, protegido por su support tranche. ¿Y el balloon risk? — rama comercial → CMBS → el deudor no logra refinanciar el principal final → el plazo se alarga → riesgo de <b>extensión</b>.<br><br>
+        Y la conexión con las otras pestañas: un MBS <b>es</b> una titulización (Pestaña ①: originador → SPE → inversionistas) y los CMO usan <b>tranching</b> (Pestaña ②) — pero aquí los tranches reparten <b>tiempo/prepago</b> (time tranching), mientras que allá repartían <b>pérdidas de crédito</b> (credit tranching). Mismo instrumento, dos riesgos distintos que rebanar.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.1 Prepayment risk -->
+  <div class="section-block" id="sec-prepago">
     <div class="section-header"><span class="section-num">3.1</span><span class="section-title">Riesgo de prepago y time tranching</span></div>
     <div class="section-body">
       <p>Los <strong>prepagos (prepayments)</strong> son repagos de principal de los deudores hipotecarios <b>en exceso del cronograma</b> del préstamo amortizable. En un pool, siempre habrá deudores que prepagan — típicamente porque <b>venden la casa</b> o <b>refinancian</b> su hipoteca. La valuación de un MBS se basa en una <b>velocidad de prepago supuesta</b>; el <strong>riesgo de prepago</strong> es el riesgo de que la velocidad real resulte <b>distinta a la esperada</b> por los inversionistas cuando compraron el MBS.</p>
@@ -1063,7 +1157,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
   </div>
 
   <!-- 3.2 Residential mortgages -->
-  <div class="section-block">
+  <div class="section-block" id="sec-resmtg">
     <div class="section-header"><span class="section-num">3.2</span><span class="section-title">Hipotecas residenciales titulizables</span></div>
     <div class="section-body">
       <p>Una <strong>hipoteca residencial</strong> es un préstamo cuyo colateral es un inmueble residencial. Si el deudor incumple, el prestamista tiene un derecho legal sobre la propiedad (<strong>first lien</strong>, primer gravamen): puede tomar posesión y venderla para recuperar las pérdidas (<strong>foreclosure</strong>, ejecución hipotecaria).</p>
@@ -1121,12 +1215,22 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
       <div class="vs-strip">
         <div class="vs-cell">
           <div class="vs-title">✅ Prime loans</div>
-          <ul><li>Deudores con <b>buen crédito</b></li><li><b>LTV bajo</b> y <b>DTI bajo</b></li><li>Primera prioridad sobre el colateral (first lien)</li></ul>
+          <ul><li>Deudores con <b>buen crédito</b></li><li><b>LTV bajo</b> y <b>DTI bajo</b></li><li><b>First lien:</b> el prestamista es el <b>primero de la fila</b> para cobrar del remate de la propiedad si el deudor incumple</li></ul>
         </div>
         <div class="vs-cell">
           <div class="vs-title">⚠️ Subprime loans</div>
-          <ul><li>Deudores de <b>menor calidad crediticia</b></li><li><b>DTI más alto, LTV más alto</b></li><li>O con derecho de <b>menor prioridad</b> sobre el colateral en caso de default</li></ul>
+          <ul><li>Deudores de <b>menor calidad crediticia</b></li><li><b>DTI más alto, LTV más alto</b></li><li>O préstamos con <b>menor prioridad</b> (second lien / junior): solo cobran del remate <b>lo que sobre</b> después de pagar al first lien</li></ul>
         </div>
+      </div>
+
+      <div class="teach">
+        <div class="t-tag">🟣 Desde cero · ¿Qué es eso de la "prioridad sobre el colateral" (lien)?</div>
+        Sobre una <b>misma casa</b> puede haber más de un préstamo garantizado: la hipoteca principal con la que se compró, y encima — por ejemplo — un segundo préstamo con garantía sobre la misma casa para remodelarla (un <i>second mortgage</i> o <i>home equity loan</i>). Un <b>lien (gravamen)</b> es el derecho legal de cada prestamista sobre la propiedad, y los gravámenes tienen <b>orden de cola</b>: si la casa se remata, el <b>first lien cobra primero</b> del producto del remate, y el <b>second lien</b> solo cobra con lo que sobre.
+        <div class="mini-ej">🏠 <b>Mini-ejemplo:</b> casa valorizada en $300,000. Hipoteca A (<b>first lien</b>) por $200,000; préstamo de remodelación B (<b>second lien</b>) por $50,000. El deudor incumple y, en plena crisis, la casa se remata en solo $220,000.<br>
+        → <b>A recupera sus $200,000 completos.</b><br>
+        → <b>B recibe únicamente los $20,000 que sobran</b> y pierde $30,000 de los $50,000 que prestó.<br>
+        Mismo deudor, misma casa: el riesgo de cada préstamo depende de su <b>lugar en la fila</b>.</div>
+        Por eso un préstamo con menor prioridad se clasifica como <b>subprime aunque el deudor tenga buen score crediticio</b>: lo que lo hace riesgoso no es la persona, sino que su recupero esperado en un default es mucho menor. ¿Te suena la lógica? Es exactamente la misma <b>"fila de cobro"</b> del waterfall de tranches de la Pestaña ② — en finanzas, la prioridad de cobro es uno de los determinantes centrales del riesgo, ya sea entre tranches de un ABS o entre préstamos sobre una misma casa.
       </div>
 
       <div class="acc">
@@ -1137,13 +1241,26 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
             <li><b>Non-agency RMBS:</b> emitidos por <b>entidades privadas</b> (bancos), <b>sin garantía</b> estatal ni de GSE. Suelen incluir mejoras crediticias: seguros externos, cartas de crédito, tranching y garantías privadas.</li>
             <li><b>Historia:</b> los non-agency RMBS se citan como <b>catalizador de la crisis 2007–2009</b> — tramos senior con grado de inversión respaldados por hipotecas <b>subprime</b> sufrieron grandes pérdidas por defaults masivos del colateral. Tras la crisis, su emisión <b>prácticamente cesó</b> por cambios regulatorios.</li>
           </ul>
+
+          <div class="teach">
+            <div class="t-tag">🟣 Desde cero · ¿La agencia presta el dinero? No — esta es la cadena completa</div>
+            La duda típica: <i>¿quién le da el dinero a la familia que compra la casa?</i> <b>Siempre es el banco</b> (u otro prestamista hipotecario): él evalúa al cliente, desembolsa el préstamo y la familia le firma la hipoteca. La agencia <b>nunca trata con la familia</b>. Lo que hace la agencia viene <b>después</b>:
+            <div class="mini-ej">
+              <b>Paso 1 — El banco origina:</b> el banco presta $300,000 a la familia Gómez para su casa. (El banco puso el dinero.)<br>
+              <b>Paso 2 — La agencia compra:</b> si la hipoteca cumple los estándares (<i>conforming</i>: LTV máximo, cuota inicial mínima, seguro…), la agencia le <b>compra la hipoteca al banco</b>. El banco recupera sus $300,000 hoy y puede volver a prestar — es el mismo beneficio del caso Fred de la Pestaña ①.<br>
+              <b>Paso 3 — La agencia tituliza y garantiza:</b> la agencia junta miles de hipotecas compradas, emite el MBS… y le añade <b>su garantía</b>: si la familia Gómez deja de pagar, <b>la agencia le paga igual al inversionista</b> el principal e intereses prometidos.<br>
+              <b>Paso 4 — El inversionista cobra tranquilo (de crédito):</b> gracias a la garantía, el inversionista de un agency RMBS casi no asume riesgo de crédito — pero <b>sí conserva todo el riesgo de prepago</b> (la garantía no cubre que te devuelvan el dinero antes de tiempo).
+            </div>
+            <b>¿Quiénes son estas "agencias"?</b> En EE.UU.: <b>Ginnie Mae</b> (entidad del gobierno → su garantía sí lleva el respaldo total del Estado) y las GSEs <b>Fannie Mae y Freddie Mac</b> (empresas creadas por el gobierno pero técnicamente separadas → su garantía vale lo que valen ellas, no el Tesoro). Piensa en la agencia como un <b>gran aval/asegurador</b> del mercado hipotecario: no presta a las familias, pero compra hipotecas a los bancos y asegura los pagos al inversionista final.<br><br>
+            <b>¿Y el non-agency?</b> Es la misma cadena pero <b>sin la agencia</b>: un banco privado origina (o compra) las hipotecas — incluyendo las que <b>no</b> cumplen los estándares conforming, como las subprime — las tituliza a través de su propia SPE y <b>nadie garantiza nada</b>. El riesgo de crédito recae por completo en el inversionista; por eso estas estructuras necesitan las mejoras crediticias de la Pestaña ② (tranching, sobrecolateralización, seguros externos…). Cuando en 2007–2009 los defaults superaron todos los colchones, las pérdidas llegaron hasta los tramos senior.
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 3.3 Pass-through -->
-  <div class="section-block">
+  <div class="section-block" id="sec-pt">
     <div class="section-header"><span class="section-num">3.3</span><span class="section-title">Mortgage pass-through securities: WAM y WAC</span></div>
     <div class="section-body">
       <p>Un <strong>mortgage pass-through security</strong> representa un derecho sobre los flujos de caja de un pool de hipotecas, <b>neto de comisiones de administración</b>. Cualquier hipoteca incluida en el pool se denomina <strong>hipoteca titulizada (securitized mortgage)</strong>. El inversionista recibe los flujos mensuales del pool <b>menos</b> las comisiones de servicio y de garantía/seguro — por eso la <strong>pass-through rate</strong> (el cupón del MBS, también llamado <i>net interest</i> o <i>net coupon</i>) es <b>menor que el WAC</b> del pool.</p>
@@ -1186,7 +1303,7 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
   </div>
 
   <!-- 3.4 CMO -->
-  <div class="section-block">
+  <div class="section-block" id="sec-cmo">
     <div class="section-header"><span class="section-num">3.4</span><span class="section-title">Collateralized Mortgage Obligations (CMO)</span></div>
     <div class="section-body">
       <p>Los <strong>CMO</strong> son valores colateralizados por <b>pass-through MBS y pools de hipotecas</b>. Cada CMO tiene múltiples clases (<b>tranches</b>) con <b>distinta exposición al riesgo de prepago</b>. Punto crítico de examen: el riesgo de prepago total del RMBS subyacente <b>no cambia</b> — solo se <b>reapropiona</b> entre los tranches. ¿Por qué existen? Los inversionistas institucionales tienen distintas tolerancias: a unos les preocupa la extensión, a otros la contracción. Al particionar los flujos en "paquetes de riesgo" que calzan con esas preferencias, los CMO <b>amplían el mercado potencial</b> de hipotecas titulizadas y quizás <b>reducen los costos de fondeo</b>.</p>
@@ -1257,21 +1374,50 @@ body { font-family:var(--sans); background:var(--off); color:var(--text); font-s
       <div class="acc">
         <button class="acc-head" onclick="toggleAcc(this)">🛡️ PAC y support tranches (planned amortization class) <span class="chev">▶</span></button>
         <div class="acc-body">
-          <p>El <b>PAC tranche</b> está estructurado para hacer <b>pagos predecibles</b> a sus inversionistas <b>siempre que la velocidad de prepago se mantenga dentro de un rango</b> predeterminado. El amortiguador es el <b>support tranche</b>:</p>
+          <p>El <b>PAC tranche</b> está estructurado para hacer <b>pagos predecibles</b> a sus inversionistas <b>siempre que la velocidad de prepago se mantenga dentro de un rango</b> predeterminado (el <i>collar</i>). El amortiguador es el <b>support tranche</b>:</p>
           <ul>
             <li>Si los prepagos <b>se aceleran</b> → el support tranche <b>recibe el exceso</b> de principal no asignado al PAC.</li>
             <li>Si los prepagos <b>se frenan</b> → se <b>recortan</b> los pagos de principal al support tranche para poder cumplir el cronograma del PAC.</li>
             <li>Resultado: el PAC reduce <b>tanto contracción como extensión</b>… pero la protección está <b>limitada por el rango</b> de velocidades que el support puede absorber. Fuera de ese rango ("broken PAC"), el PAC deja de recibir pagos según su cronograma planificado.</li>
             <li>Lógico corolario: el <b>support tranche</b> tiene <b>más</b> riesgo de contracción y <b>más</b> riesgo de extensión que el PAC — a cambio de mayor yield.</li>
           </ul>
-          <p><i>Analogía:</i> el support tranche es el "paragolpes" del PAC: absorbe los golpes de velocidad de prepago en ambas direcciones, hasta donde le da el tamaño.</p>
+
+          <div class="teach">
+            <div class="t-tag">🟣 Desde cero · El "contrato" entre el PAC y el support</div>
+            La regla de reparto es simple y conviene memorizarla así: <b>cada periodo, el PAC cobra PRIMERO su cuota planificada; el support cobra DESPUÉS todo lo que sobre — sea mucho o sea nada.</b><br><br>
+            <i>Analogía:</i> el PAC es como un <b>empleado con sueldo fijo</b> y el support como el <b>socio que cobra lo variable</b>. En un mes bueno (mucho principal llega del pool), el empleado cobra su sueldo de siempre y el socio se lleva un montón. En un mes malo, el empleado cobra su sueldo de siempre y el socio no recibe nada. El ingreso total del "negocio" es igual de volátil — pero el contrato le asigna toda la volatilidad al socio. Eso es exactamente lo que el CMO hace con el riesgo de prepago: <b>no lo elimina, lo reasigna por contrato</b>.
+            <div class="mini-ej">📋 <b>Ejemplo numérico (CMO de $100 MM = PAC $70 MM + Support $30 MM; cronograma del PAC: $10 MM de principal por año):</b><br><br>
+            <b>Año 1 — prepagos normales:</b> llegan $14 MM de principal del pool → PAC cobra sus $10 MM del cronograma · support recibe los $4 MM restantes. ✅ Todo según lo planeado.<br>
+            <b>Año 2 — tasas caen, prepago acelerado:</b> llegan $26 MM → PAC cobra <b>los mismos $10 MM</b> de su cronograma · support absorbe $16 MM (se amortiza rapidísimo: cargó con toda la contracción).<br>
+            <b>Año 3 — tasas suben, prepago lento:</b> llegan solo $10 MM → PAC cobra sus $10 MM · support recibe <b>$0</b> (cargó con toda la extensión).<br>
+            <b>El límite:</b> si los años de prepago acelerado se repiten, el support se agota antes de tiempo. Sin paragolpes, el siguiente exceso de principal va directo al PAC → <b>"broken PAC"</b> por contracción. Y si el prepago es tan lento que ni siquiera llegan los $10 MM del cronograma, el PAC recibe menos de lo planeado → broken por extensión.</div>
+            <i>Analogía física:</i> el support es el <b>paragolpes</b> del PAC: absorbe los golpes de velocidad en ambas direcciones… hasta donde le da el tamaño. Un paragolpes destruido ya no protege.
+          </div>
+
+          <div class="widget">
+            <span class="widget-tag">🎛️ Simulador · Un año de reparto PAC vs. Support</span>
+            <h4>Estructura: PAC $70 MM + Support $30 MM · cronograma del PAC: $10 MM/año — mueve el principal que llega del pool</h4>
+            <div class="w-controls">
+              <div class="w-field">
+                <label>Principal recibido del pool este año ($ MM)</label>
+                <input type="range" id="pacFlow" min="2" max="50" step="1" value="14" oninput="calcPAC()">
+                <span class="w-readout" id="pacFlowLbl">$14 MM</span>
+              </div>
+            </div>
+            <div class="w-results">
+              <div class="w-res"><div class="r-label">Recibe el PAC (cronograma: $10 MM)</div><div class="r-val" id="pacGet">$10 MM</div></div>
+              <div class="w-res gold"><div class="r-label">Recibe el Support</div><div class="r-val" id="supGet">$4 MM</div></div>
+            </div>
+            <p class="w-note" id="pacNote"></p>
+            <p class="w-note">Nota: el simulador muestra <strong>un solo año</strong> con el support completo ($30 MM disponibles). En la realidad el collar se define sobre velocidades de prepago sostenidas (p. ej., un rango de PSA) y el support se va consumiendo año tras año — por eso un PAC puede romperse aunque ningún año individual parezca extremo.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 3.5 CMBS -->
-  <div class="section-block">
+  <div class="section-block" id="sec-cmbs">
     <div class="section-header"><span class="section-num">3.5</span><span class="section-title">Commercial MBS (CMBS)</span></div>
     <div class="section-body">
       <p>Los <strong>CMBS</strong> están respaldados por pools de <b>hipotecas comerciales sobre inmuebles que generan ingresos</b>: edificios de departamentos (multifamily), propiedad industrial (almacenes), centros comerciales, oficinas, instalaciones de salud (residencias de adultos mayores) y hoteles.</p>
@@ -1467,6 +1613,33 @@ function calcMortgage() {
   document.getElementById('mDTI').textContent = dti.toFixed(0) + '%';
 }
 
+/* ───────── Widget: PAC vs Support ───────── */
+const PAC_SCHED = 10, SUP_SIZE = 30;
+function calcPAC() {
+  const X = +document.getElementById('pacFlow').value;
+  document.getElementById('pacFlowLbl').textContent = '$' + X + ' MM';
+  let pac, sup, note;
+  if (X < PAC_SCHED) {
+    pac = X; sup = 0;
+    note = '<strong>⚠️ PAC roto por EXTENSIÓN:</strong> el pool solo entregó $' + X + ' MM — ni recortando al support a $0 alcanza para el cronograma de $10 MM. El PAC recibe $' + X + ' MM, menos de lo planeado: su vida se alarga. (El support, por supuesto, no recibe nada.)';
+  } else {
+    pac = PAC_SCHED;
+    sup = Math.min(X - PAC_SCHED, SUP_SIZE);
+    const leftover = X - PAC_SCHED - sup;
+    if (leftover > 0) {
+      pac += leftover;
+      note = '<strong>⚠️ PAC roto por CONTRACCIÓN:</strong> el exceso ($' + (X - PAC_SCHED) + ' MM) supera los $30 MM que el support puede absorber: el support se amortiza por completo y los $' + leftover + ' MM restantes van directo al PAC, que recibe $' + pac + ' MM en lugar de sus $10 MM planificados. Sin paragolpes, el PAC vuelve a estar expuesto.';
+    } else if (sup === 0) {
+      note = '<strong>✅ Justo en el límite inferior:</strong> el pool entregó exactamente el cronograma. El PAC cobra sus $10 MM y el support recibe $0 — absorbió toda la extensión de este año.';
+    } else {
+      note = '<strong>✅ Dentro del rango:</strong> el PAC cobra exactamente sus $10 MM del cronograma (pagos predecibles, como prometido) y el support absorbe la variabilidad: recibe los $' + sup + ' MM restantes. Mueve el slider a los extremos (&lt;10 o &gt;40) para romper el PAC.';
+    }
+  }
+  document.getElementById('pacGet').textContent = '$' + pac + ' MM';
+  document.getElementById('supGet').textContent = '$' + sup + ' MM';
+  document.getElementById('pacNote').innerHTML = '<strong>Lectura:</strong> ' + note;
+}
+
 /* ───────── Widget: WAM / WAC ───────── */
 function calcWAMWAC() {
   const ids = ['A','B','C'];
@@ -1504,7 +1677,7 @@ document.querySelectorAll('.q-item').forEach(item => {
 });
 
 /* init */
-calcOC(); calcWF(); calcMortgage(); calcWAMWAC();
+calcOC(); calcWF(); calcMortgage(); calcWAMWAC(); calcPAC();
 </script>
 
 </body>
